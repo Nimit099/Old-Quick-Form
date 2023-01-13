@@ -1,0 +1,239 @@
+.THIS .font{
+   
+    font-size: 1.7rem;;
+}
+.THIS .labelSize{
+    color: black;
+    font-weight: bold;
+    font-size: 1.2rem;
+   
+ }
+ .THIS .labelSize1{
+    color: black;
+    font-size: 1.2rem;
+   
+ }
+ .THIS .slds-form-element__label{
+    font-size: 1.2rem !important;
+}
+/* myBaseButton.css */
+.THIS .my-brand {
+    --sds-c-button-brand-color-background: lightgrey;
+    --sds-c-button-brand-color-border: lightgrey;
+    
+    /* Other CSS custom properties here */
+  
+  }
+  @import url(https://fonts.googleapis.com/css?family=Arimo:400,400italic,700,700italic);
+
+/* .THIS main {
+  z-index: 2;
+  position: relative;
+  height: 100%;
+  background-color: #2d3142;
+  -webkit-transition: transform 0.7s ease-in-out;
+  -moz-transition: transform 0.7s ease-in-out;
+  -ms-transition: transform 0.7s ease-in-out;
+  -o-transition: transform 0.7s ease-in-out;
+  transition: transform 0.7s ease-in-out;
+} */
+
+.THIS .sidebar {
+  height: 100%;
+  width: 0px;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  right: 0;
+  background-color: lavender;
+  overflow-y:scroll;
+  overflow-x: hidden;
+ padding-left: 1.6rem;
+ /* padding-left: 1.5rem; */
+ padding-top: 3rem;
+ transition: all 0.7s ease;
+ transition-duration: 1s;
+
+}
+
+/* 
+.THIS .bar {
+  display: block;
+  height: 5px;
+  width: 50px;
+  background-color: #ef8354;
+  margin: 10px auto;
+}
+
+.THIS .button {
+  cursor: pointer;
+  display: inline-block;
+  width: auto;
+  margin: 0 auto;
+  -webkit-transition: all 0.7s ease;
+  -moz-transition: all 0.7s ease;
+  -ms-transition: all 0.7s ease;
+  -o-transition: all 0.7s ease;
+  transition: all 0.7s ease;
+} */
+/* 
+.THIS .nav-right {
+  position: fixed;
+  right: 40px;
+  top: 20px;
+}
+
+.THIS .nav-right.visible-xs {
+  z-index: 3;
+}
+
+.THIS .hidden-xs {
+  display: none;
+}
+
+.THIS .middle {
+  margin: 0 auto;
+}
+
+.THIS .bar {
+  -webkit-transition: all 0.7s ease;
+  -moz-transition: all 0.7s ease;
+  -ms-transition: all 0.7s ease;
+  -o-transition: all 0.7s ease;
+  transition: all 0.7s ease;
+} */
+
+/* .THIS .nav-right.visible-xs .active .bar {
+  background-color: #fff;
+  -webkit-transition: all 0.7s ease;
+  -moz-transition: all 0.7s ease;
+  -ms-transition: all 0.7s ease;
+  -o-transition: all 0.7s ease;
+  transition: all 0.7s ease;
+}
+
+.THIS .button.active .top {
+  -webkit-transform: translateY(15px) rotateZ(45deg);
+  -moz-transform: translateY(15px) rotateZ(45deg);
+  -ms-transform: translateY(15px) rotateZ(45deg);
+  -o-transform: translateY(15px) rotateZ(45deg);
+  transform: translateY(15px) rotateZ(45deg);
+}
+
+.THIS .button.active .bottom {
+  -webkit-transform: translateY(-15px) rotateZ(-45deg);
+  -moz-transform: translateY(-15px) rotateZ(-45deg);
+  -ms-transform: translateY(-15px) rotateZ(-45deg);
+  -o-transform: translateY(-15px) rotateZ(-45deg);
+  transform: translateY(-15px) rotateZ(-45deg);
+}
+
+.THIS .button.active .middle {
+  width: 0;
+} */
+/* 
+.THIS .move-to-left {
+  -webkit-transform: translateX(-400px);
+  -moz-transform: translateX(-400px);
+  -ms-transform: translateX(-400px);
+  -o-transform: translateX(-400px);
+  transform: translateX(-400px);
+}
+
+.THIS nav {
+  padding-top: 30px;
+}
+ */
+
+
+/* .THIS .sidebar-anchor {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.8em;
+  text-transform: uppercase;
+  position: relative;
+  padding-bottom: 7px;
+}
+
+.THIS .sidebar-anchor:before {
+  content: "";
+  width: 0;
+  height: 2px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  -webkit-transition: all 0.7s ease-in-out;
+  -moz-transition: all 0.7s ease-in-out;
+  -ms-transition: all 0.7s ease-in-out;
+  -o-transition: all 0.7s ease-in-out;
+  transition: all 0.7s ease-in-out;
+}
+
+.THIS .sidebar-anchor:hover:before {
+  width: 100%;
+} */
+
+/*.THIS .animate1{
+    animation:animate 5s linear 2s infinite alternate;
+    animation-direction: reverse;
+}*/
+ 
+/* .cQfFormSupportApp main {
+    z-index: 2;
+    position: relative;
+    height: 100%;
+    background-color: lightgrey;
+    transition: transform .7s ease-in-out;
+    position: absolute;
+    right: 0;
+    width: 45px;
+    height: 100%;
+    border: 3px solid blue;
+    animation:animate 5s linear 2s infinite alternate;
+}
+/*@keyframes animate {
+    from {right: 0px; transform: translate(0%);}
+    to {right: 200px; transform: translate(550px);}
+    
+}*/ 
+/* .THIS .redColor{
+    background-color: red;
+} */
+  .THIS .class1{
+    width:250px;
+    marginLeft :250px;
+  }
+  .THIS .class2{
+    width:490px;
+    marginLeft :0px;
+  
+    /* transition: margin-left .5s; */
+  }
+  .THIS .support-btn {
+    display: block;
+    height: 20px;
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    -webkit-transform: rotate(
+-90deg
+);
+    visibility: visible !important;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    position: absolute;
+    top:72%;
+    left: -55px;
+    margin: 0 !important;
+    z-index: 30;
+    padding: 20px 0px;
+    background-color: #ffffff !important;
+    color: #019150;
+    font-family: 'Arial', sans-serif !important;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 12px;
+    text-transform: uppercase;
+    text-decoration: none;
+}

@@ -1,0 +1,714 @@
+.THIS {
+    width: 100%;
+}
+
+.THIS .slds-modal__header {
+    background-color: rgb(243, 242, 242);
+    padding: 7px;
+}
+
+.THIS .header {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: white;
+}
+
+.THIS .content.slds-modal__content {
+    background-color: var(--slds-c-modal-content-color-background, var(--sds-c-modal-content-color-background, var(--slds-c-modal-color-background, var(--sds-c-modal-color-background, var(--lwc-colorBackgroundAlt, rgba(102, 153, 204, 1))))));
+    color: var(--slds-c-modal-content-text-color, var(--sds-c-modal-content-text-color, var(--slds-c-modal-text-color, var(--sds-c-modal-text-color))));
+    overflow: hidden;
+    overflow-y: auto;
+    height: 70%;
+    position: absolute;
+    top: 150px;
+    left: -100px;
+}
+
+.THIS .content.slds-modal__content::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .slds-modal__footer {
+    border-top-style: none;
+    color: var(--slds-c-modal-footer-text-color, var(--sds-c-modal-footer-text-color, var(--slds-c-modal-text-color, var(--sds-c-modal-text-color))));
+    flex-shrink: 0;
+    padding-top: var(--slds-c-modal-footer-spacing-block-start, var(--sds-c-modal-footer-spacing-block-start, var(--lwc-spacingSmall, 0.75rem)));
+    padding-right: var(--slds-c-modal-footer-spacing-inline-end, var(--sds-c-modal-footer-spacing-inline-end, var(--lwc-spacingMedium, 1rem)));
+    padding-bottom: var(--slds-c-modal-footer-spacing-block-end, var(--sds-c-modal-footer-spacing-block-end, var(--lwc-spacingSmall, 0.75rem)));
+    text-align: right;
+    box-shadow: none;
+    background-color: white;
+}
+
+.THIS .slds-modal__footer {
+    padding-bottom: 3% !important;
+}
+
+.THIS .popup_btn {
+    text-align: center;
+}
+
+.THIS .popup_btn button {
+    width: 117px;
+    font-size: medium;
+    font-weight: 400;
+}
+
+.THIS .btn_no {
+    background-color: #DEDEDE !important;
+    color: black !important;
+    border: none;
+    border-radius: 7px;
+}
+
+.THIS .btn_yes {
+    background-color: #6699CC !important;
+    color: white !important;
+    border: none;
+    border-radius: 7px;
+}
+
+.THIS .confirm_text {
+    font-size: 15px;
+    text-align: center;
+    justify-content: center;
+    padding: 15px 0;
+}
+
+.THIS .message_css {
+    display: none;
+    color: red;
+}
+
+.THIS .message_add {
+    color: red;
+    display: block !important;
+}
+
+.THIS .message_remove {
+    display: none !important;
+}
+
+.THIS .editDiv {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    padding: 7px;
+    margin-left: 7px;
+    width: 34px;
+    height: 34px;
+    border-radius: 5px;
+    margin: 0 10px;
+}
+
+.THIS .removeDiv {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    padding: 7px;
+    margin-left: 6px;
+    width: 34px;
+    height: 34px;
+    border-radius: 5px;
+}
+
+.THIS .editIcon {
+    width: 20px;
+    height: 20px;
+}
+
+.THIS .removeIcon {
+    width: 20px;
+    height: 20px;
+}
+
+.THIS .imgIconDiv {
+    text-align: right;
+    margin-left: 27px;
+}
+
+.THIS .imgIconDiv .editDiv:hover {
+    cursor: pointer;
+}
+
+.THIS .imgIconDiv .removeDiv:hover {
+    cursor: pointer;
+}
+
+.THIS .astroIcon {
+    /* max-width: 65%; */
+    width: 45px;
+    height: 45px;
+}
+
+.THIS .mainbtn {
+    background-color: #6699CC;
+    border-radius: 14px;
+}
+
+.THIS .slds-notify_container .slds-icon-utility-success {
+    --sds-c-icon-color-foreground: rgb(36, 146, 3);
+}
+
+@media (min-width:1500px) {
+    .THIS .textval {
+        margin-left: 7rem !important;
+    }
+    .THIS .buttonaddmapping {
+        margin-left: 6.5rem !important;
+    }
+}
+
+.THIS .objmaptext {
+    font-style: normal;
+    /* font-family: Roboto; */
+    margin-left: 5rem;
+    margin-top: 25px;
+    color: rgba(0, 0, 0, 0.418); 
+    font-weight: 800; 
+    font-size:24px;
+    text-shadow: 0px 1px 2px rgb(179 178 178 / 44%);
+}
+
+.THIS .imgIcon {
+    width: 30px;
+    height: 30px;
+    margin-left: 7px;
+}
+
+.THIS .firstpart {
+    background-color: #6699CC;
+    text-align: -webkit-center;
+    padding: 7px 0;
+    width: 6%;
+    height: 57px;
+    border-radius: 5px 0px 0px 5px;
+    box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+}
+
+.THIS .subpart {
+    box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+}
+
+.THIS .objects {
+    background-color: white !important;
+}
+
+.THIS .hr {
+    margin: 0px !important;
+}
+
+.THIS .textval {
+    margin-left: 5rem;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.THIS .cancelbtn {
+    background-color: #E6E7E9;
+    color: #000000;
+    border-radius: 11px;
+    width: 185px;
+    margin-left: 6px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.THIS .savebtn {
+    border-radius: 11px;
+    width: 185px;
+    background-color: #6699CC;
+    color: white;
+    margin-right: 6px;
+    font-size: medium;
+    font-weight: 400;
+}
+
+.THIS .iconcolum_in .slds-icon_small {
+    fill: black;
+    margin: 0 !important;
+}
+
+.THIS .objback {
+    background-color: #84CEEB;
+    position: absolute;
+}
+
+.THIS .spinner_cls {
+    opacity: 1;
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+}
+
+.THIS .homepage {
+    width: 30%;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    margin: 8% auto;
+}
+
+.THIS .homepage img {
+    height: 50%;
+    width: 50%;
+}
+
+.THIS .homepage h1 {
+    font-size: 25px;
+    margin: 5px 0;
+}
+
+.THIS .homepage p {
+    margin-bottom: 5px;
+}
+
+.THIS .homepage1 button {
+    width: 70%;
+    height: 38px;
+    box-shadow: 0px 2px 2px 1px #484545;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.THIS .mappinglist {
+    margin-top: 15px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.THIS .mapingobjects {
+    width: 65%;
+    margin: 0 auto;
+}
+
+.THIS .mapingobjects_td {
+    padding: 4px 0;
+}
+
+.THIS .mappingobjtd {
+    background-color: white;
+    padding: 11px;
+    border-radius: 5px;
+    display: flex;
+}
+
+.THIS .mappingobjtd b {
+    padding: 3px 0;
+}
+
+.THIS .mapping_objname {
+    overflow: hidden;
+    float: left;
+    align-self: center;
+    font-size: 20px;
+    border: 1px solid gray;
+    border-radius: 6px;
+    padding: 0 0 0 12px;
+}
+
+.THIS .mapping_obj_toggle {
+    float: right;
+    margin: 0 15px 0 auto;
+    display: flex;
+    align-self: center;
+}
+
+.THIS .mapping_obj_toggle_btn {
+    align-self: center;
+    /* margin-right: 10px; */
+}
+
+.THIS .button2 {
+    width: 35%;
+    margin: 10px auto;
+}
+
+.THIS .obj_mapping_main {
+    width: 70%;
+    margin: auto;
+    background-color: rgba(243, 236, 227, 0);
+    padding: 15px 0;
+}
+
+.THIS select {
+    border: 2px solid rgb(red, green, blue);
+    /* background-color: whitesmoke; */
+}
+
+.THIS select:disabled {
+    border: 2px solid rgba(90, 92, 94, 0.169);
+    background-color: rgba(191, 190, 197, 0.514);
+}
+
+.THIS select:focus {
+    border: 2px solid rgba(147, 150, 152, 0.169);
+    box-shadow: none;
+    background-color: rgb(240 240 237 / 64%);
+}
+
+.THIS option:checked {
+    display: none;
+}
+
+.THIS .formname {
+    background-color: white;
+    text-align: center;
+    font-size: large;
+    height: 5%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 0px 5px 5px 0px;
+    box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+}
+
+.THIS .objectselection {
+    background-color: rgba(155, 145, 145, 0.212);
+    padding: 5px 0px;
+    font-size: large;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.THIS .tabel {
+    border-radius: 5px;
+}
+
+.THIS .table table {
+    background-color: transparent;
+}
+
+.THIS .table thead {
+    height: 20px;
+}
+
+.THIS .clsmapping {
+    margin: 5px 0;
+}
+
+.THIS .clsmapping:hover .one {
+    display: block;
+}
+
+.THIS .clsmapping:hover .selectcls {
+    width: 100%;
+}
+
+.THIS .tabfirstcol {
+    vertical-align: baseline;
+    width: 30%;
+}
+
+.THIS .iconcolum {
+    width: 3%;
+    vertical-align: top;
+}
+
+.THIS .slds-icon_container {
+    color: #1f2636;
+}
+
+.THIS .iconcolum_in {
+    padding: 5px 0 18px 0;
+    text-align: center;
+}
+
+.THIS .tabsecondcol {
+    width: 100%;
+    display: flex;
+}
+
+.THIS .tabsecondcol select {
+    width: 100%;
+}
+
+.THIS .selectclsreq {
+    width: 100%;
+}
+
+.THIS .clsmapping_indexcolum {
+    display: none;
+}
+
+.THIS .selectcls,
+.THIS .selectcls select,
+.THIS .selectcls_def,
+.THIS .selectcls_def select {
+    width: 100%;
+    display: flex;
+}
+
+.THIS .lookupfields {
+    display: none;
+    width: 100%;
+}
+
+.THIS .one {
+    height: 25px;
+    width: 25px;
+    text-align: center;
+    display: none;
+    margin-top: 0px;
+    margin-left: 2px;
+    margin-right: 7px;
+}
+
+.THIS .buttonadd {
+    width: 100%;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.THIS .buttonaddmappingmain {
+    width: fit-content;
+    /* margin-left: 5rem; */
+    height: 30px;
+    background-color: #6699CC;
+    color: white;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.THIS .buttonadd .buttonaddmapping {
+    width: fit-content;
+    margin-left: 5rem;
+    height: 30px;
+    background-color: #6699CC;
+    color: white;
+    border-radius: 6px;
+    font-size: medium;
+    font-weight: 400;
+}
+
+.THIS .button {
+    display: flex;
+    width: 100%;
+    text-align: center;
+    justify-content: right;
+}
+
+.THIS .button button {
+    width: 30%;
+    outline: none;
+    border: 1px solid rgba(139, 122, 122, 0.486);
+    /* border: none; */
+}
+
+.THIS .button button:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.THIS .buttonrigth {
+    width: 50%;
+    align-self: flex-end;
+    text-align: end;
+}
+
+.THIS .cacelbtn {
+    border: 1px solid rgba(0, 0, 0, 0);
+}
+
+.THIS .slds-form-element__label {
+    display: none;
+}
+
+.THIS .changeMe {
+    display: block;
+    width: 50%;
+    margin-left: 10px;
+    float: right;
+}
+
+.THIS .changeMe_lookselect1 {
+    width: 100%;
+}
+
+.THIS .slds-checkbox_faux {
+    align-self: center;
+}
+
+.THIS .slds-checkbox_off,
+.THIS .slds-checkbox_on {
+    margin: 0 10px;
+    align-self: center;
+    font-size: 14px;
+}
+
+
+/* =========================     Spinner Sarts      =========================== */
+
+.THIS .spinner-main-div {
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.THIS .loader--ripple {
+    display: inline-block;
+    position: relative;
+    height: 100px;
+    width: 100px;
+}
+
+.THIS .loader--ripple div {
+    position: absolute;
+    animation: loader--ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+    border: 4px solid;
+    border-radius: 50%;
+    opacity: 1;
+}
+
+.THIS .loader--ripple div:nth-child(2) {
+    animation-delay: -0.5s;
+}
+
+.THIS .buttonaddmapping:disabled {
+    background-color: #adadad;
+}
+
+@keyframes loader--ripple {
+    0% {
+        top: 50px;
+        left: 50px;
+        opacity: 1;
+        height: 0;
+        width: 0;
+    }
+    100% {
+        top: -1px;
+        left: -1px;
+        opacity: 0;
+        height: 100px;
+        width: 100px;
+    }
+}
+
+.THIS .loader--ripple div {
+    border-color: #00539f;
+}
+
+
+/* =========================     Spinner end     =========================== */
+
+@media only screen and (max-width: 1285px) {
+    .THIS .homepage {
+        width: 40%;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+        margin: 8% auto;
+    }
+    .THIS .homepage img {
+        height: 60%;
+        width: 60%;
+    }
+    .THIS .homepage h1 {
+        font-size: 30px;
+        margin: 5px 0;
+    }
+    .THIS .homepage p {
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+}
+
+@media only screen and (max-width: 1100px) {
+    .THIS .homepage {
+        width: 60%;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+        margin: 8% auto;
+    }
+    .THIS .homepage img {
+        height: 50%;
+        width: 50%;
+    }
+    .THIS .homepage h1 {
+        font-size: 25px;
+        margin: 5px 0;
+    }
+    .THIS .homepage p {
+        margin-bottom: 10px;
+    }
+}
+
+@media only screen and (max-width: 850px) {
+    .THIS .homepage {
+        width: 60%;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+        margin: 8% auto;
+    }
+    .THIS .homepage img {
+        height: 60%;
+        width: 60%;
+    }
+    .THIS .homepage h1 {
+        font-size: 25px;
+        margin: 5px 0;
+    }
+    .THIS .homepage p {
+        margin-bottom: 10px;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .THIS .homepage {
+        width: 80%;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+        margin: 8% auto;
+    }
+    .THIS .homepage img {
+        height: 75%;
+        width: 75%;
+    }
+    .THIS .homepage h1 {
+        font-size: 25px;
+        margin: 5px 0;
+    }
+    .THIS .homepage p {
+        margin-bottom: 10px;
+    }
+}
+
+@media only screen and (max-width: 730px) {
+    .THIS .button2 {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 705px) {
+    .THIS .objback {
+        padding: 18% 0;
+    }
+    .THIS .homepage {
+        width: 90%;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+        margin: 8% auto;
+        height: 100vh;
+    }
+    .THIS .homepage img {
+        height: 50%;
+        width: 50%;
+    }
+    .THIS .homepage h1 {
+        font-size: 25px;
+        margin: 5px 0;
+    }
+    .THIS .homepage p {
+        margin-bottom: 10px;
+    }
+}
+
+@media only screen and (max-width: 570px) {
+    .THIS .buttonaddmapping {
+        margin-left: 0;
+    }
+}

@@ -1,0 +1,623 @@
+/* CSS start */
+
+.THIS.formBuilder {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+
+.THIS .verticalTab {
+    position: absolute;
+    height: 100%;
+    border-radius: 20px;
+    width: 20%;
+}
+
+.THIS .EditForm {
+    width: 80%;
+    left: 20%;
+    position: relative;
+    background-color: #FEFEFE;
+    height: 100%;
+}
+
+.THIS .verticalTab .slds-vertical-tabs__nav {
+    height: 100vh;
+    background-color: #6699CC !important;
+}
+
+.THIS .verticalTab .slds-vertical-tabs {
+    border-radius: 0;
+}
+
+.THIS .verticalTab lightning-tab-bar {
+    height: 100vh;
+    width: 15%;
+    /* width: var(--sak, 15%); */
+}
+
+.THIS .verticalTab .slds-vertical-tabs__content {
+    background-color: #F5F5F5;
+    display: var(--hidetabdisplay);
+}
+
+
+/* .THIS .test {
+    background-image: url('/resource/1556180826000/homeIcon') !important;
+} */
+
+.THIS .searchBox .slds-input {
+    border-radius: 17px;
+    border-color: lightgray;
+}
+
+.THIS .searchBoxDiv.slds-input-has-icon .slds-input__icon {
+    margin-top: 2px;
+}
+
+.THIS .designPanel {
+    overflow-y: scroll;
+    height: 100%;
+    padding: 0 0px 25px 0px;
+    position: absolute;
+    width: 75%;
+}
+
+.THIS .designPanel::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .searchBoxDiv {
+    margin-top: 3%;
+}
+
+.THIS .accordionSection {
+    margin-top: 10%;
+}
+
+.THIS .slds-button__icon {
+    fill: #6699CC;
+}
+
+.THIS .searchBoxDiv {
+    width: 92%;
+    margin: auto;
+}
+
+.THIS .formTitle {
+    margin-top: 4%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2%;
+    align-items: center;
+}
+
+.THIS .editFormContent {
+    margin: auto;
+    width: 80%;
+    height: 15%;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.39);
+}
+
+.THIS .editButton {
+    display: flex;
+    align-items: center;
+}
+
+.THIS .formTitleHeader {
+    font-size: 2rem;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    overflow-x: scroll;
+    /* text-overflow: ellipsis; */
+    scroll-behavior: smooth;
+    width: 50%;
+}
+
+.THIS .formTitleHeader::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .editButton .slds-button {
+    padding: 2px 29px;
+    font-size: 1rem;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    border: none;
+}
+
+.THIS .editButton .addPage {
+    margin-left: 1rem;
+}
+
+.THIS .editPagePanel {
+    /* border: 1px solid #000000; */
+    margin: auto;
+    /* width: var(--myformwidth, 80%); */
+    /* height: 100vh; */
+    margin-top: 2%;
+    width: 80%;
+    height: max-content;
+    overflow: hidden;
+    box-shadow: var(--boxShadow);
+}
+
+.THIS .myform {
+    width: var(--myformwidth, 100%);
+    margin: auto;
+    padding-top: var(--formPaddingTop, 0%);
+    padding-left: var(--formPaddingLeft, 1%);
+    padding-right: var(--formPaddingRight, 1%);
+    direction: var(--formDirection, ltr);
+    background-size: var(--formBackgroundSize, auto);
+    background-position: var(--formBackgroundPosition, top);
+    background-repeat: var(--formBackgroundRepeat, repeat);
+    background-attachment: var(--formBackgroundfixPosition, scroll);
+    /* margin: 3rem auto; */
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+    background-image: var(--formbgiamge, ' ');
+    background-color: var(--bgcolor, 'yellow');
+    padding-bottom: var(--formPaddingBottom, 5%);
+    /* padding:5%; */
+    position: relative;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.THIS .myform::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .accordionSection .slds-input,
+.THIS .accordionSection .slds-input_faux,
+.THIS .accordionSection .slds-color-picker__summary-button {
+    border-radius: 10px;
+    border-color: #6699CC;
+}
+
+.THIS .accordionSection .slds-file-selector_files .slds-file-selector__text {
+    display: none;
+}
+
+.THIS .accordionSection .slds-color-picker__summary-input .slds-input {
+    display: none;
+}
+
+
+/* .THIS .verticalTab .slds-is-open>.slds-accordion__content {
+    padding: 0 11%;
+} */
+
+.THIS .accordioInnerDiv {
+    padding: 0 11%;
+}
+
+.THIS .verticalTab .accordionSection .slds-accordion__section {
+    padding-top: 7%;
+    padding-bottom: 7%;
+}
+
+.THIS .verticalTab .accordionSection .colorPicker lightning-primitive-icon {
+    margin-left: 10px;
+}
+
+
+/* validation bar css */
+
+.THIS .fieldDiv2 {
+    display: none;
+    background-color: rgba(217, 217, 217, 1);
+    position: absolute;
+    left: 46px;
+    width: 17%;
+    z-index: 10;
+    scroll-behavior: smooth;
+    overflow: scroll;
+    overflow: scroll;
+    height: 100vh;
+    padding: 0 0 10rem 0;
+}
+
+.THIS .fieldDiv2::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* end */
+
+.THIS .pagetitle {
+    font-size: 1.7rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 3px;
+    padding-bottom: 20px;
+    margin-left: 4%;
+    width: 99%;
+    color: var(--setPageColor);
+}
+
+.THIS .button_icon-border {
+    border: 1px solid;
+}
+
+.THIS .formButtonMenu {
+    margin-right: 3%;
+}
+
+.THIS .pageButtonMenu {
+    margin-right: 3%;
+}
+
+.THIS .page {
+    background-color: var(--bg, white);
+    padding-right: 3%;
+    padding-top: var(--pagePaddingTop, 0%);
+    /* margin-left: 5.5%; */
+    /* margin-right: 5.5%; */
+    background-size: var(--pagebg, none);
+    background-position: var(--pagebgPostion, top left);
+    background-repeat: var(--pagebgRepeat, none);
+    background-attachment: var(--pagebgFixPosition, none);
+    border-color: var(--pageborderColor, black);
+    border-style: var(--pageborderStyle, solid);
+    padding-bottom: var(--pagePaddingBottom, 4%);
+    border-width: var(--pageborderWidth, 1px);
+    background-image: var(--pagebgimage, '');
+    /* border: 1px solid black; */
+}
+
+.THIS .pagetitle1 {
+    font-size: 1.7rem;
+    /* margin-top: 10%; */
+    overflow-wrap: anywhere;
+    mix-blend-mode: exclusion;
+    color: white;
+}
+
+.THIS .pagetitle1if {
+    font-size: 1rem;
+    margin-top: 10%;
+    color: #9d9f9f;
+}
+
+.THIS .subpagetitleif {
+    font-size: 0.8rem;
+    color: #9d9f9f;
+}
+
+.THIS .slds-dropdown_left {
+    left: auto;
+    right: 0;
+}
+
+.THIS .subpagetitle {
+    font-size: 1.2rem;
+    mix-blend-mode: exclusion;
+    color: white;
+}
+
+.THIS .example-dropzone {
+    background-color: transparent;
+    width: 100%;
+    height: auto;
+    position: relative;
+    left: -1%;
+    padding-bottom: 3%;
+}
+
+.THIS.slds-spinner_container {
+    z-index: 10;
+    position: fixed;
+}
+
+.THIS .footer {
+    border-radius: 3px;
+    width: 94%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    display: flex;
+    flex-direction: row;
+    justify-content: var(--btnJustify, center);
+}
+
+.THIS .footer {
+    font-size: 15px;
+}
+
+.THIS .footer .slds-button {
+    text-align: center;
+    padding-top: var(--btnTopPadding, 0.5px);
+    padding-right: var(--btnRightPadding, 1px);
+    padding-bottom: var(--btnBottomPadding, 0.5px);
+    padding-left: var(--btnLeftPadding, 1px);
+    font-size: var(--buttonfontsize, 15px);
+    vertical-align: middle;
+    transition: border .15s linear;
+    color: var(--btnTextColor, lightslategray);
+    border-radius: var(--btnborderradius, 5px);
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-transition: border .15s linear;
+    transition: border .15s linear;
+    background-color: var(--btnBgColor, white);
+    border-color: var(--btncolor, darkgray);
+    border-style: var(--btnborderstyle, solid);
+    border-width: var(--btnborderwidth, 1px);
+    font-family: var(--buttonfontfamily, sans-serif);
+    font-weight: var(--buttonfontweight, normal);
+    font-style: var(--buttonfontstyle, normal);
+    width: var(--btnWidth, 5px);
+    height: var(--btnHeight);
+    margin-top: 10px;
+}
+
+.THIS .slds-m-around_small {
+    display: inline;
+}
+
+.THIS .slds-button_destructive {
+    margin-right: 15px !important;
+}
+
+.THIS .header {
+    font-size: 1.5rem;
+}
+
+.THIS .slds-modal__footer {
+    padding-bottom: 3% !important;
+}
+
+.THIS .slds-modal__header {
+    background-color: rgb(243, 242, 242);
+}
+
+.THIS .field {
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
+    padding: 0 1%;
+}
+
+.THIS .field:hover {
+    background-color: rgba(204, 204, 204, .4);
+}
+
+
+/* - - - -  - - - Field Section Css - - - - -  - - - -  - - - - */
+
+.THIS .fieldSectionDiv {
+    overflow: auto;
+    height: 100%;
+    padding: 0 1% 25px 1%;
+    position: absolute;
+    width: 75%;
+}
+
+.THIS .searchBox .slds-input {
+    border-radius: 17px;
+    border-color: black;
+}
+
+.THIS .searchIcon {
+    height: 1.2rem;
+    width: 1.2rem;
+    margin-top: 0;
+}
+
+.THIS .fieldDivLabel {
+    text-transform: capitalize;
+    color: rgba(0, 0, 0, 0.56);
+    padding: 30px 0 0 16px;
+    font-weight: bold;
+    font-size: 24px
+}
+
+.THIS .fieldSectionDiv::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .fieldSectionDiv .slds-accordion__list-item {
+    border-top-color: #bababa;
+}
+
+.THIS .example-draggable .slds-icon-text-default {
+    fill: #6699cc;
+}
+
+
+/* - - - - - - - - - - - - - - -  - - -  - - - - -  - - - -  - - - - */
+
+
+/* form page */
+
+.THIS .pageIcons {
+    display: flex;
+}
+
+.THIS .pageIcons .editPageIcon {
+    background-color: white;
+    border: none;
+}
+
+.THIS .pageIcons .editPageIcon .slds-button__icon:hover {
+    background-color: white;
+    fill: #6699cc;
+}
+
+.THIS .iconsImage {
+    width: 32px;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 4px rgb(0 0 0 / 25%);
+    border-radius: 7px;
+    padding: 7px;
+    margin: 10px;
+}
+
+.THIS .DesignTitle {
+    text-transform: capitalize;
+    color: rgba(0, 0, 0, 0.56);
+    padding: 30px 0 0 16px;
+    font-weight: bold;
+    font-size: 24px
+}
+
+
+/* publish panel css */
+
+
+/* 
+.THIS .publishTitle {
+    text-transform: capitalize;
+    color: rgba(0, 0, 0, 0.56);
+    padding: 13% 0 0 9%;
+    font-weight: bold;
+    font-size: 24px;
+} */
+
+
+/* .THIS .publishTab .slds-form-element__control .slds-radio {
+    padding: 15px 0;
+    border-bottom: 1px solid lightgray;
+    width: 75%;
+} */
+
+
+/* .THIS .publishTab .slds-form-element__control {
+    padding: 3% 0 0 9%;
+} */
+
+
+/* .THIS .verticalTab .designPanel.slds-vertical-tabs__content,
+.THIS .verticalTab .fieldPanel.slds-vertical-tabs__content {
+    background-color: #F5F5F5;
+} */
+
+
+/* .THIS .publishTab.slds-vertical-tabs__content {
+    position: absolute;
+    height: 100vh;
+    width: 96vw;
+    left: 63px;
+    z-index: 100;
+    margin-top: -1px;
+} */
+
+
+/* .THIS .publishLeftPanel {
+    background-color: #F5F5F5;
+    background-color: #f5f5f5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 20vw;
+} */
+
+
+/* .THIS .publishRightPanel {
+    background-color: white;
+    position: absolute;
+    width: 75vw;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    padding: 0 5%;
+} */
+
+
+/* .THIS .formLinkTitle {
+    font-weight: bold;
+    font-size: 1.5rem;
+    padding: 3% 0 0 0;
+} */
+
+
+/* .THIS .linkText {
+    margin-top: 10px;
+} */
+
+
+/* .THIS .formlink {
+    font-size: 1.4rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+} */
+
+
+/* .THIS .iconsImage {
+    width: 32px;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 4px rgb(0 0 0 / 25%);
+    border-radius: 7px;
+    padding: 7px;
+} */
+
+
+/* .THIS .publishUsing {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-top: 15px;
+} */
+
+
+/* .THIS .publishUsingText {
+    margin-top: 10px;
+} */
+
+
+/* .THIS .inputBox {
+    background: #FFFFFF;
+    box-shadow: 0px 2px 2px rgb(0 0 0 / 25%);
+    border-radius: 10px;
+    border: none;
+    width: 90%;
+    margin-top: 10px;
+    margin-right: 10px;
+} */
+
+
+/* .THIS .copyCodeSection {
+    background: #EBEBEB;
+    border-radius: 15px;
+    margin-top: 10px;
+} */
+
+@media only screen and (max-width:1400px) {
+    .THIS .editFormContent {
+        height: 20%;
+    }
+    .THIS .verticalTab {
+        width: 30%;
+    }
+    .THIS .EditForm {
+        width: 70%;
+        left: 30%
+    }
+    .THIS .formTitle {
+        margin-bottom: 3%;
+        margin-top: 3%;
+    }
+    .THIS .formTitleHeader {
+        font-size: 1.5rem;
+    }
+    .THIS .fieldDiv2 {
+        display: none;
+        left: 46px;
+        width: 27%;
+        z-index: 10;
+        scroll-behavior: smooth;
+        overflow: scroll;
+        overflow: scroll;
+        height: 100vh;
+        padding: 0 0 10rem 0;
+    }
+}

@@ -1,0 +1,28 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="HTML-5.0" applyBodyTag="false" applyHtmlTag="false">
+  <apex:form >
+    <apex:includeLightning />
+
+    <div style="width:100%;height:100vh;" id="compContainer" />
+
+    <script>
+      $Lightning.use("c:previewapp", function () {
+        var FormId;
+        console.log(FormId);
+        var fid = "{!$CurrentPage.parameters.id} ";
+        console.log(fid);
+
+        $Lightning.createComponent("c:QFPreviewFormComponent",
+          {
+            FormId: fid,
+            PreviewType: "Site"
+          },
+          "compContainer",
+          function (cmp) {
+            console.log('success');
+          }
+        );
+      });
+
+    </script>
+  </apex:form>
+</apex:page>

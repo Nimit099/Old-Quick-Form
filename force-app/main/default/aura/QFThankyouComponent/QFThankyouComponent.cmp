@@ -1,0 +1,179 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" controller="QFThankyouComponentController">
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:method name='reloadCmp' action='{!c.doInit}' access='GLOBAL' />
+    <aura:attribute name="FormId" type="string" />
+    <aura:attribute name="formData" type="Object" />
+    <aura:attribute name="showtxt" type="Boolean" />
+    <aura:attribute name="HtmlText" type="String" />
+    <aura:attribute name="oldThanksLabel" type="String" />
+    <aura:attribute name="spinner" type="boolean" default="FALSE" />
+
+    <c:QFNotificationToastComponent aura:id="toastCmp" />
+    <c:QFExceptionComponent aura:id="exceptionCmp" />
+
+    <aura:if isTrue="{!v.spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container" style="overflow: hidden;">
+            <div class="spinner-main-div">
+                <div class="loader--ripple">
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+
+    <div class="thanksMainDiv">
+        <section aura:id="Modal" role="dialog" tabindex="-1" aria-labelledby="ModalHeading" aria-modal="true" aria-describedby="ModalBody" class="slds-modal" onclick="{!c.hideFolderList}">
+            <div class="richtextModel">
+                <div class="richtextMainDiv">
+                    <div class="richtextDiv">
+                        <div class="richtextLabel">
+                            <div>
+                                Edit Text
+                            </div>
+                        </div>
+                        <div class="richtextContent">
+                            <lightning:tabset variant="scoped">
+                                <lightning:tab class="richtextTab" label="Edit Rich Text">
+                                    <lightning:inputRichText formats="['font', 'size', 'bold', 'italic', 'underline', 'strike', 'list', 'indent', 'align', 'link', 'clean', 'table', 
+                                'header', 'color', 'background']" value="{!v.formData.ThankYou_Label__c}" aura:id="editor" placeholder="Type something" />
+                                </lightning:tab>
+                                <lightning:tab class="htmlTab" label="Edit HTML Text" onactive="{! c.HtmlTextC }">
+                                    <lightning:textarea label="HTML Text" value="{! v.HtmlText}" name="Html" onchange="{!c.RichTextC}" />
+                                </lightning:tab>
+                                <lightning:tab class="outputTab" label="Output">
+                                    <lightning:formattedRichText class="slds-text-longform" value="{!v.formData.ThankYou_Label__c}" />
+                                </lightning:tab>
+                            </lightning:tabset>
+                        </div>
+                        <div class="richtextButtonDiv">
+                            <div class="richtextButton">
+                                <lightning:button label="Save" class="saveModelButton" onclick="{!c.saveRichText}" />
+                                <lightning:button label="Cancel" class="cancelModelButton" onclick="{!c.closeModel}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div aura:id="ModalBackdrop" class="slds-backdrop"></div>
+
+        <div class="thanksChoice">
+
+            <div class="thanksLabelDiv">
+                THANK YOU PAGE
+            </div>
+            <div>
+                <div class="form-check">
+                    <div class="thanks-optiondiv">
+                        <div class="thanks-option">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="None" value="{!v.option}" onchange="{!c.toggleFields}" checked="{!v.formData.ThankYou_Page__c == 'None'}" />
+                            <label class="form-check-label" for="None"> None</label>
+                        </div>
+                        <lightning:helptext class="helptxt" content="Not show any thank you page after submit form" />
+                    </div>
+                    <div id="Input0"> </div>
+                </div>
+                <div class="hrLine"></div>
+                <div class="form-check">
+                    <div class="thanks-optiondiv">
+                        <div class="thanks-option">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="ThankYou_Text" value="{!v.option}" onchange="{!c.toggleFields}" checked="{!v.formData.ThankYou_Page__c == 'ThankYou_Text'}" />
+                            <label class="form-check-label" for="ThankYou_Text"> Show Text</label>
+                        </div>
+                        <lightning:helptext class="helptxt" content="The text you enter below will be displayed on the Thank You page of the form. This page is displayed after the form is submitted." />
+                    </div>
+                    <div class="form-control thankyouinput" id="Input1">
+                        <div id="demo"></div>
+                        <lightning:textarea class="thankyouinput" value="{!v.formData.ThankYou_Text__c}" />
+                    </div>
+                </div>
+                <div class="hrLine"></div>
+                <div class="form-check">
+                    <div class="thanks-optiondiv">
+                        <div class="thanks-option">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="ThankYou_URL" value="{!v.option}" onchange="{!c.toggleFields}" checked="{!v.formData.ThankYou_Page__c == 'ThankYou_URL'}" />
+                            <label class="form-check-label" for="ThankYou_URL"> Redirect to a webpage</label>
+                        </div>
+                        <lightning:helptext class="helptxt" content="This is the URL where your form users are redirected after the form is submitted. If this option is selected, then no Thank You page is displayed and the redirect is made automatically after submission." />
+                    </div>
+                    <div class="form-control thankyouinput" id="Input2">
+                        <lightning:input aura:id="ThanksURL1" type="url" value="{!v.formData.ThankYou_URL__c}" class="thankyouinput" placeholder="Put Your Redirect Link" />
+                    </div>
+                </div>
+                <div class="hrLine"></div>
+                <div class="form-check">
+                    <div class="thanks-optiondiv">
+                        <div class="thanks-option">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="Redirect_Text_And_URL" value="{!v.option}" onchange="{!c.toggleFields}" checked="{!v.formData.ThankYou_Page__c == 'Redirect_Text_And_URL'}" />
+                            <label class="form-check-label" for="Redirect_Text_And_URL"> Show text, then redirect to web page</label>
+                        </div>
+                        <lightning:helptext class="helptxt" content="When this option is enabled, users see the Thank You page after submission, which contains the redirect link. Specify the Thank You message and the redirect URL below." />
+                    </div>
+                    <div class="form-control thankyouinput" id="Input3">
+                        <lightning:textarea class="thankyouinput" value="{!v.formData.Redirect_Text__c}" />
+                        <lightning:input aura:id="ThanksURL2" type="url" value="{!v.formData.Redirect_URL__c}" class="thankyouinput" placeholder="Put Your Redirect Link" />
+                    </div>
+                </div>
+                <div class="hrLine"></div>
+                <div class="form-check">
+                    <div class="thanks-optiondiv">
+                        <div class="thanks-option">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="ThankYou_Report" value="{!v.option}" onchange="{!c.toggleFields}" checked="{!v.formData.ThankYou_Page__c == 'ThankYou_Report'}" />
+                            <label class="form-check-label" for="ThankYou_Report"> Show report of User data</label>
+                        </div>
+                        <lightning:helptext class="helptxt" content="Show a report generated for your form after submission." />
+                    </div>
+                    <div id="Input4"></div>
+                </div>
+                <div class="hrLine"></div>
+                <div class="form-check">
+                    <div class="thanks-optiondiv">
+                        <div class="thanks-option">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="ThankYou_RichText" value="{!v.option}" onchange="{!c.toggleFields}" checked="{!v.formData.ThankYou_Page__c == 'ThankYou_RichText'}" />
+                            <label class="form-check-label" for="ThankYou_RichText"> Show HTML block</label>
+                        </div>
+                        <lightning:helptext class="helptxt" content="This option allows you to add HTML content to your Thank You page. You can use elements like images, links, colors and many others." />
+                    </div>
+                    <div class="form-control thankyouinput-rich" id="Input5">
+                        <lightning:inputRichText formats="['font', 'size', 'bold', 'italic', 'underline', 'strike', 'list', 'indent', 'align', 'link', 'clean', 'table', 
+                    'header', 'color', 'background']" value="{!v.formData.ThankYou_RichText__c}" placeholder="Type something interesting" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="thanksPreviewDiv">
+            <div style="height: 100%;">
+                <div class="thanksEditButton">
+                    <lightning:button class="editBtn" label="Edit Text" iconName="utility:edit" iconPosition="left" onclick="{!c.openRichText}" />
+                </div>
+
+                <div class="thanksPreview">
+                    <div class="imgDiv">
+                        <img style="height: 100%;" src="{!$Resource.ThankYouLogo}" />
+                    </div>
+                    <div class="thanksLabel">
+                        <lightning:formattedRichText class="outrichstyle slds-cell-wrap" value="{!v.formData.ThankYou_Label__c}" />
+                    </div>
+                    <aura:if isTrue="{!v.formData.ThankYou_Page__c == 'ThankYou_Text'}">
+                        <div class="txtstyle"> {!v.formData.ThankYou_Text__c} </div>
+                    </aura:if>
+                    <aura:if isTrue="{!v.formData.ThankYou_Page__c == 'Redirect_Text_And_URL'}">
+                        <div class="txtstyle"> {!v.formData.Redirect_Text__c} </div>
+                    </aura:if>
+                    <aura:if isTrue="{!v.formData.ThankYou_Page__c == 'ThankYou_RichText'}">
+                        <div style="padding: 10px;">
+                            <lightning:formattedRichText value="{!v.formData.ThankYou_RichText__c}" />
+                        </div>
+                    </aura:if>
+                </div>
+                <div class="saveButton">
+                    <button class="saveBtn" onclick="{!c.saveThanksData}">Save</button>
+                    <button class="cancelBtn" onclick="{!c.cancelThanksData}">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

@@ -1,0 +1,3 @@
+<apex:page controller="PreviewFormPage_extensions" renderAs="pdf"  applyHtmlTag="false"  showHeader="false" sidebar="false" standardStylesheets="false">
+    
+</apex:page>

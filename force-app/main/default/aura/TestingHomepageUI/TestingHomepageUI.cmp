@@ -1,0 +1,345 @@
+<aura:component
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+    access="global" controller="getFormList">
+    <!-- TestingHomepageUIController -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="spinner" type="boolean" default="FALSE" />
+    <aura:attribute name="listOfAllForms" type="list" />
+    <aura:attribute name="PaginationList" type="list" />
+    <aura:attribute name="PaginationListForSeacrch" type="list" />
+    <aura:attribute name="startPage" type="Integer" />
+    <aura:attribute name="endPage" type="Integer" />
+    <aura:attribute name="totalRecordsCount" type="Integer" />
+    <aura:attribute name="pageSize" type="Integer" default="5"
+        description="number of records to be display on per page" />
+    <aura:attribute name="currentPage" type="integer" default="1" />
+    <aura:attribute name="NoRecordsFound" type="boolean" />
+    <aura:attribute name="bNoRecordsFound" type="boolean" />
+    <aura:attribute name="showToast" type="String" />
+    <aura:attribute name="spinnerDataTable" type="boolean" default="FALSE" />
+    <aura:attribute name="selected" type="String" />
+    <aura:attribute name="arrowDirection" type="string" default="arrowup"
+        description="Use for change arrow sign direction on header based on click" />
+    <aura:attribute name="FolderRecords" type="List" />
+    <!-- <aura:attribute name="ShowRecList" type="boolean" default="false" /> -->
+    <aura:attribute name="ShowRecList1" type="boolean" default="false" />
+    <aura:attribute name="ShowRecList2" type="boolean" default="false" />
+    <aura:attribute name="ShowRecList3" type="boolean" default="false" />
+    <aura:attribute name="ShowRecList4" type="boolean" default="false" />
+    <aura:attribute name="disableSave" type="boolean" default="true" />
+    <aura:attribute name="mainFolderName" type="String" />
+
+    <aura:attribute name="Form" type="Form__c" default="{
+                    'SObjectType': 'Form__c',
+                    'Title__c': '',
+                    'Description__c': '',
+                    'Display_Type__c': '',
+                    'Active__c' : false
+                }">
+    </aura:attribute>
+    <aura:attribute name="MainFolderId" type="String" />
+    <aura:attribute name="folder" type="Folder__c" default="{
+                    'SObjectType': 'Folder__c',
+                    'Name': '',
+                    'Description__c': '',
+                    'FolderId__c': '',
+                    'Active__c' : false
+                }"> </aura:attribute>
+
+    <aura:attribute name="parentFolderName" type="String" />
+    <aura:attribute name="availableFolder" type="list" />
+    <aura:attribute name="FormId" type="String" />
+    <aura:attribute name="newFormName" type="String" />
+    <aura:attribute name="currentFormName" type="String" />
+
+
+    <aura:attribute name="divFolderId" type="String" default="" />
+    <aura:attribute name="newFolderName" type="String" />
+    <aura:attribute name="renameFolderName" type="String" />
+
+    <aura:attribute name="items" type="Object" />
+    <aura:attribute name="clicksubfolder" type="boolean" default="true" />
+
+
+
+    <!-- ========================= [ Rename Folder ] Button click  strat=========================-->
+    <div>
+        <section aura:id="rename_Folder" role="dialog" tabindex="-1" aria-labelledby="ModalHeading" aria-modal="true"
+            aria-describedby="ModalBody" class="slds-modal">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon class="slds-modal__close" iconName="utility:close"
+                        onclick="{!c.cancleRenameFolder}" variant="bare-inverse" size="large">
+                    </lightning:buttonIcon>
+                    <div class="header">
+                        <h2 id="ModalHeading">Rename Folder</h2>
+                    </div>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="ModalBody">
+                    <div class="title" id="renameTextField">
+                        <div style="padding: 10px 0;">
+                            Please Enter New Name For The <b> {!v.newFolderName} </b> Folder
+                        </div>
+                        <lightning:input label="New Name" value="{!v.renameFolderName}" required="true"
+                            messageWhenValueMissing="Please Fill the Details" />
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <div class="footer">
+                        <lightning:button label="Cancel" onclick="{!c.cancleRenameFolder}" />
+                        <lightning:button variant="brand" label="Rename" onclick="{!c.renameFolder}" />
+                    </div>
+                </footer>
+            </div>
+        </section>
+        <div aura:id="ModalBackdrop_renameFolder" class="slds-backdrop"></div>
+    </div>
+    <!-- ========================= [ Rename Folder ] Button click  finished=========================-->
+
+
+    <!-- ========================= [ Move Folder ] Button click  strat=========================-->
+    <div>
+        <section aura:id="move_Folder" role="dialog" tabindex="-1" aria-labelledby="ModalHeading" aria-modal="true"
+            aria-describedby="ModalBody" class="slds-modal" onclick="{!c.hideFolderList}">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon class="slds-modal__close" iconName="utility:close"
+                        onclick="{!c.cancleMoveFolder}" variant="bare-inverse" size="large">
+                    </lightning:buttonIcon>
+                    <div class="header">
+                        <h2 id="ModalHeading">Move Folder</h2>
+                    </div>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="ModalBody" style="height: 275px;">
+                    <p style="font-size: 15px; margin-bottom: 20px;">Move {!v.newFolderName} into the following folder
+                    </p>
+                    <div class="title searchBar">
+                        <label class="slds-form-element__label">
+                            <abbr class="slds-required" title="required">* </abbr>Select Folder
+                        </label>
+                        <lightning:input type="search" aura:id="searchKey4"
+                            placeholder="{!v.FieldAttribute.Placeholder_text__c == TRUE ? v.FieldAttribute.Placeholder__c : 'Search Folder'}"
+                            onclick="{!c.searchFolderAction4}" onchange="{!c.searchFolderAction4}"
+                            value="{!v.parentFolderName}" />
+                        <aura:if isTrue="{!v.ShowRecList4}">
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <div class="slds-combobox_container">
+                                        <div
+                                            class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open">
+                                            <div class="slds-dropdown slds-dropdown_length-3 slds-dropdown_fluid"
+                                                role="listbox">
+                                                <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                                    <aura:iteration items="{!v.FolderRecords}" var="row"
+                                                        indexVar="index">
+                                                        <li role="presentation" class="slds-listbox__item">
+                                                            <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                                                role="option" onclick="{!c.selectFolder}" value="{!row}"
+                                                                data-index="{!index}">
+                                                                <span onclick="{!c.selectFolder}" value="{!row}"
+                                                                    data-index="{!index}">
+                                                                    <lightning:icon class="icon"
+                                                                        iconName="standard:folder" size="small" />
+                                                                </span>
+                                                                <span class="slds-media__body recordList"
+                                                                    onclick="{!c.selectFolder}" value="{!row}"
+                                                                    data-index="{!index}">
+                                                                    <span class="slds-truncate"
+                                                                        onclick="{!c.selectFolder}" value="{!row}"
+                                                                        data-index="{!index}">
+                                                                        {!row.Name}
+                                                                    </span>
+                                                                </span>
+                                                            </div>
+                                                        </li>
+                                                    </aura:iteration>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </aura:if>
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <div class="footer">
+                        <lightning:button label="Cancel" onclick="{!c.cancleMoveFolder}" />
+                        <lightning:button variant="brand" label="Save" disabled="{!v.disableSave}"
+                            onclick="{!c.moveFolder}" />
+                    </div>
+                </footer>
+            </div>
+        </section>
+        <div aura:id="ModalBackdrop_Movefolder" class="slds-backdrop"></div>
+    </div>
+    <!-- ========================= [ Move Folder ] Button click  finished=========================-->
+
+
+
+
+
+    <div class="slds-grid slds-wrap"
+        style="background-color: white; position: absolute; height: 100%; width: 100%; border-radius: 25px;">
+        <div class="slds-col slds-size_3-of-12 left-portion">
+            <div class="slds-grid slds-grid_vertical quickform-logo">
+                <div class="slds-col qfl">
+                    <img src="{!$Resource.QuickFormLogoForUI}" style="height: 65%; width:75%;" />
+                </div>
+            </div>
+
+            <div class="slds-grid slds-grid_vertical folder-part">
+                <div class="folders-top">
+                    <!-- <div style="display: flex; align-items: center;">
+                        <span>
+                            <img src="{!$Resource.folderIcon}" class="folders-tab" />
+                        </span>
+                        <span class="f-text">
+                            Folders
+                        </span>
+
+                        <div class="slds-col_bump-left btnicon">
+                            <div class="changeCursor">
+                                <img src="{!$Resource.deleteFolderIcon}" aria-describedby="help" aria-disabled="true"
+                                    class="slds-button slds-button_neutral top-icon-button imagebutton" width="30"
+                                    style="padding:5px; border-radius:6px;" title="Delete Folder"
+                                    onclick="{!c.deleteFolder}" />
+                                <div class="tooltip slds-popover slds-popover_tooltip slds-nubbin_bottom-left"
+                                    role="tooltip" id="help">
+                                    <div class="slds-popover__body" style="transform:rotate(180deg);">Please select
+                                        folder </div>
+                                </div>
+
+                                <div class="tooltipmainfolder slds-popover slds-popover_tooltip slds-nubbin_bottom-left"
+                                    role="tooltipmainfolder" id="help">
+                                    <div class="slds-popover__body" style="transform:rotate(180deg);">This folder can't
+                                        be deleted </div>
+                                </div>
+                            </div>
+
+                            <div class="changeCursor changeCursor1">
+                                <img src="{!$Resource.renameFolderIcon}"
+                                    class="slds-button slds-button_neutral top-icon-button imagebutton1"
+                                    style="padding:6px; border-radius:6px;" title="Rename Folder"
+                                    onclick="{!c.renameFolderModal}" width="30" />
+                                <div class="tooltip2 slds-popover slds-popover_tooltip slds-nubbin_bottom-left"
+                                    role="tooltip" id="help">
+                                    <div class="slds-popover__body" style="transform:rotate(180deg);">Please select
+                                        folder</div>
+                                </div>
+                            </div>
+
+                            <div class="changeCursor">
+                                <img src="{!$Resource.moveFolderIcon}"
+                                    class="slds-button slds-button_neutral top-icon-button imagebutton"
+                                    style="padding:7px; border-radius:6px;" width="30" iconName="utility:move"
+                                    title="Move Folder" onclick="{!c.createMoveFolderModal}" />
+                                <div class="tooltip3 slds-popover slds-popover_tooltip slds-nubbin_bottom-left"
+                                    role="tooltip" id="help">
+                                    <div class="slds-popover__body" style="transform:rotate(180deg);">Please select
+                                        folder</div>
+                                </div>
+                                <div class="tooltipmainfolder3 slds-popover slds-popover_tooltip slds-nubbin_bottom-left"
+                                    role="tooltipmainfolder" id="help">
+                                    <div class="slds-popover__body" style="transform:rotate(180deg);">This folder can't
+                                        be Move </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div> -->
+
+                    <div class="name-logo">
+                        <div class="logo-folder">
+                            <img src="{!$Resource.folderIcon}" class="folders-tab" />
+                        </div>
+                        <div class="img-logo f-text">
+                            <div>
+                                Folders
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="folder-button-bar">
+                        <div class="btn-del changeCursor">
+                            <img src="{!$Resource.deleteFolderIcon}" aria-describedby="help" aria-disabled="true"
+                                class="slds-button slds-button_neutral top-icon-button imagebutton" width="30"
+                                style="padding:5px; border-radius:6px;" title="Delete Folder"
+                                onclick="{!c.deleteFolder}" />
+                            <div class="tooltip slds-popover slds-popover_tooltip slds-nubbin_bottom-left"
+                                role="tooltip" id="help">
+                                <div class="slds-popover__body" style="transform:rotate(180deg);">Please select
+                                    folder </div>
+                            </div>
+
+                            <div class="tooltipmainfolder slds-popover slds-popover_tooltip slds-nubbin_bottom-left"
+                                role="tooltipmainfolder" id="help">
+                                <div class="slds-popover__body" style="transform:rotate(180deg);">This folder can't
+                                    be deleted </div>
+                            </div>
+                        </div>
+
+
+                        <div class="btn-ren changeCursor changeCursor1">
+                            <img src="{!$Resource.renameFolderIcon}"
+                                class="slds-button slds-button_neutral top-icon-button imagebutton1"
+                                style="padding:6px; border-radius:6px;" title="Rename Folder"
+                                onclick="{!c.renameFolderModal}" width="30" />
+                            <div class="tooltip2 slds-popover slds-popover_tooltip slds-nubbin_bottom-left"
+                                role="tooltip" id="help">
+                                <div class="slds-popover__body" style="transform:rotate(180deg);">Please select
+                                    folder</div>
+                            </div>
+                        </div>
+
+                        <div class="btn-mov changeCursor">
+                            <img src="{!$Resource.moveFolderIcon}"
+                                class="slds-button slds-button_neutral top-icon-button imagebutton"
+                                style="padding:7px; border-radius:6px;" width="30" iconName="utility:move"
+                                title="Move Folder" onclick="{!c.createMoveFolderModal}" />
+                            <div class="tooltip3 slds-popover slds-popover_tooltip slds-nubbin_bottom-left"
+                                role="tooltip" id="help">
+                                <div class="slds-popover__body" style="transform:rotate(180deg);">Please select
+                                    folder</div>
+                            </div>
+                            <div class="tooltipmainfolder3 slds-popover slds-popover_tooltip slds-nubbin_bottom-left"
+                                role="tooltipmainfolder" id="help">
+                                <div class="slds-popover__body" style="transform:rotate(180deg);">This folder can't
+                                    be Move </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="folder-tree">
+                    <div class="folder-tree-heirarchy">
+                        <lightning:tree items="{!v.items}" selectedItem="{!v.selected}" onselect="{!c.handleSelect}"
+                            style="font-size: initial;" />
+                    </div>
+                </div>
+                <div class="folder-footer">
+                    <div>
+                        <img src="{!$Resource.FolderHelpIcon}" class="folder-help-icon" />
+                    </div>
+                    <div style="margin-left: 1%;">
+                        Help
+                    </div>
+                    <!-- <span>
+                        <img src="{!$Resource.FolderHelpIcon}" class="folder-help-icon" />
+                    </span>
+                    <span>
+                        Help
+                    </span> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="slds-col slds-size_9-of-12">
+            <!-- <h1>Form</h1> -->
+        </div>
+    </div>
+
+
+
+</aura:component>

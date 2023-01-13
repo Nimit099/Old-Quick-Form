@@ -1,0 +1,1929 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="QuickFormFieldComponentController">
+
+    <aura:registerEvent name="cmpEvent" type="c:FieldEvent" />
+    <aura:handler name="init" value="{!this}" action="{!c.fetchQuickFormFieldAttValue}" />
+
+    <!--To ensure proper rendering and touch zooming using below meta tag-->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <aura:attribute name="view" type="String" default="Compact" />
+    <aura:attribute name="FormId" type="String" />
+    <aura:attribute name="FormIdencod" type="String" />
+    <aura:attribute name="spinner" type="boolean" default="FALSE" />
+    <aura:attribute name="spinner1" type="boolean" default="FALSE" />
+    <aura:attribute name="Cssspinner" type="boolean" default="FALSE" />
+    <aura:attribute name="imageSpinner" type="boolean" default="FALSE" />
+    <aura:attribute name="pageImageSpinner" type="boolean" default="FALSE" />
+    <aura:attribute name="showToast" type="String" />
+    <aura:attribute name="FormPageFieldValueWrapper" type="Object" />
+    <aura:attribute name="Page" type="Page__c" default="{
+        'SObjectType': 'Page__c',
+        'Form__c' : '',
+        'Title__c': '',
+        'Sub_Title__c': ''
+    }">
+    </aura:attribute>
+    <aura:attribute name="option" type="Boolean" />
+    <aura:attribute name="myVal" type="String" />
+    <aura:attribute name="activeSectionsField" type="List" default="['A', 'B', 'C', 'D', 'E', 'F']" />
+    <aura:attribute name="ShowField" type="boolean" default="false" />
+    <aura:attribute name="OldSearchkey" type="Integer" default='0' />
+
+    <!-- For thank you page -->
+    <aura:attribute name="ThanksType" type="String" default='None' />
+    <aura:attribute name="ThanksTxt" type="String" default="Thank You For Fill The Form" />
+    <aura:attribute name="ThanksURL" type="String" />
+    <aura:attribute name="RedirectTxt" type="String" default="Thank You For Fill The Form" />
+    <aura:attribute name="RedirectUrl" type="String" />
+    <aura:attribute name="FormData" type="Object" />
+    <aura:attribute name="ShowOutPut" type="boolean" default="false" />
+    <aura:attribute name="ids" type="String" default="form" />
+    <aura:attribute name="showtxt" type="Boolean" />
+    <aura:attribute name="radioValue" type="String" default="apples" />
+    <aura:attribute name="hide" type="Boolean" default="false" />
+
+    <aura:attribute name="ThanksLabel" type="String" default="Thank You!" />
+    <aura:attribute name="showRichText" type="Boolean" default="false" />
+    <aura:attribute name="HtmlText" type="String" />
+
+    <!-- Email Notificaton module attributes -->
+
+    <aura:attribute name="fromName" type="String" />
+    <aura:attribute name="fromEmail" type="String" />
+    <aura:attribute name="replyToEmail" type="String" />
+    <aura:attribute name="massageSubject" type="String" />
+    <aura:attribute name="massageBody" type="String" />
+    <aura:attribute name="editEmailAdd" type="String" />
+    <aura:attribute name="indexToUpdate" type="String" />
+    <aura:attribute name="emailTempValue" type="String" default="default" />
+    <aura:attribute name="emailTempList" type="List" />
+    <aura:attribute name="ntf_recever_mailid" type="List" default="[]" />
+    <aura:attribute name="emailRecipientList" type="Object" />
+    <aura:attribute name="emailRecipientForList" type="String" />
+
+    <!-- Accordian section attribute -->
+    <aura:attribute name="activeSections" type="List" default="['A','C']" />
+    <aura:attribute name="activeSectionsMessage" type="String" default="" />
+    <aura:attribute name="searchkeyword" type="String" />
+    <aura:attribute name="formWidth" type="Integer" />
+
+    <aura:attribute name="options2" type="List" default="[
+        {'label': 'Left to Right', 'value': 'ltr'},
+        {'label': 'Right to Left', 'value': 'rtl'},
+        ]" />
+
+    <aura:attribute name="placement" type="List" default="[
+        {'label': 'Left', 'value': 'Left'},
+        {'label': 'Top', 'value': 'Top'},
+        {'label': 'Right', 'value': 'Right'},
+        ]" />
+
+    <aura:attribute name="backSize" type="string" default="auto" />
+    <aura:attribute name="optbackSize" type="List" default="[
+        {'label': 'contain', 'value': 'contain'},
+        {'label': 'auto', 'value': 'auto'},
+        {'label': 'cover', 'value': 'cover'},
+        {'label': 'inherit', 'value': 'inherit'},
+        {'label': 'initial', 'value': 'initial'},
+        {'label': 'revert', 'value': 'revert'},
+        {'label': 'unset', 'value': 'unset'},                                              
+        ]" />
+
+    <aura:attribute name="formbackSize" type="string" default="auto" />
+    <aura:attribute name="optformbackSize" type="List" default="[
+        {'label': 'contain', 'value': 'contain'},
+        {'label': 'auto', 'value': 'auto'},
+        {'label': 'cover', 'value': 'cover'},
+        {'label': 'inherit', 'value': 'inherit'},
+        {'label': 'initial', 'value': 'initial'},
+        {'label': 'revert', 'value': 'revert'},
+        {'label': 'unset', 'value': 'unset'},                                              
+        ]" />
+
+    <aura:attribute name="backpagePostion" type="String" default="top left" />
+    <aura:attribute name="optbackpagePostion" type="List" default="[
+        {'label': 'top left', 'value': 'top left'},
+        {'label': 'top center', 'value': 'top center'},
+        {'label': 'top right', 'value': 'top right'},
+        {'label': 'center left', 'value': 'center left'},
+        {'label': 'center right', 'value': 'center right'},
+        {'label': 'bottom left', 'value': 'bottom left'},
+        {'label': 'bottom right', 'value': 'bottom right'},                                              
+        ]" />
+
+    <aura:attribute name="formbackpagePostion" type="string" default="top left" />
+    <aura:attribute name="optformbackpagePostion" type="List" default="[
+        {'label': 'top left', 'value': 'top left'},
+        {'label': 'top center', 'value': 'top center'},
+        {'label': 'top right', 'value': 'top right'},
+        {'label': 'center left', 'value': 'center left'},
+        {'label': 'center right', 'value': 'center right'},
+        {'label': 'bottom left', 'value': 'bottom left'},
+        {'label': 'bottom right', 'value': 'bottom right'},                                        
+        ]" />
+
+    <aura:attribute name="backpageRepeat" type="String" default="repeat" />
+    <aura:attribute name="optbackpageRepeat" type="List" default="[
+        {'label': 'no-repeat', 'value': 'no-repeat'},
+        {'label': 'repeat', 'value': 'repeat'},
+        {'label': 'repeat-x', 'value': 'repeat-x'},
+        {'label': 'repeat-y', 'value': 'repeat-y'},  
+        ]" />
+
+    <aura:attribute name="formbackpageRepeat" type="String" default="repeat" />
+    <aura:attribute name="optformbackpageRepeat" type="List" default="[
+            {'label': 'no-repeat', 'value': 'no-repeat'},
+            {'label': 'repeat', 'value': 'repeat'},
+            {'label': 'repeat-x', 'value': 'repeat-x'},
+            {'label': 'repeat-y', 'value': 'repeat-y'},  
+            ]" />
+
+    <aura:attribute name="backgroundPagefixposition" type="String" default="scroll" />
+    <aura:attribute name="optBackgroundPagefixposition" type="List" default="[
+        {'label': 'fixed', 'value': 'fixed'},
+        {'label': 'scroll', 'value': 'scroll'},  
+        ]" />
+
+    <aura:attribute name="formbackgroundPagefixposition" type="String" default="scroll" />
+    <aura:attribute name="optformbackgroundPagefixposition" type="List" default="[
+        {'label': 'fixed', 'value': 'fixed'},
+        {'label': 'scroll', 'value': 'scroll'},  
+        ]" />
+
+    <aura:attribute name="borderStyle" type="String" default="Solid" />
+    <aura:attribute name="optborderStyle" type="List" default="[
+        {'label': 'None', 'value': 'None'},
+        {'label': 'Dotted', 'value': 'Dotted'},  
+        {'label': 'Dashed', 'value': 'Dashed'},  
+        {'label': 'Solid', 'value': 'Solid'},  
+        {'label': 'Double', 'value': 'Double'},  
+        {'label': 'Groove', 'value': 'Groove'},  
+        {'label': 'Ridge', 'value': 'Ridge'},  
+        {'label': 'Inset', 'value': 'Inset'},  
+        {'label': 'Outset', 'value': 'Outset'},  
+        ]" />
+
+    <aura:attribute name="formborderStyle" type="String" default="Solid" />
+    <aura:attribute name="optformborderStyle" type="List" default="[
+        {'label': 'None', 'value': 'None'},
+        {'label': 'Dotted', 'value': 'Dotted'},  
+        {'label': 'Dashed', 'value': 'Dashed'},  
+        {'label': 'Solid', 'value': 'Solid'},  
+        {'label': 'Double', 'value': 'Double'},  
+        {'label': 'Groove', 'value': 'Groove'},  
+        {'label': 'Ridge', 'value': 'Ridge'},  
+        {'label': 'Inset', 'value': 'Inset'},  
+        {'label': 'Outset', 'value': 'Outset'},  
+        ]" />
+
+    <aura:attribute name="formborderwidth" type="String" default="1" />
+
+    <aura:attribute name="inputlineheight" type='String' default="Single" />
+    <aura:attribute name="optinputlineheight" type="List" default="[
+        {'label': 'Single', 'value': 'Single'},
+        {'label': '1.5 Lines', 'value': '1.5 Lines'},  
+        {'label': 'Double', 'value': 'Double'},  
+        ]" />
+
+    <aura:attribute name="inputfontstyle" type='String' default="Normal" />
+    <aura:attribute name="optinputfontstyle" type="List" default="[
+        {'label': 'Normal', 'value': 'Normal'},
+        {'label': 'italic', 'value': 'italic'},  
+        ]" />
+
+    <aura:attribute name="inputfontweight" type='String' default="Normal" />
+    <aura:attribute name="optinputfontweight" type="List" default="[
+        {'label': 'Normal', 'value': 'Normal'},
+        {'label': 'bold', 'value': 'bold'},  
+        ]" />
+
+    <aura:attribute name="inputfontfamily" type='String' default="sans-serif" />
+    <aura:attribute name="optinputfontfamily" type="List" default="[
+        {'label': 'Times New Roman', 'value': 'Times New Roman'},
+        {'label': 'Arial', 'value': 'Arial'},  
+        {'label': 'Tahoma', 'value': ' Tahoma'},
+        {'label': 'sans-serif', 'value': 'sans-serif'},
+        {'label': 'cursive', 'value': 'cursive'},
+        {'label': 'fantasy', 'value': 'fantasy'},
+        {'label': 'monospace', 'value': 'monospace'},
+        {'label': 'Helvetica', 'value': 'Helvetica'},
+        ]" />
+
+    <!-- Label -->
+    <aura:attribute name="labelfontfamily" type='String' default="sans-serif" />
+    <aura:attribute name="optlabelfontfamily" type="List" default="[
+        {'label': 'Times New Roman', 'value': 'Times New Roman'},
+        {'label': 'Arial', 'value': 'Arial'},  
+        {'label': 'Tahoma', 'value': ' Tahoma'},
+        {'label': 'sans-serif', 'value': 'sans-serif'},
+        {'label': 'cursive', 'value': 'cursive'},
+        {'label': 'fantasy', 'value': 'fantasy'},
+        {'label': 'monospace', 'value': 'monospace'},
+        {'label': 'Helvetica', 'value': 'Helvetica'},
+        ]" />
+    <aura:attribute name="labelalign" type="String" default="Left" />
+    <aura:attribute name="optlabelalign" type="List" default="[
+        {'label': 'center', 'value': 'center'},  
+        {'label': 'Left', 'value': 'Left'},
+        {'label': 'Right', 'value': 'Right'},                                           
+        ]" />
+    <aura:attribute name="labelfontweight" type='String' default="Normal" />
+    <aura:attribute name="optlabelfontweight" type="List" default="[
+        {'label': 'Normal', 'value': 'Normal'},
+        {'label': 'bold', 'value': 'bold'},  
+        ]" />
+    <aura:attribute name="labelfontstyle" type='String' default="Normal" />
+    <aura:attribute name="optlabelfontstyle" type="List" default="[
+        {'label': 'Normal', 'value': 'Normal'},
+        {'label': 'italic', 'value': 'italic'},  
+        ]" />
+    <aura:attribute name="labelfontsize" type="String" default="Single" />
+    <aura:attribute name="labelineheight" type='String' />
+    <aura:attribute name="optlabelineheight" type="List" default="[
+        {'label': 'Single', 'value': 'Single'},
+        {'label': '1.5 Lines', 'value': '1.5 Lines'},  
+        {'label': 'Double', 'value': 'Double'},  
+        ]" />
+    <aura:attribute name="labelcolor" type="String" />
+    <aura:attribute name="labelbottommargin" type="String" />
+    <aura:attribute name="labeltopmargin" type="String" />
+    <!-- Field focus css -->
+    <aura:attribute name="fieldfocusbg" type='String' />
+    <aura:attribute name="fieldfocusborderColor" type="String" />
+    <aura:attribute name="fieldfocuscolor" type="String" />
+    <aura:attribute name="focuslabelcolor" type="String" />
+    <aura:attribute name="focusinstructioncolor" type="String" />
+
+    <!-- Field hover Accordian -->
+    <aura:attribute name="fieldhoverbg" type='String' />
+    <aura:attribute name="fieldhoverborderColor" type="String" />
+    <aura:attribute name="fieldhovercolor" type="String" />
+    <aura:attribute name="hoverlabelcolor" type="String" />
+
+    <!-- Button Accordian -->
+    <aura:attribute name="btnborderstyle" type="String" default="Solid" />
+    <aura:attribute name="optbtnborderstyle" type="List" default="[
+         {'label': 'None', 'value': 'None'},
+         {'label': 'Dotted', 'value': 'Dotted'},  
+         {'label': 'Dashed', 'value': 'Dashed'},  
+         {'label': 'Solid', 'value': 'Solid'},  
+         {'label': 'Double', 'value': 'Double'},  
+         {'label': 'Groove', 'value': 'Groove'},  
+         {'label': 'Ridge', 'value': 'Ridge'},  
+         {'label': 'Inset', 'value': 'Inset'},  
+         {'label': 'Outset', 'value': 'Outset'},  
+         ]" />
+
+    <aura:attribute name="btncolor" type="String" />
+    <aura:attribute name="btnborderwidth" type="String" default="1" />
+    <aura:attribute name="btnborderradius" type="String" default="5" />
+
+    <aura:attribute name="buttonfontfamily" type='String' default="sans-serif" />
+    <aura:attribute name="optbuttonfontfamily" type="List" default="[
+         {'label': 'Times New Roman', 'value': 'Times New Roman'},
+         {'label': 'Arial', 'value': 'Arial'},  
+         {'label': 'Tahoma', 'value': ' Tahoma'},
+         {'label': 'sans-serif', 'value': 'sans-serif'},
+         {'label': 'cursive', 'value': 'cursive'},
+         {'label': 'fantasy', 'value': 'fantasy'},
+         {'label': 'monospace', 'value': 'monospace'},
+         {'label': 'Helvetica', 'value': 'Helvetica'},
+         ]" />
+
+    <aura:attribute name="buttonfontweight" type='String' default="Normal" />
+    <aura:attribute name="optbuttonfontweight" type="List" default="[
+         {'label': 'Normal', 'value': 'Normal'},
+         {'label': 'bold', 'value': 'bold'},  
+         ]" />
+
+    <aura:attribute name="buttonfontstyle" type='String' default="Normal" />
+    <aura:attribute name="optbuttonfontstyle" type="List" default="[
+         {'label': 'Normal', 'value': 'Normal'},
+         {'label': 'italic', 'value': 'italic'},  
+         ]" />
+
+    <aura:attribute name="buttonfontsize" type="String" />
+
+
+    <aura:attribute name="btnJustify" type='String' default="center" />
+    <aura:attribute name="optbtnJustify" type="List" default="[
+              {'label': 'center', 'value': 'center'},
+              {'label': 'Left', 'value': 'Left'},  
+              {'label': 'Right', 'value': 'Right'},  
+              ]" />
+    <aura:attribute name="btnTextColor" type="String" default="#778899" />
+    <aura:attribute name="btnHorizontalPadding" type="Integer" default="1" />
+
+    <aura:attribute name="btnWidth" type="String" default="60" />
+    <aura:attribute name="btnHeight" type="String" default="40" />
+    <aura:attribute name="btnVerticalPadding" type="Integer" default="0.5" />
+    <aura:attribute name="btnBgColor" type="String" />
+
+    <!-- Radio Accordian -->
+    <aura:attribute name="radiowidth" type="String" />
+    <aura:attribute name="radioheight" type="String" />
+    <aura:attribute name="radiomarginright" type="String" />
+    <aura:attribute name="checkwidth" type="String" />
+    <aura:attribute name="checkheight" type="String" />
+    <aura:attribute name="checkmargintop" type="String" />
+    <aura:attribute name="opt" type="String" />
+    <aura:attribute name="amount" type="Integer" />
+    <aura:attribute name="headpadding" type="Integer" />
+    <aura:attribute name="footpadding" type="Integer" />
+    <aura:attribute name="leftpadding" type="Integer" />
+    <aura:attribute name="rightpadding" type="Integer" />
+    <aura:attribute name="colorpicker" type="String" />
+    <aura:attribute name="pagecolorpicker" type="String" />
+    <aura:attribute name="formdir" type="String" />
+    <aura:attribute name="toppadding" type="Integer" />
+    <aura:attribute name="bottompadding" type="Integer" />
+    <aura:attribute name="setPreview" type="String" />
+    <aura:attribute name="fileName" type="String" default="No File Selected.." />
+    <aura:attribute name="setPagePreview" type="String" />
+    <aura:attribute name="storebgId" type="String" />
+    <aura:attribute name="bgInput" type="String" />
+    <aura:attribute name="storeFormbgId" type="String" />
+    <aura:attribute name="fverticalPadding" type="String" />
+    <aura:attribute name="fhorizontalPadding" type="String" />
+    <aura:attribute name="borderInput" type="String" />
+    <aura:attribute name="borderWidth" type="String" default="1" />
+    <aura:attribute name="borderRadius" type="String" default="3" />
+    <aura:attribute name="inputVpadding" type="String" default="5" />
+    <aura:attribute name="inputHpadding" type="String" default="5" />
+    <aura:attribute name="inputfontsize" type="String" />
+    <aura:attribute name="bordertextcolor" type="String" />
+    <aura:attribute name="formbordercolor" type="String" />
+    <aura:attribute name="publishurl" type="String" default="Publish Form URL" />
+    <aura:attribute name="site_deactivate" type="boolean" default="true" />
+    <aura:attribute name="showModal1" type="boolean" />
+    <aura:attribute name="showModal2" type="boolean" />
+    <aura:attribute name="showModal3" type="boolean" />
+    <aura:attribute name="showModal4" type="boolean" />
+    <aura:attribute name="showModel6" type="boolean" />
+    <aura:attribute name="showModel7" type="boolean" />
+    <aura:attribute name="showTextModal" type="boolean" default="false" />
+    <aura:attribute name="deleteImageIds" type="String" />
+    <aura:attribute name="deleteFormImageIds" type="string" />
+    <aura:attribute name="editNextButton" type="String" default="Next" />
+
+    <aura:attribute name="encoding" type="String" />
+    <aura:attribute name="body" type="Aura.Component[]" />
+
+    <aura:attribute name="renderPreview" type="Boolean" default="true" />
+
+
+
+    <!--=========================[ page Modal ] ========================= -->
+    <div>
+        <section aura:id="Modal" role="dialog" tabindex="-1" aria-labelledby="ModalHeading" aria-modal="true" aria-describedby="ModalBody" class="slds-modal">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon class="slds-modal__close" alternativeText="Close" iconName="utility:close" onclick="{!c.closeModal}" variant="bare-inverse" size="large"></lightning:buttonIcon>
+                    <div class="header">
+                        <h5 id="ModalHeading">New Page</h5>
+                    </div>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="ModalBody">
+                    <div style="float:right;">
+                        <lightning:helptext content="To display the page title"></lightning:helptext>
+                    </div>
+                    <div>
+                        <lightning:input label="Page Title " value="{!v.Page.Title__c}" class="validate" />
+                    </div>
+                    <div style="float:right;">
+                        <lightning:helptext content="To display the page subtitle"></lightning:helptext>
+                    </div>
+                    <div>
+                        <lightning:input label="Page Sub-title" value="{!v.Page.Sub_Title__c}" />
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <div>
+                        <lightning:button label="Cancel" title="Cancel Page" onclick="{!c.closeModal}" />
+                        <lightning:button variant="brand" label="Save" title="Add Page" onclick="{!c.createPage}" disabled="{!v.Page.Title__c == ''}" />
+                    </div>
+                </footer>
+            </div>
+        </section>
+        <div aura:id="ModalBackdrop" class="slds-backdrop"></div>
+    </div>
+
+    <!-- ========================= [page Modal End ] ========================= -->
+
+    <!-- ========================= [ Add Recipient] Button click  strat=========================-->
+
+    <div>
+        <section aura:id="add_Recipient" role="dialog" tabindex="-1" aria-labelledby="ModalHeading" aria-modal="true" aria-describedby="ModalBody" class="slds-modal">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon class="slds-modal__close" alternativeText="Close" iconName="utility:close" onclick="{!c.cancleAddRecipient}" variant="bare-inverse" size="large">
+                    </lightning:buttonIcon>
+                    <div class="header">
+                        <h2 id="ModalHeading">Add Recipient</h2>
+                    </div>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="ModalBody">
+                    <div class="" id="renameTextField">
+                        <lightning:input type="email" label="Recipient Email" value="{!v.emailRecipientForList}" required="true" messageWhenValueMissing="Please Fill the Details" />
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <div class="" style="text-align: center;">
+                        <lightning:button label="Cancel" title="Cancel" onclick="{!c.cancleAddRecipient}" />
+                        <lightning:button class="" variant="brand" label="Add" onclick="{!c.addRecipient}" />
+                    </div>
+                </footer>
+            </div>
+        </section>
+        <div aura:id="ModalBackdrop_add_Recipient" class="slds-backdrop"></div>
+    </div>
+
+    <!-- ========================= [ Add Recipient ] Button click  finished=========================-->
+
+    <!-- ========================= [ Edit Recipient] Button click  strat=========================-->
+
+    <div>
+        <section aura:id="edit_Recipient" role="dialog" tabindex="-1" aria-labelledby="ModalHeading" aria-modal="true" aria-describedby="ModalBody" class="slds-modal">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon class="slds-modal__close" alternativeText="Close" iconName="utility:close" onclick="{!c.cancleEditRecipient}" variant="bare-inverse" size="large">
+                    </lightning:buttonIcon>
+                    <div class="header">
+                        <h2 id="ModalHeading">Edit Recipient</h2>
+                    </div>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="ModalBody">
+                    <div class="" id="renameTextField">
+                        <lightning:input type="email" label="Recipient Email" value="{!v.editEmailAdd}" required="true" messageWhenValueMissing="Please Fill the Details" />
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <div class="" style="text-align: center;">
+                        <lightning:button label="Cancel" title="Cancel" onclick="{!c.cancleEditRecipient}" />
+                        <lightning:button class="" variant="brand" label="Save" title="Save Recipient" onclick="{!c.editRecipient}" />
+                    </div>
+                </footer>
+            </div>
+        </section>
+        <div aura:id="ModalBackdrop_edit_Recipient" class="slds-backdrop"></div>
+    </div>
+
+    <!-- ========================= [ Edit Recipient ] Button click  finished=========================-->
+
+    <aura:if isTrue="{!v.spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+
+    <!-- ========================= [ css spinner ] =========================-->
+
+    <aura:if isTrue="{!v.Cssspinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+
+    <!--=====================[ form Image spinner]===========-->
+    <aura:if isTrue="{!v.imageSpinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+
+    <!--=====================[ page Image spinner]===========-->
+
+    <aura:if isTrue="{!v.pageImageSpinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+
+
+    <!-- Main Component -->
+    <div class="slds-grid" onmouseover='{!c.SetOpacity}' style=" position:absolute; width:100% ; height:100%;">
+        <!-- <div class="" style="background-color: white; position:fixed; width:100%; height:10%; z-index:100000">Test </div> -->
+
+        <!-- Vertical Tab Div  -->
+        <div class="main slds-size_1-of-1 slds-small-size_6-of-12  slds-medium-size_4-of-12 slds-large-size_3-of-12 ">
+
+            <lightning:tabset variant="vertical">
+
+                <lightning:tab id="fieldSection" class="HideSectionTab" iconName="utility:insert_tag_field" title="Mapping Fields" onactive="{!c.handleActive }">
+                    <div class="toglling hideTabs " aura:id="demo">
+                        <span class="cross_span" onclick="{!c.Hidetwo_class}">&times;</span>
+                        <div class="fieldname  slds-box slds-box_x-small" style="background-color: white;">
+                            <p style="color: rgb(97, 121, 199);text-align: center;"><b>Fields </b> </p>
+                        </div>
+
+                        <div class="slds-box_x-small">
+                            <lightning:input aura:id="searchKey" placeholder="Search Field" onchange="{!c.searchAction}" />
+                        </div>
+
+                        <aura:if isTrue="{!v.spinner1}">
+                            <div aura:id="spinnerId" class="slds-spinner_container" style="position:relative; height: inherit; background-color:rgba(255, 255, 255, 0.75) ">
+                                <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                                    <span class="slds-assistive-text">Loading...</span>
+                                    <div class="slds-spinner__dot-a"></div>
+                                    <div class="slds-spinner__dot-b"></div>
+                                </div>
+                            </div>
+                        </aura:if>
+
+                        <aura:if isTrue="{!not (v.ShowField)}">
+                            <lightning:accordion allowMultipleSectionsOpen="true" activeSectionName="{! v.activeSectionsField }">
+                                <lightning:accordionSection name="A" label="Contact Details">
+                                    <div style="position: absolute;width: 95%;left:3%;" ondragover="{!c.onDragOver}" ondrop="{!c.MethodForOpacity}">
+                                        <aura:iteration items="{!v.FormPageFieldValueWrapper.basefield}" var="basefield">
+                                            <aura:if isTrue="{! (basefield.DataRecord__c == 'QFFULLNAME' || basefield.DataRecord__c == 'QFNAME' || basefield.DataRecord__c == 'QFPHONE' || basefield.DataRecord__c == 'QFEMAILID' || basefield.DataRecord__c == 'QFADDRESS')}">
+                                                <div class="example-draggable" data-record="{!basefield.DataRecord__c}" draggable="true" ondragstart="{!c.onDragStart}">
+                                                    <c:quickformfieldcomponent1 tView="{!basefield.DataRecord__c}" Compview="{!v.view}" />
+                                                </div>
+                                            </aura:if>
+                                        </aura:iteration>
+                                    </div>
+                                    <div style="padding-bottom: 250px;" />
+                                </lightning:accordionSection>
+
+                                <lightning:accordionSection name="B" label="Essentials">
+                                    <div style="position: absolute;width: 95%;left:3%;" ondragover="{!c.onDragOver}" ondrop="{!c.MethodForOpacity}">
+                                        <aura:iteration items="{!v.FormPageFieldValueWrapper.basefield}" var="basefield">
+                                            <aura:if isTrue="{! (basefield.DataRecord__c == 'QFSHORTTEXT' || basefield.DataRecord__c == 'QFLONGTEXT'|| basefield.DataRecord__c == 'QFRICHTEXT' || basefield.DataRecord__c == 'QFDROPDOWN' || basefield.DataRecord__c == 'QFRADIOBUTTON' || basefield.DataRecord__c == 'QFCHECKBOX' || basefield.DataRecord__c == 'QFPRICE' || basefield.DataRecord__c == 'QFNUMBER')}">
+                                                <div class="example-draggable" data-record="{!basefield.DataRecord__c}" draggable="true" ondragstart="{!c.onDragStart}">
+                                                    <c:quickformfieldcomponent1 tView="{!basefield.DataRecord__c}" Compview="{!v.view}" />
+                                                </div>
+                                            </aura:if>
+                                        </aura:iteration>
+                                    </div>
+                                    <div style="padding-bottom: 400px;" />
+                                </lightning:accordionSection>
+
+                                <lightning:accordionSection name="C" label="Upload and Consent">
+                                    <div style="position: absolute;width: 95%;left:3%;" ondragover="{!c.onDragOver}" ondrop="{!c.MethodForOpacity}">
+                                        <aura:iteration items="{!v.FormPageFieldValueWrapper.basefield}" var="basefield">
+                                            <aura:if isTrue="{! (basefield.DataRecord__c == 'QFSIGNATURE' || basefield.DataRecord__c == 'QFFILEUPLOAD' || basefield.DataRecord__c == 'QFTERMSOFSERVICE' || basefield.DataRecord__c == 'QFLINK')}">
+                                                <div class="example-draggable" data-record="{!basefield.DataRecord__c}" draggable="true" ondragstart="{!c.onDragStart}">
+                                                    <c:quickformfieldcomponent1 tView="{!basefield.DataRecord__c}" Compview="{!v.view}" />
+                                                </div>
+                                            </aura:if>
+                                        </aura:iteration>
+                                    </div>
+                                    <div style="padding-bottom: 200px;" />
+                                </lightning:accordionSection>
+
+                                <lightning:accordionSection name="D" label="Date and Time">
+                                    <div style="position: absolute;width: 95%;left:3%;" ondragover="{!c.onDragOver}" ondrop="{!c.MethodForOpacity}">
+                                        <aura:iteration items="{!v.FormPageFieldValueWrapper.basefield}" var="basefield">
+                                            <aura:if isTrue="{! (basefield.DataRecord__c == 'QFDATE' || basefield.DataRecord__c == 'QFTIME' || basefield.DataRecord__c == 'QFDATETIME')}">
+                                                <div class="example-draggable" data-record="{!basefield.DataRecord__c}" draggable="true" ondragstart="{!c.onDragStart}">
+                                                    <c:quickformfieldcomponent1 tView="{!basefield.DataRecord__c}" Compview="{!v.view}" />
+                                                </div>
+                                            </aura:if>
+                                        </aura:iteration>
+                                    </div>
+                                    <div style="padding-bottom: 150px;" />
+                                </lightning:accordionSection>
+
+                                <lightning:accordionSection name="E" label="Rating">
+                                    <div style="position: absolute;width: 95%;left:3%;" ondragover="{!c.onDragOver}" ondrop="{!c.MethodForOpacity}">
+                                        <aura:iteration items="{!v.FormPageFieldValueWrapper.basefield}" var="basefield">
+                                            <aura:if isTrue="{! (basefield.DataRecord__c == 'QFRATING' || basefield.DataRecord__c == 'QFEMOJIRATING' || basefield.DataRecord__c == 'QFSCALERATING' )}">
+                                                <div class="example-draggable" data-record="{!basefield.DataRecord__c}" draggable="true" ondragstart="{!c.onDragStart}">
+                                                    <c:quickformfieldcomponent1 tView="{!basefield.DataRecord__c}" Compview="{!v.view}" />
+                                                </div>
+                                            </aura:if>
+                                        </aura:iteration>
+                                    </div>
+                                    <div style="padding-bottom: 150px;" />
+                                </lightning:accordionSection>
+
+                                <lightning:accordionSection name="F" label="Other">
+                                    <div style="position: absolute;width: 95%;left:3%;" ondragover="{!c.onDragOver}" ondrop="{!c.MethodForOpacity}">
+                                        <aura:iteration items="{!v.FormPageFieldValueWrapper.basefield}" var="basefield">
+                                            <aura:if isTrue="{! (basefield.DataRecord__c == 'QFPAGEBREAK' || basefield.DataRecord__c == 'QFLOOKUP')}">
+                                                <div class="example-draggable" data-record="{!basefield.DataRecord__c}" draggable="true" ondragstart="{!c.onDragStart}">
+                                                    <c:quickformfieldcomponent1 tView="{!basefield.DataRecord__c}" Compview="{!v.view}" />
+                                                </div>
+                                            </aura:if>
+                                        </aura:iteration>
+                                    </div>
+                                    <div style="padding-bottom: 100px;" />
+                                </lightning:accordionSection>
+
+                            </lightning:accordion>
+                        </aura:if>
+
+                        <aura:if isTrue="{!v.ShowField}">
+                            <br />
+                            <div style="height: 90%;width: 100%;left:3%;" ondragover="{!c.onDragOver}" ondrop="{!c.MethodForOpacity}">
+                                <aura:iteration items="{!v.FormPageFieldValueWrapper.basefield}" var="basefield">
+                                    <div class="example-draggable" data-record="{!basefield.DataRecord__c}" draggable="true" ondragstart="{!c.onDragStart}">
+                                        <c:quickformfieldcomponent1 tView="{!basefield.DataRecord__c}" Compview="{!v.view}" />
+                                    </div>
+                                </aura:iteration>
+                            </div>
+                        </aura:if>
+                    </div>
+                </lightning:tab>
+
+
+                <lightning:tab iconName="utility:brush" class="HideSectionTab" title="Design" onactive="{! c.handleActive }">
+                    <div class="fieldDiv" aura:id="demo">
+                        <span class="cross_span" onclick="{!c.Hidetwo_class}">&times;</span>
+                        <div class="fieldname  slds-box slds-box_x-small" style="background-color: white;">
+                            <p style="color: rgb(97, 121, 199);text-align: center;"><b>DESIGN</b></p>
+                        </div>
+
+                        <div class="slds-grid slds-grid_vertical" style="margin-top: 10px;">
+
+                            <!-- Accordian Section -->
+
+                            <div class="slds-col slds-m-top_x-large accclass" style="overflow-y: scroll;">
+                                <button class="accordion test" onclick="{!c.designaccordian}">Form </button>
+                                <div class="panel">
+                                    <lightning:input type="number" aura:id="input-id-01" value="{!v.formWidth}" label="Form Width (%)" onchange='{!c.handleCss}' />
+                                    <lightning:input type="number" name="Header padding" value="{! v.headpadding }" label="Header Padding (%)" onchange='{!c.handleCss}' class="  " />
+                                    <lightning:input type="number" name="Footer Padding" value="{! v.footpadding }" label="Footer Padding (%)" onchange='{!c.handleCss}' class="  " />
+                                    <lightning:input type="number" name="Left Padding" value="{! v.leftpadding }" label="Left Padding (%)" onchange='{!c.handleCss}' class="  " />
+                                    <lightning:input type="number" name="Right padding" value="{! v.rightpadding }" label="Right Padding (%)" onchange='{!c.handleCss}' class="  " />
+                                    <lightning:combobox name="Form direction" label="Form direction" options="{! v.options2 }" value='{!v.formdir}' onchange='{!c.handleCss}' class="  " />
+                                    <lightning:input type="color" label="Background" name="color" value="{!v.colorpicker}" onchange='{!c.handleCss}' class="slds-color-picker__custom-inputs" />
+                                    <lightning:input aura:id="fuploader" onchange="{!c.handleSave}" type="file" name="file" multiple="false" accept="image/png , image.jpeg , image/jpg" />
+                                    <img src="{!'/servlet/servlet.FileDownload?file=' + v.storeFormbgId}" alt="" style="display: block;  margin: auto; margin-top: 10px;" />
+                                    <lightning:input type="text" value='{!v.storeFormbgId}' style="display: none;" />
+                                    <lightning:button variant="brand-outline" label="Remove" onclick="{!c.removeBackground}" title="titleName" class="slds-m-top--medium" disabled="{!v.storeFormbgId == ''}" />
+                                    <lightning:combobox label="Background size" class="mt-3" value="{!v.formbackSize}" options="{!v.optformbackSize}" onchange="{!c.handleCss}" />
+                                    <lightning:combobox label="Background position" value="{!v.formbackpagePostion}" options="{! v.optformbackpagePostion}" onchange="{!c.handleCss}" />
+                                    <lightning:combobox label="Background repeat" value="{!v.formbackpageRepeat}" options="{! v.optformbackpageRepeat}" onchange="{!c.handleCss}" />
+                                    <lightning:combobox label="Background fix position" value="{!v.formbackgroundPagefixposition}" options="{! v.optformbackgroundPagefixposition}" onchange="{!c.handleCss}" class="slds-m-bottom_medium" />
+                                </div>
+
+                                <button class="accordion" onclick="{!c.designaccordian}">Page</button>
+                                <div class="panel">
+                                    <lightning:input type="number" name="Top padding" value="{!v.toppadding}" label="Top padding (px)" onchange='{!c.handleCss}' />
+                                    <lightning:input type="number" name="Bottom Padding" value="{!v.bottompadding}" label="Bottom Padding (px)" onchange='{!c.handleCss}' />
+                                    <lightning:input type="color" label="Background" name="color" value="{!v.pagecolorpicker}" onchange='{!c.handleCss}' />
+                                    <lightning:input aura:id="pageuploader" onchange="{!c.handlePageSave}" type="file" name="file" multiple="false" accept="image/png , image.jpeg , image/jpg" />
+                                    <img src="{!'/servlet/servlet.FileDownload?file=' + v.storebgId}" alt="" style="display: block;  margin: auto;   margin-top: 10px;" />
+                                    <lightning:input type="text" value='{!v.storebgId}' style="display:none" />
+                                    <lightning:button variant="brand-outline" label="Remove" onclick="{!c.removePageBackground}" title="titleName" class="slds-m-top--medium" disabled="{!v.storebgId == ''}" />
+                                    <lightning:combobox label="Background size" class="mt-3" value="{!v.backSize}" options="{!v.optbackSize}" onchange="{!c.handleCss}" />
+                                    <lightning:combobox label="Background position" value="{!v.backpagePostion}" options="{! v.optbackpagePostion}" onchange="{!c.handleCss}" />
+                                    <lightning:combobox label="Background repeat" value="{!v.backpageRepeat}" options="{! v.optbackpageRepeat }" onchange="{!c.handleCss}" />
+                                    <lightning:combobox label="Background fix position" value="{!v.backgroundPagefixposition}" options="{! v.optBackgroundPagefixposition}" onchange="{!c.handleCss}" />
+                                    <lightning:input type="color" label="Border" name="color" value="{!v.formbordercolor}" onchange='{!c.handleCss}' />
+                                    <lightning:combobox label="Border style (px)" value="{!v.formborderStyle}" options="{! v.optformborderStyle}" onchange="{!c.handleCss}" />
+                                    <lightning:input type="text" value="{!v.formborderwidth }" label="Border thickness (px)" onchange="{!c.handleCss}" class="slds-m-bottom_medium" />
+                                </div>
+
+                                <button class="accordion" onclick="{!c.designaccordian}">Label</button>
+                                <div class="panel">
+                                    <lightning:combobox label="Alignment" value="{!v.labelalign}" options="{!v.optlabelalign }" onchange="{!c.handleCss}" />
+                                    <lightning:combobox label="Font" value="{!v.labelfontfamily}" options="{! v.optlabelfontfamily}" onchange="{!c.handleCss}" />
+                                    <lightning:combobox label="Font weight" value="{!v.labelfontweight}" options="{!v.optlabelfontweight}" onchange="{!c.handleCss}" />
+                                    <lightning:combobox label="Font style" value="{!v.labelfontstyle}" options="{!v.optlabelfontstyle}" onchange="{!c.handleCss}" />
+                                    <lightning:input type="text" value="{!v.labelfontsize}" label="Font size (px)" onchange="{!c.handleCss}" />
+                                    <lightning:combobox label="Font line height" value="{!v.labelineheight}" options="{! v.optlabelineheight}" onchange="{!c.handleCss}" />
+                                    <lightning:input type="color" value="{!v.labelcolor}" label="Color" onchange="{!c.handleCss}" />
+                                    <lightning:input type="text" value="{!v.labeltopmargin}" label="Top margin (px)" onchange="{!c.handleCss}" />
+                                    <lightning:input type="text" value="{!v.labelbottommargin}" label="Bottom margin (px)" onchange="{!c.handleCss}" class="slds-m-bottom_medium" />
+                                </div>
+
+                                <button class="accordion" onclick="{!c.designaccordian}" style="display: none;">Instrunction</button>
+                                <button class="accordion" onclick="{!c.designaccordian}">Input</button>
+                                <div class="panel">
+                                    <lightning:input type="color" label="Background" value="{!v.bgInput}" onchange="{!c.handleCss}" />
+                                    <lightning:input type="color" label="Border" value="{!v.borderInput}" onchange="{!c.handleCss}" />
+                                    <lightning:combobox name="Border style" label="Border style" value="{!v.borderStyle}" options="{! v.optborderStyle}" onchange="{!c.handleCss}" />
+                                    <lightning:input type="text" label="Border thickness (px)" value="{!v.borderWidth}" onchange="{!c.handleCss}" />
+                                    <lightning:input type="text" label="Border radius (px)" value="{!v.borderRadius}" onchange="{!c.handleCss}" />
+                                    <lightning:combobox name="Font" label="Font" options="{!v.optinputfontfamily}" value="{!v.inputfontfamily}" onchange="{!c.handleCss}" />
+                                    <lightning:combobox label="Font weight" value="{!v.inputfontweight}" options="{! v.optinputfontweight }" onchange="{!c.handleCss}" />
+                                    <lightning:combobox label="Font style" value="{!v.inputfontstyle}" options="{! v.optinputfontstyle}" onchange="{!c.handleCss}" />
+                                    <lightning:input type="number" label="Font size (px)" value='{!v.inputfontsize}' onchange="{!c.handleCss}" />
+                                    <lightning:combobox label="Font line height" value="{!v.inputlineheight}" options="{! v.optinputlineheight}" onchange="{!c.handleCss}" />
+                                    <lightning:input type="color" label="Text color" value='{!v.bordertextcolor}' onchange="{!c.handleCss}" />
+                                    <lightning:input type="text" label="Horizontal padding (px)" value='{!v.inputHpadding}' onchange="{!c.handleCss}" />
+                                    <lightning:input type="text" label="Vertical padding (px)" value='{!v.inputVpadding}' onchange="{!c.handleCss}" class="slds-m-bottom_medium" />
+                                </div>
+
+
+                                <button class="accordion" onclick="{!c.designaccordian}">Button</button>
+                                <div class="panel">
+                                    <lightning:combobox label="Alignment" value='{!v.btnJustify}' options="{!v.optbtnJustify}" onchange="{!c.handleCss}" class="slds-m-bottom_medium" />
+
+                                    <lightning:input type="color" label="Text Color" value="{!v.btnTextColor}" onchange="{!c.handleCss}" />
+
+
+                                    <lightning:input type="color" label="Background Color" value="{!v.btnBgColor}" onchange="{!c.handleCss}" />
+                                    <lightning:input type="color" label="Border color" value="{!v.btncolor}" onchange="{!c.handleCss}" />
+                                    <lightning:combobox label="Border style" value="{!v.btnborderstyle}" options="{! v.optbtnborderstyle }" onchange="{!c.handleCss}" />
+                                    <lightning:input type="text" label="Border thickness (px)" value="{!v.btnborderwidth}" onchange="{!c.handleCss}" />
+                                    <lightning:input type="text" label="Border radius (px)" onchange="{!c.handleCss}" value="{!v.btnborderradius}" />
+                                    <lightning:combobox label="Font" value="{!v.buttonfontfamily}" options="{! v.optbuttonfontfamily }" onchange="{!c.handleCss}" />
+                                    <lightning:combobox label="Font weight" value="{!v.buttonfontweight}" options="{! v.optbuttonfontweight }" onchange="{!c.handleCss}" />
+                                    <lightning:combobox label="Font style" value="{!v.buttonfontstyle}" options="{! v.optbuttonfontstyle }" onchange="{!c.handleCss}" />
+                                    <lightning:input type="text" value="{!v.buttonfontsize}" label="Font size (px)" onchange="{!c.handleCss}" />
+
+                                    <lightning:input type="text" label="Width (px)" onchange="{!c.handleCss}" value="{!v.btnWidth}" />
+                                    <lightning:input type="text" label="Height (px)" onchange="{!c.handleCss}" value="{!v.btnHeight}" />
+                                    <lightning:input type="text" label="Horizontal Padding (px)" onchange="{!c.handleCss}" value="{!v.btnHorizontalPadding}" />
+                                    <lightning:input type="text" label="Vertical Padding (px)" onchange="{!c.handleCss}" value="{!v.btnVerticalPadding}" class="slds-m-bottom_medium" />
+
+
+                                </div>
+
+
+
+
+                                <button class="accordion" onclick="{!c.designaccordian}">Field Hover</button>
+                                <div class="panel">
+                                    <lightning:input type="color" label="Input background" value='{!v.fieldhoverbg}' onchange="{!c.handleCss}" />
+                                    <lightning:input type="color" label="Input border" value='{!v.fieldhoverborderColor}' onchange="{!c.handleCss}" />
+                                    <lightning:input type="color" label="Input text color" value='{!v.fieldhovercolor}' onchange="{!c.handleCss}" class="hoverTextColor" />
+                                    <lightning:input type="color" label="Label color" value="{!v.hoverlabelcolor}" onchange="{!c.handleCss}" id="label_popup" class="hoverLabelColor slds-m-bottom_medium" />
+                                </div>
+
+                                <button class="accordion" onclick="{!c.designaccordian}">Field Focus</button>
+                                <div class="panel">
+                                    <lightning:input type="color" label="Input background" value='{!v.fieldfocusbg}' onchange="{!c.handleCss}" />
+                                    <lightning:input type="color" label="Input border" value='{!v.fieldfocusborderColor}' onchange="{!c.handleCss}" class="colorBarFocusInputBorder" />
+                                    <lightning:input type="color" label="Input text color" value="{!v.fieldfocuscolor}" onchange="{!c.handleCss}" class="colorBarFocusInput" />
+                                    <lightning:input type="color" label="Label color" value="{!v.focuslabelcolor}" onchange="{!c.handleCss}" class="slds-m-bottom_medium colorBar" />
+
+                                </div>
+
+                                <button class="accordion" onclick="{!c.designaccordian}">Choices</button>
+                                <div class="panel">
+                                    <lightning:input type="text" label="Radio width (px)" value="{!v.radiowidth}" onchange="{!c.handleCss}" />
+                                    <lightning:input type="text" label="Radio height (px)" value="{!v.radioheight}" onchange="{!c.handleCss}" />
+                                    <lightning:input type="text" label="Radio margin top (px)" value="{!v.radiomarginright}" onchange="{!c.handleCss}" />
+                                    <lightning:input type="text" label="Checkbox width (px)" value="{!v.checkwidth}" onchange="{!c.handleCss}" />
+                                    <lightning:input type="text" label="Checkbox height (px)" value="{!v.checkheight}" onchange="{!c.handleCss}" />
+                                    <lightning:input type="text" label="Checkbox right margin (px)" value="{!v.checkmargintop}" onchange="{!c.handleCss}" class="slds-m-bottom_medium" />
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </lightning:tab>
+
+
+                <lightning:tab iconName="utility:notification" title="Notification" onactive="{! c.handleActive }">
+                    <div class=" showtabs" style="position:absolute; z-index:11;top:0; overflow:hidden; ">
+                        <div class="card emailNotificationDiv">
+                            <div class="card-body" style=" padding:2rem">
+
+                                <div class="" style="display:flex; flex-direction:column">
+                                    <span style="color: #A4A4A4;margin-bottom:1rem;">RECIPIENTS </span>
+                                    <span style="text-transform: uppercase">Email Id</span>
+
+                                    <!-- email box -->
+
+                                    <div class="emailBox">
+                                        <div class="slds-truncate">
+                                            <aura:iteration items="{!v.ntf_recever_mailid}" var="recipient" indexVar="index">
+                                                <div class="emialRecipientIttretion">
+                                                    <span style="display:inline;float:left;margin-right: 15px;">
+                                                        <option text="{!recipient}"></option>
+                                                    </span>
+                                                    <span style="display:inline;float:right;margin-right: 15px;">
+                                                        <lightning:buttonIcon iconName="utility:delete"
+                                                            variant="border-filled" alternativeText="Settings"
+                                                            title="Delete Recipient" value="{!index}"
+                                                            onclick="{!c.deleteRecipient}" />
+                                                    </span>
+                                                    <span style="display:inline;float:right;margin-right: 15px;">
+                                                        <lightning:buttonIcon iconName="utility:edit"
+                                                            variant="border-filled" alternativeText="Edit"
+                                                            title="Edit Recipient" value="{!index}"
+                                                            onclick="{!c.openEditRecipient}" />
+                                                    </span><br />
+                                                </div>
+                                            </aura:iteration>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <div style="margin-top: 10px;">
+                                    <lightning:button variant="brand" label="New Recipient" title="Add Recipient" onclick="{!c.openAddRecipient}" />
+                                </div>
+
+                                <div class="emailHeaderAndContent">
+
+                                    <div style="color: #A4A4A4;">EMAIL HEADER AND CONTENT</div>
+
+                                    <div class="emailDetails">
+
+                                        <div class="slds-grid slds-p-around_medium">
+                                            <div class="slds-col slds-size_1-of-5">
+                                                <div class="slds-clearfix">
+                                                    <div class=" slds-float_right slds-m-right_medium">Email Subject:
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-5">
+                                                <lightning:input value="{!v.emailRecipientList.subject_mail}" variant="label-hidden" style="width: 30%;" />
+                                            </div>
+                                        </div>
+
+                                        <div class="slds-grid slds-p-around_medium">
+                                            <div class="slds-col slds-size_1-of-5">
+                                                <div class="slds-clearfix">
+                                                    <div class=" slds-float_right slds-m-right_medium">Reply to Email:
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-5">
+                                                <lightning:input type="email" name="email1" value="{!v.emailRecipientList.reply_mailid}" variant="label-hidden" style="width: 30%;" />
+                                            </div>
+                                        </div>
+
+                                        <div class="slds-grid slds-p-around_medium trtr">
+                                            <div class="slds-col slds-size_1-of-5">
+                                                <div class="slds-clearfix">
+                                                    <div class=" slds-float_right slds-m-right_medium">Email Body:</div>
+                                                </div>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-5 input_rich_text" style="width: 50%;">
+                                                <lightning:inputRichText value="{!v.emailRecipientList.body_mail}" placeholder="Type Email Subject" onblur="{!c.input_rich_text_blur}" />
+                                            </div>
+                                        </div>
+
+                                        <div class="slds-grid slds-p-around_medium trtr">
+                                            <div class="slds-col slds-size_1-of-5">
+                                                <div class="slds-clearfix">
+                                                    <div class=" slds-float_right slds-m-right_medium">Receved Attachment:
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-5 input_rich_text" style="width: 50%;">
+                                                <ui:inputCheckbox aura:id="checkbox" change="{!c.onCheck}" value="{!v.emailRecipientList.attch_receved}" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div style="display: flex; justify-content: center;">
+                                        <button class="button-class button-content" onclick="{!c.saveNotificationMailData}">
+                                            Save
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </lightning:tab>
+
+                <lightning:tab iconName="utility:page" title="Thank you page" onactive="{! c.handleActive }">
+                    <div class="thanksfieldDiv showtabs" style="position:absolute; z-index:11;top:0; overflow:scroll;height:100%">
+                        <div class="card thankyoudiv">
+                            <div class="PageClass">
+                                <div class="thanksicon slds-button slds-button_neutral" onclick="{!c.openRichText}">
+                                    <lightning:icon class="icon" iconName="utility:edit" size="small" />
+                                </div>
+
+                                <aura:if isTrue="{!v.showRichText}">
+                                    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                                        <div class="slds-modal__container">
+                                            <header class="slds-modal__header">
+                                                <lightning:buttonIcon iconName="utility:close" onclick="{! c.closeModel }" alternativeText="close" variant="bare-inverse" class="slds-modal__close" />
+                                                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">HTML Block</h2>
+                                            </header>
+
+                                            <lightning:tabset variant="scoped">
+                                                <lightning:tab label="Edit Rich Text">
+                                                    <lightning:inputRichText formats="['font', 'size', 'bold', 'italic', 'underline', 'strike', 'list', 'indent', 'align', 'link', 'clean', 'table', 
+                                                    'header', 'color', 'background']" value="{!v.ThanksLabel}" aura:id="editor" placeholder="Type something" />
+                                                </lightning:tab>
+                                                <lightning:tab label="Edit HTML Text" onactive="{! c.HtmlTextC }">
+                                                    <lightning:textarea label="HTML Text" value="{! v.HtmlText}" name="Html" onchange="{!c.RichTextC}" />
+                                                </lightning:tab>
+                                                <lightning:tab label="Output">
+                                                    <ui:outputRichText class="slds-text-longform" value="{!v.ThanksLabel}" />
+                                                </lightning:tab>
+                                            </lightning:tabset>
+
+                                            <footer class="slds-modal__footer">
+                                                <lightning:button variant="brand" label="OK" title="OK" onclick="{!c.saveData}" />
+                                                <lightning:button variant="neutral" label="Cancel" title="Cancel" onclick="{! c.closeModel }" />
+                                            </footer>
+                                        </div>
+                                    </section>
+                                    <div class="slds-backdrop slds-backdrop_open"></div>
+                                </aura:if>
+
+                                <div class="thanksLabel">
+                                    <ui:outputRichText class="outrichstyle slds-cell-wrap" value="{!v.ThanksLabel}" />
+                                </div>
+
+                                <aura:if isTrue="{!v.ThanksType == 'ThankYou_Text'}">
+                                    <div class="txtstyle"> {!v.ThanksTxt} </div>
+                                </aura:if>
+
+                                <aura:if isTrue="{!v.ThanksType == 'ThankYou_RichText'}">
+                                    <div class="txtstyle">
+                                        <lightning:formattedRichText value="{!v.myVal}" />
+                                    </div>
+                                </aura:if>
+
+                                <aura:if isTrue="{!v.ThanksType == 'Redirect_Text_And_URL'}">
+                                    <div class="txtstyle"> {!v.RedirectTxt} </div>
+                                </aura:if>
+                            </div>
+                            <div class="card-body" style=" padding:2rem">
+
+                                <div class="form-check">
+                                    <div class="thanks-optiondiv">
+                                        <div class="thanks-option">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="None" value="{!v.option}" onchange="{!c.toggleFields}" checked="checked" />
+                                            <label class="form-check-label" for="None"> None</label>
+                                        </div>
+                                        <lightning:helptext class="helptxt" content="Not show any thank you page after submit form" />
+                                    </div>
+                                    <div id="Input0"> </div>
+                                </div>
+
+                                <div class="form-check">
+                                    <div class="thanks-optiondiv">
+                                        <div class="thanks-option">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="ThankYou_Text" value="{!v.option}" onchange="{!c.toggleFields}" />
+                                            <label class="form-check-label" for="ThankYou_Text"> Show Text</label>
+                                        </div>
+                                        <lightning:helptext class="helptxt" content="The text you enter below will be displayed on the Thank You page of the form. This page is displayed after the form is submitted." />
+                                    </div>
+                                    <div class="form-control thankyouinput" id="Input1">
+                                        <div id="demo"></div>
+                                        <lightning:textarea class="form-control thankyouinput" value="{!v.ThanksTxt}" style="display:block" onblur="{!c.thanksTxt}" />
+                                    </div>
+                                </div>
+
+                                <div class="form-check">
+                                    <div class="thanks-optiondiv">
+                                        <div class="thanks-option">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="ThankYou_URL" value="{!v.option}" onchange="{!c.toggleFields}" />
+                                            <label class="form-check-label" for="ThankYou_URL"> Redirect to a
+                                                webpage</label>
+                                        </div>
+                                        <lightning:helptext class="helptxt" content="This is the URL where your form users are redirected after the form is submitted. If this option is selected, then no Thank You page is displayed and the redirect is made automatically after submission." />
+                                    </div>
+                                    <div class="form-control thankyouinput" id="Input2">
+                                        <lightning:input type="url" class="form-control thankyouinput" placeholder="Put Your Redirect Link" style="display:block" onblur="{!c.thanksUrl}" />
+                                    </div>
+                                </div>
+
+                                <div class="form-check">
+                                    <div class="thanks-optiondiv">
+                                        <div class="thanks-option">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="Redirect_Text_And_URL" value="{!v.option}" onchange="{!c.toggleFields}" />
+                                            <label class="form-check-label" for="Redirect_Text_And_URL"> Show text ,
+                                                then redirect to web page</label>
+                                        </div>
+                                        <lightning:helptext class="helptxt" content="When this option is enabled, users see the Thank You page after submission, which contains the redirect link. Specify the Thank You message and the redirect URL below." />
+                                    </div>
+                                    <div class="form-control thankyouinput" id="Input3">
+                                        <lightning:textarea class="form-control thankyouinput" value="{!v.RedirectTxt}" style="display:block" onblur="{!c.redirectTxt}" />
+                                        <lightning:input type="url" class="form-control thankyouinput" placeholder="Put Your Redirect Link" style="display:block" onblur="{!c.redirectUrl}" />
+                                    </div>
+                                </div>
+
+                                <div class="form-check">
+                                    <div class="thanks-optiondiv">
+                                        <div class="thanks-option">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="ThankYou_Report" value="{!v.option}" onchange="{!c.toggleFields}" />
+                                            <label class="form-check-label" for="ThankYou_Report"> Show report of User
+                                                data</label>
+                                        </div>
+                                        <lightning:helptext class="helptxt" content="Show a report generated for your form after submission." />
+                                    </div>
+                                    <div id="Input4"></div>
+                                </div>
+
+                                <div class="form-check">
+                                    <div class="thanks-optiondiv">
+                                        <div class="thanks-option">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="ThankYou_RichText" value="{!v.option}" onchange="{!c.toggleFields}" />
+                                            <label class="form-check-label" for="ThankYou_RichText"> Show HTML
+                                                block</label>
+                                        </div>
+                                        <lightning:helptext class="helptxt" content="This option allows you to add HTML content to your Thank You page. You can use elements like images, links, colors and many others." />
+                                    </div>
+                                    <div class="form-control thankyouinput-rich" id="Input5">
+                                        <lightning:inputRichText formats="['font', 'size', 'bold', 'italic', 'underline', 'strike', 'list', 'indent', 'align', 'link', 'clean', 'table', 
+                                        'header', 'color', 'background']" value="{!v.myVal}" placeholder="Type something interesting" />
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div style="display: flex; justify-content: center;">
+                                <button class="button-class button-content" onclick="{!c.storethanksdata}">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </lightning:tab>
+
+
+                <lightning:tab iconName="utility:standard_objects" title="Object Mapping" onactive="{!c.handleActive}">
+                    <div class="showtabs2">
+                        <div class="objects" style="padding-top: 0; background-color: #84CEEB; ">
+                            <c:objectmapingmihir FormId="{!v.FormId}" />
+                        </div>
+                    </div>
+                </lightning:tab>
+
+                <aura:renderIf isTrue="{!v.renderPreview}">
+                    <lightning:tab iconName="utility:preview" title="Preview" onactive="{! c.handleActive }">
+                        <div class="showtabs">
+                            <div class="preview">
+                                <c:PreviewFormComponent FormId="{!v.FormIdencod}" />
+                            </div>
+                        </div>
+                    </lightning:tab>
+                </aura:renderIf>
+
+                <lightning:tab iconName="utility:trending" title="Publish" onactive="{! c.publiclink }">
+                    <div class="showtabs">
+                        <div class="publishpanel">
+                            <aura:if isTrue="{!v.site_deactivate}">
+                                <h1 class="thankslabel">Publish</h1>
+                                <div>
+                                    <div class="publishmain">
+                                        <p style="margin-bottom: 0.8rem;"> This way of publishing your form is perfect if you want to handle a small amount of code or if you want to directly invite somebody to view your form. </p>
+                                        <div id="renameTextField" style="width:100%; display:flex; flex-direction:row; justify-content:space-between" class="customfield">
+                                            <input type="link" aura-id="urlinput" value="{!v.publishurl}" id="myInput" readonly="true" style="width:100%; padding: 2px; margin-right:4px; margin-bottom:0.5rem" />
+                                            <lightning:buttonIcon iconName="utility:copy" variant="border-filled" alternativeText="Settings" title="copy" onclick="{!c.copyInputFieldValue}" aura:id="buttonId" />
+                                        </div>
+
+                                    </div>
+                                    <hr style="margin: 2rem 2rem 1.5rem 2rem;" />
+                                    <div style="margin: 2rem">
+                                        <lightning:tabset>
+                                            <lightning:tab label="Aura Component">
+                                                <p style="text-align: justify;">There are various ways to publish forms or surveys, according to your requirements. This section offers the options of linking your form through Aura Component</p>
+                                                <div class="codebg" name="Aura component">
+                                                    <div style=" margin:1rem; text-align:justify">
+                                                        &lt;aura:component implements="forceCommunity:availableForAllPageTypes" access="global" &gt;
+                                                        <br /> &nbsp;&nbsp;&nbsp;&lt;iframe src="{!v.publishurl}" &nbsp;&nbsp;&nbsp;transparency="true" sandbox=”allow-same-origin allow-scripts allow-forms” style="min-height:300px; height:inherit; overflow:auto;"
+                                                        width="100%" scrolling=”auto” id="contactform123" name="contactform123" marginwidth="0" marginheight="0" frameborder="0" &gt;<br /> &lt;p&gt; Your browser does not support iframes. The contact form
+                                                        cannot be displayed. Please use another contact method (phone, fax etc) &lt;/p&gt; <br />&nbsp;&nbsp;&nbsp;&lt;/iframe&gt;
+                                                        <br />&lt;/aura:component &gt;
+                                                    </div>
+                                                </div>
+                                            </lightning:tab>
+
+                                            <lightning:tab label="LWC">
+                                                <p>There are various ways to publish forms or surveys, according to your requirements. This section offers the options of linking your form through Lightning web component (LWC).</p>
+
+
+                                                <div class="codebg">
+
+                                                    <div style="margin:1rem;">
+                                                        &lt;lightning-layout-item&gt; <br />&lt;iframe src="{!v.publishurl}" transparency="true" style="min-height:300px; height:inherit; overflow:auto;" width="100%" id="contactform123" name="contactform123"
+                                                        marginwidth="0" marginheight="0" frameborder="0" &gt;
+                                                        <br />&lt;p&gt; Your browser does not support iframes. The contact form cannot be displayed. Please use another contact method (phone, fax etc) &lt;/p&gt;
+                                                        <br />&lt;/iframe&gt; <br /> &lt;/lightning-layout-item&gt;
+                                                    </div>
+                                                </div>
+
+                                            </lightning:tab>
+
+                                            <lightning:tab label="IFrame" title="2nd tab extended title">
+                                                <p>There are various ways to publish forms or surveys, according to your requirements. This section offers the options of linking your form through Iframe.</p>
+                                                <div class="codebg">
+
+                                                    <div style="margin:1rem;">
+                                                        &lt;iframe src="{!v.publishurl}" transparency="true" style="min-height:300px; height:inherit; overflow:auto;" width="100%" id="contactform123" name="contactform123" marginwidth="0" marginheight="0" frameborder="0" &gt;
+                                                        <br /> &lt;p&gt; Your browser does not support iframes. The contact form cannot be displayed. Please use another contact method (phone, fax etc) &lt;/p&gt;
+                                                        <br /> &lt;/iframe&gt;
+                                                    </div>
+                                                </div>
+
+                                            </lightning:tab>
+
+                                            <lightning:tab label="Link to Form">
+                                                <p>There are various ways to publish forms or surveys, according to your requirements. This section offers the options of linking your form through text or images.</p>
+                                                <div style="font-size:15px; color:rgb(116,116,116); font-weight:bold; margin-top:0.5rem">
+                                                    Text</div>
+                                                <div>
+                                                    <div class="codebg">
+                                                        &lt;a href="{!v.publishurl}" target="_blank" &gt; &lt;/a&gt;
+                                                    </div>
+                                                    <lightning:button label="Run Code" variant="brand-outline" onclick="{!c.showModel6}" class="runcodeicon" />
+                                                    <aura:if isTrue="{!v.showModel6}">
+                                                        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                                                            <div class="slds-modal__container">
+                                                                <header class="slds-modal__header">
+                                                                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Text </h2>
+                                                                </header>
+                                                                <!--Modal/Popup Box Body Starts here-->
+                                                                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                                                    <p>Lightbox is a JavaScript library that lets you display different elements on the page. This way of publishing your form is perfect if you want to invite somebody to view your form.</p>
+                                                                    <a href="{!v.publishurl}" target="_blank"> Text </a>
+                                                                </div>
+                                                                <!--Modal/Popup Box Footer Starts here-->
+                                                                <footer class="slds-modal__footer">
+                                                                    <lightning:button variant="neutral" label="Cancel" title="Cancel" onclick="{! c.hideModel6}" />
+                                                                    <lightning:button variant="brand" label="OK" title="OK" onclick="{!c.saveDetails6}" />
+                                                                </footer>
+                                                            </div>
+                                                        </section>
+                                                        <div class="slds-backdrop slds-backdrop_open"></div>
+                                                    </aura:if>
+                                                </div>
+
+                                                <div style="font-size:15px; color:rgb(116,116,116); font-weight:bold; margin-top:0.5rem"> Image</div>
+                                                <div>
+                                                    <div class="codebg">
+                                                        &lt;a href="{!v.publishurl}" target="_blank"href="{!v.publishurl}" target="_blank" &lt;img src="https://cdn-main.123contactform.com/images3/contactbutton2.png" &gt; &lt;/a&gt;
+                                                    </div>
+                                                    <lightning:button label="Run Code" variant="brand-outline" onclick="{!c.showModel7}" class="runcodeicon" />
+                                                    <aura:if isTrue="{!v.showModel7}">
+                                                        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                                                            <div class="slds-modal__container">
+                                                                <header class="slds-modal__header">
+                                                                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                                                                        Image </h2>
+                                                                </header>
+                                                                <!--Modal/Popup Box Body Starts here-->
+                                                                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                                                    <p>Lightbox is a JavaScript library that lets you display different elements on the page. This way of publishing your form is perfect if you want to invite somebody to view your form.</p>
+                                                                    <i style="  margin: 0 0.8rem 0.8rem 0.8rem;">Publish
+                                                                        forms or surveys through images </i>
+                                                                    <a href="{!v.publishurl}" target="_blank">
+                                                                        <img src="{!$Resource.mvcloudsLogo}" width="80" title="click it" />
+                                                                    </a>
+                                                                </div>
+                                                                <!--Modal/Popup Box Footer Starts here-->
+                                                                <footer class="slds-modal__footer">
+                                                                    <lightning:button variant="neutral" label="Cancel" title="Cancel" onclick="{! c.hideModel7}" />
+                                                                    <lightning:button variant="brand" label="OK" title="OK" onclick="{!c.saveDetails7}" />
+                                                                </footer>
+                                                            </div>
+                                                        </section>
+                                                        <div class="slds-backdrop slds-backdrop_open"></div>
+                                                    </aura:if>
+                                                </div>
+                                            </lightning:tab>
+
+                                            <lightning:tab label="Lightbox">
+                                                <p>Lightbox is a JavaScript library that lets you display different elements on the page. This way of publishing your form is perfect if you want to invite somebody to view your form.</p>
+
+
+
+                                                <lightning:accordion allowMultipleSectionsOpen="true">
+                                                    <lightning:accordionSection name="A" label="Text Link">
+
+                                                        <div>
+                                                            <div class=" code slds-grid" id="textLink">
+                                                                <div class=" slds-col slds-size_1-of-1 slds-small-size_1-of-1	slds-medium-size_4-of-12	  slds-large-size_4-of-12 subcode">
+                                                                    <div class="heading">
+                                                                        <h1><b>Html:</b></h1>
+                                                                        <lightning:buttonIcon iconName="utility:copy" variant="border-filled" size="small" alternativeText="Settings" title="copy" onclick="{!c.textCopy}" />
+                                                                    </div>
+                                                                    <div class="codestyle" id="copytext">
+                                                                        <br /> &lt;p id="myBtn" &gt; Text Link &lt;/p &gt;
+                                                                        <br /> &lt;div id="myModal" class="modal"&gt;
+                                                                        <br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="modal-content"&gt;
+                                                                        <br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span class="close">&times;&lt;/span&gt;
+                                                                        <br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;
+                                                                        <br /> &lt;iframe frameborder= '0' scrolling ="yes" src="{!v.publishurl}" >your browser does not support &lt;/iframe&gt; &lt;/p&gt;
+                                                                        <br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+                                                                        <br /> &lt;/div&gt;
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class=" slds-col slds-size_1-of-1 slds-small-size_1-of-1 slds-medium-size_4-of-12	 slds-large-size_4-of-12 subcode">
+                                                                    <div class="heading">
+                                                                        <h1><b>Css:</b></h1>
+                                                                        <lightning:buttonIcon aura:id="text2" iconName="utility:copy" variant="border-filled" size="small" alternativeText="Settings" title="copy" onclick="{!c.textCopy}" />
+                                                                    </div>
+                                                                    <div class="codestyle" id="copytext2">
+                                                                        <br /> body <br />{ <br />font-family: Arial, Helvetica, sans-serif; <br />}
+                                                                        <br />
+                                                                        <br /> #myBtn{
+                                                                        <br /> color:blue;
+                                                                        <br /> text-decoration:underline"
+                                                                        <br /> }
+
+                                                                        <br /> iframe{
+                                                                        <br /> height:60vh;
+                                                                        <br /> width:100vw;
+
+                                                                        <br /> }
+                                                                        <br />
+
+                                                                        <br /> /*Model Background*/
+                                                                        <br />
+                                                                        <br /> .modal {
+                                                                        <br /> display: none;
+                                                                        <br /> position: fixed;
+                                                                        <br /> z-index: 1;
+                                                                        <br /> padding-top: 100px;
+                                                                        <br /> left: 0;
+                                                                        <br /> top: 0;
+                                                                        <br /> width: 100%;
+                                                                        <br /> height: 100%;
+                                                                        <br /> overflow: auto;
+                                                                        <br /> background-color: rgb(0,0,0);
+                                                                        <br /> background-color: rgba(0,0,0,0.4);
+                                                                        <br /> }
+                                                                        <br />
+                                                                        <br /> /*Modal Content */
+                                                                        <br />
+                                                                        <br /> .modal-content {
+                                                                        <br /> background-color: #fefefe;
+                                                                        <br /> margin: auto;
+                                                                        <br /> padding: 20px;
+                                                                        <br /> border: 1px solid #888;
+                                                                        <br /> width: 80%;
+                                                                        <br /> }
+                                                                        <br />
+                                                                        <br /> /*The Close Button */
+                                                                        <br />
+                                                                        <br /> .close {
+                                                                        <br /> color: #aaaaaa;
+                                                                        <br /> float: right;
+                                                                        <br /> font-size: 28px;
+                                                                        <br /> font-weight: bold;
+                                                                        <br /> }
+                                                                        <br /> .close:hover,
+                                                                        <br /> .close:focus {
+                                                                        <br /> color: #000;
+                                                                        <br /> text-decoration: none;
+                                                                        <br /> cursor: pointer;
+                                                                        <br /> }
+                                                                        <br />
+                                                                        <br />
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class=" slds-col slds-small-size_1-of-1 slds-size_1-of-1 slds-medium-size_4-of-12	 slds-large-size_4-of-12 subcode">
+                                                                    <div class="heading">
+                                                                        <h1><b>JavaScript:</b></h1>
+                                                                        <lightning:buttonIcon iconName="utility:copy" variant="border-filled" size="small" alternativeText="Settings" title="copy" onclick="{!c.textCopy}" />
+                                                                    </div>
+                                                                    <div class="codestyle" id="copytext3">
+                                                                        <br /> // Get the modal
+                                                                        <br /> var modal = document.getElementById("myModal");
+                                                                        <br />
+                                                                        <br /> // Get the button that opens the modal
+                                                                        <br /> var btn = document.getElementById("myBtn");
+                                                                        <br />
+                                                                        <br /> // Get the &lt;span&gt; element that closes the modal
+                                                                        <br /> var span = document.getElementsByClassName("close")[0];
+                                                                        <br />
+                                                                        <br /> // When the user clicks the button, open the modal
+                                                                        <br /> btn.onclick = function() <br />{
+                                                                        <br /> modal.style.display = "block";
+                                                                        <br />}
+                                                                        <br /> // When the user clicks on &lt;span&gt; (x), close the modal
+                                                                        <br />
+                                                                        <br /> span.onclick = function() <br />{
+                                                                        <br />modal.style.display = "none";
+                                                                        <br />}
+                                                                        <br /> // When the user clicks anywhere outside of the modal, close it
+                                                                        <br />
+                                                                        <br /> window.onclick = function(event) <br />{
+                                                                        <br />if (event.target == modal) { modal.style.display = "none";
+                                                                        <br />}
+                                                                        <br /> }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <lightning:button variant="brand-outline" label="Run Code" title="Click to Open" onclick="{!c.showModal1}" class="runcodeicon" />
+                                                            <aura:if isTrue="{!v.showModal1}">
+                                                                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                                                                    <div class="slds-modal__container">
+                                                                        <header class="slds-modal__header">
+                                                                            <lightning:buttonIcon iconName="utility:close" onclick="{! c.hideModel1 }" alternativeText="close" variant="bare-inverse" class="slds-modal__close" />
+                                                                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                                                                                Text Link</h2>
+                                                                        </header>
+                                                                        <!--Modal/Popup Box Body Starts here-->
+                                                                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                                                            <p>Lightbox is a JavaScript library that lets you display different elements on the page. This way of publishing your form is perfect if you want to invite somebody to view your
+                                                                                form.
+                                                                            </p>
+                                                                            <p onclick="{!c.showTextModal}" style="color:blue; text-decoration:underline;">
+                                                                                Text Link </p>
+                                                                        </div>
+                                                                        <!--Modal/Popup Box Footer Starts here-->
+                                                                        <footer class="slds-modal__footer">
+                                                                            <lightning:button variant="neutral" label="Cancel" title="Cancel" onclick="{! c.hideModel1 }" />
+                                                                            <lightning:button variant="brand" label="OK" title="OK" onclick="{!c.saveDetails1}" />
+                                                                        </footer>
+                                                                    </div>
+                                                                </section>
+                                                                <div class="slds-backdrop slds-backdrop_open"></div>
+                                                            </aura:if>
+                                                        </div>
+                                                    </lightning:accordionSection>
+                                                    <lightning:accordionSection name="B" label="Image Link">
+                                                        <div>
+                                                            <div class="code slds-grid" id="textLink">
+                                                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12	 slds-large-size_4-of-12  subcode">
+                                                                    <div class="heading">
+                                                                        <h1><b>Html:</b></h1>
+                                                                        <lightning:buttonIcon iconName="utility:copy" variant="border-filled" size="small" alternativeText="Settings" title="copy" onclick="{!c.textCopy}" />
+
+                                                                    </div>
+                                                                    <div class="codestyle" id="copytext4">
+                                                                        <br /> &lt;img id="myBtn" src="image.png" / &gt;
+                                                                        <br /> &lt;div id="myModal" class="modal"&gt;
+                                                                        <br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="modal-content"&gt;
+                                                                        <br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span class="close">&times; &lt;/span&gt;
+                                                                        <br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;
+                                                                        <br /> &lt;iframe frameborder= '0' scrolling ="yes" src="{!v.publishurl}" >your browser does not support &lt;/iframe&gt; &lt;/p&gt;
+                                                                        <br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+                                                                        <br /> &lt;/div&gt;
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12	 slds-large-size_4-of-12  subcode">
+                                                                    <div class="heading">
+                                                                        <h1><b>Css:</b></h1>
+                                                                        <lightning:buttonIcon iconName="utility:copy" variant="border-filled" size="small" alternativeText="Settings" title="copy" onclick="{!c.textCopy}" />
+
+                                                                    </div>
+                                                                    <div class="codestyle" id="copytext5">
+                                                                        <br /> body <br />{ <br />font-family: Arial, Helvetica, sans-serif; <br />}
+                                                                        <br />
+
+                                                                        <br /> iframe{
+                                                                        <br /> height:60vh;
+                                                                        <br /> width:100vw;
+                                                                        <br /> }
+
+                                                                        <br />
+                                                                        <br /> /*Model Background*/
+                                                                        <br />
+                                                                        <br /> .modal {
+                                                                        <br /> display: none;
+                                                                        <br /> position: fixed;
+                                                                        <br /> z-index: 1;
+                                                                        <br /> padding-top: 100px;
+                                                                        <br /> left: 0;
+                                                                        <br /> top: 0;
+                                                                        <br /> width: 100%;
+                                                                        <br /> height: 100%;
+                                                                        <br /> overflow: auto;
+                                                                        <br /> background-color: rgb(0,0,0);
+                                                                        <br /> background-color: rgba(0,0,0,0.4);
+                                                                        <br /> }
+                                                                        <br />
+                                                                        <br /> /*Modal Content */
+                                                                        <br />
+                                                                        <br /> .modal-content {
+                                                                        <br /> background-color: #fefefe;
+                                                                        <br /> margin: auto;
+                                                                        <br /> padding: 20px;
+                                                                        <br /> border: 1px solid #888;
+                                                                        <br /> width: 80%;
+                                                                        <br /> }
+                                                                        <br />
+                                                                        <br /> /*The Close Button */
+                                                                        <br />
+                                                                        <br /> .close {
+                                                                        <br /> color: #aaaaaa;
+                                                                        <br /> float: right;
+                                                                        <br /> font-size: 28px;
+                                                                        <br /> font-weight: bold;
+                                                                        <br /> }
+                                                                        <br /> .close:hover,
+                                                                        <br /> .close:focus {
+                                                                        <br /> color: #000;
+                                                                        <br /> text-decoration: none;
+                                                                        <br /> cursor: pointer;
+                                                                        <br /> }
+                                                                        <br />
+                                                                        <br />
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12	 slds-large-size_4-of-12  subcode">
+                                                                    <div class="heading">
+                                                                        <h1><b>JavaScript:</b></h1>
+                                                                        <lightning:buttonIcon iconName="utility:copy" variant="border-filled" size="small" alternativeText="Settings" title="copy" onclick="{!c.textCopy}" />
+
+                                                                    </div>
+                                                                    <div class="codestyle" id="copytext6">
+                                                                        <br /> // Get the modal
+                                                                        <br /> var modal = document.getElementById("myModal");
+                                                                        <br />
+                                                                        <br /> // Get the button that opens the modal
+                                                                        <br /> var btn = document.getElementById("myBtn");
+                                                                        <br />
+                                                                        <br /> // Get the &lt;span&gt; element that closes the modal
+                                                                        <br /> var span = document.getElementsByClassName("close")[0];
+                                                                        <br />
+                                                                        <br /> // When the user clicks the button, open the modal
+                                                                        <br /> btn.onclick = function() <br />{
+                                                                        <br /> modal.style.display = "block";
+                                                                        <br />}
+                                                                        <br /> // When the user clicks on &lt;span&gt; (x), close the modal
+                                                                        <br />
+                                                                        <br /> span.onclick = function() <br />{
+                                                                        <br />modal.style.display = "none";
+                                                                        <br />}
+                                                                        <br /> // When the user clicks anywhere outside of the modal, close it
+                                                                        <br />
+                                                                        <br /> window.onclick = function(event) <br />{
+                                                                        <br />if (event.target == modal) { modal.style.display = "none";
+                                                                        <br />}
+                                                                        <br /> }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <lightning:button variant="brand-outline" label="Run Code" title="Click to Open" onclick="{!c.showModal2}" class="runcodeicon" />
+
+                                                            <aura:if isTrue="{!v.showModal2}">
+                                                                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                                                                    <div class="slds-modal__container">
+                                                                        <header class="slds-modal__header">
+                                                                            <lightning:buttonIcon iconName="utility:close" onclick="{! c.hideModel2 }" alternativeText="close" variant="bare-inverse" class="slds-modal__close" />
+                                                                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                                                                                Image Link</h2>
+                                                                        </header>
+                                                                        <!--Modal/Popup Box Body Starts here-->
+                                                                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                                                            <p>Lightbox is a JavaScript library that lets you display different elements on the page. This way of publishing your form is perfect if you want to invite somebody to view your
+                                                                                form. </p>
+
+                                                                            <span style="font-style:italic;">Publish forms or
+                                    surveys through images </span>
+                                                                            <img src="{!$Resource.mvcloudsLogo}" width="80" title="click it" onclick="{!c.showTextModal}" />
+                                                                        </div>
+                                                                        <!--Modal/Popup Box Footer Starts here-->
+                                                                        <footer class="slds-modal__footer">
+                                                                            <lightning:button variant="neutral" label="Cancel" title="Cancel" onclick="{!c.hideModel2 }" />
+                                                                            <lightning:button variant="brand" label="OK" title="OK" onclick="{!c.saveDetails2}" />
+                                                                        </footer>
+                                                                    </div>
+                                                                </section>
+                                                                <div class="slds-backdrop slds-backdrop_open"></div>
+                                                            </aura:if>
+                                                        </div>
+                                                    </lightning:accordionSection>
+                                                    <lightning:accordionSection name="C" label="Auto Popup">
+                                                        <div>
+                                                            <div class="code slds-grid" id="textLink">
+                                                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12	 slds-large-size_4-of-12  subcode">
+                                                                    <div class="heading">
+                                                                        <h1><b>Html:</b></h1>
+                                                                        <lightning:buttonIcon iconName="utility:copy" variant="border-filled" size="small" alternativeText="Settings" title="copy" onclick="{!c.textCopy}" />
+
+                                                                    </div>
+                                                                    <div class="codestyle" id="copytext7">
+                                                                        <br /> &lt;img id="myBtn" src="image.png" / &gt;
+                                                                        <br /> &lt;div id="myModal" class="modal"&gt;
+                                                                        <br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="modal-content"&gt;
+                                                                        <br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span class="close">&times;&lt;/span&gt;
+                                                                        <br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;
+                                                                        <br /> &lt;iframe frameborder= '0' scrolling ="yes" src="{!v.publishurl}" >your browser does not support &lt;/iframe&gt; &lt;/p&gt;
+                                                                        <br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+                                                                        <br /> &lt;/div&gt;
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12	 slds-large-size_4-of-12  subcode">
+                                                                    <div class="heading">
+                                                                        <h1><b>Css:</b></h1>
+                                                                        <lightning:buttonIcon iconName="utility:copy" variant="border-filled" size="small" alternativeText="Settings" title="copy" onclick="{!c.textCopy}" />
+
+                                                                    </div>
+                                                                    <div class="codestyle" id="copytext8">
+                                                                        <br /> body <br />{ <br />font-family: Arial, Helvetica, sans-serif; <br />}
+                                                                        <br />
+
+                                                                        <br /> iframe{
+                                                                        <br /> height:60vh;;
+                                                                        <br /> width:100vw;
+                                                                        <br /> }
+                                                                        <br />
+
+                                                                        <br /> /*Model Background*/
+                                                                        <br />
+                                                                        <br /> .modal {
+                                                                        <br /> display: none;
+                                                                        <br /> position: fixed;
+                                                                        <br /> z-index: 1;
+                                                                        <br /> padding-top: 100px;
+                                                                        <br /> left: 0;
+                                                                        <br /> top: 0;
+                                                                        <br /> width: 100%;
+                                                                        <br /> height: 100%;
+                                                                        <br /> overflow: auto;
+                                                                        <br /> background-color: rgb(0,0,0);
+                                                                        <br /> background-color: rgba(0,0,0,0.4);
+                                                                        <br /> }
+                                                                        <br />
+                                                                        <br /> /*Modal Content */
+                                                                        <br />
+                                                                        <br /> .modal-content {
+                                                                        <br /> background-color: #fefefe;
+                                                                        <br /> margin: auto;
+                                                                        <br /> padding: 20px;
+                                                                        <br /> border: 1px solid #888;
+                                                                        <br /> width: 80%;
+                                                                        <br /> }
+                                                                        <br />
+                                                                        <br /> /*The Close Button */
+                                                                        <br />
+                                                                        <br /> .close {
+                                                                        <br /> color: #aaaaaa;
+                                                                        <br /> float: right;
+                                                                        <br /> font-size: 28px;
+                                                                        <br /> font-weight: bold;
+                                                                        <br /> }
+                                                                        <br /> .close:hover,
+                                                                        <br /> .close:focus {
+                                                                        <br /> color: #000;
+                                                                        <br /> text-decoration: none;
+                                                                        <br /> cursor: pointer;
+                                                                        <br /> }
+                                                                        <br />
+                                                                        <br />
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12	slds-large-size_4-of-12  subcode">
+                                                                    <div class="heading">
+                                                                        <h1><b>JavaScript:</b></h1>
+                                                                        <lightning:buttonIcon iconName="utility:copy" variant="border-filled" size="small" alternativeText="Settings" title="copy" onclick="{!c.textCopy}" />
+
+                                                                    </div>
+                                                                    <div class="codestyle" id="copytext9">
+                                                                        <br /> // Get the modal
+                                                                        <br /> var modal = document.getElementById("myModal");
+                                                                        <br />
+                                                                        <br /> // Get the button that opens the modal
+                                                                        <br /> var btn = document.getElementById("myBtn");
+                                                                        <br />
+                                                                        <br /> // Get the &lt;span&gt; element that closes the modal
+                                                                        <br /> var span = document.getElementsByClassName("close")[0];
+                                                                        <br />
+                                                                        <br /> // When the user clicks the button, open the modal
+                                                                        <br /> window.onload = setTimeout(function() {
+                                                                        <br /> modal.style.display = "block";
+                                                                        <br />}, 5000);
+                                                                        <br />
+                                                                        <br /> // When the user clicks on &lt;span&gt; (x), close the modal
+                                                                        <br />
+                                                                        <br /> span.onclick = function() <br />{
+                                                                        <br />modal.style.display = "none";
+                                                                        <br />}
+                                                                        <br /> // When the user clicks anywhere outside of the modal, close it
+                                                                        <br />
+                                                                        <br /> window.onclick = function(event) <br />{
+                                                                        <br />if (event.target == modal) { modal.style.display = "none";
+                                                                        <br />}
+                                                                        <br /> }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <lightning:button variant="brand-outline" label="Run Code" title="Click to Open" onclick="{!c.showModal3}" class="runcodeicon" />
+
+                                                            <aura:if isTrue="{!v.showModal3}">
+                                                                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                                                                    <div class="slds-modal__container">
+                                                                        <header class="slds-modal__header">
+                                                                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                                                                                Auto Popup </h2>
+                                                                        </header>
+
+                                                                        <!--Modal/Popup Box Body Starts here-->
+                                                                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                                                            <p>Lightbox is a JavaScript library that lets you display different elements on the page. This way of publishing your form is perfect if you want to invite somebody to view your
+                                                                                form.
+                                                                            </p>
+                                                                            <p onclick="{!c.showTextModal}" style="color:blue; text-decoration:underline;">
+                                                                                Auto Popup </p>
+                                                                        </div>
+
+                                                                        <!--Modal/Popup Box Footer Starts here-->
+                                                                        <footer class="slds-modal__footer">
+                                                                            <lightning:button variant="neutral" label="Cancel" title="Cancel" onclick="{! c.hideModel3}" />
+                                                                            <lightning:button variant="brand" label="OK" title="OK" onclick="{!c.saveDetails3}" />
+                                                                        </footer>
+                                                                    </div>
+                                                                </section>
+                                                                <div class="slds-backdrop slds-backdrop_open"></div>
+                                                            </aura:if>
+                                                        </div>
+                                                    </lightning:accordionSection>
+                                                    <lightning:accordionSection name="C" label="Floating Button">
+                                                        <div>
+                                                            <div class="code slds-grid " id="textLink">
+
+                                                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12	 slds-large-size_4-of-12  subcode">
+                                                                    <div class="heading">
+                                                                        <h1><b>Html:</b></h1>
+                                                                        <lightning:buttonIcon iconName="utility:copy" variant="border-filled" size="small" alternativeText="Settings" title="copy" onclick="{!c.textCopy}" />
+
+                                                                    </div>
+                                                                    <div class="codestyle" id="copytext10">
+                                                                        <br /> &lt;button id="myBtn"/&gt; &lt;span &gt; + &lt;/span &gt; &lt;/button&gt;
+                                                                        <br /> &lt;div id="myModal" class="modal"&gt;
+                                                                        <br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="modal-content"&gt;
+                                                                        <br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span class="close">&times; &lt;/span&gt;
+                                                                        <br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;
+                                                                        <br /> &lt;iframe frameborder= '0' scrolling ="yes" src="{!v.publishurl}" >your browser does not support &lt;/iframe&gt; &lt;/p&gt;
+                                                                        <br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+                                                                        <br /> &lt;/div&gt;
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12	 slds-large-size_4-of-12  subcode">
+                                                                    <div class="heading">
+                                                                        <h1><b>Css:</b></h1>
+                                                                        <lightning:buttonIcon iconName="utility:copy" variant="border-filled" size="small" alternativeText="Settings" title="copy" onclick="{!c.textCopy}" />
+
+                                                                    </div>
+                                                                    <div class="codestyle" id="copytext11">
+                                                                        <br /> body <br />{ <br />font-family: Arial, Helvetica, sans-serif; <br />}
+
+                                                                        <br />
+                                                                        <br /> iframe{
+                                                                        <br /> height:60vh;
+                                                                        <br /> width:100vw;
+                                                                        <br /> }
+                                                                        <br />
+
+                                                                        <br /> /*Model Background*/
+                                                                        <br />
+                                                                        <br /> .modal {
+                                                                        <br /> display: none;
+                                                                        <br /> position: fixed;
+                                                                        <br /> z-index: 1;
+                                                                        <br /> padding-top: 100px;
+                                                                        <br /> left: 0;
+                                                                        <br /> top: 0;
+                                                                        <br /> width: 100%;
+                                                                        <br /> height: 100%;
+                                                                        <br /> overflow: auto;
+                                                                        <br /> background-color: rgb(0,0,0);
+                                                                        <br /> background-color: rgba(0,0,0,0.4);
+                                                                        <br /> }
+                                                                        <br />
+                                                                        <br /> /*Modal Content */
+                                                                        <br />
+                                                                        <br /> .modal-content {
+                                                                        <br /> background-color: #fefefe;
+                                                                        <br /> margin: auto;
+                                                                        <br /> padding: 20px;
+                                                                        <br /> border: 1px solid #888;
+                                                                        <br /> width: 80%;
+                                                                        <br /> }
+                                                                        <br />
+                                                                        <br /> /*The Close Button */
+                                                                        <br />
+                                                                        <br /> .close {
+                                                                        <br /> color: #aaaaaa;
+                                                                        <br /> float: right;
+                                                                        <br /> font-size: 28px;
+                                                                        <br /> font-weight: bold;
+                                                                        <br /> }
+                                                                        <br /> .close:hover,
+                                                                        <br /> .close:focus {
+                                                                        <br /> color: #000;
+                                                                        <br /> text-decoration: none;
+                                                                        <br /> cursor: pointer;
+                                                                        <br /> }
+                                                                        <br />
+                                                                        <br /> button{
+                                                                        <br /> position: absolute;
+                                                                        <br /> bottom: 12px;
+                                                                        <br /> right: 12px;
+                                                                        <br /> border-radius: 50%;
+                                                                        <br /> width: 50px;
+                                                                        <br /> height: 50px;
+                                                                        <br /> transition: box-shadow 0.4s ease;
+                                                                        <br /> background: #4610f5;
+                                                                        <br /> box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+                                                                        <br /> color: #fff;
+                                                                        <br /> font-size: 1.7rem;
+                                                                        <br /> font-weight: bold;
+                                                                        <br /> cursor: pointer;
+                                                                        <br /> }
+                                                                        <br /> button span{
+                                                                        <br /> display: flex;
+                                                                        <br /> width: 100%;
+                                                                        <br /> height: 100%;
+                                                                        <br /> justify-content: center;
+                                                                        <br /> align-items: center;
+                                                                        <br /> transition: transform 0.5s ease;
+                                                                        <br /> }
+                                                                        <br />
+                                                                        <br />
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12	 slds-large-size_4-of-12  subcode">
+                                                                    <div class="heading">
+                                                                        <h1><b>JavaScript:</b></h1>
+                                                                        <lightning:buttonIcon iconName="utility:copy" variant="border-filled" size="small" alternativeText="Settings" title="copy" onclick="{!c.textCopy}" />
+
+                                                                    </div>
+                                                                    <div class="codestyle" id="copytext12">
+                                                                        <br /> // Get the modal
+                                                                        <br /> var modal = document.getElementById("myModal");
+                                                                        <br />
+                                                                        <br /> // Get the button that opens the modal
+                                                                        <br /> var btn = document.getElementById("myBtn");
+                                                                        <br />
+                                                                        <br /> // Get the &lt;span&gt; element that closes the modal
+                                                                        <br /> var span = document.getElementsByClassName("close")[0];
+                                                                        <br />
+                                                                        <br /> // When the user clicks the button, open the modal
+                                                                        <br /> btn.onclick = function(){
+                                                                        <br /> modal.style.display = "block";
+                                                                        <br />}
+                                                                        <br />
+                                                                        <br /> // When the user clicks on &lt;span&gt; (x), close the modal
+                                                                        <br />
+                                                                        <br /> span.onclick = function() <br />{
+                                                                        <br />modal.style.display = "none";
+                                                                        <br />}
+                                                                        <br /> // When the user clicks anywhere outside of the modal, close it
+                                                                        <br />
+                                                                        <br /> window.onclick = function(event) <br />{
+                                                                        <br />if (event.target == modal) { modal.style.display = "none";
+                                                                        <br />}
+                                                                        <br /> }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <lightning:button variant="brand-outline" label="Run Code" title="Click to Open" onclick="{!c.showModal4}" class="runcodeicon" />
+                                                            <aura:if isTrue="{!v.showModal4}">
+                                                                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                                                                    <div class="slds-modal__container">
+                                                                        <header class="slds-modal__header">
+                                                                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                                                                                Text Link</h2>
+                                                                        </header>
+
+                                                                        <!--Modal/Popup Box Body Starts here-->
+                                                                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                                                            <p>Lightbox is a JavaScript library that lets you display different elements on the page. This way of publishing your form is perfect if you want to invite somebody to view your
+                                                                                form.
+                                                                            </p>
+                                                                            <button id="myBtn" onclick="{!c.showTextModal}"> <span>+</span></button>
+                                                                        </div>
+
+                                                                        <!--Modal/Popup Box Footer Starts here-->
+                                                                        <footer class="slds-modal__footer">
+                                                                            <lightning:button variant="neutral" label="Cancel" title="Cancel" onclick="{!c.hideModel4}" />
+                                                                            <lightning:button variant="brand" label="OK" title="OK" onclick="{!c.saveDetails4}" />
+                                                                        </footer>
+                                                                    </div>
+                                                                </section>
+                                                                <div class="slds-backdrop slds-backdrop_open"></div>
+                                                            </aura:if>
+                                                        </div>
+                                                    </lightning:accordionSection>
+                                                </lightning:accordion>
+
+                                            </lightning:tab>
+                                        </lightning:tabset>
+                                    </div>
+                                </div>
+                                <aura:if isTrue="{!v.showTextModal}">
+                                    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                                        <div class="slds-modal__container">
+                                            <!--Modal/Popup Box Body Starts here-->
+                                            <div class="slds-modal__content content " id="modal-content-id-1">
+                                                <lightning:button variant="bare" iconName="utility:close" onclick="{!c.hideModel5 }" />
+                                                <iframe aura:id="vframe" class="iframe" src="{!v.publishurl}" style="width:55rem ; height:100%" />
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <div class="slds-backdrop slds-backdrop_open">
+                                    </div>
+                                </aura:if>
+                                <aura:set attribute="else">
+                                    <div style="width:100%;">
+                                        <div style="margin: auto; text_align:center; justify-contant:center; margin : 11% 0;">
+                                            <img style="hight:15%; width:40%; margin:0 30% 0 30%;" src="{!$Resource.forcesite}" alt="Force.com Site" />
+                                            <h1 style="font-size:30px; text-align:center; font-size:28px;">Your Force.com site is currently deactivated</h1>
+                                            <h2 style=" font-size:16px; text-align:center;">Please ensure that site iS active at the moment from here.</h2>
+                                        </div>
+                                    </div>
+                                </aura:set>
+                            </aura:if>
+                        </div>
+                    </div>
+                </lightning:tab>
+            </lightning:tabset>
+        </div>
+        <!-- end vertical tab div  -->
+
+        <!-- Validation bar-->
+        <div class="fieldDiv2 ">
+            <c:FieldAttributeValidation />
+        </div>
+        <!-- End Validation bar -->
+
+        <!-- Main Form Div -->
+        <div style="display: flex; flex-direction:row; position:relative; width:100%">
+
+            <div class="addFormTitle">
+                <div class="InnerFormtitle">
+                    <div class="formName">
+                        <p> {!v.FormPageFieldValueWrapper.formName.Title__c}</p>
+                    </div>
+                    <div class="formButtons">
+                        <lightning:button label="Edit" iconName="utility:edit" iconPosition="left" onclick="{!c.openValidationBar}" />
+                        <lightning:button value="new page add" label="Add Page" iconPosition="left" iconName="utility:record_create" onclick="{!c.handleSelect}" name="{!'form:::'+v.FormId}" />
+                    </div>
+
+
+                </div>
+            </div>
+
+
+
+            <div class="fieldDiv1 slds-col  slds-small-size_6-of-12  slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12" style="padding:5%; width:100%">
+
+                <div class="myform" id="mainformid">
+                    <div class="formtitle"></div>
+                    <aura:iteration items="{!v.FormPageFieldValueWrapper.PageWrapperList}" var="page" indexVar="index">
+                        <div class="page" id="{!page.PageObj.Id}">
+                            <div class="pagetitle">
+                                <div style="display: flex;align-items: center;">
+                                    <div>
+                                        <aura:if isTrue="{!page.PageObj.Title__c == null}">
+                                            <aura:set attribute="else">
+                                                <div class="pagetitle1">{!page.PageObj.Title__c}</div>
+                                            </aura:set>
+                                        </aura:if>
+                                        <aura:if isTrue="{!page.PageObj.Sub_Title__c == null}">
+                                            <aura:set attribute="else">
+                                                <div class="subpagetitle">{!page.PageObj.Sub_Title__c}</div>
+                                            </aura:set>
+                                        </aura:if>
+                                    </div>
+                                </div>
+                                <lightning:buttonMenu class="pageButtonMenu" alternativeText="Show menu" onselect="{! c.handleSelectPage }" name="{!'page:::'+page.PageObj.Id}">
+                                    <lightning:menuItem aura:id="menuItems" value="edit" label="Edit Page" prefixIconName="utility:edit" />
+                                    <lightning:menuItem aura:id="{!page.PageObj.Id}" value="delete" label="Delete Page" prefixIconName="utility:delete" />
+                                </lightning:buttonMenu>
+                            </div>
+                            <div class="example-dropzone" ondragover="{!c.onDragOver}" ondrop="{!c.onDrop}" ondragleave="{!c.dragLeave}" ondragenter="{!c.dragEnter}">
+                                <aura:iteration items="{!page.FieldWrapperList}" var="fieldList">
+                                    <div id="{!page.PageObj.Id}" name="{!'field:::'+fieldList.FieldObj.Id}" class="field" draggable="true" data-record="{!fieldList.FieldObj.Id}" data-ref="inner" ondragstart="{!c.onDragStart}" onclick="{!c.handleid}">
+                                        <c:quickformfieldcomponent1 fieldValue="" tView="{!fieldList.FieldObj.Data_Record_Id__c}" Compview="Full" disableField="true" FieldAttribute="{!fieldList.FieldAttObj}" FieldAttributeValue="{!fieldList.FieldValueObj}" FieldId="{!fieldList.FieldObj.Id}"
+                                            PageId="{!page.PageObj.Id}" /><br />
+                                    </div>
+                                </aura:iteration>
+                            </div>
+                            <div class="footer">
+
+                                <aura:if isTrue="{!index == 0}">
+
+                                    <lightning:button class="nextbutton " variant="brand" label="Next" title="Next" disabled="true" onclick="{!c.onaddpage1}" />
+                                    <aura:set attribute="else">
+                                        <aura:if isTrue="{!index != v.FormPageFieldValueWrapper.PageWrapperList.length - 1}">
+                                            <div class="previousnextbutton slds-m-bottom_large">
+                                                <lightning:button aura:id="previousButton" variant="brand" label="Previous" title="Previous" disabled="true" onclick="{!c.onaddpage1}" class="btn" />
+                                                <lightning:button aura:id="nextButton" variant="brand" label="Next" title="Next" disabled="true" onclick="{!c.onaddpage1}" class="btn" />
+                                            </div>
+                                            <aura:set attribute="else">
+                                                <div class="previoussubmitbutton slds-m-bottom_large">
+                                                    <lightning:button variant="brand" label="Previous" title="Previous" disabled="true" onclick="{!c.onaddpage1}" class="btn" />
+                                                    <lightning:button variant="brand" label="Submit" title="Submit" disabled="true" onclick="{!c.onaddpage1}" class="btn" />
+                                                </div>
+                                            </aura:set>
+                                        </aura:if>
+                                    </aura:set>
+                                </aura:if>
+                            </div>
+                        </div>
+                        <div style="padding:3% 0"></div>
+                    </aura:iteration>
+                </div>
+            </div>
+            <!-- End Main form div -->
+        </div>
+    </div>
+    <!-- end of main component -->
+</aura:component>

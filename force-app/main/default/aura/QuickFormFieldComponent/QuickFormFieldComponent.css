@@ -1,0 +1,50 @@
+.THIS.Field{
+    height:140%;
+    background-color:lightsalmon;
+    
+    padding:0.5rem;
+    float:left;
+    width:20%;
+}
+
+.THIS.btn svg{
+    margin-bottom: 4px;
+    padding-right: 10px;;
+}
+
+.THIS .slds-text-heading_small{
+    align-content: center !important;
+}
+
+.THIS .slds-button{
+    width:100%;
+
+}
+ .THIS h1{
+    
+    background-color:mintcream;
+    
+    font-size: 25px;
+    text-align: center;
+    /* font-style: italic; */
+    color:lightcoral;
+    font-family: monospace;
+}
+
+.THIS.Field2{
+    height:140%;
+    background-color:rgb(149, 240, 240);
+    /* background-color: ghostwhite; */
+    padding:0.5rem;
+    float:left;
+    width:65%;
+}
+
+.THIS.Field3{
+    height:auto;
+    /* background-color:#a6f9d4; */
+    background-color:white;
+    padding:0.5rem;
+    float:left;
+    width:15%;
+}

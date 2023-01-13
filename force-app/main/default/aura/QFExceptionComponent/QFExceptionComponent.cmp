@@ -1,0 +1,36 @@
+<aura:component>
+
+    <aura:attribute name="label" type="string" />
+    <aura:attribute name="message" type="string" />
+    <aura:attribute name="displayException" type="Boolean" default="false" />
+    <aura:method name="RunException" action="{!c.showException}" access="public">
+        <aura:attribute name="message" type="String" default="Something Went Wrong, Please Reload Page" access="public" />
+        <aura:attribute name="label" type="String" default="Content Creation Error" access="public" />
+    </aura:method>
+
+    <aura:if isTrue="{!v.displayException}">
+        <div class="exceptionModel">
+            <div class="exceptionDiv">
+                <div class="exceptionLabelDiv">
+                    <div class="warningIcon">
+                        <img src="{!$Resource.WarningIcon}" />
+                    </div>
+                    <div style="width: 95%;">
+                        {!v.label}
+                    </div>
+                    <div>
+                        <lightning:icon iconName="utility:close" size="xx-small" variant="bare" onclick="{!c.closeException}" />
+                    </div>
+                </div>
+                <div class="exceptionContent">
+                    {!v.message}
+                </div>
+                <div class="exceptionButton">
+                    <lightning:button label="Reload" onclick="{!c.reloadCmp}" />
+                </div>
+            </div>
+        </div>
+    </aura:if>
+
+
+</aura:component>

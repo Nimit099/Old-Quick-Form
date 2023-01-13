@@ -1,0 +1,138 @@
+.THIS label.slds-checkbox_toggle.slds-grid>* {
+    width: 100%;
+    margin-top: 5px;
+    margin-left: 2%;
+}
+
+.THIS .slds-checkbox_toggle.slds-grid {
+    justify-content: flex-end;
+}
+
+.THIS label.slds-checkbox_toggle.slds-grid .slds-checkbox_faux_container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5px;
+    margin-right: 4px;
+    align-items: center;
+}
+
+.THIS.textlabel {
+    background-color: #f1f2f5;
+    color: black;
+    font-size: 14px;
+    text-align: center;
+    margin: 15px 10px 15px 10px;
+}
+
+.THIS.resetcharacter {
+    width: 94%;
+    margin: 7px 0px 7px 8px;
+    background-color: rgb(252, 252, 252);
+    border: 1px solid black;
+    color: #000000;
+}
+
+.THIS.resetcharacter:hover {
+    background-color: rgb(233, 232, 232);
+}
+
+.THIS .slds-slider-label__range {
+    display: none;
+}
+
+.THIS.slider {
+    margin: 16px 10px 16px 10px;
+}
+
+.THIS.togglebox {
+    margin: 11px 10px 11px 10px;
+}
+
+.THIS .slds-input {
+    background-color: #f0f0f0;
+}
+
+.THIS .slds-form-element__label {
+    font-weight: 500;
+}
+
+.THIS.styletext {
+    margin: 7px 10px 7px 10px;
+}
+
+.THIS.styletext .slds-form-element__label {
+    font-weight: 700;
+}
+
+.THIS.plaintext {
+    margin: 7px 10px 7px 10px;
+}
+
+.THIS.Item {
+    display: flex;
+    margin-bottom: 1px;
+}
+
+.THIS.Item .slds-button {
+    margin-left: 10px;
+    width: 12%;
+    height: 32px;
+}
+
+.THIS.Item .slds-input {
+    margin-left: 8px;
+}
+
+.THIS.Itembutton {
+    display: flex;
+}
+
+.THIS.Itembutton .slds-button {
+    width: 100%;
+    margin: 5px 8px 0 8px;
+}
+
+.THIS.richstyle {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.THIS.richbutton {
+    position: absolute;
+}
+
+.THIS.fieldname {
+    margin: 10px;
+    font-size: large;
+    color: rgb(97, 121, 199);
+    text-align: center;
+    font-weight: bold;
+}
+
+.THIS .slds-tabs_scoped {
+    background-color: #fff;
+}
+
+.THIS.fieldLabel {
+    text-transform: capitalize;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.56);
+    padding: 10% 0 3% 0;
+    font-weight: bold;
+    font-size: 24px
+}
+
+.THIS.attributeButton .slds-button {
+    border-style: none;
+    border-color: white;
+    font-size: 1rem;
+    box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
+    color: #6699CC;
+    width: 100%;
+    border: 1px solid #6699cc;
+    border-radius: 10px;
+}
+
+.THIS .btnDiv {
+    margin: 2% 5%;
+}

@@ -1,0 +1,76 @@
+<aura:component controller="QuickFormField_Component" implements="force:appHostable,flexipage:availableForRecordHome,force:lightningQuickActionWithoutHeader,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader,force:hasSObjectName"
+    access="global">
+
+    <aura:attribute name="WrapperList" type="Object" />
+    <aura:attribute name="FieldType" type="String" default="fields" />
+
+    <aura:if isTrue="{!v.FieldType == 'fields'}">
+        <div class="attributeButton">
+            <div class="btnDiv">
+                <lightning:button label="Cancel" onclick="{!c.cancelValidation}" />
+            </div>
+            <div class="btnDiv">
+                <lightning:button label="Delete" onclick="{!c.deleteFieldRecord}" />
+            </div>
+            <div class="btnDiv">
+                <lightning:button label="Apply" onclick="{!c.saveValue}" />
+            </div>
+            <div class="btnDiv">
+                <lightning:button label="Duplicate" onclick="{!c.duplicateRecord}" />
+            </div>
+        </div>
+
+        <div class="styletext">
+            <lightning:select label="Label Visibility" value="{!v.WrapperList.AttributeList.Visibility__c}">
+                <option value="Shown">Shown</option>
+                <option value="Hidden">Hidden</option>
+            </lightning:select>
+        </div>
+        <aura:if isTrue="{!v.WrapperList.AttributeList.Visibility__c == 'Shown'}">
+            <div class="styletext">
+                <lightning:input label="Label" value="{!v.WrapperList.AttributeList.Label__c}" />
+            </div>
+        </aura:if>
+        <div class="togglebox">
+            <lightning:input type="toggle" label="Show Help Text" checked="{!v.WrapperList.AttributeList.Show_on_click__c}" messageToggleActive="" messageToggleInactive="" />
+        </div>
+        <aura:if isTrue="{!v.WrapperList.AttributeList.Show_on_click__c}">
+            <div class="styletext">
+                <lightning:input label="Help Text" value="{!v.WrapperList.AttributeList.Instruction__c}" />
+            </div>
+        </aura:if>
+        <div class="textlabel">Validation</div>
+        <div class="togglebox">
+            <lightning:input type="toggle" label="Required Field" checked="{!v.WrapperList.AttributeList.Required_Field__c}" messageToggleActive="" messageToggleInactive="" />
+        </div>
+    </aura:if>
+
+    <aura:if isTrue="{!v.FieldType == 'RichText'}">
+        <div class="attributeButton">
+            <div class="btnDiv">
+                <lightning:button label="Cancel" onclick="{!c.cancelValidation}" />
+            </div>
+            <div class="btnDiv">
+                <lightning:button label="Delete" onclick="{!c.deleteFieldRecord}" />
+            </div>
+            <div class="btnDiv">
+                <lightning:button label="Apply" onclick="{!c.saveValue}" />
+            </div>
+            <div class="btnDiv">
+                <lightning:button label="Duplicate" onclick="{!c.duplicateRecord}" />
+            </div>
+        </div>
+        <div class="styletext">
+            <lightning:select label="Label Visibility" value="{!v.WrapperList.AttributeList.Visibility__c}">
+                <option value="Shown">Shown</option>
+                <option value="Hidden">Hidden</option>
+            </lightning:select>
+        </div>
+        <aura:if isTrue="{!v.WrapperList.AttributeList.Visibility__c == 'Shown'}">
+            <div class="styletext">
+                <lightning:input label="Label" value="{!v.WrapperList.AttributeList.Label__c}" />
+            </div>
+        </aura:if>
+    </aura:if>
+
+</aura:component>

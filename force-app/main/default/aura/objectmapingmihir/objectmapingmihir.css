@@ -1,0 +1,344 @@
+.THIS {
+    width: 100%;
+}
+
+.THIS .objback{
+    background-color: #84CEEB; 
+    position:absolute;
+}
+.THIS .spinner_cls {
+    opacity: 1; 
+    position:absolute; 
+    height: 100vh; 
+    width:100%;
+}
+.THIS .homepage {
+    width: 30%;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    margin: 8% auto;
+}
+.THIS .homepage img {
+    height: 50%;
+    width: 50%;
+}
+.THIS .homepage h1 {
+    font-size: 25px;
+    margin: 5px 0;
+}
+.THIS .homepage p {
+    margin-bottom: 5px;
+}
+.THIS .homepage1 button {
+    width: 70%;
+    height: 38px;
+}
+.THIS .mappinglist{
+    margin: 15px;
+}
+.THIS .mapingobjects{
+    width: 65%;
+    margin: 0 auto;
+}
+.THIS .mapingobjects_td{
+    padding: 4px 0;
+}
+.THIS .mappingobjtd{
+    background-color:#5AB9EA; 
+    padding:11px; 
+    border-radius:5px; 
+    display:flex;
+}
+.THIS .mapping_objname{
+    float: left; 
+    align-self:center;
+}
+.THIS .mapping_obj_toggle{
+    float: right; 
+    margin:0 15px 0 auto; 
+    display:flex; 
+    align-self:center;
+}
+.THIS .mapping_obj_toggle_btn{
+    align-self: center; 
+    margin-right: 10px;
+}
+.THIS .button2{
+    width: 35%;
+    margin: 10px auto;
+}
+.THIS .obj_mapping_main{
+    width: 70%;
+    margin: auto;
+    background-color: rgba(243, 236, 227, 0);
+    padding: 15px 0;
+}
+.THIS select{
+    border: none;
+    background-color: whitesmoke;
+}
+.THIS select:disabled{
+    background-color: rgba(191, 190, 197, 0.514);
+}
+.THIS select:focus {
+    box-shadow: none;
+    background-color: rgb(240 240 237 / 64%);
+}
+.THIS option:checked{
+    display: none;
+}
+.THIS .formname {
+    background-color: rgba(116, 116, 116, 0.52);
+    text-align: center;
+    font-size: large;
+    height: 5%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+}
+.THIS .objectselection {
+    background-color: rgba(155, 145, 145, 0.212);
+    padding: 5px 0px;
+    font-size: large;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.THIS .tabel {
+    border-radius: 5px;
+}
+.THIS .table table{
+    background-color: transparent;
+}
+.THIS .table thead{
+    height: 20px;
+}
+.THIS .clsmapping{
+    margin: 5px 0  ;
+}
+.THIS .clsmapping:hover .one {
+    display: block;
+}
+.THIS .clsmapping:hover .selectcls {
+    width: 95%;
+}
+.THIS .tabfirstcol{
+    vertical-align: baseline;
+    width: 30%;
+}
+.THIS .iconcolum {
+    width: 3%;
+    vertical-align: top;
+}
+.THIS .slds-icon_container{
+    color: #1f2636;                      
+} 
+.THIS .iconcolum_in{
+    padding:5px 0 18px 0; 
+    text-align:center;
+}
+.THIS .tabsecondcol {
+    width: 100%;
+    display: flex;
+}
+.THIS .tabsecondcol select {
+    width: 100%;
+}
+.THIS .selectclsreq{
+    width: 100%;
+}
+.THIS .clsmapping_indexcolum{
+    display: none;
+}
+.THIS .selectcls , .THIS .selectcls select , .THIS .selectcls_def , .THIS .selectcls_def select{
+    width: 100%;
+    display: flex;
+}
+.THIS .lookupfields{
+    display: none;
+    width: 100%;
+}
+.THIS .one {
+    height: 25px;
+    width: 25px;
+    text-align: center;
+    display: none;
+    margin-top: 0px;
+    margin-left: 2px;
+    margin-right: 7px;
+}
+.THIS .buttonadd{
+    width: 100%;
+}
+.THIS .buttonaddmapping {
+    width: 100%;
+    height: 38px;
+}
+.THIS .button {
+    display: flex;
+    width: 100%;
+    text-align: center;
+    justify-content: right;
+}
+.THIS .button button {
+    width: 30%;
+    outline: none;
+    border: 1px solid rgba(139, 122, 122, 0.486);
+    /* border: none; */
+}
+.THIS .button button:focus {
+    outline: none;
+    box-shadow: none;
+}
+.THIS .buttonrigth {
+    width: 50%;
+    align-self: flex-end;
+    text-align: end;
+}
+.THIS .cacelbtn{
+    border: 1px solid rgba(0, 0, 0, 0);
+}
+.THIS .slds-form-element__label{
+    display: none;
+}
+.THIS .changeMe{
+    display: block;
+    width: 50%;
+    margin-left: 10px;
+    float: right;
+}
+.THIS .changeMe_lookselect1{
+    width: 100%;
+}
+.THIS .slds-checkbox_faux{
+    align-self: center;
+}
+.THIS .slds-checkbox_off, .THIS .slds-checkbox_on {
+    margin: 0 10px;
+    align-self: center;
+    font-size: 14px;
+}
+
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 1285px) {
+    .THIS .homepage {
+        width: 40%;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+        margin: 8% auto;
+    }
+    .THIS .homepage img {
+        height: 60%;
+        width: 60%;
+    }
+    .THIS .homepage h1 {
+        font-size: 30px;
+        margin: 5px 0;
+    }
+    .THIS .homepage p {
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+}
+@media only screen and (max-width: 1100px) {
+    .THIS .homepage {
+        width: 60%;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+        margin: 8% auto;
+    }
+    .THIS .homepage img {
+        height: 50%;
+        width: 50%;
+    }
+    .THIS .homepage h1 {
+        font-size: 25px;
+        margin: 5px 0;
+    }
+    .THIS .homepage p {
+        margin-bottom: 10px;
+    }
+}
+@media only screen and (max-width: 850px) {
+    .THIS .homepage {
+        width: 60%;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+        margin: 8% auto;
+    }
+    .THIS .homepage img {
+        height: 60%;
+        width: 60%;
+    }
+    .THIS .homepage h1 {
+        font-size: 25px;
+        margin: 5px 0;
+    }
+    .THIS .homepage p {
+        margin-bottom: 10px;
+    }
+}
+@media only screen and (max-width: 650px) {
+    .THIS .homepage {
+        width: 80%;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+        margin: 8% auto;
+    }
+    .THIS .homepage img {
+        height: 75%;
+        width: 75%;
+    }
+    .THIS .homepage h1 {
+        font-size: 25px;
+        margin: 5px 0;
+    }
+    .THIS .homepage p {
+        margin-bottom: 10px;
+    }
+}
+@media only screen and (max-width: 730px) {
+    .THIS .button2{
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 705px) {
+    .THIS .objback{
+        padding: 18% 0;
+    }
+    .THIS .homepage {
+        width: 90%;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+        margin: 8% auto;
+        height: 100vh;
+    }
+    .THIS .homepage img {
+        height: 50%;
+        width: 50%;
+    }
+    .THIS .homepage h1 {
+        font-size: 25px;
+        margin: 5px 0;
+    }
+    .THIS .homepage p {
+        margin-bottom: 10px;
+    }
+}

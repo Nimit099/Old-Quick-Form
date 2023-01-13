@@ -1,0 +1,14 @@
+.THIS.attributeButton .slds-button {
+    border-style: none;
+    border-color: white;
+    font-size: 1rem;
+    box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
+    color: #6699CC;
+    width: 100%;
+    border: 1px solid #6699cc;
+    border-radius: 10px;
+}
+
+.THIS .btnDiv {
+    margin: 2% 5%;
+}

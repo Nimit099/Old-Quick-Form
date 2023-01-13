@@ -1,0 +1,15 @@
+<apex:page >
+    <html>
+
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://www.google.com/recaptcha/api.js"></script>
+    </head>
+
+    <body>
+        <div class="g-recaptcha" data-sitekey="6Le9sMUfAAAAAFjP3kr1BbsPOSfbqtuON0GnLG97" data-callback="recaptchaCallback" data-expired-callback="expiredRecaptchaCallback"
+        />
+    </body>
+
+    </html>
+</apex:page>

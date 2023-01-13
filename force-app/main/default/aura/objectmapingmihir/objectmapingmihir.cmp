@@ -1,0 +1,615 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:actionOverride,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="ObjectMappingController">
+
+    <aura:attribute name="FormId" type="String" />
+    <aura:attribute name="userObj" type="String" />
+    <aura:attribute name="allValues" type="object" />
+    <aura:attribute name="allObject" type="List" />
+    <aura:attribute name="allFields" type="List" />
+    <aura:attribute name="mappingobjectlist" type="List" default="[]" />
+    <aura:attribute name="mapingcon" type="boolean" default="false" />
+    <aura:attribute name="mapingcon_edit" type="boolean" default="false" />
+    <aura:attribute name="homecon" type="boolean" default="true" />
+    <aura:attribute name="disablevalue" type="boolean" default="false" />
+    <aura:attribute name="index" type="Integer" description="Number of Rows to add dynamically" access="private" default="1" />
+    <aura:attribute name="flv" type="object" default="" />
+    <aura:attribute name="defvalue" type="String" default="Select Object" />
+    <aura:attribute name="formfieldvalue" type="String" default="" />
+    <aura:attribute name="spinner" type="boolean" default="FALSE" />
+    <aura:attribute name="mappingbtndisable" type="boolean" default="true" />
+    <!-- if mapping not loaded to show defauly and disabled mapping content show -->
+    <aura:attribute name="tablevalue" type="boolean" default="false" />
+    <aura:attribute name="togglesecondary" type="boolean" default="false" />
+    <aura:attribute name="num" type="List" default="" />
+    <aura:attribute name="num_edit" type="List" default="[]" />
+    <aura:attribute name="mapDistances" type="Map" default="{}" />
+    <aura:attribute name="mapp" type="Map" default="{}" />
+    <aura:attribute name="mapfor" type="Map" default="{}" />
+    <aura:attribute name="recordidmap" type="Map" default="{}" />
+    <aura:attribute name="selectmapthree" type="Map" default="{}" />
+    <aura:attribute name="selectmapone" type="Map" default="{}" />
+    <aura:attribute name="objfield_selected_fieldlist" type="Map" default="{}" />
+
+
+    <aura:attribute name="nreq_lk_value" type="List" default="" />
+    <aura:attribute name="req_lk_value" type="List" default="" />
+    <aura:attribute name="form_option_nreq" type="List" default="" />
+    <aura:attribute name="select_objfield_list" type="List" default="" />
+    <aura:attribute name="edit_button_validation" type="String" default="add new mapping" />
+    <aura:attribute name="form_option_req" type="List" default="" />
+    <aura:attribute name="remove_obj_map" type="Map" default="" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.fetchObjectField}" />
+    <aura:method name="fetchObj" action="{!c.fetchObjectField}" access="GLOBAL" />
+
+    <ltng:require scripts="{!$Resource.qrcodegen}" afterScriptsLoaded="{!c.qrcode}" />
+
+
+    <div class="objback">
+
+        <!-- Object Mapping Spinner -->
+
+        <aura:if isTrue="{!v.spinner}">
+            <div aura:id="spinnerId" class="slds-spinner_container spinner_cls">
+                <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                    <span class="slds-assistive-text">Loading...</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </div>
+        </aura:if>
+
+        <!-- object mapping not available -->
+
+        <div class="objectmaping">
+
+            <!-- object maping not available -->
+
+            <aura:if isTrue="{!v.homecon}">
+                <div class="homepage">
+                    <div class="homepage1">
+                        <div>
+                            <img src="{!$Resource.mappingimg}" alt="salesforce"></img>
+                        </div>
+                        <h1><b>There are no mapped objects</b></h1>
+                        <p>Push data into any Salesforce object when the form is submitted. Start by adding primary and related objects, map Salesforce fields to form fields or other data sources, and choose whether to create new records or update existing
+                            ones.
+                        </p>
+                        <lightning:button class=" slds-button_brand" label="Add primary object" title="Add Primary Object" onclick="{!c.Addobject}"></lightning:button>
+                    </div>
+                </div>
+            </aura:if>
+
+            <!-- Maped object Show -->
+
+            <aura:if isTrue="{!v.disablevalue}">
+                <div class="mappinglist">
+                    <div class="mapingobjects">
+                        <table>
+                            <aura:iteration items="{!v.mappingobjectlist}" var="Fieldd" indexVar="key">
+                                <tr>
+                                    <td class="mapingobjects_td">
+                                        <div class="mappingobjtd">
+                                            <span class="mapping_objname"><b>{!Fieldd.key}</b></span>
+                                            <span class="mapping_obj_toggle">
+                                                <label class="mapping_obj_toggle_btn slds-checkbox_toggle slds-grid">
+                                                    <span class="slds-form-element__label slds-m-bottom_none" ></span>
+                                            <ui:inputCheckbox value="{!Fieldd.value}" name="{!Fieldd.key}" class="slds-input" change="{!c.toggleout}" />
+                                            <span id="toggle-desc" class="slds-checkbox_faux_container" aria-live="assertive">
+                                                        <span class="slds-checkbox_faux"></span>
+                                            <span class="slds-checkbox_on"></span>
+                                            <span class="slds-checkbox_off"></span>
+                                            </span>
+                                            </label>
+
+                                            <div>
+                                                <div style="font-size: small;">
+                                                    <lightning:buttonMenu alternativeText="Show menu" onselect="{!c.btnmenu}" value="{!Fieldd.key}">
+                                                        <lightning:menuItem value="Delete" label="Delete" />
+                                                        <lightning:menuItem value="Edit" label="Edit" />
+                                                    </lightning:buttonMenu>
+                                                </div>
+                                            </div>
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </aura:iteration>
+                            <tr>
+                                <td>
+                                    <lightning:button class=" slds-button_brand button2" label="Add Primary Object" title="Add primary object" onclick="{!c.Addobject}"></lightning:button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </aura:if>
+        </div>
+
+        <!-- Object MApping -->
+
+        <aura:if isTrue="{!v.mapingcon}">
+            <div class="obj_mapping_main">
+
+                <div class="formname">
+                    <b>Form Name:</b>&nbsp;
+                    <b>{!v.allValues.formName.Title__c}</b>
+                </div>
+
+                <div class="objectselection"><b>Select Object</b></div>
+
+                <!-- Object Selection Picklist -->
+
+                <div class="object">
+                    <lightning:select aura:id="SobjectList" name="SobjectList" value="{!v.defvalue}" onchange="{!c.getfields}">
+                        <option>Select Object</option>
+                        <aura:iteration items="{!v.allObject}" var="field1">
+                            <option text="{!field1.label}" value="{!field1.value}" />
+                        </aura:iteration>
+                    </lightning:select>
+                </div> <br />
+
+                <!-- Object Mapping Table -->
+
+                <div class="tabel">
+                    <aura:iteration items="{!v.allFields}" var="field">
+
+                        <aura:if isTrue="{!v.tablevalue}">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <div class="formfield">Salesforce Field</div>
+                                        </th>
+                                        <th></th>
+                                        <th>
+                                            <div class="slds-col">Form Field</div>
+                                        </th>
+                                        <th>
+                                            <span></span>
+                                        </th>
+                                    </tr>
+                                </thead><br />
+                                <tbody>
+
+<!--===========================================================================Salesforce All required field show________________________________________________________________________________________   -->
+
+                                    <aura:iteration items="{!field.objreqfield}" var="field" indexVar="index">
+                                        <tr class="clsmapping" id="{!index}">
+                                            <td style="display: none ;">
+                                                {#index + 100}
+                                            </td>
+                                            <td class="tabfirstcol">
+                                                <lightning:select aura:id="salesforceFieldList">
+                                                    <option required="true">{!field.label}</option>
+                                                </lightning:select>
+                                            </td>
+                                            <td class="iconcolum">
+                                                <div class="iconcolum_in">
+                                                    <lightning:icon iconName="utility:product_transfer" alternativeText="Assignment" title="Assignment" size="small" data-row-index="{#index + 100 +'_req'}" />
+                                                </div>
+                                            </td>
+                                            <td class="tabsecondcol">
+                                                <div class="selectclsreq" id="{!field.apiName}" data-row-index="{#index + 100 +'_req'}">
+                                                    <lightning:select aura:id="{#index + 100 +'_req'}" onchange="{!c.selectedsalfield}">
+                                                        <option>Select Value</option>
+                                                        <aura:iteration items="{!v.form_option_req}" var="fieldattribute1">
+                                                            <aura:if isTrue="{!fieldattribute1.key == (index + 100) }">
+                                                                <aura:iteration items="{!fieldattribute1.value}" var="fieldattribute">
+                                                                    <aura:if isTrue="{!fieldattribute.value == 'true'}">
+                                                                        <option value="{!fieldattribute.value}" disabled="true">{!fieldattribute.key}</option>
+                                                                        <aura:set attribute="else">
+                                                                            <option value="{!fieldattribute.value}">{!fieldattribute.key}</option>
+                                                                        </aura:set>
+                                                                    </aura:if>
+                                                                </aura:iteration>
+                                                            </aura:if>
+                                                        </aura:iteration>
+                                                        <optgroup label="Custom Value">
+                                                            <option value="Lookup relationship">Lookup relationship</option>
+                                                        </optgroup>
+                                                    </lightning:select>
+                                                </div>
+                                                <div class="lookupfields" id="{#index + 100 +'_req'}" data-row-index="{#index + 100 +'_req'}">
+                                                    <lightning:select onchange="{!c.lookupfield}" variant="label-hidden">
+
+                                                        <option>Select Object</option>
+                                                        <aura:iteration items="{!v.mappingobjectlist}" var="fd">
+                                                            <aura:if isTrue="{!fd.value}">
+                                                                <option>{!fd.key}</option>
+                                                            </aura:if>
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </aura:iteration>
+                                </tbody>
+                            </table>
+
+                            <!--_________________________________________________________________Salesforce Non Required field show______________________________________________________________________________________________________________________________  -->
+
+                            <table id="table_of_items">
+                                <tbody>
+                                    <aura:iteration items="{!v.num}" var="num" indexVar="inxn">
+
+                                        <tr class="clsmapping" indexVar="num" id="{!'n'+num.id}">
+                                            <td class="clsmapping_indexcolum">
+                                                {!num.id}
+                                            </td>
+                                            <td class="tabfirstcol">
+                                                <div data-row-index="{!num.id}">
+                                                    <lightning:select name="salesforceFieldList" aura:id="options" onchange="{!c.selectObjField}" variant="label-hidden">
+
+                                                        <option>Select Value</option>
+                                                        <aura:iteration items="{!num.fieldlist}" var="fieldattribute1" indexVar="idxf">
+                                                        
+                                                            <!-- <aura:if isTrue="{!idxf == inxn}"> -->
+                                                                <option aura:id="salesforceFieldList" name="{!fieldattribute1.type}" value="{!fieldattribute1.apiName}">{!fieldattribute1.label}</option>
+                                                            <!-- </aura:if> -->
+
+                                                            <!-- <aura:if isTrue="{!idxf > inxn}">
+                                                                <option aura:id="salesforceFieldList" name="{!fieldattribute1.type}" value="{!fieldattribute1.apiName}">{!fieldattribute1.label}</option>
+                                                            </aura:if> -->
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                </div>
+                                            </td>
+                                            <td class="iconcolum">
+                                                <div class="iconcolum_in">
+                                                    <lightning:icon iconName="utility:product_transfer" alternativeText="Assignment" title="Assignment" size="small" data-row-index="{!num.id}" aura:id="indexid" />
+                                                </div>
+                                            </td>
+                                            <td class="tabsecondcol">
+                                                <div class="selectcls" id="{!field.lstfieldname.type}" data-row-index="{!num.id}">
+                                                    <div id="{!field.lstfieldname.type}" aura:id="{!'lookselect1'+num.id}" data-row-index="{!num.id}" style="width: 100%;">
+                                                        <lightning:select aura:id="{!'n'+index}" name="FormFieldList" onchange="{!c.selectedsalfieldtwo}" variant="label-hidden">
+
+                                                            <option>Select Value</option>
+                                                            <aura:iteration items="{!v.form_option_nreq}" var="fieldattribute1">
+                                                                <aura:if isTrue="{! fieldattribute1.key == num.id }">
+                                                                    <aura:iteration items="{!fieldattribute1.value}" var="fieldattribute">
+                                                                        <aura:if isTrue="{!fieldattribute.value == 'true'}">
+                                                                            <option value="{!fieldattribute.value}" disabled="true">{!fieldattribute.key}</option>
+                                                                            <aura:set attribute="else">
+                                                                                <option value="{!fieldattribute.value}">{!fieldattribute.key}</option>
+                                                                            </aura:set>
+                                                                        </aura:if>
+                                                                    </aura:iteration>
+                                                                </aura:if>
+                                                            </aura:iteration>
+                                                        </lightning:select><br />
+                                                    </div>
+                                                    <div class="lookupfields" id="{!'lookup'+num.id}" data-row-index="{!num.id}">
+                                                        <lightning:select onchange="{!c.lookupfield}" variant="label-hidden">
+
+                                                            <option>Select Object</option>
+                                                            <aura:iteration items="{!v.mappingobjectlist}" var="fd">
+                                                                <aura:if isTrue="{!fd.value}">
+                                                                    <option>{!fd.key}</option>
+                                                                </aura:if>
+                                                            </aura:iteration>
+                                                        </lightning:select>
+                                                    </div>
+                                                </div>
+                                                <div class="one" id="{!field.label}" data-row-index="{!num.id}">
+                                                    <lightning:buttonIcon onclick="{!c.remove}" iconName="utility:close" alternativeText="Remove" title="close" />
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    </aura:iteration>
+                                </tbody>
+                            </table><br />
+                            <!--___________________________________________________________________default contant show_________________________________________________________________________________________________________________________ -->
+
+                            <aura:set attribute="else">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <div class="formfield">Salesforce Field</div>
+                                            </th>
+                                            <th></th>
+                                            <th>
+                                                <div class="slds-col">
+                                                    Form Field
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tr class="clsmapping">
+                                        <td class="tabfirstcol">
+                                            <lightning:select disabled="true">
+                                                <option>Select Value</option>
+                                            </lightning:select>
+                                        </td>
+                                        <td class="iconcolum">
+                                            <div class="iconcolum_in">
+                                                <lightning:icon iconName="utility:product_transfer" alternativeText="Assignment" title="Assignment" size="small" />
+                                            </div>
+                                        </td>
+                                        <td class="tabsecondcol">
+                                            <div class="selectcls_def">
+                                                <div style="width:100%;">
+                                                    <lightning:select disabled="true">
+                                                        <option>Select Value</option>
+                                                    </lightning:select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table><br/>
+                            </aura:set>
+                        </aura:if>
+
+                    </aura:iteration>
+                </div>
+
+                <!--_______________________________________________________________________________________ Add Mapping Button_________________________________________________________________________________-->
+
+                <div class="buttonadd">
+                    <lightning:button class="buttonaddmapping" label="Add New Mapping" title="Add New Mapping Row" onclick="{!c.addnewmapping}" disabled="{!v.mappingbtndisable}"></lightning:button>
+                </div><br />
+
+                <!--______________________________________________________________________________________ Delete cancel save button____________________________________________________________________ -->
+
+                <div class="button">
+                    <div class="buttonrigth">
+                        <lightning:button label="Cancel" title="Cancel" onclick="{!c.cancelvalue}" class="cacelbtn"></lightning:button>
+                        <lightning:button class="slds-button slds-button_brand" label="Save" title="Save" onclick="{!c.savevalue}"></lightning:button>
+                    </div>
+                </div>
+            </div>
+
+        </aura:if>
+
+
+        <!-- object mapping on edit -->
+
+        <aura:if isTrue="{!v.mapingcon_edit}">
+            <div class="obj_mapping_main" style="scroll-behavior:smooth ;">
+
+                <div class="formname">
+                    <b>Form Name:</b>&nbsp;
+                    <b>{!v.allValues.formName.Title__c}</b>
+                </div>
+
+                <div class="objectselection"><b>Edit {!v.defvalue} Object Mapping</b></div>
+
+                <!-- Object Selection Picklist -->
+
+                <div class="object">
+                    <lightning:select aura:id="SobjectList" name="SobjectList" value="{!v.defvalue}" onchange="{!c.getfields}" disabled="{!v.edit_button_validation == 'Edit'}">
+                        <option>Select Object</option>
+                        <aura:iteration items="{!v.allObject}" var="field1">
+                            <option text="{!field1.label}" value="{!field1.value}" />
+                        </aura:iteration>
+                    </lightning:select>
+                </div> <br />
+
+                <!-- Object Mapping Table -->
+
+                <div class="tabel">
+                    <aura:iteration items="{!v.allFields}" var="field">
+
+                        <aura:if isTrue="{!v.tablevalue}">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <div class="formfield">Salesforce Field</div>
+                                        </th>
+                                        <th></th>
+                                        <th>
+                                            <div class="slds-col">Form Field</div>
+                                        </th>
+                                        <th>
+                                            <span></span>
+                                        </th>
+                                    </tr>
+                                </thead><br />
+                                <tbody>
+                                    
+<!--===========================================================================Salesforce All required field show________________________________________________________________________________________   -->
+
+                                    <aura:iteration items="{!field.objreqfield}" var="field" indexVar="index">
+                                        <tr class="clsmapping" id="{!index}">
+                                            <td style="display: none;">
+                                                {#index + 100}
+                                            </td>
+                                            <td class="tabfirstcol">
+                                                <lightning:select aura:id="salesforceFieldList">
+                                                    <option required="true">{!field.label}</option>
+                                                </lightning:select>
+                                            </td>
+                                            <td class="iconcolum">
+                                                <div class="iconcolum_in">
+                                                    <lightning:icon iconName="utility:product_transfer" alternativeText="Assignment" title="Assignment" size="small" data-row-index="{#index + 100 +'_req'}" />
+                                                </div>
+                                            </td>
+                                            <td class="tabsecondcol">
+                                                <div class="selectclsreq" id="{!field.apiName}" data-row-index="{#index + 100 +'_req'}">
+                                                    <lightning:select aura:id="{#index + 100}" onchange="{!c.selectedsalfield}" value="{!field.select_req_value}">
+                                                        <option>Select Value</option>
+                                                        <aura:iteration items="{!v.form_option_req}" var="fieldattribute1">
+                                                            <aura:if isTrue="{!fieldattribute1.key == (index + 100) }">
+                                                                <aura:iteration items="{!fieldattribute1.value}" var="fieldattribute">
+                                                                    <aura:if isTrue="{!fieldattribute.value == 'true'}">
+                                                                        <option value="{!fieldattribute.value}" disabled="true">{!fieldattribute.key}</option>
+                                                                        <aura:set attribute="else">
+                                                                            <option id="ghj" selected="{!fieldattribute.index == (index + 100) }" value="{!fieldattribute.value}">{!fieldattribute.key}</option>
+                                                                        </aura:set>
+                                                                    </aura:if>
+                                                                </aura:iteration>
+                                                            </aura:if>
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                </div>
+                                                <div class="lookupfields" id="{#index + 100 +'_req'}" data-row-index="{#index + 100 +'_req'}">
+                                                    <lightning:select onchange="{!c.lookupfield}" variant="label-hidden">
+
+                                                        <option>Select Object</option>
+                                                        <aura:iteration items="{!v.req_lk_value}" var="selected_value">
+                                                            <aura:if isTrue="{!selected_value.key == (index + 100 +'_req')}">
+                                                                <aura:iteration items="{!v.mappingobjectlist}" var="fd">
+                                                                    <aura:if isTrue="{!fd.value}">
+                                                                        <aura:if isTrue="{! fd.key == selected_value.value }">
+                                                                            <option selected="true">{!fd.key}</option>
+                                                                            <aura:set attribute="else">
+                                                                                <option>{!fd.key}</option>
+                                                                            </aura:set>
+                                                                        </aura:if>
+                                                                    </aura:if>
+                                                                </aura:iteration>
+                                                            </aura:if>
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </aura:iteration>
+                                </tbody>
+                            </table>
+
+                            <!--_________________________________________________________________Salesforce Non Required field show______________________________________________________________________________________________________________________________  -->
+
+                            <table id="table_of_items">
+                                <tbody>
+                                    <aura:iteration items="{!v.num_edit}" var="num">
+
+                                        <tr class="clsmapping" indexVar="num" id="{!'n'+num.key}">
+                                            <td class="clsmapping_indexcolum">
+                                                {!num.key}
+                                            </td>
+                                            <!-- {!num.key} -->
+                                            <td class="tabfirstcol">
+                                                <div data-row-index="{!num.key}">
+                                                    <lightning:select name="salesforceFieldList" aura:id="options" onchange="{!c.selectObjField}" variant="label-hidden" value="{!num.value}">
+
+                                                        <option>Select Value</option>
+                                                        <aura:iteration items="{!field.lstfieldname}" var="fieldattribute1">
+                                                            <option aura:id="salesforceFieldList" name="{!fieldattribute1.type}" value="{!fieldattribute1.apiName}">{!fieldattribute1.label}</option>
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                </div>
+                                            </td>
+                                            <td class="iconcolum">
+                                                <div class="iconcolum_in">
+                                                    <lightning:icon iconName="utility:product_transfer" alternativeText="Assignment" title="Assignment" size="small" data-row-index="{!num.key}" />
+                                                </div>
+                                            </td>
+                                            <td class="tabsecondcol" id="sdvsdvsdvds">
+                                                <div class="selectcls" id="{!field.lstfieldname.type}" data-row-index="{!num.key}">
+                                                    <div id="{!field.lstfieldname.type}" aura:id="{!'lookselect1'+num}" data-row-index="{!num.key}" style="width: 100%;">
+                                                        <lightning:select name="FormFieldList" onchange="{!c.selectedsalfieldtwo}" variant="label-hidden" value="{!num.vf}">
+
+                                                            <option>Select Value</option>
+                                                            <aura:iteration items="{!v.form_option_nreq}" var="fieldattribute1">
+                                                                <aura:if isTrue="{! fieldattribute1.key == num.key }">
+                                                                    <aura:iteration items="{!fieldattribute1.value}" var="fieldattribute">
+                                                                        <aura:if isTrue="{!fieldattribute.value == 'true'}">
+                                                                            <option value="{!fieldattribute.value}" disabled="true">{!fieldattribute.key}</option>
+                                                                            <aura:set attribute="else">
+                                                                                <option value="{!fieldattribute.value}">{!fieldattribute.key}</option>
+                                                                            </aura:set>
+                                                                        </aura:if>
+                                                                    </aura:iteration>
+                                                                </aura:if>
+                                                            </aura:iteration>
+                                                        </lightning:select><br />
+                                                    </div>
+                                                    <div class="lookupfields" id="{!'lookup'+num.key}" data-row-index="{!num.key}" value="sdcs">
+                                                        <lightning:select aura:id="hj" onchange="{!c.lookupfield}" variant="label-hidden">
+
+                                                            <option>Select Object</option>
+                                                            <aura:iteration items="{!v.nreq_lk_value}" var="selected_value">
+                                                                <aura:if isTrue="{! selected_value.key == num.key}">
+                                                                    <aura:iteration items="{!v.mappingobjectlist}" var="fd">
+                                                                        <aura:if isTrue="{!fd.value}">
+                                                                            <aura:if isTrue="{! fd.key == selected_value.value }">
+                                                                                <option selected="true">{!fd.key}</option>
+                                                                                <aura:set attribute="else">
+                                                                                    <option>{!fd.key}</option>
+                                                                                </aura:set>
+                                                                            </aura:if>
+                                                                        </aura:if>
+                                                                    </aura:iteration>
+                                                                </aura:if>
+                                                            </aura:iteration>
+                                                        </lightning:select>
+                                                    </div>
+                                                </div>
+                                                <div class="one" id="{!field.label}" data-row-index="{!num.key}">
+                                                    <lightning:buttonIcon onclick="{!c.remove}" iconName="utility:close" alternativeText="Remove" title="close" />
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    </aura:iteration>
+                                </tbody>
+                            </table><br />
+                            <!--___________________________________________________________________default contant show_________________________________________________________________________________________________________________________ -->
+
+                            <aura:set attribute="else">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <div class="formfield">Salesforce Field</div>
+                                            </th>
+                                            <th></th>
+                                            <th>
+                                                <div class="slds-col">
+                                                    Form Field
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tr class="clsmapping">
+                                        <td class="tabfirstcol">
+                                            <lightning:select disabled="true">
+                                                <option>Select Value</option>
+                                            </lightning:select>
+                                        </td>
+                                        <td class="iconcolum">
+                                            <div class="iconcolum_in">
+                                                <lightning:icon iconName="utility:product_transfer" alternativeText="Assignment" title="Assignment" size="small" />
+                                            </div>
+                                        </td>
+                                        <td class="tabsecondcol">
+                                            <div class="selectcls_def">
+                                                <div style="width:100%;">
+                                                    <lightning:select disabled="true">
+                                                        <option>Select Value</option>
+                                                    </lightning:select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table><br/>
+                            </aura:set>
+                        </aura:if>
+
+                    </aura:iteration>
+                </div>
+
+                <!--_______________________________________________________________________________________ Add Mapping Button_________________________________________________________________________________-->
+
+                <div class="buttonadd">
+                    <lightning:button class="buttonaddmapping" label="Add New Mapping Row" title="Add New Mapping" onclick="{!c.addnewmapping}" disabled="{!v.mappingbtndisable}"></lightning:button>
+                </div><br />
+
+                <!--______________________________________________________________________________________ Delete cancel save button____________________________________________________________________ -->
+
+                <div class="button">
+                    <div class="buttonrigth">
+                        <lightning:button label="Cancel" title="Cancel" onclick="{!c.cancelvalue}" class="cacelbtn"></lightning:button>
+                        <lightning:button class="slds-button slds-button_brand" label="Save" title="Save" onclick="{!c.savevalue}"></lightning:button>
+                    </div>
+                </div>
+            </div>
+
+        </aura:if>
+
+    </div>
+</aura:component>

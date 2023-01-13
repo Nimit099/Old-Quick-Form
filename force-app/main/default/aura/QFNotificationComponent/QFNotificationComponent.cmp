@@ -1,0 +1,216 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="QFNotificationComponentController">
+
+      <aura:attribute name="FormId" type="String" />
+      <aura:attribute name="spinner" type="boolean" default="FALSE" />
+      <aura:attribute name="emailRecipientList" type="Object" default="false" />
+      
+      <aura:attribute name="ntf_recever_mailid" type="List" default="[]" />
+      <aura:attribute name="ntf_cc_mailid" type="List" default="[]" />
+      
+      <aura:attribute name="emailRecipientForList" type="String" />
+      <aura:attribute name="cc_emailaddress_input" type="String" />
+      <aura:attribute name="recipienterror" type="String" />
+      <aura:attribute name="ccerror" type="String" />
+
+      <aura:attribute name="cmptype" type="string" default="Notification" />
+      <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+      <aura:method name="notification" action="{!c.doInit}" access="public" />
+
+
+      <!-- ========================= [ Add Recipient] New Popup Button click  strat=========================-->
+
+      <div>
+            <section aura:id="add_Recipient" role="dialog" tabindex="-1" aria-labelledby="ModalHeading" aria-modal="true" aria-describedby="ModalBody" class="slds-modal">
+                  <div class="slds-modal__container">
+                        <header class="slds-modal__header" style="background-color:rgba(102, 153, 204, 1);">
+                              <div class="header">
+                                    <h2 id="ModalHeading">Add Recipient</h2>
+                              </div>
+                        </header>
+                        <div class="slds-modal__content slds-grid slds-var-p-around_medium" id="ModalBody" style="display:flex;">
+                              <label class="slds-col slds-size_3-of-12 slds-var-p-around_xx-small" for="email" required="true" style="display:flex ;">Recipient Email<p style="margin:0 auto ;">:</p></label>
+                              <div style="display: block; width:100%;">
+                                    <lightning:input class="slds-col slds-size_9-of-12 inpt1" aura:id="myAnchor"  variant="label-hidden"  value="{!v.emailRecipientForList}"  placeholder="username@example.com"/>
+                                    <span style="color: red; font-weight:600; font-size:13px;">{!v.recipienterror}</span>
+                              </div>
+                        </div>
+                        <footer class="slds-modal__footer">
+                              <div class="popup_btn">
+                                    <lightning:button class="btn_add" label="Add" title="Add" onclick="{!c.addRecipient}" />
+                                    <lightning:button class="btn_cancel_popup" variant="brand" label="Cancel" onclick="{!c.cancleAddRecipient}" />
+                              </div>
+                        </footer>
+                  </div>
+            </section>
+            <div aura:id="ModalBackdrop_add_Recipient" class="slds-backdrop"></div>
+      </div>
+
+      <!-- ========================= [ Add Recipient ] New Popup Button click  finished=========================-->
+
+      
+      <!-- ========================= [ Add CC] Button click  strat=========================-->
+      
+      <div>
+            <section aura:id="add_CC" role="dialog" tabindex="-1" aria-labelledby="ModalHeading" aria-modal="true" aria-describedby="ModalBody" class="slds-modal">
+                  <div class="slds-modal__container">
+                        <header class="slds-modal__header" style="background-color:rgba(102, 153, 204, 1);">
+                              <div class="header">
+                                    <h2 id="ModalHeading">Add CC</h2>
+                              </div>
+                        </header>
+                        <div class="slds-modal__content slds-grid slds-var-p-around_medium" id="ModalBody" style="display: flex;">
+                              <label class="slds-col slds-size_3-of-12 slds-var-p-around_xx-small" for="email" required="true" style="display: flex;"><p>CC Email<p style="margin:0 auto ;">:</p></p></label>
+                              <div style="display:block; width:100%; ">
+                                    <lightning:input class="slds-col slds-size_9-of-12" aura:id="myAnchor2" variant="label-hidden" value="{!v.cc_emailaddress_input}" placeholder="username@example.com"/>
+                                    <span style="color: red; font-weight:600; font-size:13px;">{!v.ccerror}</span>
+                              </div>
+                        </div>
+                        <footer class="slds-modal__footer">
+                              <div class="popup_btn">
+                                    <lightning:button class="btn_add" label="Add" title="Add" onclick="{!c.add_cc}" />
+                                    <lightning:button class="btn_cancel_popup" variant="brand" label="Cancel" onclick="{!c.cancel_add_cc}" />
+                              </div>
+                        </footer>
+                  </div>
+            </section>
+            <div aura:id="ModalBackdrop_add_CC" class="slds-backdrop"></div>
+      </div>
+
+      <!-- ========================= [ Add CC ] Button click  finished=========================-->
+
+      <c:QFExceptionComponent aura:id="exceptionCmp" />
+
+      <aura:if isTrue="{!v.spinner}">
+            <div aura:id="spinnerId" class="slds-spinner_container" style="overflow: hidden;">
+                  <div class="spinner-main-div">
+                        <div class="loader--ripple">
+                              <div></div>
+                              <div></div>
+                        </div>
+                  </div>
+            </div>
+      </aura:if>
+
+
+
+      <div class="showtab_ntf" style="   position:absolute; z-index:11; top:0; width: 100%; height: 100%; background-color: #FFFDFD;">
+
+            <!-- Notification toast Component -->
+            <div style="position:relative; margin-right:5px;">
+                  <c:QFNotificationToastComponent aura:id="toastCmp" />
+            </div>
+            <!-- Notification toast Component -->
+            <!-- Notification Component 30evening -->
+
+
+            
+            <div class="emailNotificationDiv">
+                  <div class="card-body">
+                        <span class="text_ntf"><h1>NOTIFICATION</h1></span>
+                        <div class="emailDetails">
+
+                              <!-- To -->
+                              <div class="slds-grid">
+                                    <div class="slds-col slds-size_1-of-12 slds-medium-size_2-of-12 ">
+                                          <div class="slds-clearfix">
+                                                <div class="slds-text-title_bold slds-float_left slds-var-m-right_medium text_TO">To</div>
+                                          </div>
+                                    </div>
+                                    <div class="slds-col slds-size_7-of-12 slds-medium-size_8-of-12">
+                                          <div role="listbox" aria-orientation="horizontal" class="pills_list">
+                                                <ul class="slds-listbox slds-listbox_inline" role="group" aria-label="Inputted Options:">
+                                                      <aura:iteration items="{!v.ntf_recever_mailid}" var="pill">
+                                                            <li role="presentation" class="slds-listbox__item pills_data">
+                                                                  <lightning:pill name="{!pill}" label="{!pill}" hasError="{!!pill}" onremove="{!c.onRemove_recipient}" />
+                                                            </li>
+                                                      </aura:iteration>
+                                                </ul>
+                                          </div>
+                                          <button class="pills_btn" onclick="{!c.openAddRecipient}"><img class="slds-m-around_none slds-p-around_none" src="{!$Resource.addIcon}"/> Add Recipient</button>
+                                    </div>
+                              </div><br/>
+
+                              <!-- Add cc -->
+                              <div class="slds-grid">
+                                    <div class="slds-col slds-size_1-of-12 slds-medium-size_2-of-12">
+                                          <div class="slds-clearfix">
+                                                <div class="slds-text-title_bold slds-float_left slds-var-m-right_medium text_TO">Add CC</div>
+                                          </div>
+                                    </div>
+                                    <div class="slds-col slds-size_7-of-12 slds-medium-size_8-of-12">
+                                          <div role="listbox" aria-orientation="horizontal" class="pills_list">
+                                                <ul class="slds-listbox slds-listbox_inline " role="group" aria-label="Inputted Options:">
+                                                      <aura:iteration items="{!v.ntf_cc_mailid}" var="pill">
+                                                            <li role="presentation" class="slds-listbox__item pills_data">
+                                                                  <lightning:pill name="{!pill}" label="{!pill}" hasError="{!!pill}" onremove="{!c.onRemove_cc}" />
+                                                            </li>
+                                                      </aura:iteration>
+                                                </ul>
+                                          </div>
+                                          <button class="pills_btn" onclick="{!c.open_Add_cc}"><img class="slds-m-around_none slds-p-around_none" src="{!$Resource.addIcon}"/> Add CC</button>
+                                    </div>
+                              </div><br/>
+                              
+                              <!-- replay to mail -->
+                              <div class="slds-grid">
+                                    <div class="slds-col slds-size_1-of-12 slds-medium-size_2-of-12">
+                                          <div class="slds-clearfix">
+                                                <div class="slds-text-title_bold slds-float_left slds-var-m-right_medium text_TO">Reply-to</div>
+                                          </div>
+                                    </div>
+                                    <div class="slds-col slds-size_7-of-12 slds-medium-size_8-of-12">
+                                          <lightning:input aura-id="ntf_replyto" variant="label-hidden" style="width: 100%;"  type="email" pattern="(?![_.-])((?![_.-][_.-])[a-zA-Z\d_.-#]){0,63}[a-zA-Z\d]@((?!-)((?!--)[a-zA-Z\d-]){0,63}[a-zA-Z\d]\.){1,2}([a-zA-Z]{2,14}\.)?[a-zA-Z]{2,14}" messageWhenTooShort="Value is too short" value="{!v.emailRecipientList.reply_mailid}" placeholder="noreplay@example.com"/>
+                                    </div>
+                              </div><br/>
+
+                              <!-- Subject -->
+                              <div class="slds-grid">
+                                    <div class="slds-col slds-size_1-of-12 slds-medium-size_2-of-12">
+                                          <div class="slds-clearfix">
+                                                <div class="slds-text-title_bold slds-float_left slds-var-m-right_medium text_TO" aria-required="true">Subject</div>
+                                          </div>
+                                    </div>
+                                    <div class="slds-col slds-size_7-of-12 slds-medium-size_8-of-12">
+                                          <lightning:input aura-id="ntf_subject" value="{!v.emailRecipientList.subject_mail}" variant="label-hidden" style="width: 100%;" />
+                                    </div>
+                              </div><br/>
+
+                              <!-- body -->
+                              <div class="slds-grid trtr">
+                                    <div class="slds-col slds-size_1-of-12 slds-medium-size_2-of-12">
+                                          <div class="slds-clearfix">
+                                                <div class="slds-text-title_bold slds-float_left slds-var-m-right_medium text_message">Message</div>
+                                          </div>
+                                    </div>
+                                    <div class="slds-col slds-size_11-of-12 richtext slds-medium-size_10-of-12">
+                                          <lightning:inputRichText  value="{!v.emailRecipientList.body_mail}" placeholder="Type Email body" />
+                                    </div>
+                              </div><br/>
+
+                              <!-- Attachment -->
+                              <div class="slds-grid trtr">
+                                    <div class="slds-col slds-size_2-of-12 slds-medium-size_2-of-12">
+                                          <div class="slds-clearfix">
+                                                <div class="slds-text-title_bold slds-float_left slds-m-right_medium text_attachment">Attachment</div>
+                                          </div>
+                                    </div>      
+                                    <div class="slds-col slds-float_right slds-size_1-of-12 slds-medium-size_8-of-12" style="display: flex; margin:5px 0;">
+                                          <ui:inputCheckbox aura:id="ntf_attachment" change="{!c.onCheck}" value="{!v.emailRecipientList.attch_receved}" class="input_reply"/>
+                                          <lightning:helptext class="helptxt" content="Attachment would be received by all the recipient in pdf formate" />
+                                    </div>
+                              </div><br/>
+                              <div class="save_button" >
+                                    <div class="fnl_button">
+                                          <div>
+                                                <button class="btn_save" onclick="{!c.saveNotificationMailData}"><h1 class="slds-text-title_bold">Save</h1></button>
+                                          </div>
+                                          <div>
+                                                <button class="btn_cancel" onclick="{!c.cancelNotifiationMailData}"><h1 class="slds-text-title_bold" >Cancel</h1></button>
+                                          </div>
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+      </div>
+</aura:component>

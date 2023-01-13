@@ -1,0 +1,17 @@
+<apex:page >
+  <apex:includeLightning />
+  <div style="width:100%;height:100vh;" id="compContainer" />
+  <script>
+    $Lightning.use("c:previewapp", function() {
+          var fid ="{!$CurrentPage.parameters.id} ";
+          $Lightning.createComponent("c:QFPreviewFormComponent",
+           {FormId:fid},
+              "compContainer",
+              function(cmp) {
+              }
+          );
+          
+    });
+  </script>
+
+</apex:page>

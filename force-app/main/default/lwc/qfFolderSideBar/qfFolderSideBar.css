@@ -1,0 +1,13 @@
+.addFolder{
+     /* margin-left: 10px;
+    margin-right: 10px; */
+    width: 100%; 
+    /* height: 65px;; */
+    /* float: right; */
+}
+.DisplayFolders{
+    padding-top: 40px;
+}
+.addIcon{
+float: right;
+}

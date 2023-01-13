@@ -1,0 +1,232 @@
+.THIS .quickform-mainDiv {
+    background-color: white;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border-radius: 25px;
+}
+
+.THIS .left-portion {
+    height: 100%;
+    border-radius: 25px;
+}
+
+.THIS .folders-tab {
+    height: 40px;
+    width: 40px;
+}
+
+.THIS .folder-help-icon {
+    height: 25px;
+    width: 25px;
+}
+
+.THIS .delete-folder-div {
+    background-color: white;
+    height: 30px;
+    width: 30px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.THIS .delete-folder-icon {
+    height: 70%;
+    width: 70%;
+}
+
+.THIS .folder-part {
+    background-color: rgba(102, 153, 204, 1);
+    height: 90%;
+    border-radius: 0 0 0 25px;
+}
+
+.THIS .folders-top {
+    height: 13%;
+    color: white;
+    font-size: 1.5rem;
+    display: flex;
+    margin-inline: 5%;
+    padding-top: 6%;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.THIS .name-logo {
+    display: flex;
+}
+
+.THIS .folder-button-bar {
+    display: flex;
+}
+
+.THIS .f-text {
+    margin-left: 3%;
+}
+
+.THIS .folder-tree {
+    height: 72%;
+    border-top: 1px solid rgba(0, 0, 0, 0.5);
+    overflow: auto;
+}
+
+.THIS .folder-tree-heirarchy {
+    margin-top: 5%;
+}
+
+.THIS .folder-footer {
+    height: 15%;
+    margin-inline: 5%;
+    color: white;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    border-radius: 0 0 0 25px;
+}
+
+.THIS .quickform-logo {
+    height: 10%;
+    justify-content: center;
+    margin-inline: 6%;
+}
+
+.THIS .qfl {
+    background-color: white;
+    align-items: center;
+    display: contents;
+    align-items: center;
+    justify-content: center;
+}
+
+.THIS .slds-tree__item .slds-truncate {
+    color: white;
+}
+
+.THIS .slds-tree__item:hover {
+    background: rgba(254, 255, 255, 0.52);
+}
+
+.THIS .slds-tree__item a:focus {
+    text-decoration: none;
+}
+
+.THIS .slds-tree [role=treeitem]:focus>.slds-tree__item {
+    text-decoration: none;
+}
+
+.THIS .slds-tree [role=treeitem][aria-selected=true]>.slds-tree__item {
+    background: rgba(254, 255, 255, 0.52);
+    box-shadow: rgba(254, 255, 255, 0.52) 4px 0 0 inset;
+}
+
+.THIS .slds-tree__item .slds-button__icon {
+    color: white;
+}
+
+.THIS .slds-tree__item .slds-button {
+    padding: 0 2px 2px 3px;
+}
+
+.THIS .slds-tree [aria-expanded=true]>.slds-tree__item .slds-button {
+    border-color: white;
+    background-color: rgb(119, 163, 206);
+    box-shadow: rgb(0 0 0 / 25%) 0px 4px 4px 0px;
+}
+
+.THIS .header {
+    font-size: 2rem;
+}
+
+.THIS .title {
+    padding: 3px 0;
+}
+
+.THIS .searchBar .slds-form-element .slds-form-element__label {
+    display: none;
+}
+
+
+.THIS .top-icon-button {
+    padding: 5px;
+    border-radius: 6px;
+    background: rgb(255, 253, 253);
+    box-shadow: rgb(0 0 0 / 25%) 0px 4px 4px 0px;
+}
+
+.THIS .recordList {
+    padding: 2px 0 0 5px;
+}
+
+
+
+@media screen and (min-width: 1650px) {
+    .THIS .slds-size_3-of-12 {
+        width: 20%;
+    }
+}
+
+
+
+.THIS .tooltip2 {
+    position: absolute;
+    top: 44px;
+    left: -118px;
+    width: 10rem;
+    transform: rotate(180deg);
+    display: none;
+}
+
+.THIS .tooltip {
+    position: absolute;
+    top: 44px;
+    left: -120px;
+    width: 10rem;
+    transform: rotate(180deg);
+    display: none;
+}
+
+.THIS .tooltipmainfolder {
+    position: absolute;
+    top: 44px;
+    left: -147px;
+    width: 12rem;
+    transform: rotate(180deg);
+    display: none;
+}
+
+.THIS .changeCursor {
+    margin: 0 3px;
+    min-width: 25px;
+    position: relative;
+}
+
+.THIS .tooltip3 {
+    position: absolute;
+    top: 44px;
+    left: -120px;
+    width: 10rem;
+    transform: rotate(180deg);
+    display: none
+}
+
+.THIS .tooltipmainfolder3 {
+    position: absolute;
+    top: 44px;
+    left: -149px;
+    width: 12rem;
+    transform: rotate(180deg);
+    display: none
+}
+
+.THIS .btnicon {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.THIS .slds-dropdown_length-3 {
+    max-height: 125px;
+    overflow-y: auto;
+}

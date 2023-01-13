@@ -1,0 +1,1086 @@
+/* CSS start */
+
+.THIS.formBuilder {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    background-color: white;
+}
+
+.THIS .verticalTab {
+    position: absolute;
+    height: 100%;
+    border-radius: 20px;
+    width: 20%;
+    margin: -1px;
+}
+
+.THIS .EditForm {
+    width: 81%;
+    left: 19%;
+    position: relative;
+    background-color: #FEFEFE;
+    height: 100%;
+}
+
+.THIS .verticalTab .slds-vertical-tabs__nav {
+    height: 100vh;
+    background-color: #6699CC !important;
+}
+
+.THIS .verticalTab .slds-vertical-tabs {
+    border-radius: 0;
+}
+
+.THIS .verticalTab lightning-tab-bar {
+    height: 100vh;
+    width: 14%;
+}
+
+.THIS .searchBox .slds-input {
+    border-radius: 17px;
+    border-color: lightgray;
+}
+
+.THIS .searchBoxDiv.slds-input-has-icon .slds-input__icon {
+    margin-top: 2px;
+}
+
+.THIS .designPanel {
+    overflow-y: scroll;
+    height: 100%;
+    padding: 0 0px 25px 0px;
+    position: absolute;
+    width: 75%;
+}
+
+.THIS .designPanel::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .searchBoxDiv {
+    margin-top: 3%;
+}
+
+.THIS .accordionSection {
+    margin-top: 10%;
+}
+
+.THIS .searchBoxDiv {
+    width: 92%;
+    margin: auto;
+}
+
+.THIS .formTitle {
+    margin-top: 3%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2%;
+    align-items: center;
+}
+
+.THIS .editFormContent {
+    margin: auto;
+    width: 80%;
+    height: 15%;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.39);
+}
+
+.THIS .editButton {
+    display: flex;
+    align-items: center;
+}
+
+.THIS .formTitleHeader {
+    font-size: 2rem;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    width: 50%;
+}
+
+.THIS .formTitleHeader::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .editButton .slds-button {
+    padding: 2px 29px;
+    font-size: 1rem;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    border: none;
+}
+
+.THIS .boxContent .slds-input {
+    width: 20vw;
+}
+
+.THIS .editButton .slds-button:hover,
+.THIS .iconsImage:hover {
+    background-color: lightgray;
+}
+
+.THIS .editButton .addPage {
+    margin-left: 1rem;
+}
+
+.THIS .editPagePanel {
+    margin: auto;
+    margin-top: 2%;
+    width: 80%;
+    height: max-content;
+    overflow: hidden;
+    box-shadow: var(--boxShadow);
+    padding-bottom: 20rem;
+    height: 100vh;
+    overflow: scroll;
+}
+
+.THIS .editPagePanel::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .myform {
+    width: var(--myformwidth, 100%);
+    margin: auto;
+    padding-top: var(--formPaddingTop, 0%);
+    padding-left: var(--formPaddingLeft, 1%);
+    padding-right: var(--formPaddingRight, 1%);
+    direction: var(--formDirection, ltr);
+    background-size: var(--formBackgroundSize, auto);
+    background-position: var(--formBackgroundPosition, top);
+    background-repeat: var(--formBackgroundRepeat, repeat);
+    background-attachment: var(--formBackgroundfixPosition, scroll);
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+    background-image: var(--formbgiamge, ' ');
+    background-color: var(--bgcolor, 'yellow');
+    padding-bottom: var(--formPaddingBottom, 5%);
+    overflow-y: scroll;
+}
+
+.THIS .myform::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .accordionSection .slds-input,
+.THIS .accordionSection .slds-input_faux,
+.THIS .accordionSection .slds-color-picker__summary-button {
+    border-radius: 10px;
+    border-color: #6699CC;
+}
+
+.THIS .accordionSection .slds-file-selector_files .slds-file-selector__text {
+    display: none;
+}
+
+.THIS .accordionSection .slds-color-picker__summary-input .slds-input {
+    display: none;
+}
+
+.THIS .accordioInnerDiv {
+    padding: 0 11%;
+}
+
+.THIS .verticalTab .accordionSection .slds-accordion__section {
+    padding-top: 7%;
+    padding-bottom: 7%;
+}
+
+.THIS .verticalTab .accordionSection .colorPicker lightning-primitive-icon {
+    margin-left: 10px;
+}
+
+
+/* validation bar css */
+
+.THIS .fieldDiv2 {
+    display: none;
+    background-color: rgba(217, 217, 217, 1);
+    position: absolute;
+    left: 56px;
+    width: 17%;
+    z-index: 10;
+    scroll-behavior: smooth;
+    overflow: scroll;
+    overflow: scroll;
+    height: 100vh;
+    padding: 0 0 10rem 0;
+}
+
+.THIS .fieldDiv2::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* end */
+
+.THIS .pagetitle {
+    font-size: 1.7rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 3px;
+    padding-bottom: 20px;
+    margin-left: 4%;
+    width: 99%;
+    color: var(--setPageColor);
+}
+
+.THIS .button_icon-border {
+    border: 1px solid;
+}
+
+.THIS .formButtonMenu {
+    margin-right: 3%;
+}
+
+.THIS .pageButtonMenu {
+    margin-right: 3%;
+}
+
+.THIS .page {
+    background-color: var(--bg, white);
+    padding-right: 3%;
+    padding-top: var(--pagePaddingTop, 0%);
+    background-size: var(--pagebg, none);
+    background-position: var(--pagebgPostion, top left);
+    background-repeat: var(--pagebgRepeat, none);
+    background-attachment: var(--pagebgFixPosition, none);
+    border-color: var(--pageborderColor, black);
+    border-style: var(--pageborderStyle, solid);
+    padding-bottom: var(--pagePaddingBottom, 4%);
+    border-width: var(--pageborderWidth, 1px);
+    background-image: var(--pagebgimage, '');
+}
+
+.THIS .pagetitle1 {
+    font-size: 1.7rem;
+    overflow-wrap: anywhere;
+    mix-blend-mode: exclusion;
+    color: white;
+}
+
+.THIS .pagetitle1if {
+    font-size: 1rem;
+    margin-top: 10%;
+    color: #9d9f9f;
+}
+
+.THIS .subpagetitleif {
+    font-size: 0.8rem;
+    color: #9d9f9f;
+}
+
+.THIS .slds-dropdown_left {
+    left: auto;
+    right: 0;
+}
+
+.THIS .subpagetitle {
+    font-size: 1.2rem;
+    mix-blend-mode: exclusion;
+    color: white;
+}
+
+.THIS .example-dropzone {
+    background-color: transparent;
+    width: 100%;
+    height: auto;
+    position: relative;
+    left: 0;
+    padding-bottom: 3%;
+}
+
+.THIS.slds-spinner_container {
+    z-index: 10;
+    position: fixed;
+}
+
+.THIS .footer {
+    border-radius: 3px;
+    width: 94%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    display: flex;
+    flex-direction: row;
+    justify-content: var(--btnJustify, center);
+}
+
+.THIS .footer {
+    font-size: 15px;
+}
+
+.THIS .footer .slds-button {
+    text-align: center;
+    padding-top: var(--btnTopPadding, 0.5px);
+    padding-right: var(--btnRightPadding, 1px);
+    padding-bottom: var(--btnBottomPadding, 0.5px);
+    padding-left: var(--btnLeftPadding, 1px);
+    font-size: var(--buttonfontsize, 15px);
+    vertical-align: middle;
+    color: var(--btnTextColor, lightslategray);
+    border-radius: var(--btnborderradius, 5px);
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    background-color: var(--btnBgColor, white);
+    border-color: var(--btncolor, darkgray);
+    border-style: var(--btnborderstyle, solid);
+    border-width: var(--btnborderwidth, 1px);
+    font-family: var(--buttonfontfamily, sans-serif);
+    font-weight: var(--buttonfontweight, normal);
+    font-style: var(--buttonfontstyle, normal);
+    width: var(--btnWidth, 5px);
+    height: var(--btnHeight);
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.THIS .slds-m-around_small {
+    display: inline;
+}
+
+.THIS .slds-button_destructive {
+    margin-right: 15px !important;
+}
+
+.THIS .header {
+    font-size: 1.5rem;
+}
+
+.THIS .slds-modal__footer {
+    padding-bottom: 3% !important;
+}
+
+.THIS .slds-modal__header {
+    background-color: rgb(243, 242, 242);
+}
+
+.THIS .field {
+    width: 100%;
+    padding: 0 6%;
+}
+
+.THIS .field:hover {
+    background-color: rgba(204, 204, 204, .4);
+}
+
+.THIS .verticalTab .slds-vertical-tabs__content {
+    background-color: #ededed;
+    display: var(--hidetabdisplay);
+    height: 100vh;
+    overflow: scroll;
+    padding-bottom: 10rem;
+}
+
+.THIS .verticalTab .slds-vertical-tabs__content::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* - - - -  - - - Field Section Css - - - - -  - - - -  - - - - */
+
+.THIS .fieldSectionDiv {
+    overflow: auto;
+    height: 100%;
+    position: absolute;
+    width: 75%;
+    padding-bottom: 25px;
+}
+
+.THIS .searchBox {
+    font-family: Roboto;
+}
+
+.THIS .searchBox .slds-input {
+    padding-left: 3rem;
+    font-size: 17px;
+    border-radius: 17px;
+    border-color: black;
+}
+
+.THIS .searchIcon {
+    height: 1.2rem;
+    width: 1.2rem;
+    margin-top: 0;
+}
+
+.THIS .fieldDivLabel,
+.THIS .designLabel {
+    text-transform: capitalize;
+    color: rgba(0, 0, 0, 0.56);
+    padding: 25px 0 0 16px;
+    font-weight: bold;
+    font-size: 24px
+}
+
+.THIS .fieldSectionDiv::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .fieldSectionDiv .slds-accordion__list-item {
+    border-top-color: #bababa;
+}
+
+.THIS .example-draggable .slds-icon-text-default {
+    fill: #6699cc;
+}
+
+
+/* form page */
+
+.THIS .pageIcons {
+    display: flex;
+}
+
+.THIS .pageIcons .editPageIcon {
+    background-color: white;
+    border: none;
+}
+
+.THIS .pageIcons .editPageIcon .slds-button__icon:hover {
+    background-color: white;
+    fill: #6699cc;
+}
+
+.THIS .pageIcons .iconsImage:hover {
+    cursor: pointer;
+}
+
+.THIS .iconsImage {
+    width: 32px;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 4px rgb(0 0 0 / 25%);
+    border-radius: 7px;
+    padding: 7px;
+    margin: 10px;
+}
+
+.THIS .thankYou,
+.THIS .preview,
+.THIS .mapping,
+.THIS .publishComponent,
+.THIS .notification {
+    z-index: 11;
+    width: 97.2%;
+    left: 2.8%;
+    background-color: #FEFEFE;
+    position: relative;
+    height: 100%;
+}
+
+.THIS .preview,
+.THIS .mapping,
+.THIS .notification {
+    overflow: auto;
+}
+
+.THIS .preview::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .deleteBoxBtn {
+    background: #6699CC;
+}
+
+.THIS .mapping::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .slds-vertical-tabs__left-icon .slds-icon {
+    fill: #fff;
+}
+
+.THIS .slds-is-active .slds-icon {
+    fill: #6699cc;
+}
+
+.THIS .slds-vertical-tabs__nav-item {
+    border-bottom: 0px;
+}
+
+.THIS .slds-vertical-tabs__left-icon .slds-icon {
+    width: 1.3rem;
+}
+
+.THIS .slds-vertical-tabs__link {
+    padding-left: 1rem;
+}
+
+
+/* For Display Toast Message From Field Component */
+
+.THIS .fieldDiv2 .slds-notify_container {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+}
+
+.THIS .fieldDiv2 .exceptionModel {
+    position: fixed;
+}
+
+
+/* =========================     Spinner Sarts      =========================== */
+
+.THIS .spinner-main-div {
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.THIS .loader--ripple {
+    display: inline-block;
+    position: relative;
+    height: 100px;
+    width: 100px;
+}
+
+.THIS .loader--ripple div {
+    position: absolute;
+    animation: loader--ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+    border: 4px solid;
+    border-radius: 50%;
+    opacity: 1;
+}
+
+.THIS .loader--ripple div:nth-child(2) {
+    animation-delay: -0.5s;
+}
+
+@keyframes loader--ripple {
+    0% {
+        top: 50px;
+        left: 50px;
+        opacity: 1;
+        height: 0;
+        width: 0;
+    }
+    100% {
+        top: -1px;
+        left: -1px;
+        opacity: 0;
+        height: 100px;
+        width: 100px;
+    }
+}
+
+.THIS .loader--ripple div {
+    border-color: #00539f;
+}
+
+.THIS.slds-spinner_container {
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+
+/* =========================     Spinner End      =========================== */
+
+.THIS .slds-color-picker__selector.slds-popover {
+    margin-top: 1rem;
+}
+
+
+/* add page popup */
+
+.THIS.modalPopup {
+    background-color: rgb(255 255 255 / 75%);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    z-index: 1000;
+}
+
+.THIS .boxTitle {
+    width: 100%;
+    background: #6699CC;
+    height: 20%;
+    font-size: 1.5rem;
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.THIS .boxButton {
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: medium;
+    font-weight: 400;
+}
+
+.THIS .boxButtonPage {
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: medium;
+    font-weight: 400;
+}
+
+.THIS .boxYesButton,
+.THIS .boxNoButton {
+    border-radius: 7px;
+    border: navajowhite;
+    width: 6rem;
+    height: 1.8rem
+}
+
+.THIS .boxButtonPage .slds-button_brand {
+    background: #6699CC;
+    color: white;
+}
+
+.THIS .boxButtonPage .slds-button_brand[disabled],
+.THIS .boxButtonPage .slds-button_brand:disabled {
+    background-color: lightgray;
+}
+
+.THIS .boxNoButton {
+    background-color: #E6E7E9;
+    color: black;
+    margin-left: 15px;
+}
+
+.THIS .slds-notify_container {
+    z-index: auto;
+}
+
+.THIS .slds-notify_toast {
+    z-index: 11;
+}
+
+
+/* Delete box */
+
+
+/* .THIS.deleteConfirmBox {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    z-index: 1000;
+    background-color: rgb(255 255 255 / 75%);
+}
+
+.THIS .deleteboxTitle {
+    width: 100%;
+    background: #6699CC;
+    height: 25%;
+    font-size: large;
+    font-weight: 500;
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.THIS .deleteContent {
+    height: 50%;
+    font-weight: 400;
+    font-size: medium;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.THIS .deleteMain {
+    position: relative;
+    width: 25%;
+    height: 25%;
+    margin: auto;
+    flex-direction: column;
+    background-color: white;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+} */
+
+.THIS .slds-notify_container .slds-icon-utility-success {
+    --sds-c-icon-color-foreground: rgb(36, 146, 3);
+}
+
+.THIS .footer .nextbutton {
+    margin-bottom: 1rem;
+}
+
+.THIS.pageModel .pm-ftr-rm-div {
+    height: 60px;
+    padding: inherit;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.THIS.pageModel .pm-dtl {
+    font-size: medium;
+    font-weight: 400;
+    align-items: center;
+}
+
+.THIS.pageModel .pm-ttl {
+    font-size: medium;
+    font-weight: 400;
+    align-items: center;
+    padding: inherit;
+}
+
+.THIS.pageModel .slds-modal__header {
+    background-color: rgb(102, 153, 204);
+    color: white;
+    font-weight: 500;
+    font-size: large;
+}
+
+.THIS.pageModel .boxYesButton,
+.THIS.pageModel .boxNoButton {
+    font-size: medium;
+    font-weight: 400;
+    width: 6rem;
+    height: 1.8rem;
+    border-radius: 10px;
+}
+
+.THIS.pageModel .slds-button_brand {
+    background: #6699CC;
+    color: white;
+}
+
+.THIS.pageModel .slds-button_brand {
+    background: #6699CC;
+    color: white;
+}
+
+.THIS.pageModel .slds-button_brand[disabled],
+.THIS.pageModel .slds-button_brand:disabled {
+    background-color: lightgray;
+}
+
+.THIS.pageModel .boxNoButton {
+    background-color: #E6E7E9;
+    color: black;
+    margin-left: 15px;
+}
+
+
+/* Delete popup box */
+
+.THIS .pm-ftr-rm-div {
+    height: 70px;
+    padding: inherit;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.THIS .pm-dtl {
+    font-size: medium;
+    font-weight: 400;
+    align-items: center;
+}
+
+.THIS .pm-ttl {
+    font-size: medium;
+    font-weight: 400;
+    align-items: center;
+    padding: inherit;
+}
+
+.THIS.slds-modal {
+    position: absolute !important;
+}
+
+.THIS .slds-page-modal__container {
+    width: 30%;
+}
+
+.THIS .deleteBox-modal__container {
+    width: 22%;
+}
+
+.THIS .slds-modal__header {
+    background: #6699CC !important;
+    font-size: 2rem !important;
+    font-weight: 500 !important;
+    color: white !important;
+}
+
+.THIS .slds-modal__content {
+    font-size: medium;
+    font-weight: 400;
+    text-align: center;
+}
+
+.THIS .slds-modal__footer {
+    background-color: #fff !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-style: none;
+}
+
+.THIS .boxYesButton,
+.THIS .boxNoButton {
+    border-radius: 7px;
+    border: none;
+    width: 6rem;
+    height: 1.7rem;
+    font-size: medium;
+    font-weight: 400;
+}
+
+.THIS .boxYesButton {
+    background: #6699CC;
+    color: white;
+}
+
+.THIS .boxNoButton {
+    background-color: #E6E7E9;
+    color: black;
+}
+
+@media only screen and (max-width:1750px) {
+    .THIS .verticalTab lightning-tab-bar {
+        width: 15%;
+    }
+    .THIS .thankYou,
+    .THIS .preview,
+    .THIS .mapping,
+    .THIS .publishComponent,
+    .THIS .notification {
+        width: 97%;
+        left: 3%;
+    }
+}
+
+@media only screen and (max-width:1600px) {
+    .THIS .thankYou,
+    .THIS .preview,
+    .THIS .mapping,
+    .THIS .publishComponent,
+    .THIS .notification {
+        width: 96.3%;
+        left: 3.7%;
+    }
+}
+
+@media only screen and (max-width:1669px) {
+    .THIS .verticalTab {
+        width: 22%;
+    }
+    .THIS .EditForm {
+        left: 21.5%;
+        width: 79%;
+    }
+}
+
+@media only screen and (max-width:1476px) {
+    .THIS .EditForm {
+        left: 22%;
+        width: 78%;
+    }
+}
+
+@media only screen and (max-width:1531px) {
+    .THIS .verticalTab lightning-tab-bar {
+        width: 17%;
+    }
+    .THIS .fieldDiv2 {
+        width: 19%;
+    }
+}
+
+@media only screen and (max-width:1453px) {
+    .THIS .fieldDiv2 {
+        width: 18%;
+    }
+}
+
+@media only screen and (max-width:1395px) {
+    .THIS .slds-page-modal__container {
+        width: 40%;
+    }
+    .THIS .deleteBox-modal__container {
+        width: 30%;
+    }
+    .THIS .fieldDivLabel,
+    .THIS .designLabel {
+        padding: 22px 0 0 16px;
+    }
+    .THIS .deleteMain {
+        position: relative;
+        width: 30%;
+        height: 35%;
+        margin: auto;
+        flex-direction: column;
+        background-color: white;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+    .THIS .editFormContent {
+        height: 20%;
+        margin-top: 4%;
+    }
+    .THIS .verticalTab {
+        width: 25%;
+    }
+    .THIS .EditForm {
+        width: 75%;
+        left: 25%;
+    }
+    .THIS .formTitle {
+        margin-bottom: 3%;
+        margin-top: 3%;
+    }
+    .THIS .formTitleHeader {
+        font-size: 1.5rem;
+    }
+    .THIS .fieldDiv2 {
+        width: 21%;
+    }
+    .THIS .verticalTab lightning-tab-bar {
+        width: 16%;
+    }
+    .THIS .thankYou,
+    .THIS .preview,
+    .THIS .mapping,
+    .THIS .publishComponent,
+    .THIS .notification {
+        width: 96%;
+        left: 4%;
+    }
+}
+
+@media only screen and (max-width:1115px) {
+    .THIS .verticalTab {
+        width: 28.2%;
+    }
+    .THIS .EditForm {
+        width: 72%;
+        left: 28%
+    }
+    .THIS .fieldSectionDiv {
+        width: 75%;
+    }
+    .THIS .editFormContent {
+        margin-top: 5%;
+    }
+    .THIS .fieldDiv2 {
+        width: 23%;
+    }
+}
+
+@media only screen and (max-width:1250px) {
+    .THIS .verticalTab lightning-tab-bar {
+        width: 18%;
+    }
+    .THIS .thankYou,
+    .THIS .preview,
+    .THIS .mapping,
+    .THIS .publishComponent,
+    .THIS .notification {
+        width: 95.5%;
+        left: 4.5%;
+    }
+}
+
+@media only screen and (max-width:1100px) {
+    .THIS .verticalTab lightning-tab-bar {
+        width: 18%;
+    }
+    .THIS .fieldDiv2 .slds-spinner_container {
+        width: 34%;
+    }
+    .THIS .thankYou,
+    .THIS .preview,
+    .THIS .mapping,
+    .THIS .publishComponent,
+    .THIS .notification {
+        width: 95%;
+        left: 5%;
+    }
+}
+
+@media only screen and (max-width:1098px) {
+    .THIS .verticalTab {
+        width: 31%;
+    }
+    .THIS .EditForm {
+        width: 70%;
+        left: 30%
+    }
+    .THIS .fieldSectionDiv {
+        overflow: auto;
+        height: 100%;
+        position: absolute;
+        width: 73%;
+        padding-bottom: 25px;
+        left: 64px;
+    }
+    .THIS .designFieldDiv {
+        width: 100%;
+    }
+    .THIS .verticalTab .accordionSection .slds-accordion__section {
+        width: 15rem;
+    }
+    .THIS .verticalTab lightning-tab-bar {
+        width: 16%;
+    }
+}
+
+@media only screen and (max-width:1020px) {
+    .THIS .verticalTab lightning-tab-bar {
+        width: 17%;
+    }
+}
+
+@media only screen and (max-width:1020px) {
+    .THIS .fieldSectionDiv {
+        overflow: auto;
+        height: 100%;
+        position: absolute;
+        width: 74%;
+        padding-bottom: 25px;
+        left: 58px;
+    }
+}
+
+@media only screen and (max-width:900px) {
+    .THIS .verticalTab {
+        width: 34%;
+    }
+    .THIS .verticalTab lightning-tab-bar {
+        width: 20%;
+    }
+    .THIS .thankYou,
+    .THIS .preview,
+    .THIS .mapping,
+    .THIS .publishComponent,
+    .THIS .notification {
+        width: 94.5%;
+        left: 5.5%;
+    }
+}
+
+@media only screen and (max-width:980px) {
+    .THIS .fieldDiv2 .slds-is-relative {
+        margin-top: 150px;
+        display: flex;
+        justify-content: center;
+        position: fixed;
+    }
+}

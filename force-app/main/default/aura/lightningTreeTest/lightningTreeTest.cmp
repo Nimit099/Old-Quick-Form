@@ -1,0 +1,14 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="lightningTreeTestController">
+
+    <aura:attribute name="ltngcurrentRecId" type="String" required="true" default="a055j000003eCyTAAU" />
+    <aura:attribute name="ltngSobjectname" type="String" required="true" default="Folder__c" />
+    <aura:attribute name="ltngParentFieldAPIName" type="String" required="true" default="FolderId__c" />
+    <aura:attribute name="ltngLabelFieldAPIName" type="String" required="true" default="Name" />
+    <aura:attribute name="ltngHierarchyHeader" type="String" required="true" default="Folder 3 Hierarchy" />
+    <aura:attribute name="items" type="Object" />
+
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <!-- <lightning:tree items="{!v.items }" header="{!v.ltngHierarchyHeader}" onselect="{!c.handleSelect}" /> -->
+    <lightning:tree items="{!v.items }" onselect="{!c.handleSelect}" style="font-size: initial;" />
+</aura:component>

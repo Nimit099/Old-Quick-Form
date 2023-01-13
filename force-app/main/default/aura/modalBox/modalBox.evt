@@ -1,0 +1,5 @@
+<aura:event type="COMPONENT" description="Event template">
+    <aura:attribute name="passMessage" type="String" default='Test' />
+    <aura:attribute name="getTitle" type="String" default='Test' />
+
+</aura:event>

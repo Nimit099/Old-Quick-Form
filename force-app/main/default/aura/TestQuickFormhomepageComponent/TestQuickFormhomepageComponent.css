@@ -1,0 +1,39 @@
+.THIS .first {
+    padding:5%;
+    height:20%;
+    width:100%;
+}
+.THIS .header{
+    /*background-color:white;*/
+    background-color:#c5c2bd;
+    font-size:20px;
+    border-radius:3px;
+}
+.THIS .slds-modal__footer{
+   padding-bottom: 3% !important;
+}
+.THIS .title{
+    margin-bottom: 1% !important;
+}
+.THIS .footer{
+    background-color:#e3e1dc;
+    /*text-align: end;*/
+    margin: 1px auto 0;
+    border-radius:3px;
+}
+/* ivory */
+.THIS .slds-modal__header{
+    background-color:rgb(243, 242, 242);    
+}
+.THIS .footer .slds-button{
+    width:13% !important;
+    color:black;
+    font-size:15px !important;
+    background-color:white ;
+    border:1px solid #c5c2bd ;
+    transition-duration: 0.4s;
+}
+.THIS .footer .slds-button:hover{
+    background-color:rgb(100 162 225);              
+  	color: white;
+}

@@ -1,0 +1,60 @@
+<aura:component implements="force:appHostable" controller="ThankYouComponentController">
+    <aura:handler name="init" value="{!this}" action="{!c.fetchData}" />
+    <aura:attribute name="spinner" type="boolean" default="false" />
+    <aura:attribute name="FormId" type="String" />
+    <aura:attribute name="FormData" type="Object" />
+    <aura:attribute name="FormField" type="Object" />
+
+    <aura:if isTrue="{!v.spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+
+    <div style="background-color: #eae3e3; height: inherit; overflow-y: scroll;">
+        <div class="maindiv">
+            <div class="pageClass">
+
+                <div class="thanksLabel">
+                    <ui:outputRichText class="outrichstyle slds-cell-wrap" value="{!v.FormData.ThankYou_Label__c}" />
+                </div>
+
+                <aura:if isTrue="{!v.FormData.ThankYou_Page__c == 'ThankYou_Text'}">
+                    <div class="txtstyle"> {!v.FormData.ThankYou_Text__c} </div>
+                </aura:if>
+
+                <aura:if isTrue="{!v.FormData.ThankYou_Page__c == 'Redirect_Text_And_URL'}">
+                    <div class="txtstyle"> {!v.FormData.Redirect_Text__c} </div>
+                </aura:if>
+
+                <aura:if isTrue="{!v.FormData.ThankYou_Page__c == 'ThankYou_Report'}">
+                    <div class="heading">
+                        Your Form Data:
+                    </div>
+                    <aura:iteration items="{!v.FormField}" var="page">
+                        <aura:iteration items="{!page.FieldWrapperList}" var="fieldList">
+                            <div class="subdiv">
+                                <div class="attributelabel">
+                                    {!fieldList.FieldAttObj.Label__c} :
+                                </div>
+                                <div class="fieldlabel">
+                                    {!fieldList.FieldObj.Label__c}
+                                </div>
+                            </div>
+                        </aura:iteration>
+                    </aura:iteration>
+                </aura:if>
+
+                <aura:if isTrue="{!v.FormData.ThankYou_Page__c == 'ThankYou_RichText'}">
+                    <div class="txtstyle">
+                        <lightning:formattedRichText value="{!v.FormData.ThankYou_RichText__c}" />
+                    </div>
+                </aura:if>
+            </div>
+        </div>
+    </div>
+
+</aura:component>

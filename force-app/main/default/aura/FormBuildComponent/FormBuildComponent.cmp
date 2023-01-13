@@ -1,0 +1,5 @@
+<aura:component>
+    <lightning:card title="Form Build Component">
+        Here is Form Build Component..!!!
+    </lightning:card>
+</aura:component>

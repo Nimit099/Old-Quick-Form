@@ -1,0 +1,930 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="QuickFormFieldComponentController">
+
+    <aura:registerEvent name="cmpEvent" type="c:FieldEvent" />
+    <aura:handler name="init" value="{!this}" action="{!c.fetchQuickFormFieldAttValue}" />
+
+    <!--To ensure proper rendering and touch zooming using below meta tag-->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <aura:attribute name="FormId" type="String" />
+    <aura:attribute name="FormIdencod" type="String" />
+    <aura:attribute name="spinner" type="boolean" default="FALSE" />
+    <aura:attribute name="spinner1" type="boolean" default="FALSE" />
+    <aura:attribute name="Cssspinner" type="boolean" default="FALSE" />
+    <aura:attribute name="imageSpinner" type="boolean" default="FALSE" />
+    <aura:attribute name="pageImageSpinner" type="boolean" default="FALSE" />
+    <aura:attribute name="showToast" type="String" />
+    <aura:attribute name="FormPageFieldValueWrapper" type="Object" />
+    <aura:attribute name="Page" type="Page__c" default="{
+        'SObjectType': 'Page__c',
+        'Form__c' : '',
+        'Title__c': '',
+        'Sub_Title__c': ''
+    }">
+    </aura:attribute>
+    <aura:attribute name="option" type="Boolean" />
+
+    <!-- Attribute For Field Section -->
+    <aura:attribute name="view" type="String" default="Compact" />
+    <aura:attribute name="activeSectionsField" type="List" default="['A', 'B', 'C', 'D', 'E', 'F']" />
+    <aura:attribute name="ShowField" type="boolean" default="false" />
+    <aura:attribute name="baseField" type="Object" />
+
+    <!-- Accordian section attribute -->
+    <aura:attribute name="activeSections" type="List" default="['A','C']" />
+    <aura:attribute name="activeSectionsMessage" type="String" default="" />
+    <aura:attribute name="searchkeyword" type="String" />
+    <aura:attribute name="formWidth" type="Integer" default="80" />
+
+
+    <aura:attribute name="options2" type="List" default="[
+        {'label': 'Left to Right', 'value': 'ltr'},
+        {'label': 'Right to Left', 'value': 'rtl'},
+        ]" />
+
+    <aura:attribute name="placement" type="List" default="[
+        {'label': 'Left', 'value': 'Left'},
+        {'label': 'Top', 'value': 'Top'},
+        {'label': 'Right', 'value': 'Right'},
+        ]" />
+
+    <aura:attribute name="backSize" type="string" default="auto" />
+    <aura:attribute name="optbackSize" type="List" default="[
+        {'label': 'contain', 'value': 'contain'},
+        {'label': 'auto', 'value': 'auto'},
+        {'label': 'cover', 'value': 'cover'},
+        {'label': 'inherit', 'value': 'inherit'},
+        {'label': 'initial', 'value': 'initial'},
+        {'label': 'revert', 'value': 'revert'},
+        {'label': 'unset', 'value': 'unset'},                                              
+        ]" />
+
+    <aura:attribute name="formbackSize" type="string" default="auto" />
+    <aura:attribute name="optformbackSize" type="List" default="[
+        {'label': 'contain', 'value': 'contain'},
+        {'label': 'auto', 'value': 'auto'},
+        {'label': 'cover', 'value': 'cover'},
+        {'label': 'inherit', 'value': 'inherit'},
+        {'label': 'initial', 'value': 'initial'},
+        {'label': 'revert', 'value': 'revert'},
+        {'label': 'unset', 'value': 'unset'},                                              
+        ]" />
+
+    <aura:attribute name="backpagePostion" type="String" default="top left" />
+    <aura:attribute name="optbackpagePostion" type="List" default="[
+        {'label': 'top left', 'value': 'top left'},
+        {'label': 'top center', 'value': 'top center'},
+        {'label': 'top right', 'value': 'top right'},
+        {'label': 'center left', 'value': 'center left'},
+        {'label': 'center right', 'value': 'center right'},
+        {'label': 'bottom left', 'value': 'bottom left'},
+        {'label': 'bottom right', 'value': 'bottom right'},                                              
+        ]" />
+
+    <aura:attribute name="formbackpagePostion" type="string" default="top left" />
+    <aura:attribute name="optformbackpagePostion" type="List" default="[
+        {'label': 'top left', 'value': 'top left'},
+        {'label': 'top center', 'value': 'top center'},
+        {'label': 'top right', 'value': 'top right'},
+        {'label': 'center left', 'value': 'center left'},
+        {'label': 'center right', 'value': 'center right'},
+        {'label': 'bottom left', 'value': 'bottom left'},
+        {'label': 'bottom right', 'value': 'bottom right'},                                        
+        ]" />
+
+    <aura:attribute name="backpageRepeat" type="String" default="repeat" />
+    <aura:attribute name="optbackpageRepeat" type="List" default="[
+        {'label': 'no-repeat', 'value': 'no-repeat'},
+        {'label': 'repeat', 'value': 'repeat'},
+        {'label': 'repeat-x', 'value': 'repeat-x'},
+        {'label': 'repeat-y', 'value': 'repeat-y'},  
+        ]" />
+
+    <aura:attribute name="formbackpageRepeat" type="String" default="repeat" />
+    <aura:attribute name="optformbackpageRepeat" type="List" default="[
+            {'label': 'no-repeat', 'value': 'no-repeat'},
+            {'label': 'repeat', 'value': 'repeat'},
+            {'label': 'repeat-x', 'value': 'repeat-x'},
+            {'label': 'repeat-y', 'value': 'repeat-y'},  
+            ]" />
+
+    <aura:attribute name="backgroundPagefixposition" type="String" default="scroll" />
+    <aura:attribute name="optBackgroundPagefixposition" type="List" default="[
+        {'label': 'fixed', 'value': 'fixed'},
+        {'label': 'scroll', 'value': 'scroll'},  
+        ]" />
+
+    <aura:attribute name="formbackgroundPagefixposition" type="String" default="scroll" />
+    <aura:attribute name="optformbackgroundPagefixposition" type="List" default="[
+        {'label': 'fixed', 'value': 'fixed'},
+        {'label': 'scroll', 'value': 'scroll'},  
+        ]" />
+
+    <aura:attribute name="borderStyle" type="String" default="Solid" />
+    <aura:attribute name="optborderStyle" type="List" default="[
+        {'label': 'None', 'value': 'None'},
+        {'label': 'Dotted', 'value': 'Dotted'},  
+        {'label': 'Dashed', 'value': 'Dashed'},  
+        {'label': 'Solid', 'value': 'Solid'},  
+        {'label': 'Double', 'value': 'Double'},  
+        {'label': 'Groove', 'value': 'Groove'},  
+        {'label': 'Ridge', 'value': 'Ridge'},  
+        {'label': 'Inset', 'value': 'Inset'},  
+        {'label': 'Outset', 'value': 'Outset'},  
+        ]" />
+
+    <aura:attribute name="formborderStyle" type="String" default="Solid" />
+    <aura:attribute name="optformborderStyle" type="List" default="[
+        {'label': 'None', 'value': 'None'},
+        {'label': 'Dotted', 'value': 'Dotted'},  
+        {'label': 'Dashed', 'value': 'Dashed'},  
+        {'label': 'Solid', 'value': 'Solid'},  
+        {'label': 'Double', 'value': 'Double'},  
+        {'label': 'Groove', 'value': 'Groove'},  
+        {'label': 'Ridge', 'value': 'Ridge'},  
+        {'label': 'Inset', 'value': 'Inset'},  
+        {'label': 'Outset', 'value': 'Outset'},  
+        ]" />
+
+    <aura:attribute name="formborderwidth" type="String" default="1" />
+
+    <aura:attribute name="inputlineheight" type='String' default="Single" />
+    <aura:attribute name="optinputlineheight" type="List" default="[
+        {'label': 'Single', 'value': 'Single'},
+        {'label': '1.5 Lines', 'value': '1.5 Lines'},  
+        {'label': 'Double', 'value': 'Double'},  
+        ]" />
+
+    <aura:attribute name="inputfontstyle" type='String' default="Normal" />
+    <aura:attribute name="optinputfontstyle" type="List" default="[
+        {'label': 'Normal', 'value': 'Normal'},
+        {'label': 'italic', 'value': 'italic'},  
+        ]" />
+
+    <aura:attribute name="inputfontweight" type='String' default="Normal" />
+    <aura:attribute name="optinputfontweight" type="List" default="[
+        {'label': 'Normal', 'value': 'Normal'},
+        {'label': 'bold', 'value': 'bold'},  
+        ]" />
+
+    <aura:attribute name="inputfontfamily" type='String' default="sans-serif" />
+    <aura:attribute name="optinputfontfamily" type="List" default="[
+        {'label': 'Times New Roman', 'value': 'Times New Roman'},
+        {'label': 'Arial', 'value': 'Arial'},  
+        {'label': 'Tahoma', 'value': ' Tahoma'},
+        {'label': 'sans-serif', 'value': 'sans-serif'},
+        {'label': 'cursive', 'value': 'cursive'},
+        {'label': 'fantasy', 'value': 'fantasy'},
+        {'label': 'monospace', 'value': 'monospace'},
+        {'label': 'Helvetica', 'value': 'Helvetica'},
+        ]" />
+
+    <!-- Label -->
+    <aura:attribute name="labelfontfamily" type='String' default="sans-serif" />
+    <aura:attribute name="optlabelfontfamily" type="List" default="[
+        {'label': 'Times New Roman', 'value': 'Times New Roman'},
+        {'label': 'Arial', 'value': 'Arial'},  
+        {'label': 'Tahoma', 'value': ' Tahoma'},
+        {'label': 'sans-serif', 'value': 'sans-serif'},
+        {'label': 'cursive', 'value': 'cursive'},
+        {'label': 'fantasy', 'value': 'fantasy'},
+        {'label': 'monospace', 'value': 'monospace'},
+        {'label': 'Helvetica', 'value': 'Helvetica'},
+        ]" />
+    <aura:attribute name="labelalign" type="String" default="Left" />
+    <aura:attribute name="optlabelalign" type="List" default="[
+        {'label': 'center', 'value': 'center'},  
+        {'label': 'Left', 'value': 'Left'},
+        {'label': 'Right', 'value': 'Right'},                                           
+        ]" />
+    <aura:attribute name="labelfontweight" type='String' default="Normal" />
+    <aura:attribute name="optlabelfontweight" type="List" default="[
+        {'label': 'Normal', 'value': 'Normal'},
+        {'label': 'bold', 'value': 'bold'},  
+        ]" />
+    <aura:attribute name="labelfontstyle" type='String' default="Normal" />
+    <aura:attribute name="optlabelfontstyle" type="List" default="[
+        {'label': 'Normal', 'value': 'Normal'},
+        {'label': 'italic', 'value': 'italic'},  
+        ]" />
+    <aura:attribute name="labelfontsize" type="String" />
+
+    <aura:attribute name="labelineheight" type='String' default="Single" />
+    <aura:attribute name="optlabelineheight" type="List" default="[
+        {'label': 'Single', 'value': 'Single'},
+        {'label': '1.5 Lines', 'value': '1.5 Lines'},  
+        {'label': 'Double', 'value': 'Double'},  
+        ]" />
+    <aura:attribute name="labelcolor" type="String" />
+    <aura:attribute name="labelbottommargin" type="String" />
+    <aura:attribute name="labeltopmargin" type="String" />
+    <!-- Field focus css -->
+    <aura:attribute name="fieldfocusbg" type='String' />
+    <aura:attribute name="fieldfocusborderColor" type="String" />
+    <aura:attribute name="fieldfocuscolor" type="String" />
+    <aura:attribute name="focuslabelcolor" type="String" />
+    <aura:attribute name="focusinstructioncolor" type="String" />
+
+    <!-- Field hover Accordian -->
+    <aura:attribute name="fieldhoverbg" type='String' />
+    <aura:attribute name="fieldhoverborderColor" type="String" />
+    <aura:attribute name="fieldhovercolor" type="String" />
+    <aura:attribute name="hoverlabelcolor" type="String" />
+
+    <!-- Button Accordian -->
+    <aura:attribute name="btnborderstyle" type="String" default="Solid" />
+    <aura:attribute name="optbtnborderstyle" type="List" default="[
+         {'label': 'None', 'value': 'None'},
+         {'label': 'Dotted', 'value': 'Dotted'},  
+         {'label': 'Dashed', 'value': 'Dashed'},  
+         {'label': 'Solid', 'value': 'Solid'},  
+         {'label': 'Double', 'value': 'Double'},  
+         {'label': 'Groove', 'value': 'Groove'},  
+         {'label': 'Ridge', 'value': 'Ridge'},  
+         {'label': 'Inset', 'value': 'Inset'},  
+         {'label': 'Outset', 'value': 'Outset'},  
+         ]" />
+
+    <aura:attribute name="btncolor" type="String" />
+    <aura:attribute name="btnborderwidth" type="String" default="1" />
+    <aura:attribute name="btnborderradius" type="String" default="5" />
+
+    <aura:attribute name="buttonfontfamily" type='String' default="sans-serif" />
+    <aura:attribute name="optbuttonfontfamily" type="List" default="[
+         {'label': 'Times New Roman', 'value': 'Times New Roman'},
+         {'label': 'Arial', 'value': 'Arial'},  
+         {'label': 'Tahoma', 'value': ' Tahoma'},
+         {'label': 'sans-serif', 'value': 'sans-serif'},
+         {'label': 'cursive', 'value': 'cursive'},
+         {'label': 'fantasy', 'value': 'fantasy'},
+         {'label': 'monospace', 'value': 'monospace'},
+         {'label': 'Helvetica', 'value': 'Helvetica'},
+         ]" />
+
+    <aura:attribute name="buttonfontweight" type='String' default="Normal" />
+    <aura:attribute name="optbuttonfontweight" type="List" default="[
+         {'label': 'Normal', 'value': 'Normal'},
+         {'label': 'bold', 'value': 'bold'},  
+         ]" />
+
+    <aura:attribute name="buttonfontstyle" type='String' default="Normal" />
+    <aura:attribute name="optbuttonfontstyle" type="List" default="[
+         {'label': 'Normal', 'value': 'Normal'},
+         {'label': 'italic', 'value': 'italic'},  
+         ]" />
+
+    <aura:attribute name="buttonfontsize" type="String" />
+
+
+    <aura:attribute name="btnJustify" type='String' default="center" />
+    <aura:attribute name="optbtnJustify" type="List" default="[
+              {'label': 'center', 'value': 'center'},
+              {'label': 'Left', 'value': 'Left'},  
+              {'label': 'Right', 'value': 'Right'},  
+              ]" />
+    <aura:attribute name="btnTextColor" type="String" default="#778899" />
+    <aura:attribute name="btnHorizontalPadding" type="Integer" default="1" />
+
+    <aura:attribute name="btnWidth" type="String" default="60" />
+    <aura:attribute name="btnHeight" type="String" default="40" />
+    <aura:attribute name="btnVerticalPadding" type="Integer" default="0.5" />
+    <aura:attribute name="btnBgColor" type="String" />
+
+    <!-- Radio Accordian -->
+    <aura:attribute name="radiowidth" type="String" />
+    <aura:attribute name="radioheight" type="String" />
+    <aura:attribute name="radiomarginright" type="String" />
+    <aura:attribute name="checkwidth" type="String" />
+    <aura:attribute name="checkheight" type="String" />
+    <aura:attribute name="checkmargintop" type="String" />
+    <aura:attribute name="opt" type="String" />
+    <aura:attribute name="amount" type="Integer" />
+    <aura:attribute name="headpadding" type="Integer" />
+    <aura:attribute name="footpadding" type="Integer" />
+    <aura:attribute name="leftpadding" type="Integer" />
+    <aura:attribute name="rightpadding" type="Integer" />
+    <aura:attribute name="colorpicker" type="String" />
+    <aura:attribute name="pagecolorpicker" type="String" />
+    <aura:attribute name="formdir" type="String" />
+    <aura:attribute name="toppadding" type="Integer" />
+    <aura:attribute name="bottompadding" type="Integer" />
+    <aura:attribute name="setPreview" type="String" />
+    <aura:attribute name="fileName" type="String" default="No File Selected.." />
+    <aura:attribute name="setPagePreview" type="String" />
+    <aura:attribute name="storebgId" type="String" />
+    <aura:attribute name="bgInput" type="String" />
+    <aura:attribute name="storeFormbgId" type="String" />
+    <aura:attribute name="fverticalPadding" type="String" />
+    <aura:attribute name="fhorizontalPadding" type="String" />
+    <aura:attribute name="borderInput" type="String" />
+    <aura:attribute name="borderWidth" type="String" default="1" />
+    <aura:attribute name="borderRadius" type="String" default="3" />
+    <aura:attribute name="inputVpadding" type="String" default="5" />
+    <aura:attribute name="inputHpadding" type="String" default="5" />
+    <aura:attribute name="inputfontsize" type="String" />
+    <aura:attribute name="bordertextcolor" type="String" />
+    <aura:attribute name="formbordercolor" type="String" />
+    <aura:attribute name="publishurl" type="String" default="Publish Form URL" />
+    <aura:attribute name="site_deactivate" type="boolean" default="true" />
+    <aura:attribute name="showModal1" type="boolean" />
+    <aura:attribute name="showModal2" type="boolean" />
+    <aura:attribute name="showModal3" type="boolean" />
+    <aura:attribute name="showModal4" type="boolean" />
+    <aura:attribute name="showModel6" type="boolean" />
+    <aura:attribute name="showModel7" type="boolean" />
+    <aura:attribute name="showTextModal" type="boolean" default="false" />
+    <aura:attribute name="deleteImageIds" type="String" />
+    <aura:attribute name="deleteFormImageIds" type="string" />
+    <aura:attribute name="editNextButton" type="String" default="Next" />
+
+    <aura:attribute name="encoding" type="String" />
+    <aura:attribute name="body" type="Aura.Component[]" />
+
+    <aura:attribute name="renderPreview" type="Boolean" default="true" />
+
+    <aura:attribute name="publishCheckboxesOpt" type="List" default="[
+    {'label': 'Aura Component', 'value': 'option1'},
+    {'label': 'LWC', 'value': 'option2'},
+    {'label': 'IFrame', 'value': 'option3'},
+    {'label': 'Link to Form', 'value': 'option4'},
+    {'label': 'Lightbox', 'value': 'option5'}
+
+
+
+    ]" />
+    <aura:attribute name="publishCheckboxes" type="String" default="option1" />
+
+
+
+    <!--=========================[ page Modal ] ========================= -->
+    <div>
+        <section aura:id="Modal" role="dialog" tabindex="-1" aria-labelledby="ModalHeading" aria-modal="true" aria-describedby="ModalBody" class="slds-modal">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon class="slds-modal__close" alternativeText="Close" iconName="utility:close" onclick="{!c.closeModal}" variant="bare-inverse" size="large"></lightning:buttonIcon>
+                    <div class="header">
+                        <h5 id="ModalHeading">New Page</h5>
+                    </div>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="ModalBody">
+                    <div style="float:right;">
+                        <lightning:helptext content="To display the page title"></lightning:helptext>
+                    </div>
+                    <div>
+                        <lightning:input label="Page Title " value="{!v.Page.Title__c}" class="validate" required="true" />
+                    </div>
+                    <div style="float:right;">
+                        <lightning:helptext content="To display the page subtitle"></lightning:helptext>
+                    </div>
+                    <div>
+                        <lightning:input label="Page Sub-title" value="{!v.Page.Sub_Title__c}" />
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <div>
+                        <lightning:button label="Cancel" title="Cancel Page" onclick="{!c.closeModal}" />
+                        <lightning:button variant="brand" label="Save" title="Add Page" onclick="{!c.createPage}" disabled="{!v.Page.Title__c == ''}" />
+                    </div>
+                </footer>
+            </div>
+        </section>
+        <div aura:id="ModalBackdrop" class="slds-backdrop"></div>
+    </div>
+
+    <!-- ========================= [page Modal End ] ========================= -->
+
+    <!-- ========================= [ Add Recipient] Button click  strat=========================-->
+
+    <!-- <div>
+        <section aura:id="add_Recipient" role="dialog" tabindex="-1" aria-labelledby="ModalHeading" aria-modal="true" aria-describedby="ModalBody" class="slds-modal">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon class="slds-modal__close" alternativeText="Close" iconName="utility:close" onclick="{!c.cancleAddRecipient}" variant="bare-inverse" size="large">
+                    </lightning:buttonIcon>
+                    <div class="header">
+                        <h2 id="ModalHeading">Add Recipient</h2>
+                    </div>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="ModalBody">
+                    <div class="" id="renameTextField">
+                        <lightning:input type="email" label="Recipient Email" value="{!v.emailRecipientForList}" required="true" messageWhenValueMissing="Please Fill the Details" />
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <div class="" style="text-align: center;">
+                        <lightning:button label="Cancel" title="Cancel" onclick="{!c.cancleAddRecipient}" />
+                        <lightning:button class="" variant="brand" label="Add" onclick="{!c.addRecipient}" />
+                    </div>
+                </footer>
+            </div>
+        </section>
+        <div aura:id="ModalBackdrop_add_Recipient" class="slds-backdrop"></div>
+    </div> -->
+
+    <!-- ========================= [ Add Recipient ] Button click  finished=========================-->
+
+    <!-- ========================= [ Edit Recipient] Button click  strat=========================-->
+
+    <!-- <div>
+        <section aura:id="edit_Recipient" role="dialog" tabindex="-1" aria-labelledby="ModalHeading" aria-modal="true" aria-describedby="ModalBody" class="slds-modal">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon class="slds-modal__close" alternativeText="Close" iconName="utility:close" onclick="{!c.cancleEditRecipient}" variant="bare-inverse" size="large">
+                    </lightning:buttonIcon>
+                    <div class="header">
+                        <h2 id="ModalHeading">Edit Recipient</h2>
+                    </div>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="ModalBody">
+                    <div class="" id="renameTextField">
+                        <lightning:input type="email" label="Recipient Email" value="{!v.editEmailAdd}" required="true" messageWhenValueMissing="Please Fill the Details" />
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <div class="" style="text-align: center;">
+                        <lightning:button label="Cancel" title="Cancel" onclick="{!c.cancleEditRecipient}" />
+                        <lightning:button class="" variant="brand" label="Save" title="Save Recipient" onclick="{!c.editRecipient}" />
+                    </div>
+                </footer>
+            </div>
+        </section>
+        <div aura:id="ModalBackdrop_edit_Recipient" class="slds-backdrop"></div>
+    </div> -->
+
+    <!-- ========================= [ Edit Recipient ] Button click  finished=========================-->
+
+    <aura:if isTrue="{!v.spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+
+    <!-- ========================= [ css spinner ] =========================-->
+
+    <aura:if isTrue="{!v.Cssspinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+
+    <!--=====================[ form Image spinner]===========-->
+    <aura:if isTrue="{!v.imageSpinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+
+    <!--=====================[ page Image spinner]===========-->
+
+    <aura:if isTrue="{!v.pageImageSpinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+
+
+
+
+    <!-- Form Builder -->
+
+    <div class="slds-grid slds-wrap formBuilder" onmouseover='{!c.SetOpacity}'>
+        <!-- Vertical tab -->
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_3-of-12 verticalTab">
+            <lightning:tabset variant="vertical" selectedTabId="two">
+                <lightning:tab onactive="{!c.handleActiveTab}">
+                    <c:HomepageSakina />
+                </lightning:tab>
+
+                <lightning:tab id="two" onactive="{!c.handleActiveTab}">
+                    <div class="fieldDiv fieldSectionDiv">
+
+                        <div class="fieldDivLabel">
+                            <h1>FIELDS</h1>
+                        </div>
+
+                        <div class="slds-box_x-small" style="margin-bottom: 3%;">
+                            <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                                <img src="{!$Resource.searchBoxIocn}" class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default searchIcon" />
+                                <lightning:input aura:id="searchKey" type="text" onchange="{!c.searchAction}" class='searchBox' placeholder="Search Fields" />
+                            </div>
+                        </div>
+
+                        <aura:if isTrue="{!not (v.ShowField)}">
+                            <lightning:accordion allowMultipleSectionsOpen="true" class="fieldSection" activeSectionName="{! v.activeSectionsField }">
+                                <lightning:accordionSection name="A" label="Contact Details">
+                                    <div ondragover="{!c.onDragOver}" ondrop="{!c.MethodForOpacity}">
+                                        <aura:iteration items="{!v.FormPageFieldValueWrapper.basefield}" var="basefield">
+                                            <aura:if isTrue="{! (basefield.DataRecord__c == 'QFFULLNAME' || basefield.DataRecord__c == 'QFNAME' || basefield.DataRecord__c == 'QFPHONE' || basefield.DataRecord__c == 'QFEMAILID' || basefield.DataRecord__c == 'QFADDRESS')}">
+                                                <div class="example-draggable" data-record="{!basefield.DataRecord__c}" draggable="true" ondragstart="{!c.onDragStart}">
+                                                    <c:quickformfieldcomponent1 tView="{!basefield.DataRecord__c}" Compview="{!v.view}" />
+                                                </div>
+                                            </aura:if>
+                                        </aura:iteration>
+                                    </div>
+                                </lightning:accordionSection>
+
+                                <lightning:accordionSection name="B" label="Essentials">
+                                    <div ondragover="{!c.onDragOver}" ondrop="{!c.MethodForOpacity}">
+                                        <aura:iteration items="{!v.FormPageFieldValueWrapper.basefield}" var="basefield">
+                                            <aura:if isTrue="{! (basefield.DataRecord__c == 'QFSHORTTEXT' || basefield.DataRecord__c == 'QFLONGTEXT'|| basefield.DataRecord__c == 'QFRICHTEXT' || basefield.DataRecord__c == 'QFDROPDOWN' || basefield.DataRecord__c == 'QFRADIOBUTTON' || basefield.DataRecord__c == 'QFCHECKBOX' || basefield.DataRecord__c == 'QFPRICE' || basefield.DataRecord__c == 'QFNUMBER')}">
+                                                <div class="example-draggable" data-record="{!basefield.DataRecord__c}" draggable="true" ondragstart="{!c.onDragStart}">
+                                                    <c:quickformfieldcomponent1 tView="{!basefield.DataRecord__c}" Compview="{!v.view}" />
+                                                </div>
+                                            </aura:if>
+                                        </aura:iteration>
+                                    </div>
+                                </lightning:accordionSection>
+
+                                <lightning:accordionSection name="C" label="Upload and Consent">
+                                    <div ondragover="{!c.onDragOver}" ondrop="{!c.MethodForOpacity}">
+                                        <aura:iteration items="{!v.FormPageFieldValueWrapper.basefield}" var="basefield">
+                                            <aura:if isTrue="{! (basefield.DataRecord__c == 'QFSIGNATURE' || basefield.DataRecord__c == 'QFFILEUPLOAD' || basefield.DataRecord__c == 'QFTERMSOFSERVICE' || basefield.DataRecord__c == 'QFLINK')}">
+                                                <div class="example-draggable" data-record="{!basefield.DataRecord__c}" draggable="true" ondragstart="{!c.onDragStart}">
+                                                    <c:quickformfieldcomponent1 tView="{!basefield.DataRecord__c}" Compview="{!v.view}" />
+                                                </div>
+                                            </aura:if>
+                                        </aura:iteration>
+                                    </div>
+                                </lightning:accordionSection>
+
+                                <lightning:accordionSection name="D" label="Date and Time">
+                                    <div ondragover="{!c.onDragOver}" ondrop="{!c.MethodForOpacity}">
+                                        <aura:iteration items="{!v.FormPageFieldValueWrapper.basefield}" var="basefield">
+                                            <aura:if isTrue="{! (basefield.DataRecord__c == 'QFDATE' || basefield.DataRecord__c == 'QFTIME' || basefield.DataRecord__c == 'QFDATETIME')}">
+                                                <div class="example-draggable" data-record="{!basefield.DataRecord__c}" draggable="true" ondragstart="{!c.onDragStart}">
+                                                    <c:quickformfieldcomponent1 tView="{!basefield.DataRecord__c}" Compview="{!v.view}" />
+                                                </div>
+                                            </aura:if>
+                                        </aura:iteration>
+                                    </div>
+                                </lightning:accordionSection>
+
+                                <lightning:accordionSection name="E" label="Rating">
+                                    <div ondragover="{!c.onDragOver}" ondrop="{!c.MethodForOpacity}">
+                                        <aura:iteration items="{!v.FormPageFieldValueWrapper.basefield}" var="basefield">
+                                            <aura:if isTrue="{! (basefield.DataRecord__c == 'QFRATING' || basefield.DataRecord__c == 'QFEMOJIRATING' || basefield.DataRecord__c == 'QFSCALERATING' )}">
+                                                <div class="example-draggable" data-record="{!basefield.DataRecord__c}" draggable="true" ondragstart="{!c.onDragStart}">
+                                                    <c:quickformfieldcomponent1 tView="{!basefield.DataRecord__c}" Compview="{!v.view}" />
+                                                </div>
+                                            </aura:if>
+                                        </aura:iteration>
+                                    </div>
+                                </lightning:accordionSection>
+
+                                <lightning:accordionSection name="F" label="Other">
+                                    <div ondragover="{!c.onDragOver}" ondrop="{!c.MethodForOpacity}">
+                                        <aura:iteration items="{!v.FormPageFieldValueWrapper.basefield}" var="basefield">
+                                            <aura:if isTrue="{! (basefield.DataRecord__c == 'QFPAGEBREAK' || basefield.DataRecord__c == 'QFLOOKUP')}">
+                                                <div class="example-draggable" data-record="{!basefield.DataRecord__c}" draggable="true" ondragstart="{!c.onDragStart}">
+                                                    <c:quickformfieldcomponent1 tView="{!basefield.DataRecord__c}" Compview="{!v.view}" />
+                                                </div>
+                                            </aura:if>
+                                        </aura:iteration>
+                                    </div>
+                                </lightning:accordionSection>
+
+                            </lightning:accordion>
+                        </aura:if>
+
+                        <aura:if isTrue="{!v.ShowField}">
+                            <br />
+                            <div style="padding-right: 5%;" ondragover="{!c.onDragOver}" ondrop="{!c.MethodForOpacity}">
+                                <aura:iteration items="{!v.FormPageFieldValueWrapper.basefield}" var="basefield">
+                                    <div class="example-draggable" data-record="{!basefield.DataRecord__c}" draggable="true" ondragstart="{!c.onDragStart}">
+                                        <c:quickformfieldcomponent1 tView="{!basefield.DataRecord__c}" Compview="{!v.view}" />
+                                    </div>
+                                </aura:iteration>
+                            </div>
+                        </aura:if>
+
+                    </div>
+                </lightning:tab>
+
+                <lightning:tab onactive="{!c.handleActiveTab}">
+                    <div class="fieldDiv designPanel" aura:id="demo">
+                        <div>
+                            <h1 class="DesignTitle">DESIGN</h1>
+                        </div>
+
+                        <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left searchBoxDiv">
+                            <img src="{!$Resource.searchBoxIocn}" class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default searchIcon" />
+                            <lightning:input aura:id="SearchBox" onchange="{!c.search}" name="enter-search" label="" type="text" class='searchBox' placeholder="Search Fields" />
+                        </div>
+
+                        <!-- Accordian Section -->
+
+                        <div class="accordionSection">
+                            <lightning:accordion allowMultipleSectionsOpen="true" onsectiontoggle="{! c.handleSectionToggle }" activeSectionName="{! v.activeSections }">
+                                <lightning:accordionSection name="A" label="Form">
+                                    <div class="accordioInnerDiv">
+                                        <lightning:input type="number" aura:id="input-id-01" value="{!v.formWidth}" maxlength='2' label="Form Width (%)" onchange='{!c.handleCss}' />
+                                        <lightning:input type="number" name="Header padding" value="{! v.headpadding }" label="Header Padding (px)" onchange='{!c.handleCss}' class="  " />
+                                        <lightning:input type="number" name="Footer Padding" value="{! v.footpadding }" label="Footer Padding (px)" onchange='{!c.handleCss}' class="  " />
+                                        <lightning:input type="number" name="Left Padding" value="{! v.leftpadding }" label="Left Padding (px)" onchange='{!c.handleCss}' class="  " />
+                                        <lightning:input type="number" name="Right padding" value="{! v.rightpadding }" label="Right Padding (px)" onchange='{!c.handleCss}' class="  " />
+                                        <lightning:combobox name="Form direction" label="Form direction" options="{! v.options2 }" value='{!v.formdir}' onchange='{!c.handleCss}' class="  " />
+                                        <lightning:input type="color" label="Background" name="color" value="{!v.colorpicker}" onchange='{!c.handleCss}' class="slds-color-picker__custom-inputs colorPicker" />
+                                        <lightning:input aura:id="fuploader" onchange="{!c.handleSave}" type="file" name="file" multiple="false" accept="image/png , image.jpeg , image/jpg" />
+                                        <img src="{!'/servlet/servlet.FileDownload?file=' + v.storeFormbgId}" alt="" style="display: block;  margin:10px auto" class="formImage" />
+                                        <lightning:input type="text" value='{!v.storeFormbgId}' style="display: none;" />
+                                        <lightning:button variant="brand-outline" label="Remove" onclick="{!c.removeBackground}" title="titleName" class="slds-m-topmedium" disabled="{!v.storeFormbgId == ''}" />
+                                        <lightning:combobox label="Background size" class="mt-3" value="{!v.formbackSize}" options="{!v.optformbackSize}" onchange="{!c.handleCss}" />
+                                        <lightning:combobox label="Background position" value="{!v.formbackpagePostion}" options="{! v.optformbackpagePostion}" onchange="{!c.handleCss}" />
+                                        <lightning:combobox label="Background repeat" value="{!v.formbackpageRepeat}" options="{! v.optformbackpageRepeat}" onchange="{!c.handleCss}" />
+                                        <lightning:combobox label="Background fix position" value="{!v.formbackgroundPagefixposition}" options="{! v.optformbackgroundPagefixposition}" onchange="{!c.handleCss}" class="slds-m-bottom_medium" />
+                                    </div>
+                                </lightning:accordionSection>
+
+                                <lightning:accordionSection name="B" label="Page">
+                                    <div class="accordioInnerDiv">
+                                        <lightning:input type="number" name="Top padding" value="{!v.toppadding}" label="Top padding (px)" onchange='{!c.handleCss}' />
+                                        <lightning:input type="number" name="Bottom Padding" value="{!v.bottompadding}" label="Bottom Padding (px)" onchange='{!c.handleCss}' />
+                                        <lightning:input type="color" label="Background" name="color" class="colorPicker" value="{!v.pagecolorpicker}" onchange='{!c.handleCss}' />
+                                        <lightning:input aura:id="pageuploader" onchange="{!c.handlePageSave}" type="file" name="file" multiple="false" accept="image/png , image.jpeg , image/jpg" />
+                                        <img src="{!'/servlet/servlet.FileDownload?file=' + v.storebgId}" alt="" style="display: block;  margin: auto;   margin-top: 10px;" />
+                                        <lightning:input type="text" value='{!v.storebgId}' style="display:none" />
+                                        <lightning:button variant="brand-outline" label="Remove" onclick="{!c.removePageBackground}" title="titleName" class="slds-m-topmedium" disabled="{!v.storebgId == ''}" />
+                                        <lightning:combobox label="Background size" class="mt-3" value="{!v.backSize}" options="{!v.optbackSize}" onchange="{!c.handleCss}" />
+                                        <lightning:combobox label="Background position" value="{!v.backpagePostion}" options="{! v.optbackpagePostion}" onchange="{!c.handleCss}" />
+                                        <lightning:combobox label="Background repeat" value="{!v.backpageRepeat}" options="{! v.optbackpageRepeat }" onchange="{!c.handleCss}" />
+                                        <lightning:combobox label="Background fix position" value="{!v.backgroundPagefixposition}" options="{! v.optBackgroundPagefixposition}" onchange="{!c.handleCss}" />
+                                        <lightning:input type="color" label="Border" name="color" value="{!v.formbordercolor}" class="colorPicker" onchange='{!c.handleCss}' />
+                                        <lightning:combobox label="Border style (px)" value="{!v.formborderStyle}" options="{! v.optformborderStyle}" onchange="{!c.handleCss}" />
+                                        <lightning:input type="text" value="{!v.formborderwidth }" label="Border thickness (px)" onchange="{!c.handleCss}" class="slds-m-bottom_medium" />
+                                    </div>
+                                </lightning:accordionSection>
+
+                                <lightning:accordionSection name="C" label="Label">
+                                    <div class="accordioInnerDiv">
+                                        <lightning:combobox label="Alignment" value="{!v.labelalign}" options="{!v.optlabelalign }" onchange="{!c.handleCss}" />
+                                        <lightning:combobox label="Font" value="{!v.labelfontfamily}" options="{! v.optlabelfontfamily}" onchange="{!c.handleCss}" />
+                                        <lightning:combobox label="Font weight" value="{!v.labelfontweight}" options="{!v.optlabelfontweight}" onchange="{!c.handleCss}" />
+                                        <lightning:combobox label="Font style" value="{!v.labelfontstyle}" options="{!v.optlabelfontstyle}" onchange="{!c.handleCss}" />
+                                        <lightning:input type="text" value="{!v.labelfontsize}" label="Font size (px)" onchange="{!c.handleCss}" />
+                                        <lightning:combobox label="Font line height" value="{!v.labelineheight}" options="{! v.optlabelineheight}" onchange="{!c.handleCss}" />
+                                        <lightning:input type="color" value="{!v.labelcolor}" label="Color" onchange="{!c.handleCss}" class="colorPicker" />
+                                        <lightning:input type="text" value="{!v.labeltopmargin}" label="Top margin (px)" onchange="{!c.handleCss}" />
+                                        <lightning:input type="text" value="{!v.labelbottommargin}" label="Bottom margin (px)" onchange="{!c.handleCss}" class="slds-m-bottom_medium" />
+                                    </div>
+                                </lightning:accordionSection>
+
+                                <lightning:accordionSection name="D" label="Input">
+                                    <div class="accordioInnerDiv">
+
+                                        <lightning:input type="color" label="Background" value="{!v.bgInput}" onchange="{!c.handleCss}" class="colorPicker" />
+                                        <lightning:input type="color" label="Border" value="{!v.borderInput}" onchange="{!c.handleCss}" class="colorPicker" />
+                                        <lightning:combobox name="Border style" label="Border style" value="{!v.borderStyle}" options="{! v.optborderStyle}" onchange="{!c.handleCss}" />
+                                        <lightning:input type="text" label="Border thickness (px)" value="{!v.borderWidth}" onchange="{!c.handleCss}" />
+                                        <lightning:input type="text" label="Border radius (px)" value="{!v.borderRadius}" onchange="{!c.handleCss}" />
+                                        <lightning:combobox name="Font" label="Font" options="{!v.optinputfontfamily}" value="{!v.inputfontfamily}" onchange="{!c.handleCss}" />
+                                        <lightning:combobox label="Font weight" value="{!v.inputfontweight}" options="{! v.optinputfontweight }" onchange="{!c.handleCss}" />
+                                        <lightning:combobox label="Font style" value="{!v.inputfontstyle}" options="{! v.optinputfontstyle}" onchange="{!c.handleCss}" />
+                                        <lightning:input type="number" label="Font size (px)" value='{!v.inputfontsize}' onchange="{!c.handleCss}" />
+                                        <lightning:combobox label="Font line height" value="{!v.inputlineheight}" options="{! v.optinputlineheight}" onchange="{!c.handleCss}" />
+                                        <lightning:input type="color" label="Text color" value='{!v.bordertextcolor}' onchange="{!c.handleCss}" class="colorPicker" />
+                                        <lightning:input type="text" label="Horizontal padding (px)" value='{!v.inputHpadding}' onchange="{!c.handleCss}" />
+                                        <lightning:input type="text" label="Vertical padding (px)" value='{!v.inputVpadding}' onchange="{!c.handleCss}" class="slds-m-bottom_medium" />
+                                    </div>
+                                </lightning:accordionSection>
+
+                                <lightning:accordionSection name="E" label="Button">
+                                    <div class="accordioInnerDiv">
+
+                                        <lightning:combobox label="Alignment" value='{!v.btnJustify}' options="{!v.optbtnJustify}" onchange="{!c.handleCss}" class="slds-m-bottom_medium" />
+                                        <lightning:input type="color" label="Text Color" value="{!v.btnTextColor}" onchange="{!c.handleCss}" class="colorPicker" />
+                                        <lightning:input type="color" label="Background Color" value="{!v.btnBgColor}" onchange="{!c.handleCss}" class="colorPicker" />
+                                        <lightning:input type="color" label="Border color" value="{!v.btncolor}" onchange="{!c.handleCss}" class="colorPicker" />
+                                        <lightning:combobox label="Border style" value="{!v.btnborderstyle}" options="{! v.optbtnborderstyle }" onchange="{!c.handleCss}" />
+                                        <lightning:input type="text" label="Border thickness (px)" value="{!v.btnborderwidth}" onchange="{!c.handleCss}" />
+                                        <lightning:input type="text" label="Border radius (px)" onchange="{!c.handleCss}" value="{!v.btnborderradius}" />
+                                        <lightning:combobox label="Font" value="{!v.buttonfontfamily}" options="{! v.optbuttonfontfamily }" onchange="{!c.handleCss}" />
+                                        <lightning:combobox label="Font weight" value="{!v.buttonfontweight}" options="{! v.optbuttonfontweight }" onchange="{!c.handleCss}" />
+                                        <lightning:combobox label="Font style" value="{!v.buttonfontstyle}" options="{! v.optbuttonfontstyle }" onchange="{!c.handleCss}" />
+                                        <lightning:input type="text" value="{!v.buttonfontsize}" label="Font size (px)" onchange="{!c.handleCss}" />
+                                        <lightning:input type="text" label="Width (px)" onchange="{!c.handleCss}" value="{!v.btnWidth}" />
+                                        <lightning:input type="text" label="Height (px)" onchange="{!c.handleCss}" value="{!v.btnHeight}" />
+                                        <lightning:input type="text" label="Horizontal Padding (px)" onchange="{!c.handleCss}" value="{!v.btnHorizontalPadding}" />
+                                        <lightning:input type="text" label="Vertical Padding (px)" onchange="{!c.handleCss}" value="{!v.btnVerticalPadding}" class="slds-m-bottom_medium" />
+                                    </div>
+                                </lightning:accordionSection>
+
+                                <lightning:accordionSection name="F" label="Field Hover">
+                                    <div class="accordioInnerDiv">
+
+                                        <lightning:input type="color" label="Input background" value='{!v.fieldhoverbg}' onchange="{!c.handleCss}" class="colorPicker" />
+                                        <lightning:input type="color" label="Input border" value='{!v.fieldhoverborderColor}' onchange="{!c.handleCss}" class="colorPicker" />
+                                        <lightning:input type="color" label="Input text color" value='{!v.fieldhovercolor}' onchange="{!c.handleCss}" class="hoverTextColor colorPicker" />
+                                        <lightning:input type="color" label="Label color" value="{!v.hoverlabelcolor}" onchange="{!c.handleCss}" id="label_popup" class="hoverLabelColor colorPicker slds-m-bottom_medium" />
+                                    </div>
+                                </lightning:accordionSection>
+
+                                <lightning:accordionSection name="G" label="Field Focus">
+                                    <div class="accordioInnerDiv">
+
+                                        <lightning:input type="color" label="Input background" value='{!v.fieldfocusbg}' onchange="{!c.handleCss}" class="colorPicker" />
+                                        <lightning:input type="color" label="Input border" value='{!v.fieldfocusborderColor}' onchange="{!c.handleCss}" class="colorBarFocusInputBorder colorPicker" />
+                                        <lightning:input type="color" label="Input text color" value="{!v.fieldfocuscolor}" onchange="{!c.handleCss}" class="colorBarFocusInput colorPicker" />
+                                        <lightning:input type="color" label="Label color" value="{!v.focuslabelcolor}" onchange="{!c.handleCss}" class="slds-m-bottom_medium colorBar colorPicker" />
+                                    </div>
+                                </lightning:accordionSection>
+
+                                <lightning:accordionSection name="H" label="Choices">
+                                    <div class="accordioInnerDiv">
+
+                                        <lightning:input type="text" label="Radio width (px)" value="{!v.radiowidth}" onchange="{!c.handleCss}" />
+                                        <lightning:input type="text" label="Radio height (px)" value="{!v.radioheight}" onchange="{!c.handleCss}" />
+                                        <lightning:input type="text" label="Radio margin top (px)" value="{!v.radiomarginright}" onchange="{!c.handleCss}" />
+                                        <lightning:input type="text" label="Checkbox width (px)" value="{!v.checkwidth}" onchange="{!c.handleCss}" />
+                                        <lightning:input type="text" label="Checkbox height (px)" value="{!v.checkheight}" onchange="{!c.handleCss}" />
+                                        <lightning:input type="text" label="Checkbox right margin (px)" value="{!v.checkmargintop}" onchange="{!c.handleCss}" class="slds-m-bottom_medium" />
+                                    </div>
+                                </lightning:accordionSection>
+
+                            </lightning:accordion>
+                        </div>
+                    </div>
+                </lightning:tab>
+
+                <lightning:tab onactive="{!c.handleActiveTab}">
+                    Content in Tab Four
+                </lightning:tab>
+                <lightning:tab onactive="{!c.handleActiveTab}">
+                    <!-- <c:ThankYouEditor /> -->
+                    Content in Tab Five
+                </lightning:tab>
+                <lightning:tab onactive="{!c.handleActiveTab}" title="publish" class="publishTab" id="publishTab">
+
+                    <!-- <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_3-of-12 publishLeftPanel">
+                            <div class="publishTitle">
+                                <h1>PUBLISHMENT</h1>
+                            </div>
+
+                            <div>
+                                <lightning:radioGroup name="radioGroup" options="{! v.publishCheckboxesOpt }" value="{! v.publishCheckboxes}" type="radio" />
+                            </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_8-of-12 publishRightPanel"> 
+
+                            <div class="slds-grid slds-wrap">
+
+                                <div class="slds-col slds-size_1-of-1 formLinkTitle">
+                                    <h1>Form Link</h1>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-1 linkText">
+                                    <p>This way of publishing your form is perfect if you want to handle a small amount of code or if you want to directly invite somebody to view your form.</p>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-1 formlink ">
+                                    <input type="link" class="inputBox" />
+                                    <img src="{!$Resource.copy}" class="iconsImage" id="menuItems" name="Edit Page" value="edit" onclick="{! c.handleSelectPage }" />
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-1 publishUsing">
+
+                                    <h2>Publish Using Aura Component</h2>
+                                </div>
+
+                                <div class="introCodeText slds-col slds-size_1-of-1 ">
+                                    <p>There are various ways to publish forms or surveys, according to your requirements. This section offers the options of linking your form through Aura Component</p>
+                                </div>
+
+                                <div class="codeCopySection slds-col slds-size_1-of-1 copyCodeSection">
+                                    <p>
+                                        &lt;aura:component implements="forceCommunity:availableForAllPageTypes" access="global" &gt;
+                                        <br /> &nbsp;&nbsp;&nbsp;&lt;iframe src="{!v.publishurl}" &nbsp;&nbsp;&nbsp;transparency="true" sandbox=”allow-same-origin allow-scripts allow-forms” style="min-height:300px; height:inherit; overflow:auto;" width="100%"
+                                        scrolling=”auto” id="contactform123" name="contactform123" marginwidth="0" marginheight="0" frameborder="0" &gt;<br /> &lt;p&gt; Your browser does not support iframes. The contact form cannot be displayed. Please
+                                        use another contact method (phone, fax etc) &lt;/p&gt; <br />&nbsp;&nbsp;&nbsp;&lt;/iframe&gt;
+                                        <br />&lt;/aura:component &gt;
+
+                                    </p>
+                                </div>
+
+                                <div class="copyCodeButton slds-col slds-size_1-of-1">
+                                    <lightning:button variant="brand" label="Brand" title="Brand action" onclick="{! c.handleClick }" />
+
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </lightning:tab>
+            </lightning:tabset>
+        </div>
+
+        <!-- valiadtion bar -->
+        <div class="fieldDiv2 ">
+            <c:FieldAttributeValidation />
+        </div>
+
+        <!-- Edit Form -->
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_9-of-12 EditForm">
+
+            <div class="slds-grid slds-wrap EditFormContent">
+
+                <!-- FORM TITLE -->
+                <div class="slds-col slds-size_1-of-1  editFormContent  ">
+                    <div class="formTitle">
+                        <h1 class="formTitleHeader">{!v.FormPageFieldValueWrapper.formName.Title__c}</h1>
+                        <div class="editButton">
+                            <lightning:button label="Edit" iconName="utility:edit" iconPosition="left" onclick="{!c.handleSelect}" name="{!'form:::'+v.FormId}" />
+                            <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left addPage">
+                                <img src="{!$Resource.addPageIcon2}" class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default " />
+                                <lightning:button value="new page add" label="Add Page" onclick="{!c.handleSelect}" name="{!'form:::'+v.FormId}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Edit Portion -->
+                <div class="slds-col slds-size_1-of-1 editPagePanel">
+                    <div class="myform" id="mainformid">
+                        <aura:iteration items="{!v.FormPageFieldValueWrapper.PageWrapperList}" var="page" indexVar="index">
+                            <div class="page" id="{!page.PageObj.Id}">
+                                <div class="pagetitle">
+                                    <div style="display: flex;align-items: center;">
+                                        <div>
+                                            <aura:if isTrue="{!page.PageObj.Title__c == null}">
+                                                <aura:set attribute="else">
+                                                    <div class="pagetitle1">{!page.PageObj.Title__c}</div>
+                                                </aura:set>
+                                            </aura:if>
+                                            <aura:if isTrue="{!page.PageObj.Sub_Title__c == null}">
+                                                <aura:set attribute="else">
+                                                    <div class="subpagetitle">{!page.PageObj.Sub_Title__c}</div>
+                                                </aura:set>
+                                            </aura:if>
+                                        </div>
+                                    </div>
+                                    <!-- <lightning:buttonMenu class="pageButtonMenu" alternativeText="Show menu" onselect="{! c.handleSelectPage }" name="{!'page:::'+page.PageObj.Id}">
+                                        <lightning:menuItem aura:id="menuItems" value="edit" label="Edit Page" prefixIconName="utility:edit" />
+                                        <lightning:menuItem aura:id="{!page.PageObj.Id}" value="delete" label="Delete Page" prefixIconName="utility:delete" />
+                                    </lightning:buttonMenu> -->
+                                    <div class="pageIcons">
+                                        <!-- <lightning:buttonIcon class="editPageIcon" iconName="utility:edit" variant="brand" alternativeText="Settings" title="Settings" /> -->
+                                        <img src="{!$Resource.edit}" class="iconsImage" id="menuItems" name="Edit Page" value="edit" onclick="{! c.handleSelectPage }" />
+                                        <img src="{!$Resource.removeIcon}" class="iconsImage" id="{!page.PageObj.Id}" name="delete" onclick="{! c.handleSelectPage }" />
+                                    </div>
+                                </div>
+                                <div class="example-dropzone" ondragover="{!c.onDragOver}" ondrop="{!c.onDrop}" ondragleave="{!c.dragLeave}" ondragenter="{!c.dragEnter}">
+                                    <aura:iteration items="{!page.FieldWrapperList}" var="fieldList">
+                                        <div id="{!page.PageObj.Id}" name="{!'field:::'+fieldList.FieldObj.Id}" class="field" draggable="true" data-record="{!fieldList.FieldObj.Id}" data-ref="inner" ondragstart="{!c.onDragStart}" onclick="{!c.handleid}">
+                                            <c:quickformfieldcomponent1 fieldValue="" tView="{!fieldList.FieldObj.Data_Record_Id__c}" Compview="Full" disableField="true" FieldAttribute="{!fieldList.FieldAttObj}" FieldAttributeValue="{!fieldList.FieldValueObj}" FieldId="{!fieldList.FieldObj.Id}"
+                                                PageId="{!page.PageObj.Id}" /><br />
+                                        </div>
+                                    </aura:iteration>
+                                </div>
+                                <div class="footer">
+
+                                    <aura:if isTrue="{!index == 0}">
+
+                                        <lightning:button class="nextbutton " variant="brand" label="Next" title="Next" disabled="true" onclick="{!c.onaddpage1}" />
+                                        <aura:set attribute="else">
+                                            <aura:if isTrue="{!index != v.FormPageFieldValueWrapper.PageWrapperList.length - 1}">
+                                                <div class="previousnextbutton slds-m-bottom_large">
+                                                    <lightning:button aura:id="previousButton" variant="brand" label="Previous" title="Previous" disabled="true" onclick="{!c.onaddpage1}" class="btn" />
+                                                    <lightning:button aura:id="nextButton" variant="brand" label="Next" title="Next" disabled="true" onclick="{!c.onaddpage1}" class="btn" />
+                                                </div>
+                                                <aura:set attribute="else">
+                                                    <div class="previoussubmitbutton slds-m-bottom_large">
+                                                        <lightning:button variant="brand" label="Previous" title="Previous" disabled="true" onclick="{!c.onaddpage1}" class="btn" />
+                                                        <lightning:button variant="brand" label="Submit" title="Submit" disabled="true" onclick="{!c.onaddpage1}" class="btn" />
+                                                    </div>
+                                                </aura:set>
+                                            </aura:if>
+                                        </aura:set>
+                                    </aura:if>
+                                </div>
+                            </div>
+                            <div style="padding:3% 0"></div>
+                        </aura:iteration>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+</aura:component>

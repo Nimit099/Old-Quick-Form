@@ -1,0 +1,648 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="getFormList">
+
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="spinner" type="boolean" default="FALSE" />
+    <aura:attribute name="listOfAllForms" type="list" />
+    <aura:attribute name="PaginationList" type="list" />
+    <aura:attribute name="PaginationListForSeacrch" type="list" />
+    <aura:attribute name="selectedCount" type="integer" default="0" description="selected Records Count" />
+    <aura:attribute name="startPage" type="Integer" />
+    <aura:attribute name="endPage" type="Integer" />
+    <aura:attribute name="totalRecordsCount" type="Integer" />
+    <aura:attribute name="pageSize" type="Integer" default="5" description="number of records to be display on per page" />
+    <aura:attribute name="currentPage" type="integer" default="1" />
+    <aura:attribute name="NoRecordsFound" type="boolean" />
+    <aura:attribute name="bNoRecordsFound" type="boolean" />
+    <aura:attribute name="showToast" type="String" />
+    <aura:attribute name="spinnerDataTable" type="boolean" default="FALSE" />
+    <aura:attribute name="selected" type="String" />
+    <aura:attribute name="arrowDirection" type="string" default="arrowup" description="Use for change arrow sign direction on header based on click" />
+    <aura:attribute name="FolderRecords" type="List" />
+    <aura:attribute name="ShowRecList" type="boolean" default="false" />
+    <aura:attribute name="disableSave" type="boolean" default="true" />
+    <aura:attribute name="mainFolderName" type="String" />
+
+    <aura:attribute name="Form" type="Form__c" default="{
+                'SObjectType': 'Form__c',
+                'Title__c': '',
+                'Description__c': '',
+                'Display_Type__c': '',
+                'Active__c' : false
+            }">
+    </aura:attribute>
+
+    <!-- attribute created by Nitin start 555555-->
+
+    <!-- attribute for folder start -->
+    <aura:attribute name="MainFolderId" type="String" />
+    <aura:attribute name="folder" type="Folder__c" default="{
+                'SObjectType': 'Folder__c',
+                'Name': '',
+                'Description__c': '',
+                'FolderId__c': '',
+                'Active__c' : false
+            }"> </aura:attribute>
+
+    <aura:attribute name="parentFolderName" type="String" />
+    <aura:attribute name="availableFolder" type="list" />
+    <aura:attribute name="FormId" type="String" />
+    <aura:attribute name="newFormName" type="String" />
+
+    <aura:attribute name="divFolderId" type="String" default="" />
+    <aura:attribute name="newFolderName" type="String" />
+
+    <aura:attribute name="items" type="Object" />
+    <aura:attribute name="clicksubfolder" type="boolean" default="true" />
+    <!-- ========================= [ New Form ] Button click  strat=========================-->
+    <div>
+        <section aura:id="Modal" role="dialog" tabindex="-1" aria-labelledby="ModalHeading" aria-modal="true" aria-describedby="ModalBody" class="slds-modal" onclick="{!c.hideFolderList}">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon class="slds-modal__close" alternativeText="Close" iconName="utility:close" onclick="{!c.closeModal}" variant="bare-inverse" size="large">
+                    </lightning:buttonIcon>
+                    <div class="header">
+                        <h2 id="ModalHeading">New Form</h2>
+                    </div>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="ModalBody">
+                    <div class="title">
+                        <lightning:input label="Form Title" value="{!v.Form.Title__c}" required="true" messageWhenValueMissing="Please Fill the Details" />
+                    </div>
+
+                    <div class="title">
+                        <lightning:input aura:id="searchKey1" required="true" label="Select Folder" placeholder="{!v.FieldAttribute.Placeholder_text__c == TRUE ? v.FieldAttribute.Placeholder__c : 'Search Folder'}" onchange="{!c.searchFolderAction1}" value="{!v.parentFolderName}"
+                        />
+                        <aura:if isTrue="{!v.ShowRecList}">
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <div class="slds-combobox_container">
+                                        <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open">
+                                            <div class="slds-dropdown slds-dropdown_length-3 slds-dropdown_fluid" role="listbox">
+                                                <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                                    <aura:iteration items="{!v.FolderRecords}" var="row" indexVar="index">
+                                                        <li role="presentation" class="slds-listbox__item">
+                                                            <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small" role="option" onclick="{!c.selectFolder}" value="{!row}" data-index="{!index}">
+                                                                <span onclick="{!c.selectFolder}" value="{!row}" data-index="{!index}">
+                                                                    <lightning:icon class="icon" iconName="standard:folder" size="small"/>
+                                                                </span>
+                                                                <span class="slds-media__body recordList" onclick="{!c.selectFolder}" value="{!row}" data-index="{!index}">
+                                                                    <span class="slds-truncate" onclick="{!c.selectFolder}" value="{!row}" data-index="{!index}">
+                                                                        {!row.Name}
+                                                                    </span>
+                                                                </span>
+                                                            </div>
+                                                        </li>
+                                                    </aura:iteration>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </aura:if>
+                    </div>
+
+                    <div class="title" style="padding-top: 8px;">
+                        <lightning:input label="Active" type="checkbox" checked="{!v.Form.Active__c}" />
+                    </div>
+
+                    <div class="title">
+                        <lightning:input label="Description" value="{!v.Form.Description__c}" />
+                    </div>
+
+                    <div class="title">
+                        <div style="float:right;">
+                            <lightning:helptext content="To display the form using the Progress bar or Steps" />
+                        </div>
+                        <lightning:select label="Display Type" value="{!v.Form.Display_Type__c}">
+                            <option value="None">None</option>
+                            <option value="Progress Bar">Progress Bar</option>
+                            <option value="Steps">Steps</option>
+                            <option value="Progress Circle">Progress Circle</option>
+                        </lightning:select>
+                    </div>
+
+                    <div class="title">
+                        <lightning:select label="Captcha Type" value="{!v.Form.Captcha_Type__c}">
+                            <option value="None">None</option>
+                            <option value="Normal Captcha">Normal Captcha</option>
+                            <option value="Normal Captcha In popup">Normal Captcha In popup</option>
+                            <option value="Maths Captcha">Maths Captcha</option>
+                            <option value="Slider Captcha">Slider Captcha</option>
+                            <option value="Image Captcha">Image Captcha</option>
+                        </lightning:select>
+                    </div>
+
+                </div>
+                <footer class="slds-modal__footer">
+                    <div class="footer">
+                        <lightning:button label="Cancel" title="Cancel Form" onclick="{!c.closeModal}" />
+                        <lightning:button variant="brand" label="Save" title="Save Form" disabled="{!v.disableSave}" onclick="{!c.createForm}" />
+                    </div>
+                </footer>
+            </div>
+        </section>
+        <div aura:id="ModalBackdrop" class="slds-backdrop"></div>
+    </div>
+    <!-- ========================= [ New Form ] Button click  finished=========================-->
+
+    <!-- ========================= [ New Folder ] Button click  strat=========================-->
+    <div>
+        <section aura:id="new_Folder" role="dialog" tabindex="-1" aria-labelledby="ModalHeading" aria-modal="true" aria-describedby="ModalBody" class="slds-modal">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon class="slds-modal__close" alternativeText="Close" iconName="utility:close" onclick="{!c.cancleNewFolder}" variant="bare-inverse" size="large">
+                    </lightning:buttonIcon>
+                    <div class="header">
+                        <h2 id="ModalHeading">New Folder</h2>
+                    </div>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="ModalBody" style="min-height: 230px">
+                    <div class="title">
+                        <lightning:input label="Folder Name" value="{!v.folder.Name}" required="true" messageWhenValueMissing="Complete this field" />
+                    </div>
+
+                    <div class="title">
+                        <lightning:input aura:id="searchKey2" required="true" label="Select Folder" placeholder="{!v.FieldAttribute.Placeholder_text__c == TRUE ? v.FieldAttribute.Placeholder__c : 'Search Folder'}" onchange="{!c.searchFolderAction2}" value="{!v.parentFolderName}"
+                        />
+                        <aura:if isTrue="{!v.ShowRecList}">
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <div class="slds-combobox_container">
+                                        <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open">
+                                            <div class="slds-dropdown slds-dropdown_length-3 slds-dropdown_fluid" role="listbox">
+                                                <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                                    <aura:iteration items="{!v.FolderRecords}" var="row" indexVar="index">
+                                                        <li role="presentation" class="slds-listbox__item">
+                                                            <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small" role="option" onclick="{!c.selectFolder}" value="{!row}" data-index="{!index}">
+                                                                <span onclick="{!c.selectFolder}" value="{!row}" data-index="{!index}">
+                                                                    <lightning:icon class="icon" iconName="standard:folder" size="small"/>
+                                                                </span>
+                                                                <span class="slds-media__body recordList" onclick="{!c.selectFolder}" value="{!row}" data-index="{!index}">
+                                                                    <span class="slds-truncate" onclick="{!c.selectFolder}" value="{!row}" data-index="{!index}">
+                                                                        {!row.Name}
+                                                                    </span>
+                                                                </span>
+                                                            </div>
+                                                        </li>
+                                                    </aura:iteration>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </aura:if>
+                    </div>
+
+                    <div class="title">
+                        <lightning:input style="margin-top: 5px;" label="Description" value="{!v.folder.Description__c}" />
+                    </div>
+
+                </div>
+                <footer class="slds-modal__footer">
+                    <div class="footer">
+                        <lightning:button label="Cancel" title="Cancel Folder" onclick="{!c.cancleNewFolder}" />
+                        <lightning:button variant="brand" label="Create" title="Create Folder" disabled="{!v.disableSave}" onclick="{!c.createFolder}" />
+                    </div>
+                </footer>
+            </div>
+        </section>
+        <div aura:id="ModalBackdrop_folder" class="slds-backdrop"></div>
+    </div>
+    <!-- ========================= [ New Folder ] Button click  finished=========================-->
+
+    <!-- ========================= [ Move Form into another Folder ] Button click  strat=========================-->
+    <div>
+        <section aura:id="move_Form" role="dialog" tabindex="-1" aria-labelledby="ModalHeading" aria-modal="true" aria-describedby="ModalBody" class="slds-modal">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon class="slds-modal__close" alternativeText="Close" iconName="utility:close" onclick="{!c.cancleMoveForm}" variant="bare-inverse" size="large">
+                    </lightning:buttonIcon>
+                    <div class="header">
+                        <h2 id="ModalHeading">Change Folder</h2>
+                    </div>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="ModalBody" style="height: 215px;">
+                    <div class="title">
+                        <p style="font-size: 15px; margin-bottom: 20px;">Move this form into the following folder</p>
+                        <div class="title" style="margin-top: 5px;">
+                            <lightning:input aura:id="searchKey3" required="true" label="Select Folder" placeholder="{!v.FieldAttribute.Placeholder_text__c == TRUE ? v.FieldAttribute.Placeholder__c : 'Search Folder'}" onchange="{!c.searchFolderAction3}" value="{!v.parentFolderName}"
+                            />
+                            <aura:if isTrue="{!v.ShowRecList}">
+                                <div class="slds-form-element">
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-combobox_container">
+                                            <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open">
+                                                <div class="slds-dropdown slds-dropdown_length-3 slds-dropdown_fluid" role="listbox">
+                                                    <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                                        <aura:iteration items="{!v.FolderRecords}" var="row" indexVar="index">
+                                                            <li role="presentation" class="slds-listbox__item">
+                                                                <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small" role="option" onclick="{!c.selectFolder}" value="{!row}" data-index="{!index}">
+                                                                    <span onclick="{!c.selectFolder}" value="{!row}" data-index="{!index}">
+                                                                        <lightning:icon class="icon" iconName="standard:folder" size="small"/>
+                                                                    </span>
+                                                                    <span class="slds-media__body recordList" onclick="{!c.selectFolder}" value="{!row}" data-index="{!index}">
+                                                                        <span class="slds-truncate" onclick="{!c.selectFolder}" value="{!row}" data-index="{!index}">
+                                                                            {!row.Name}
+                                                                        </span>
+                                                                    </span>
+                                                                </div>
+                                                            </li>
+                                                        </aura:iteration>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </aura:if>
+                        </div>
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <div class="footer">
+                        <lightning:button label="Cancel" title="Cancel Folder" onclick="{!c.cancleMoveForm}" />
+                        <lightning:button variant="brand" label="Save" disabled="{!v.disableSave}" onclick="{!c.moveForm}" />
+                    </div>
+                </footer>
+            </div>
+        </section>
+        <div aura:id="ModalBackdrop_Moveform" class="slds-backdrop"></div>
+    </div>
+    <!-- ========================= [ Move Form into another Folder ] Button click  finished=========================-->
+
+    <!-- ========================= [ Rename Form ] Button click  strat=========================-->
+    <div>
+        <section aura:id="rename_Form" role="dialog" tabindex="-1" aria-labelledby="ModalHeading" aria-modal="true" aria-describedby="ModalBody" class="slds-modal">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon class="slds-modal__close" alternativeText="Close" iconName="utility:close" onclick="{!c.cancleRenameForm}" variant="bare-inverse" size="large">
+                    </lightning:buttonIcon>
+                    <div class="header">
+                        <h2 id="ModalHeading">Rename Form</h2>
+                    </div>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="ModalBody">
+                    <div class="title" id="renameTextField">
+                        <lightning:input label="New Name" value="{!v.newFormName}" required="true" messageWhenValueMissing="Please Fill the Details" />
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <div class="footer">
+                        <lightning:button label="Cancel" title="Cancel Rename" onclick="{!c.cancleRenameForm}" />
+                        <lightning:button variant="brand" label="Rename" title="Rename Form" onclick="{!c.renameForm}" />
+                    </div>
+                </footer>
+            </div>
+        </section>
+        <div aura:id="ModalBackdrop_renameForm" class="slds-backdrop"></div>
+    </div>
+    <!-- ========================= [ Rename Form ] Button click  finished=========================-->
+
+    <!-- ========================= [ Rename Folder ] Button click  strat=========================-->
+    <div>
+        <section aura:id="rename_Folder" role="dialog" tabindex="-1" aria-labelledby="ModalHeading" aria-modal="true" aria-describedby="ModalBody" class="slds-modal">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon class="slds-modal__close" alternativeText="Close" iconName="utility:close" onclick="{!c.cancleRenameFolder}" variant="bare-inverse" size="large">
+                    </lightning:buttonIcon>
+                    <div class="header">
+                        <h2 id="ModalHeading">Rename Folder</h2>
+                    </div>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="ModalBody">
+                    <div class="title" id="renameTextField">
+                        <lightning:input label="New Name" value="{!v.newFolderName}" required="true" messageWhenValueMissing="Please Fill the Details" />
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <div class="footer">
+                        <lightning:button label="Cancel" title="Cancel Rename" onclick="{!c.cancleRenameFolder}" />
+                        <lightning:button variant="brand" label="Rename" title="Rename Folder" onclick="{!c.renameFolder}" />
+                    </div>
+                </footer>
+            </div>
+        </section>
+        <div aura:id="ModalBackdrop_renameFolder" class="slds-backdrop"></div>
+    </div>
+    <!-- ========================= [ Rename Folder ] Button click  finished=========================-->
+
+    <!-- ========================= [ Move Folder ] Button click  strat=========================-->
+    <div>
+        <section aura:id="move_Folder" role="dialog" tabindex="-1" aria-labelledby="ModalHeading" aria-modal="true" aria-describedby="ModalBody" class="slds-modal">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon class="slds-modal__close" alternativeText="Close" iconName="utility:close" onclick="{!c.cancleMoveFolder}" variant="bare-inverse" size="large">
+                    </lightning:buttonIcon>
+                    <div class="header">
+                        <h2 id="ModalHeading">Move Folder</h2>
+                    </div>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="ModalBody" style="height: 215px;">
+                    <div class="title">
+                        <p style="font-size: 15px; margin-bottom: 20px;">Move {!v.newFolderName} into the following folder</p>
+                        <lightning:input aura:id="searchKey4" required="true" label="Select Folder" placeholder="{!v.FieldAttribute.Placeholder_text__c == TRUE ? v.FieldAttribute.Placeholder__c : 'Search Folder'}" onchange="{!c.searchFolderAction4}" value="{!v.parentFolderName}"
+                        />
+                        <aura:if isTrue="{!v.ShowRecList}">
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <div class="slds-combobox_container">
+                                        <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open">
+                                            <div class="slds-dropdown slds-dropdown_length-3 slds-dropdown_fluid" role="listbox">
+                                                <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                                    <aura:iteration items="{!v.FolderRecords}" var="row" indexVar="index">
+                                                        <li role="presentation" class="slds-listbox__item">
+                                                            <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small" role="option" onclick="{!c.selectFolder}" value="{!row}" data-index="{!index}">
+                                                                <span onclick="{!c.selectFolder}" value="{!row}" data-index="{!index}">
+                                                                    <lightning:icon class="icon" iconName="standard:folder" size="small"/>
+                                                                </span>
+                                                                <span class="slds-media__body recordList" onclick="{!c.selectFolder}" value="{!row}" data-index="{!index}">
+                                                                    <span class="slds-truncate" onclick="{!c.selectFolder}" value="{!row}" data-index="{!index}">
+                                                                        {!row.Name}
+                                                                    </span>
+                                                                </span>
+                                                            </div>
+                                                        </li>
+                                                    </aura:iteration>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </aura:if>
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <div class="footer">
+                        <lightning:button label="Cancel" title="Cancel Folder" onclick="{!c.cancleMoveFolder}" />
+                        <lightning:button variant="brand" label="Save" disabled="{!v.disableSave}" onclick="{!c.moveFolder}" />
+                    </div>
+                </footer>
+            </div>
+        </section>
+        <div aura:id="ModalBackdrop_Movefolder" class="slds-backdrop"></div>
+    </div>
+    <!-- ========================= [ Move Folder ] Button click  finished=========================-->
+
+    <!-- ========================= Spinner started =========================-->
+    <aura:if isTrue="{!v.spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container" style="overflow: hidden;">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    <!-- ========================= Spinner Finished =========================-->
+
+    <div style="background-color:white; position:absolute; height:100% ; width:100%; " class=" slds-grid slds-wrap">
+        <div class="hideit">
+            <lightning:buttonIcon iconName="utility:rows" alternativeText="Utility menu" title="Menu" class="rowsicon" onclick="{!c.handlenav}" />
+        </div>
+
+        <div class="folder_component slds-col slds-size_4-of-12 slds-large-size_3-of-12 slds-medium-size_4-of-12  slds-small-size_0-of-12 " id="mySidenav">
+            <div class="new_folder slds-grid ">
+                <lightning:Icon iconName="utility:close" alternativeText="Utility menu" title="Menu" class="rowsicon2" onclick="{!c.handlenav}" />
+                <lightning:icon iconName="standard:folder" alternativeText="folder" title="Folder" class="folder slds-m-horizontal_small" style="height: fit-content;" />Folders
+                <div class="slds-col_bump-left btnicon">
+
+                    <div class="changeCursor">
+                        <img src="{!$Resource.deleteimage}" aria-describedby="help" aria-disabled="true" class="slds-button slds-button_neutral imagebutton" width="30" style="padding:7px; " alternativeText="Delete Folder" title="Delete Folder" onclick="{!c.deleteFolder}" />
+                        <div class="tooltip slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="help">
+                            <div class="slds-popover__body" style="transform:rotate(180deg);">Please select folder </div>
+                        </div>
+
+                        <div class="tooltipmainfolder slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltipmainfolder" id="help">
+                            <div class="slds-popover__body" style="transform:rotate(180deg);">This folder can't be deleted </div>
+                        </div>
+                    </div>
+
+                    <div class="changeCursor changeCursor1">
+                        <img src="{!$Resource.editimage}" class="slds-button slds-button_neutral imagebutton1" style="padding:4px" alternativeText="Rename Folder" title="Rename Folder" onclick="{!c.renameFolderModal}" width="30" />
+                        <div class="tooltip2 slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="help">
+                            <div class="slds-popover__body" style="transform:rotate(180deg);">Please select folder</div>
+                        </div>
+                    </div>
+
+                    <div class="changeCursor">
+                        <img src="{!$Resource.moveform}" class="slds-button slds-button_neutral imagebutton" style="padding:7px" width="30" iconName="utility:move" alternativeText="Move Folder" title="Move Folder" onclick="{!c.createMoveFolderModal}" />
+                        <div class="tooltip3 slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="help">
+                            <div class="slds-popover__body" style="transform:rotate(180deg);">Please select folder</div>
+                        </div>
+                        <div class="tooltipmainfolder3 slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltipmainfolder" id="help">
+                            <div class="slds-popover__body" style="transform:rotate(180deg);">This folder can't be Move </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="folder_tree">
+                <lightning:tree items="{!v.items}" selectedItem="{!v.selected}" onselect="{!c.handleSelect}" style="font-size: initial;" />
+            </div>
+        </div>
+
+        <div class="formpart slds-col  slds-large-size_9-of-12 slds-medium-size_8-of-12 slds-small-size_10-of-12" style="background-color: white; position:absolute;right:0px; ">
+            <div class="slds-grid  slds-m-horizontal_small slds-m-top_x-large slds-wrap slds-grid_vertical-align-start mainform">
+                <div>
+                    <b class="quickformtitle slds-col ">Quick Form  </b>
+                </div>
+                <div class="slds-col formicon">
+                    <lightning:button name="newfolder" label="New Folder" onclick="{!c.createNewFolderModal}" class="formiconsmargin" />
+                    <lightning:button name="newform" label="New Form" onclick="{!c.openModal}" class="formiconsmargin" />
+                    <lightning:button name="allform" label="All Forms" onclick="{!c.showAllForms}" class="formiconsmargin" />
+                    <lightning:button variant="brand" label="Move" onclick="{!c.createMoveFormModal}" disabled="{!v.selectedCount == 0}" class="formiconsmargin" />
+                    <lightning:button variant="destructive" label="Delete Selected" onclick="{! c.deleteAllRecords }" disabled="{!v.selectedCount == 0}" class="formiconsmargin" />
+                </div>
+            </div>
+
+            <aura:if isTrue="{!v.bNoRecordsFound}">
+                <div>
+                    <span style="display:inline;float:left;margin-right: 15px;" class="slds-badge slds-badge_lightest" />
+                    <p class="slds-m-around_small slds-m-top_medium">
+                        <span style="display:inline;float:left;margin-top: 20px;" class="slds-badge slds-badge_lightest">
+                            Total Forms : {!v.totalRecordsCount}
+                        </span>
+                    </p> &nbsp;&nbsp;&nbsp;
+                    <p class="slds-m-around_small slds-m-top_medium">
+                        <span style="display:inline; float:left;margin-top: 20px; margin-left:inherit;" class="slds-badge slds-badge_lightest">
+                            Current Folder : {!v.newFolderName == null ? 'All Forms' : ''} {!v.newFolderName}
+                        </span>
+                    </p>
+                    <p class="slds-m-around_small slds-m-top_medium">
+                        <span style="display:inline;float:right;margin-right: 15px; width:30%; max-width:280px;" class="search">
+                            <lightning:input type="search" disabled="true" lable="Search"
+                                placeholder="Search for Forms..." aura:id="SearchBox" onchange="{!c.search}" /><br />
+                        </span>
+                    </p>
+                </div>
+
+                <div class="noRecordFound">
+                    <div class="slds-illustration slds-illustration_large" aria-hidden="true" style="margin-top: 10%;">
+                        <img src="/img/chatter/Desert.svg" class="slds-illustration__svg" alt="" />
+                        <div class="slds-text-color_weak">
+                            <h3 class="slds-text-heading_medium">No forms in this folder</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <aura:set attribute="else">
+                    <div style="display: grid;">
+                        <div>
+                            <span style="display:inline;float:left;margin-right: 15px;" class="slds-badge slds-badge_lightest" />
+                            <p class="slds-m-around_small slds-m-top_medium">
+                                <span style="display:inline;float:left;margin-top: 20px;" class="slds-badge slds-badge_lightest">
+                                    Total Forms : {!v.totalRecordsCount}
+                                </span>
+                            </p> &nbsp;&nbsp;&nbsp;
+                            <p class="slds-m-around_small slds-m-top_medium">
+                                <span style="display:inline; float:left;margin-top: 20px; margin-left:inherit;" class="slds-badge slds-badge_lightest">
+                                    Current Folder : {!v.newFolderName == null ? 'All Forms' : ''} {!v.newFolderName}
+                                </span>
+                            </p>
+                            <p class="slds-m-around_small slds-m-top_medium">
+                                <span style="display:inline;float:right;margin-right: 15px; width:30%; max-width:280px;" class="search">
+                                    <lightning:input type="search" lable="Search" placeholder="Search for Forms..." aura:id="SearchBox" onchange="{!c.search}" /><br />
+                                </span>
+                            </p>
+                        </div>
+
+                        <aura:if isTrue="{!v.NoRecordsFound}">
+                            <div class="noRecordFound">
+                                <div class="slds-illustration slds-illustration_large" aria-hidden="true" style="margin-top: 10%;">
+                                    <img src="/img/chatter/Desert.svg" class="slds-illustration__svg" alt="" />
+                                    <div class="slds-text-color_weak">
+                                        <h3 class="slds-text-heading_medium">No forms in this folder</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <aura:set attribute="else">
+                                <!-- data table start-->
+                                <table style="border-collapse: collapse;  border-spacing: 0; width: 98%; border: 1px solid #ddd; margin: 10px 10px 0px 10px; position:relative; max-width:100%; /* top:1rem;*/ overflow-x:auto">
+                                    <tr class="slds-text-title--caps" style="background-color: #f2f2f2;">
+                                        <th scope="row" class="THcol_1">
+                                            <div class="slds-form-element" style="max-width: 30px;">
+                                                <div class="slds-form-element__control">
+                                                    <label class="slds-checkbox">
+                                                        <ui:inputCheckbox disabled="{!v.totalRecordsCount == 0}" aura:id="selectAllId" change="{!c.selectAllCheckbox}" />
+                                                            <span class="slds-checkbox_faux"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <th scope="col" class="THcol_2">Index</th>
+                                        <th scope="col" class="THcol_3" onclick="{!c.sortFormList}">
+                                            <a href="javascript:void(0);" class="slds-th__action slds-text-linkreset formTitle">
+                                                <span class="slds-truncate" title="Name">Title</span>
+                                                <div class="arrow">
+                                                    <aura:if isTrue="{!v.arrowDirection == 'arrowdown'}">
+                                                        &nbsp; &#9660;
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!v.arrowDirection != 'arrowdown'}">
+                                                        &nbsp; &#9650;
+                                                    </aura:if>
+                                                </div>
+                                            </a>
+                                        </th>
+                                        <th scope="col" class="THcol_4">Status</th>
+                                        <th scope="col" class="THcol_5">Total Submission</th>
+                                        <th scope="col" class="THcol_6">Preview</th>
+                                        <th scope="col" class="THcol_7">Action</th>
+                                    </tr>
+                                </table>
+
+                                <div class="dataTableMain">
+                                    <table style="border-collapse: collapse;  border-spacing: 0; width: 100%;   position:relative; max-width:100%; /* top:1rem;*/ overflow-x:auto">
+                                        <aura:if isTrue="{!v.spinnerDataTable}">
+                                            <div aura:id="spinnerId" class="slds-spinner_container" style="min-height: 300px;">
+                                                <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                                                    <span class="slds-assistive-text">Loading...</span>
+                                                    <div class="slds-spinner__dot-a"></div>
+                                                    <div class="slds-spinner__dot-b"></div>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+
+                                        <aura:iteration items="{!v.PaginationList}" var="obj" indexVar="index">
+                                            <tr>
+                                                <td scope="row" class="THcol_1">
+                                                    <div class="slds-form-element" style="max-width: 30px;">
+                                                        <div class="slds-form-element__control">
+                                                            <label class="slds-checkbox">
+                                                                <ui:inputCheckbox text="{!obj.objForm.Id}" value="{!obj.isChecked}" change="{!c.checkboxSelect}" />
+                                                                    <span class="slds-checkbox_faux"></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                                <td scope="row" class="THcol_2">
+                                                    {!index+1}
+                                                </td>
+
+                                                <td scope="row" class="THcol_3">
+                                                    <div class="slds-truncate" title="{!obj.objForm.Description__c}">
+                                                        <lightning:formattedtext value="{!obj.objForm.Title__c}" />
+                                                        <span class="slds-truncate">Title</span>
+                                                    </div>
+                                                </td>
+
+                                                <td scope="row" class="THcol_4">
+                                                    <div class="slds-truncate" title="{!obj.objForm.Active__c}">
+                                                        <div class="container">
+                                                            <div class="content">
+                                                                <label class="switch m5">
+                                                                <input type="checkbox" checked="{!obj.objForm.Active__c}" name="{!obj.objForm.Id}" onchange="{!c.switchButton}" />
+                                                                <small></small>
+                                                            </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                                <td scope="row" class="THcol_5">
+                                                    <div class="slds-truncate" title="">
+                                                        {!obj.submissionCount}
+                                                    </div>
+                                                </td>
+
+                                                <td scope="row" class="THcol_6">
+                                                    <div class="slds-truncate" title="">
+                                                        <lightning:buttonIcon iconName="utility:preview" alternativeText="Preview" title="Preview Form" name="{!obj.objForm.Id}" onclick="{!c.onpreview}" />
+                                                    </div>
+                                                </td>
+
+                                                <td scope="row" class="THcol_7">
+                                                    <ui:menu class="actionButton-main">
+                                                        <ui:menuTriggerLink class="actionButton-div">
+                                                            <lightning:buttonIcon iconName="utility:down" name="{!obj.objForm.Id}" value="{!obj.objForm.Title__c}" onclick="{!c.editFormMenu}" />
+                                                        </ui:menuTriggerLink>
+                                                        <ui:menuList class="menuList-div">
+                                                            <ui:actionMenuItem label="Rename Form" click="{!c.RenameFormModal}">
+                                                                <div class="action-text"> Rename Form </div>
+                                                            </ui:actionMenuItem>
+                                                            <ui:actionMenuItem label="Edit Form" click="{!c.dropOnEdit}">
+                                                                <div class="action-text"> Edit </div>
+                                                            </ui:actionMenuItem>
+                                                            <ui:actionMenuItem label="Delete Form" click="{!c.deleteRecord}">
+                                                                <div class="action-text"> Delete </div>
+                                                            </ui:actionMenuItem>
+                                                        </ui:menuList>
+                                                    </ui:menu>
+                                                </td>
+                                            </tr>
+                                        </aura:iteration>
+                                    </table>
+                                </div>
+                            </aura:set>
+                        </aura:if>
+
+                    </div>
+                </aura:set>
+            </aura:if>
+        </div>
+    </div>
+
+</aura:component>

@@ -1,0 +1,1416 @@
+.THIS .main {
+    /* overflow-y: scroll; */
+    background-color: antiquewhite;
+    width: 19%;
+    /* scroll-behavior: smooth; */
+    /* overscroll-behavior: none; */
+    overflow: hidden;
+}
+
+.THIS .main::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .fieldDiv::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .fieldDivchange {
+    background-color: white;
+    overflow-x: overlay;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0, 1);
+    position: fixed;
+}
+
+.THIS .fieldDiv2 {
+    height: 100%;
+    background-color: white;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    padding-bottom: 10px;
+    display: none;
+    position: absolute;
+    left: 2.6%;
+    z-index: 13;
+    border: none;
+    width: 16.4%;
+    background-color: #c1e0ee;
+}
+
+.THIS .fieldDiv2 {
+    display: none;
+}
+
+.THIS .fieldDiv1 {
+    height: 100%;
+    overflow-y: scroll;
+    background-color: white;
+    width: 81%;
+}
+
+.THIS .fieldDiv1::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .fieldDiv2::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .fieldname {
+    font-size: large;
+}
+
+.THIS .formsub {
+    mix-blend-mode: exclusion;
+    color: white;
+}
+
+.THIS .formtitle {
+    text-align: center;
+    font-size: large;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 8%;
+    border-radius: 3px;
+    width: 86%;
+    padding-bottom: 2%;
+    padding-top: 5%;
+    color: var(--setColorOnChange, black);
+    color: white;
+    font-size: 2.5rem;
+}
+
+.THIS .pagetitle {
+    font-size: 1.7rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 3px;
+    padding-bottom: 20px;
+    margin-left: 4%;
+    width: 99%;
+    color: var(--setPageColor);
+}
+
+.THIS .button_icon-border {
+    border: 1px solid;
+}
+
+.THIS .formButtonMenu {
+    margin-right: 3%;
+}
+
+.THIS .pageButtonMenu {
+    margin-right: 3%;
+}
+
+.THIS .page {
+    background-color: var(--bg, white);
+    padding-right: 3%;
+    padding-top: var(--pagePaddingTop, 0%);
+    margin-left: 5.5%;
+    margin-right: 5.5%;
+    background-size: var(--pagebg, none);
+    background-position: var(--pagebgPostion, top left);
+    background-repeat: var(--pagebgRepeat, none);
+    background-attachment: var(--pagebgFixPosition, none);
+    border-color: var(--pageborderColor, black);
+    border-style: var(--pageborderStyle, solid);
+    padding-bottom: var(--pagePaddingBottom, 4%);
+    border-width: var(--pageborderWidth, 1px);
+    background-image: var(--pagebgimage, '');
+}
+
+.THIS .pagetitle1 {
+    font-size: 1.7rem;
+    margin-top: 10%;
+    overflow-wrap: anywhere;
+    mix-blend-mode: exclusion;
+    color: white;
+}
+
+.THIS .pagetitle1if {
+    font-size: 1rem;
+    margin-top: 10%;
+    color: #9d9f9f;
+}
+
+.THIS .subpagetitleif {
+    font-size: 0.8rem;
+    color: #9d9f9f;
+}
+
+.THIS .slds-dropdown_left {
+    left: auto;
+    right: 0;
+}
+
+.THIS .subpagetitle {
+    font-size: 1.2rem;
+    mix-blend-mode: exclusion;
+    color: white;
+}
+
+.THIS .example-dropzone {
+    background-color: transparent;
+    width: 100%;
+    height: auto;
+    position: relative;
+    left: -1%;
+    padding-bottom: 3%;
+}
+
+.THIS.slds-spinner_container {
+    z-index: 10;
+    position: fixed;
+}
+
+.THIS .footer {
+    border-radius: 3px;
+    width: 94%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    display: flex;
+    flex-direction: row;
+    justify-content: var(--btnJustify, center);
+}
+
+.THIS .footer {
+    font-size: 15px;
+}
+
+.THIS .footer .slds-button {
+    text-align: center;
+    padding-top: var(--btnTopPadding, 0.5px);
+    padding-right: var(--btnRightPadding, 1px);
+    padding-bottom: var(--btnBottomPadding, 0.5px);
+    padding-left: var(--btnLeftPadding, 1px);
+    font-size: var(--buttonfontsize, 15px);
+    vertical-align: middle;
+    transition: border .15s linear;
+    color: var(--btnTextColor, lightslategray);
+    border-radius: var(--btnborderradius, 5px);
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-transition: border .15s linear;
+    transition: border .15s linear;
+    background-color: var(--btnBgColor, white);
+    border-color: var(--btncolor, darkgray);
+    border-style: var(--btnborderstyle, solid);
+    border-width: var(--btnborderwidth, 1px);
+    font-family: var(--buttonfontfamily, sans-serif);
+    font-weight: var(--buttonfontweight, normal);
+    font-style: var(--buttonfontstyle, normal);
+    width: var(--btnWidth, 5px);
+    height: var(--btnHeight);
+    margin-top: 10px;
+}
+
+.THIS .slds-m-around_small {
+    display: inline;
+}
+
+.THIS .slds-button_destructive {
+    margin-right: 15px !important;
+}
+
+.THIS .header {
+    font-size: 1.5rem;
+}
+
+.THIS .slds-modal__footer {
+    padding-bottom: 3% !important;
+}
+
+.THIS .slds-modal__header {
+    background-color: rgb(243, 242, 242);
+}
+
+.THIS .field {
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
+    padding: 0 1%;
+}
+
+.THIS .field:hover {
+    background-color: rgba(204, 204, 204, .4);
+}
+
+.THIS .objects {
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    padding-top: 1.6rem;
+    overflow-y: scroll;
+    position: absolute;
+}
+
+.THIS .objects::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .preview {
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    padding-top: 1.6rem;
+    overflow-y: scroll;
+}
+
+.THIS .preview::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .mainDiv::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .slds-vertical-tabs {
+    background-color: #3298c8;
+    height: 100vh;
+    border-right: 1px solid lightgray;
+}
+
+.THIS .slds-icon_small {
+    fill: #6699ff;
+    width: 18px;
+}
+
+.THIS lightning-tab-bar {
+    border-right: 1px solid lightgrey;
+}
+
+.THIS .HideSectionTab {
+    display: var(--hidetabdisplay, block);
+    width: var(--hidetabswidth, 100%);
+}
+
+.THIS .slds-vertical-tabs__nav {
+    z-index: 10;
+    width: 100%;
+}
+
+.THIS .slds-vertical-tabs__content {
+    padding: 0rem !important;
+    background-color: #eff4ff;
+}
+
+.THIS .slds-vertical-tabs__nav li a {
+    background-color: white;
+    border: 2px solid white !important;
+    outline: none !important;
+}
+
+.THIS .slds-vertical-tabs__nav li a:focus {
+    background-color: #eff4ff;
+    border-radius: 6px;
+}
+
+.THIS .showtabs {
+    position: absolute;
+    width: 96%;
+    height: 100%;
+    top: 0px;
+    z-index: 17;
+    bottom: 0px;
+    background-color: white;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background: #B0C9F6;
+}
+
+.THIS .showtabs::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .fieldDiv {
+    display: var(--displaynone, none);
+}
+
+.THIS .toglling {
+    background-color: #c1e0ee;
+    padding: 20px 10px 10px 5px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 100vh;
+    /* height: 300rem; */
+    scroll-behavior: smooth;
+    position: relative;
+    display: block;
+    padding-bottom: 8rem;
+}
+
+.THIS .toglling::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .two {
+    background-color: #c1e0ee;
+    animation: myfirst 0.2s forwards;
+    -webkit-animation: myfirst 2s forwards;
+    padding: 20px 10px 10px 5px;
+    z-index: 11;
+    height: 100%;
+    /* height: 300rem; */
+    height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    position: relative;
+    display: block;
+    scroll-behavior: smooth;
+    padding-bottom: 8rem;
+}
+
+.THIS .two::-webkit-scrollbar {
+    display: none;
+}
+
+@keyframes myfirst {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+.THIS .slds-icon_small:hover {
+    transform: scale(1.2, 1.2);
+}
+
+.THIS .form-control {
+    display: none;
+}
+
+
+/* for Design page */
+
+.THIS .designHead {
+    color: #6699ff;
+}
+
+.THIS .changePos .slds-accordion__summary-content {
+    color: gray;
+    text-transform: uppercase;
+}
+
+.THIS .changePos .slds-accordion__summary-heading .slds-button:focus {
+    text-decoration: none !important;
+}
+
+.THIS .changePos .slds-file-selector__button {
+    display: none !important;
+}
+
+.THIS .nextbutton,
+.THIS .btn {
+    border-color: var(--btncolor, #386a95);
+    border-style: var(--btnborderstyle, solid);
+    border-width: var(--btnborderwidth, 1px);
+    border-radius: var(--btnborderradius, 0px);
+    font-family: var(--buttonfontfamily, sans-serif);
+    font-weight: var(--buttonfontweight, normal);
+    font-style: var(--buttonfontstyle, Arial);
+    font-size: var(--buttonfontsize, 16px);
+    line-height: var(--buttonlineheight, none);
+    padding-top: var(--btntpadding, 0px);
+    padding-bottom: var(--btnbpadding, 0px);
+    padding-left: var(--btnlpadding, 0px);
+    padding-right: var(--btnrpadding, 0px);
+}
+
+.THIS .accordion {
+    background-color: transparent;
+    color: #444;
+    cursor: pointer;
+    padding: 18px 10px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+    border-bottom: 1px solid white;
+}
+
+.THIS .active,
+.THIS .accordion:hover {
+    background-color: #ccc;
+}
+
+.THIS .accordion:after {
+    content: '\002B';
+    color: #777;
+    font-weight: 900;
+    float: right;
+    margin-left: 5px;
+    margin-right: 10px;
+}
+
+.THIS .accclass::-webkit-scrollbar,
+.THIS .panel::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .active:after {
+    transform: rotate(45deg)
+}
+
+.THIS .panel {
+    padding: 0px 10px;
+    background-color: white;
+    /* height: fit-content; */
+    max-height: 0px;
+    overflow-y: scroll;
+    transition: max-height 0.2s ease-out;
+}
+
+
+/* .THIS .slds-vertical-tabs__nav-item {
+    border: 1px solid white;
+} */
+
+.THIS .slds-vertical-tabs__nav {
+    border: none;
+    overflow: hidden;
+}
+
+.THIS .myform {
+    width: var(--myformwidth, 80%);
+    padding-top: var(--formPaddingTop, 0%);
+    padding-left: var(--formPaddingLeft, 1%);
+    padding-right: var(--formPaddingRight, 1%);
+    direction: var(--formDirection, ltr);
+    background-size: var(--formBackgroundSize, auto);
+    background-position: var(--formBackgroundPosition, top);
+    background-repeat: var(--formBackgroundRepeat, repeat);
+    background-attachment: var(--formBackgroundfixPosition, scroll);
+    margin: 3rem auto;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+    background-image: var(--formbgiamge, ' ');
+    background-color: var(--bgcolor, 'yellow');
+    padding-bottom: var(--formPaddingBottom, 1%);
+    /* margin-top: ("--form_margin_top" , ''); */
+}
+
+.THIS .validate::before {
+    content: '*';
+    color: red;
+}
+
+.THIS .cross_span {
+    position: relative;
+    left: 10px;
+    display: none;
+}
+
+@media screen and (max-height:979px) {
+    .THIS .colorBar .slds-is-absolute {
+        top: 438px !important;
+    }
+    .THIS .colorBarFocusInput .slds-is-absolute {
+        top: 384px !important;
+    }
+    .THIS .colorBarFocusInputBorder .slds-is-absolute {
+        top: 328px !important;
+    }
+}
+
+@media screen and (max-height:667px) {
+    .THIS .colorBar .slds-is-absolute {
+        top: 270px !important;
+    }
+    .THIS .colorBarFocusInput .slds-is-absolute {
+        top: 214px !important;
+    }
+    .THIS .colorBarFocusInputBorder .slds-is-absolute {
+        top: 159px !important;
+    }
+    .THIS .hoverTextColor .slds-is-absolute {
+        top: 170px !important;
+    }
+    .THIS .hoverLabelColor .slds-is-absolute {
+        top: 226px !important;
+    }
+}
+
+
+/* Style the tab */
+
+.THIS .tab {
+    float: left;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width: 30%;
+    height: 300px;
+}
+
+
+/* Style the buttons inside the tab */
+
+.THIS .tab button {
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 22px 16px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+
+/* Change background color of buttons on hover */
+
+.THIS .tab button:hover {
+    background-color: #ddd;
+}
+
+
+/* Create an active/current "tab button" class */
+
+.THIS .tab button.active {
+    background-color: #ccc;
+}
+
+
+/* Style the tab content */
+
+.THIS .tabcontent {
+    float: left;
+    padding: 0px 12px;
+    border: 1px solid #ccc;
+    width: 70%;
+    border-left: none;
+    height: 300px;
+}
+
+.THIS .customfield input {
+    border: 1px solid gray;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 12px;
+    border-radius: 3px;
+    width: 250px;
+    font-size: 14px;
+    height: 30px;
+}
+
+.THIS .customfield input:focus {
+    border: 1px solid black !important;
+}
+
+.THIS .customfield input:active {
+    border: 1px solid black !important;
+}
+
+.THIS .test .slds-icon {
+    width: 1.6rem;
+}
+
+.THIS .publishmain {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin: 2rem 3rem 1.5rem 3rem;
+    text-align: left;
+    width: 90%;
+}
+
+.THIS .codebg {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 8px 10px;
+    color: grey;
+    font-size: 14px;
+    margin: 1rem 1.5rem;
+    word-wrap: break-word;
+}
+
+.THIS .code {
+    background-color: white;
+    border: none;
+    padding: 8px 10px;
+    color: grey;
+    margin: 1rem;
+    position: relative;
+}
+
+.THIS .code::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .subcode {
+    margin-right: 3px;
+    background-color: #f0f0f0;
+    height: 17rem;
+    overflow-y: scroll;
+}
+
+.THIS .subcode::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .publishpanel {
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+    margin: auto;
+    width: 80%;
+    background-color: white;
+    margin-top: 2rem;
+    border: 1px solid lightgray;
+    height: 90%;
+    overflow-y: scroll;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.THIS .publishpanel::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .runcodeicon {
+    margin: 0rem 1rem 1rem 1.5rem;
+}
+
+.THIS .publishtabsetdiv {
+    font-size: 15px;
+    color: rgb(116, 116, 116);
+    font-weight: bold;
+    margin-top: 0.5rem
+}
+
+.THIS .slds-button__icon {
+    fill: gray;
+}
+
+.THIS .content.slds-modal__content {
+    background-color: var(--slds-c-modal-content-color-background, var(--sds-c-modal-content-color-background, var(--slds-c-modal-color-background, var(--sds-c-modal-color-background, var(--lwc-colorBackgroundAlt, rgb(255, 255, 255))))));
+    color: var(--slds-c-modal-content-text-color, var(--sds-c-modal-content-text-color, var(--slds-c-modal-text-color, var(--sds-c-modal-text-color))));
+    overflow: hidden;
+    overflow-y: auto;
+    height: 70%;
+    position: absolute;
+    top: 150px;
+    left: -100px;
+}
+
+.THIS .content.slds-modal__content::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.THIS .close:hover,
+.THIS .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.THIS #myBtn {
+    position: fixed;
+    bottom: 12px;
+    right: -300px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    transition: box-shadow 0.4s ease;
+    background: #4610f5;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 1.7rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.THIS #myBtn span {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s ease;
+}
+
+
+/* Email Notification Div You Page */
+
+
+/* 
+.THIS .emailNotificationDiv {
+    background-color: #fff;
+    width: 85%;
+    height: 87%;
+    box-shadow: 5px 10px 18px #888888;
+    margin: auto;
+    margin-top: 3%;
+    padding: 1%;
+    overflow-y: auto;
+}
+
+.THIS .emailBox {
+    background-color: aliceblue;
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    padding: 1%;
+    font-size: initial;
+    color: slategray;
+}
+
+.THIS .emailHeaderAndContent {
+    width: 100%;
+    margin-top: 1%;
+}
+
+.THIS .emailDetails {
+    width: 100%;
+    margin-top: 1%;
+}
+
+.THIS .emialRecipientIttretion {
+    margin: 1%;
+}
+
+.THIS .helptxt {
+    margin-left: 5px;
+} */
+
+
+/* Thank You Page */
+
+.THIS .thanksfieldDiv {
+    height: 90vh;
+    background-color: white;
+    overflow-x: scroll;
+}
+
+.THIS .thankyoudiv {
+    background-color: #fff;
+    width: 50%;
+    box-shadow: 5px 10px 18px #888888;
+    margin: 3% auto;
+    padding: 1%;
+}
+
+.THIS .thankslabel {
+    color: #6699ff;
+    text-align: center;
+    font-size: 40px;
+    padding-top: 10px;
+}
+
+.THIS .thankyouinput {
+    margin-top: -15px;
+    margin-bottom: 5px;
+    width: 100%;
+    min-height: 30px;
+}
+
+.THIS .thankyouinput-rich {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 100%;
+    min-height: 30px;
+}
+
+.THIS .form-check .form-check-input {
+    margin-left: -15px;
+}
+
+.THIS .form-check {
+    padding: 3px 0;
+    font-size: 15px;
+}
+
+.THIS .thanksave {
+    font-size: 14px;
+    border: 1px solid #1971ED;
+    color: #1971ED;
+    padding: 1% 5%;
+    background: #fff;
+}
+
+.THIS .thanksave:hover {
+    color: #fff;
+    background: #1971ED;
+}
+
+.THIS .txtstyle {
+    display: flex;
+    padding: 10px;
+}
+
+.THIS .thanksLabel {
+    padding: 10px 15px;
+    word-wrap: break-word;
+}
+
+.THIS .thanksicon {
+    cursor: pointer;
+    float: right;
+    margin: -11px;
+    padding: 3px 6px;
+}
+
+.THIS .PageClass {
+    border: solid #c9c9c9 1px;
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.THIS .thanks-option {
+    padding-top: 2px;
+}
+
+.THIS .thanks-optiondiv {
+    display: flex;
+}
+
+
+/* Button Style */
+
+
+/* 
+.THIS .button-class {
+    min-width: 115px;
+    padding: 10px 15px;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+}
+
+.THIS .button-content {
+    position: relative;
+    display: block;
+    color: #7D7D7D;
+    border-radius: 26px;
+    border: 2px solid #7D7D7D;
+    background-color: #fff;
+    background-clip: padding-box;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.THIS .button-content ::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    border: 2px solid #008cff;
+    border-radius: 26px;
+}
+
+.THIS .button-content :after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70vmax;
+    height: 70vmax;
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.THIS .button-content:hover {
+    color: #fff;
+    background-color: #7D7D7D;
+    border: 2px solid transparent;
+}
+
+.THIS .heading {
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    border-bottom: 1px solid darkgrey;
+    height: 15%;
+    padding: 0.5rem 1rem;
+    background: darkgray;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+
+.THIS .codestyle {
+    padding: 0rem 1rem;
+}
+
+.THIS .label_popup.slds-popover {
+    top: 446;
+}
+
+.THIS .slds-shrink-none {
+    display: none;
+}
+
+.THIS .lightningInputRichText:hover .slds-shrink-none {
+    display: block;
+}
+
+.THIS .lightningInputRichText:-moz-focus-inner .slds-shrink-none {
+    display: block;
+}
+*/
+
+.THIS .label_popup .color-picker-panel section {
+    position: fixed;
+    z-index: 9101;
+    left: 84px;
+    right: auto;
+    top: 226px;
+}
+
+.THIS .slds-dropdown_left {
+    background-color: white;
+}
+
+.THIS .slds-popover {
+    position: static !important;
+}
+
+.THIS .slds-color-picker__summary-input {
+    display: none;
+}
+
+.THIS .slds-vertical-tabs__nav li a {
+    background-color: #3298c8 !important;
+    border: 1px solid #3298c8 !important;
+    padding-left: 17px;
+    border: none;
+}
+
+.THIS .slds-vertical-tabs__nav li {
+    background-color: #3298c8!important;
+    margin: -2px !important;
+}
+
+.THIS .slds-vertical-tabs__nav ul {
+    background-color: #3298c8 !important;
+    height: 100vh;
+}
+
+.THIS lightning-tab-bar {
+    background-color: #3298c8 !important;
+}
+
+.THIS .slds-vertical-tabs__nav .slds-icon_small {
+    fill: white;
+    width: 18px;
+}
+
+.THIS .slds-vertical-tabs {
+    margin: -2px;
+}
+
+.THIS .formButtons .slds-button__icon {
+    fill: #3298c8;
+}
+
+
+/* .THIS .slds-vertical-tabs__nav li a:link {
+    background-color: rgb(189, 211, 253) !important;
+} */
+
+
+/* .THIS .slds-vertical-tabs__nav li a:visited {
+    background-color: red !important;
+} */
+
+
+/* .THIS .slds-vertical-tabs__nav li a:focus {
+    background-color: rgb(189, 211, 253) !important;
+} */
+
+
+/* .THIS .slds-vertical-tabs__link {
+    background-color: red !important;
+} */
+
+
+/* .THIS .slds-has-focus {
+    background-color: red !important;
+}
+
+.THIS .slds-is-active {
+    background-color: green !important;
+}
+
+.THIS.slds-has-focus {
+    background-color: red !important;
+}
+
+.THIS.slds-is-active {
+    background-color: green !important;
+} */
+
+.THIS .formButtons button {
+    color: #3298c8;
+}
+
+.THIS .addFormTitle {
+    position: fixed;
+    width: 80%;
+    z-index: 10;
+    background-color: #f4f4f4;
+    padding-right: 1rem;
+}
+
+.THIS .InnerFormtitle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.THIS .formName {
+    font-size: 2rem;
+    font-weight: 500;
+    margin: 10px auto;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    overflow-x: scroll;
+    width: 30rem;
+    scroll-behavior: smooth;
+    text-align: center;
+    color: #3298c8;
+}
+
+.THIS .formName::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .showtabs2 {
+    /* width: var(--test, 90%); */
+    width: 96%;
+    padding: 0;
+    position: absolute;
+    width: 96%;
+    height: 100%;
+    top: 0px;
+    z-index: 17;
+    bottom: 0px;
+    background-color: white;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background: #B0C9F6;
+}
+
+
+/* linear-gradient(to bottom, #3298c8, #2e8cb8); */
+
+@media only screen and (max-width: 1704px) {
+    .THIS .main {
+        width: 22%;
+    }
+    .THIS .addFormTitle {
+        width: 76.7%;
+    }
+    .THIS .fieldDiv1 {
+        width: 78%;
+    }
+}
+
+@media only screen and (max-width: 1456px) {
+    .THIS .main {
+        width: 24%;
+    }
+    .THIS .fieldDiv1 {
+        width: 76%;
+    }
+    .THIS .addFormTitle {
+        width: 74.6%;
+    }
+}
+
+@media only screen and (max-width: 1341px) {
+    .THIS .main {
+        width: 26%;
+    }
+    .THIS .fieldDiv1 {
+        width: 74%;
+    }
+    .THIS .addFormTitle {
+        width: 72.6%;
+    }
+}
+
+@media only screen and (max-width: 1241px) {
+    .THIS .main {
+        width: 28%;
+    }
+    .THIS .fieldDiv1 {
+        width: 72%;
+    }
+    .THIS .addFormTitle {
+        width: 70.5%;
+    }
+}
+
+@media only screen and (max-width: 1157px) {
+    .THIS .main {
+        width: 30%;
+    }
+    .THIS .fieldDiv1 {
+        width: 70%;
+    }
+    .THIS .addFormTitle {
+        width: 68.5%;
+    }
+}
+
+@media only screen and (max-width: 1081px) {
+    .THIS .main {
+        width: 32%;
+    }
+    .THIS .fieldDiv1 {
+        width: 68%;
+    }
+    .THIS .addFormTitle {
+        width: 66.5%;
+    }
+}
+
+@media only screen and (max-width: 1010px) {
+    .THIS .main {
+        width: 34%;
+    }
+    .THIS .fieldDiv1 {
+        width: 66%;
+    }
+    .THIS .addFormTitle {
+        width: 64.3%;
+    }
+}
+
+@media only screen and (max-width: 924px) {
+    .THIS .main {
+        width: var(--mainwidth, 6.2%);
+    }
+    .THIS .fieldDiv1 {
+        width: 93.3%;
+        position: relative;
+        left: -1%;
+    }
+    .THIS .addFormTitle {
+        width: 91.4%;
+        position: fixed;
+        left: 6.4%;
+    }
+}
+
+
+/* @media only screen and (max-width: 924px) {
+    .THIS .main {
+        width: var(--mainwidth, 6.2%);
+        z-index: var(--myIndex, 100);
+    }
+    .THIS .fieldDiv1 {
+        width: 93.3%;
+        position: relative;
+        left: -209px;
+        z-index: 1000;
+    }
+} */
+
+@media only screen and (max-width: 824px) {
+    .THIS .fieldDiv1 {
+        width: 94%;
+    }
+}
+
+@media only screen and (max-width: 724px) {
+    /* .THIS .main {
+        width: 8%;
+    } */
+    .THIS .fieldDiv1 {
+        width: 92%;
+    }
+}
+
+@media only screen and (max-width: 1854px) {
+    .THIS .fieldDiv2 {
+        left: 3.2%;
+    }
+}
+
+@media only screen and (max-width: 1835px) {
+    .THIS .fieldDiv2 {
+        left: 3.5%;
+        width: 15%;
+    }
+}
+
+@media only screen and (max-width: 1702px) {
+    .THIS .fieldDiv2 {
+        left: 3%;
+        width: 19%;
+    }
+}
+
+@media only screen and (max-width: 1538px) {
+    .THIS .fieldDiv2 {
+        left: 3.3%;
+        width: 18.7%;
+    }
+}
+
+@media only screen and (max-width: 1489px) {
+    .THIS .fieldDiv2 {
+        left: 3.4%;
+        width: 18.6%;
+    }
+}
+
+@media only screen and (max-width: 1460px) {
+    .THIS .fieldDiv2 {
+        left: 3.5%;
+        width: 20.5%;
+    }
+}
+
+@media only screen and (max-width: 1424px) {
+    .THIS .fieldDiv2 {
+        left: 3.7%;
+        width: 20.2%;
+    }
+}
+
+@media only screen and (max-width: 1358px) {
+    .THIS .fieldDiv2 {
+        left: 3.7%;
+        width: 20.3%;
+    }
+}
+
+@media only screen and (max-width: 1336px) {
+    .THIS .fieldDiv2 {
+        left: 3.7%;
+        width: 22.3%;
+    }
+}
+
+@media only screen and (max-width: 1271px) {
+    .THIS .fieldDiv2 {
+        left: 4.1%;
+        width: 21.8%;
+    }
+}
+
+@media only screen and (max-width: 1236px) {
+    .THIS .fieldDiv2 {
+        width: 23.8%;
+        left: 4.2%;
+    }
+}
+
+@media only screen and (max-width: 1220px) {
+    .THIS .fieldDiv2 {
+        width: 23%;
+        left: 4.3%;
+    }
+}
+
+@media only screen and (max-width:1171px) {
+    .THIS .fieldDiv2 {
+        width: 24.7%;
+        left: 4.3%;
+    }
+}
+
+@media only screen and (max-width:1127px) {
+    .THIS .fieldDiv2 {
+        width: 24.6%;
+        left: 5.3%;
+    }
+}
+
+@media only screen and (max-width:1107px) {
+    .THIS .fieldDiv2 {
+        width: 24.4%;
+        left: 5.5%;
+    }
+}
+
+@media only screen and (max-width:1077px) {
+    .THIS .fieldDiv2 {
+        width: 26%;
+        left: 5.7%;
+    }
+}
+
+@media only screen and (max-width:1028px) {
+    .THIS .fieldDiv2 {
+        width: 27.5%;
+        left: 6%;
+    }
+}
+
+@media only screen and (max-width:980px) {
+    .THIS .fieldDiv2 {
+        width: 27.3%;
+        left: 6.3%;
+    }
+}
+
+@media only screen and (max-width:933px) {
+    .THIS .fieldDiv2 {
+        width: 27.3%;
+        left: 6.4%;
+    }
+}
+
+@media only screen and (max-width:822px) {
+    .THIS .fieldDiv2 {
+        left: 7%;
+    }
+}
+
+.THIS .field {
+    content: var(--fieldContent);
+    /* display: var(--fieldContent); */
+}
+
+.THIS .panel lightning-primitive-icon {
+    margin-left: 5px !important;
+}
+
+.THIS .example-draggable {
+    background-color: transparent;
+}
+
+.THIS .example-draggable div {
+    background-color: transparent;
+}
+
+.THIS .slds-vertical-tabs__nav-item.slds-is-active .slds-vertical-tabs__link {
+    background-color: lightgray !important;
+}
+
+
+/* .THIS .fieldOutlines {
+    width: 100%;
+    left: -7px;
+    position: relative;
+    padding-top: 10px;
+} */

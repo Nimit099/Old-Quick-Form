@@ -1,0 +1,1189 @@
+.THIS .main {
+    overflow-y: scroll;
+    background-color: white
+}
+
+.THIS .main::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .fieldDiv::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .fieldDivchange {
+    background-color: white;
+    overflow-x: overlay;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0, 1);
+    position: fixed;
+}
+
+.THIS .fieldDiv1 {
+    height: 100%;
+    overflow-y: scroll;
+    background-color: white;
+}
+
+.THIS .fieldDiv1::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .fieldDiv2 {
+    height: 100%;
+    background-color: white;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    padding-bottom: 10px;
+    display: none;
+    position: absolute;
+    left: 3%;
+    width: 22%;
+    z-index: 13;
+}
+
+.THIS .fieldDiv2::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .fieldname {
+    font-size: large;
+}
+
+.THIS .formtitle {
+    text-align: center;
+    font-size: large;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 8%;
+    border-radius: 3px;
+    width: 86%;
+    padding-bottom: 2%;
+    padding-top: 5%;
+}
+
+.THIS .title {
+    font-size: 2rem;
+    word-break: break-word;
+}
+
+.THIS .pagetitle {
+    font-size: 1.7rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 3px;
+    padding-bottom: 20px;
+    margin-left: 4%;
+    width: 99%;
+}
+
+.THIS .formButtonMenu {
+    margin-right: 3%;
+}
+
+.THIS .pageButtonMenu {
+    margin-right: 3%;
+}
+
+.THIS .myform .page {
+    background-color: var(--bg, white);
+    padding-right: 3%;
+    margin-left: 5.5%;
+    margin-right: 5.5%;
+    margin-bottom: 4%;
+    border: 1px solid black;
+    background-image: var(--pagebgimage, '');
+}
+
+.THIS .pagetitle1 {
+    font-size: 1.7rem;
+    margin-top: 10%;
+    overflow-wrap: anywhere;
+}
+
+.THIS .pagetitle1if {
+    font-size: 1rem;
+    margin-top: 10%;
+    color: #9d9f9f;
+}
+
+.THIS .subpagetitleif {
+    font-size: 0.8rem;
+    color: #9d9f9f;
+}
+
+.THIS .slds-dropdown_left {
+    left: auto;
+    right: 0;
+}
+
+.THIS .subpagetitle {
+    font-size: 1.2rem;
+}
+
+.THIS .example-dropzone {
+    background-color: transparent;
+    width: 100%;
+    height: auto;
+    position: relative;
+    left: -1%;
+    padding-bottom: 3%;
+}
+
+.THIS.slds-spinner_container {
+    z-index: 10;
+    position: fixed;
+}
+
+.THIS .footer {
+    border-radius: 3px;
+    width: 94%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.THIS .footer .slds-button {
+    padding-left: 1rem;
+    text-align: center;
+    padding-right: 1rem;
+    font-size: 15px;
+    vertical-align: middle;
+    transition: border .15s linear;
+    color: lightslategray;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-transition: border .15s linear;
+    transition: border .15s linear;
+    background-color: white;
+    border-color: darkgray;
+    border-width: 1px;
+    width: 5rem;
+    margin-top: 10px;
+}
+
+.THIS .slds-m-around_small {
+    display: inline;
+}
+
+.THIS .slds-button_destructive {
+    margin-right: 15px !important;
+}
+
+.THIS .header {
+    font-size: 1.5rem;
+}
+
+.THIS .slds-modal__footer {
+    padding-bottom: 3% !important;
+}
+
+.THIS .slds-modal__header {
+    background-color: rgb(243, 242, 242);
+}
+
+.THIS .footer .slds-button {
+    font-size: 15px !important;
+}
+
+.THIS .field {
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
+    padding: 0 1%;
+}
+
+.THIS .field:hover {
+    background-color: rgba(204, 204, 204, .4);
+}
+
+.THIS .objects {
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    padding-top: 1.6rem;
+    overflow-y: scroll;
+}
+
+.THIS .objects::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .preview {
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    padding-top: 1.6rem;
+    overflow-y: scroll;
+}
+
+.THIS .preview::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .mainDiv::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .slds-vertical-tabs {
+    background-color: white !important;
+    height: 100vh;
+    border-right: 1px solid lightgray;
+}
+
+.THIS .slds-icon_small {
+    fill: #6699ff;
+    width: 18px;
+}
+
+.THIS .slds-vertical-tabs__nav {
+    z-index: 10;
+    width: 90%;
+}
+
+.THIS .slds-vertical-tabs__content {
+    padding: 0rem !important;
+    background-color: #eff4ff;
+    ;
+}
+
+.THIS .slds-vertical-tabs__nav li a {
+    background-color: white;
+    border: 2px solid white !important;
+    outline: none !important;
+}
+
+.THIS .slds-vertical-tabs__nav li a:focus {
+    background-color: #eff4ff;
+    border-radius: 6px;
+}
+
+.THIS .showtabs {
+    position: absolute;
+    width: 95%;
+    height: 100%;
+    top: 0px;
+    z-index: 20;
+    bottom: 0px;
+    padding: 10px 5px;
+    background-color: white;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.THIS .showtabs::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .fieldDiv {
+    display: var(--displaynone, none);
+}
+
+.THIS .two {
+    background-color: #eff4ff;
+    animation: myfirst 0.2s forwards;
+    -webkit-animation: myfirst 2s forwards;
+    padding: 10px;
+    z-index: 11;
+    height: 100%;
+    padding-left: 5px;
+    background-color: white;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    position: relative;
+    display: block;
+}
+
+.THIS .two::-webkit-scrollbar {
+    display: none;
+}
+
+@keyframes myfirst {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+.THIS .slds-icon_small:hover {
+    transform: scale(1.2, 1.2);
+}
+
+.THIS .form-control {
+    display: none;
+}
+
+
+/* for Design page */
+
+.THIS .designHead {
+    color: #6699ff;
+}
+
+.THIS .changePos .slds-accordion__summary-content {
+    color: gray;
+    text-transform: uppercase;
+}
+
+.THIS .changePos .slds-accordion__summary-heading .slds-button:focus {
+    text-decoration: none !important;
+}
+
+.THIS .changePos .slds-file-selector__button {
+    display: none !important;
+}
+
+.THIS .nextbutton,
+.THIS .btn {
+    border-color: var(--btncolor, #386a95);
+    border-style: var(--btnborderstyle, solid);
+    border-width: var(--btnborderwidth, 1px);
+    border-radius: var(--btnborderradius, 0px);
+    font-family: var(--buttonfontfamily, sans-serif);
+    font-weight: var(--buttonfontweight, normal);
+    font-style: var(--buttonfontstyle, Arial);
+    font-size: var(--buttonfontsize, 16px);
+    line-height: var(--buttonlineheight, none);
+    padding-top: var(--btntpadding, 0px);
+    padding-bottom: var(--btnbpadding, 0px);
+    padding-left: var(--btnlpadding, 0px);
+    padding-right: var(--btnrpadding, 0px);
+}
+
+.THIS .accordion {
+    background-color: transparent;
+    color: #444;
+    cursor: pointer;
+    padding: 18px 10px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+    border-bottom: 1px solid lightgray;
+}
+
+.THIS .active,
+.THIS .accordion:hover {
+    background-color: #ccc;
+}
+
+.THIS .accordion:after {
+    content: '\002B';
+    color: #777;
+    font-weight: 900;
+    float: right;
+    margin-left: 5px;
+    margin-right: 10px;
+}
+
+.THIS .accclass::-webkit-scrollbar,
+.THIS .panel::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .active:after {
+    transform: rotate(45deg)
+}
+
+.THIS .panel {
+    padding: 0px 10px;
+    background-color: white;
+    /* height: fit-content; */
+    max-height: 0px;
+    overflow-y: scroll;
+    transition: max-height 0.4s ease-out;
+}
+
+.THIS .slds-vertical-tabs__nav-item {
+    border: 1px solid white;
+}
+
+.THIS .slds-vertical-tabs__nav {
+    border: none;
+    overflow: hidden;
+}
+
+.THIS .myform {
+    width: var(--myformwidth, 80%);
+    margin: auto;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+    background-image: var(--formbgiamge, ' ');
+    background-color: var(--bgcolor, 'yellow');
+    padding-bottom: 1px;
+    /* margin-top: ("--form_margin_top" , ''); */
+}
+
+.THIS .validate::before {
+    content: '*';
+    color: red;
+}
+
+.THIS .toglling {
+    padding: 10px;
+    z-index: 11;
+    height: 100%;
+    padding-left: 5px;
+    background-color: white;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    position: relative;
+    display: var(--mydisplay, block);
+    background-color: #eff4ff;
+}
+
+.THIS .innerEmail {
+    position: absolute;
+    z-index: 10;
+    margin: auto;
+    width: 95%;
+    background-color: white;
+    height: 100%;
+}
+
+@media screen and (max-width:2002px) {
+    .THIS .main {
+        width: 28%;
+    }
+    .THIS .fieldDiv1 {
+        position: absolute;
+        left: 25rem;
+        width: 79%;
+    }
+}
+
+@media screen and (max-width:1669px) {
+    .THIS .main {
+        width: 28%;
+    }
+    .THIS .fieldDiv1 {
+        position: absolute;
+        left: 21rem;
+        width: 79.3%;
+    }
+    /* .THIS .showtabs{} */
+}
+
+@media screen and (max-width:1488px) {
+    .THIS .main {
+        width: 36%;
+    }
+    .THIS .fieldDiv1 {
+        width: 64%;
+    }
+    .THIS .showtabs {
+        width: 95%;
+    }
+}
+
+@media screen and (max-width:1485px) {
+    .THIS .main {
+        width: 31%;
+    }
+    .THIS .fieldDiv1 {
+        width: 77%;
+    }
+}
+
+@media screen and (max-width:1616px) {
+    .THIS .main {
+        width: 31%;
+    }
+    .THIS .fieldDiv1 {
+        width: 77%;
+    }
+}
+
+@media screen and (max-width:1463px) {
+    .THIS .main {
+        width: 32%;
+    }
+    .THIS .fieldDiv1 {
+        width: 76.5%;
+    }
+}
+
+@media screen and (max-width:1163px) {
+    .THIS .main {
+        width: 40%;
+    }
+    .THIS .fieldDiv1 {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width:1057px) {
+    .THIS .main {
+        width: 32%;
+    }
+    .THIS .fieldDiv1 {
+        width: 68%;
+    }
+}
+
+@media screen and (max-width:1118px) {
+    .THIS .main {
+        width: 42%;
+    }
+    .THIS .fieldDiv1 {
+        width: 68.6%;
+    }
+}
+
+@media screen and (max-width:1024px) {
+    .THIS .main {
+        width: 45%;
+    }
+    .THIS .fieldDiv1 {
+        position: absolute;
+        left: 20rem;
+        width: 67%;
+    }
+}
+
+@media screen and (max-width:939px) {
+    .THIS .main {
+        width: 47%;
+    }
+    .THIS .fieldDiv1 {
+        position: absolute;
+        left: 21rem;
+        width: 63%;
+    }
+}
+
+@media screen and (max-width:998px) {
+    .THIS .main {
+        width: 48%;
+    }
+    .THIS .fieldDiv1 {
+        width: 49%;
+    }
+    .THIS .tab-pane {
+        width: 75%;
+    }
+    .THIS .fieldDiv1 {
+        position: absolute;
+        left: 21rem;
+        width: 64.6%;
+    }
+}
+
+@media screen and (max-width:964px) {
+    .THIS .main {
+        width: 47%;
+    }
+    .THIS .fieldDiv1 {
+        position: absolute;
+        left: 20rem;
+        width: 65.6%;
+    }
+}
+
+@media screen and (max-width:924px) {
+    .THIS .fieldDiv1 {
+        width: 94%;
+        position: absolute;
+        z-index: 10;
+        left: 5%;
+    }
+    .THIS .slds-vertical-tabs {
+        border-right: lightgray;
+    }
+    .THIS .main {
+        width: 49%;
+    }
+    .THIS .showtabs {
+        width: 93%;
+    }
+}
+
+@media screen and (max-width:865px) {
+    .THIS .fieldDiv1 {
+        z-index: 10;
+        left: 6%;
+    }
+    .THIS .main {
+        width: 54%;
+    }
+    .THIS .fieldDiv1 {
+        width: 93%;
+    }
+    .THIS .code {
+        display: flex;
+        flex-direction: column;
+    }
+    .THIS .subcode {
+        margin-top: 1rem;
+    }
+}
+
+@media screen and (max-width:755px) {
+    .THIS .fieldDiv1 {
+        width: 92%;
+        left: 8%;
+    }
+    .THIS .main {
+        width: 72%;
+    }
+}
+
+@media screen and (max-width:656px) {
+    .THIS .fieldDiv1 {
+        left: 8%;
+    }
+    .THIS .title {
+        font-size: 1.8rem;
+    }
+    .THIS .pagetitle1 {
+        font-size: 1.5rem;
+    }
+    .THIS .subpagetitle {
+        font-size: 1rem;
+    }
+    .THIS .showtabs {
+        width: 80%;
+    }
+    .THIS .main {
+        width: 72%;
+    }
+}
+
+@media screen and (max-width:532px) {
+    .THIS .fieldDiv1 {
+        width: 88%;
+        left: 12%;
+    }
+    .THIS .toggle {
+        width: 30%;
+    }
+    .THIS .main {
+        width: 72%;
+    }
+}
+
+@media screen and (max-width:509px) {
+    .THIS .main {
+        width: 72%;
+    }
+    .THIS .showtabs {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width:445px) {
+    .THIS .slds-vertical-tabs__nav {
+        z-index: 1000;
+        width: 88%;
+    }
+    .THIS .slds-vertical-tabs__nav-item {
+        color: red;
+        background-color: #1971ED;
+    }
+    .THIS .fieldDiv1 {
+        width: 86%;
+        left: 14%;
+    }
+    .THIS .main {
+        width: 60%;
+    }
+    .THIS .showtabs {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width:386px) {
+    .THIS .slds-vertical-tabs__nav {
+        width: 90%;
+    }
+    .THIS .fieldDiv1 {
+        width: 86%;
+        left: 14%;
+    }
+    .THIS .main {
+        width: 76%;
+    }
+}
+
+@media screen and (max-width:333px) {
+    .THIS .slds-vertical-tabs__nav {
+        width: 100%;
+    }
+    .THIS .fieldDiv1 {
+        width: 84%;
+        left: 16%;
+    }
+    .THIS .main {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width:302px) {
+    .THIS .fieldDiv1 {
+        width: 82%;
+        left: 18%;
+    }
+    .THIS .main {
+        width: 70%;
+    }
+}
+
+
+/* Style the tab */
+
+.THIS .tab {
+    float: left;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width: 30%;
+    height: 300px;
+}
+
+
+/* Style the buttons inside the tab */
+
+.THIS .tab button {
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 22px 16px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+
+/* Change background color of buttons on hover */
+
+.THIS .tab button:hover {
+    background-color: #ddd;
+}
+
+
+/* Create an active/current "tab button" class */
+
+.THIS .tab button.active {
+    background-color: #ccc;
+}
+
+
+/* Style the tab content */
+
+.THIS .tabcontent {
+    float: left;
+    padding: 0px 12px;
+    border: 1px solid #ccc;
+    width: 70%;
+    border-left: none;
+    height: 300px;
+}
+
+.THIS .customfield input {
+    border: 1px solid gray;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 12px;
+    border-radius: 3px;
+    width: 250px;
+    font-size: 14px;
+    height: 30px;
+}
+
+.THIS .customfield input:focus {
+    border: 1px solid black !important;
+}
+
+.THIS .customfield input:active {
+    border: 1px solid black !important;
+}
+
+.THIS .test .slds-icon {
+    width: 1.6rem;
+}
+
+.THIS .publishmain {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin: 2rem 3rem 1.5rem 3rem;
+    text-align: left;
+    width: 90%;
+}
+
+.THIS .codebg {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 8px 10px;
+    color: grey;
+    font-size: 14px;
+    margin: 1rem 1.5rem;
+    word-wrap: break-word;
+}
+
+.THIS .code {
+    background-color: white;
+    border: none;
+    padding: 8px 10px;
+    color: grey;
+    margin: 1rem;
+    position: relative;
+}
+
+.THIS .code::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .subcode {
+    margin-right: 3px;
+    background-color: #f0f0f0;
+    height: 17rem;
+    overflow-y: scroll;
+}
+
+.THIS .subcode::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .publishpanel {
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+    margin: auto;
+    width: 80%;
+    background-color: white;
+    margin-top: 2rem;
+    border: 1px solid lightgray;
+    height: 90%;
+    overflow-y: scroll;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.THIS .publishpanel::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .runcodeicon {
+    margin: 0rem 1rem 1rem 1.5rem;
+}
+
+.THIS .publishtabsetdiv {
+    font-size: 15px;
+    color: rgb(116, 116, 116);
+    font-weight: bold;
+    margin-top: 0.5rem
+}
+
+.THIS .slds-button__icon {
+    fill: gray;
+}
+
+.THIS .content.slds-modal__content {
+    background-color: var(--slds-c-modal-content-color-background, var(--sds-c-modal-content-color-background, var(--slds-c-modal-color-background, var(--sds-c-modal-color-background, var(--lwc-colorBackgroundAlt, rgb(255, 255, 255))))));
+    color: var(--slds-c-modal-content-text-color, var(--sds-c-modal-content-text-color, var(--slds-c-modal-text-color, var(--sds-c-modal-text-color))));
+    overflow: hidden;
+    overflow-y: auto;
+    height: 70%;
+    position: absolute;
+    top: 150px;
+    left: -100px;
+}
+
+.THIS .content.slds-modal__content::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.THIS .close:hover,
+.THIS .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.THIS #myBtn {
+    position: fixed;
+    bottom: 12px;
+    right: -300px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    transition: box-shadow 0.4s ease;
+    background: #4610f5;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 1.7rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.THIS #myBtn span {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s ease;
+}
+
+
+/* Email Notification Div You Page */
+
+.THIS .emailNotificationDiv::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .emailNotificationDiv {
+    background-color: #fff;
+    width: 85%;
+    height: 87%;
+    box-shadow: 5px 10px 18px #888888;
+    margin: auto;
+    margin-top: 3%;
+    padding: 1%;
+    overflow-y: auto;
+}
+
+.THIS .emailBox {
+    background-color: aliceblue;
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    padding: 1%;
+    font-size: initial;
+    color: slategray;
+}
+
+.THIS .emailHeaderAndContent {
+    width: 100%;
+    margin-top: 1%;
+}
+
+.THIS .emailDetails {
+    width: 100%;
+    margin-top: 1%;
+}
+
+.THIS .emialRecipientIttretion {
+    margin: 1%;
+}
+
+.THIS .helptxt {
+    margin-left: 5px;
+}
+
+
+/* Thank You Page */
+
+.THIS .thanksfieldDiv {
+    height: 90vh;
+    background-color: white;
+    overflow-x: scroll;
+}
+
+.THIS .thankyoudiv {
+    background-color: #fff;
+    width: 50%;
+    box-shadow: 5px 10px 18px #888888;
+    margin: 3% auto;
+    padding: 1%;
+}
+
+.THIS .thankslabel {
+    color: #6699ff;
+    text-align: center;
+    font-size: 40px;
+    padding-top: 10px;
+}
+
+.THIS .thankyouinput {
+    margin-top: -15px;
+    margin-bottom: 5px;
+    width: 100%;
+    min-height: 30px;
+}
+
+.THIS .thankyouinput-rich {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 100%;
+    min-height: 30px;
+}
+
+.THIS .form-check .form-check-input {
+    margin-left: -15px;
+}
+
+.THIS .form-check {
+    padding: 3px 0;
+    font-size: 15px;
+}
+
+.THIS .thanksave {
+    font-size: 14px;
+    border: 1px solid #1971ED;
+    color: #1971ED;
+    padding: 1% 5%;
+    background: #fff;
+}
+
+.THIS .thanksave:hover {
+    color: #fff;
+    background: #1971ED;
+}
+
+.THIS .txtstyle {
+    display: flex;
+    padding: 10px;
+}
+
+.THIS .thanksLabel {
+    padding: 10px 15px;
+    word-wrap: break-word;
+}
+
+.THIS .thanksicon {
+    cursor: pointer;
+    float: right;
+    margin: -10px;
+    padding: 3px 6px;
+}
+
+.THIS .PageClass {
+    border: solid #c9c9c9 1px;
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.THIS .thanks-option {
+    padding-top: 2px;
+}
+
+.THIS .thanks-optiondiv {
+    display: flex;
+}
+
+
+/* Button Style */
+
+.THIS .button-class {
+    min-width: 115px;
+    padding: 10px 15px;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+}
+
+.THIS .button-content {
+    position: relative;
+    display: block;
+    color: #7D7D7D;
+    border-radius: 26px;
+    border: 2px solid #7D7D7D;
+    background-color: #fff;
+    background-clip: padding-box;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.THIS .button-content ::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    border: 2px solid #008cff;
+    border-radius: 26px;
+}
+
+.THIS .button-content :after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70vmax;
+    height: 70vmax;
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.THIS .button-content:hover {
+    color: #fff;
+    background-color: #7D7D7D;
+    border: 2px solid transparent;
+}
+
+.THIS .heading {
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    border-bottom: 1px solid darkgrey;
+    height: 15%;
+    padding: 0.5rem 1rem;
+    background: darkgray;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+
+.THIS .codestyle {
+    padding: 0rem 1rem;
+}
+
+.THIS .design_content,
+.THIS .notification_content,
+.THIS .page_content,
+.THIS .object_content,
+.THIS .preview_content,
+.THIS .publish_content {
+    display: none;
+}
+
+.THIS .slds-button__icon {
+    fill: cornflowerblue;
+    width: 18px;
+    border: none;
+    background-color: transparent;
+}
+
+.THIS .slds-button__icon:focus {
+    fill: cornflowerblue;
+    border: none;
+    width: 20px;
+}
+
+
+/* .THIS .slds-button__icon:hover {
+    transform: scale(1.8, 1.8)
+    
+} */
+
+.THIS .tab-pane {
+    background-color: #eff4ff;
+    position: relative;
+    left: -21px;
+    width: 80%;
+}

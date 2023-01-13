@@ -1,0 +1,331 @@
+.First{
+    background: beige;
+}
+.search{
+    label:hidden;
+    display:inline-block;
+    Width: 300px;
+    margin-left: 15px;
+}
+.menu{
+    margin-left: 503px;
+    display:inline;
+}
+.main_content{
+  
+    height: 56%;
+    width: 59.2%;
+    background-color: #f57070;
+    position: absolute;
+}
+
+.btn{
+    background-color: #068ff6;
+    /* border: 1px solid #068ff6; */
+    color: white;
+    margin-left: 39%;
+    font-size: 142%;
+}
+.page{
+    background-color: white;
+    padding: 20px;
+    width:97%;
+    margin-left: 2%;
+    height:92%;
+}
+.text{
+    margin-left: 37%;
+    font-size: 20px;
+}
+.slds-m-around_medium{
+    margin-left:36%;
+}
+.Form{
+    font-size: 150%;
+}
+.modal-open .modal{
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    outline: 0;
+    display:block;
+    padding-left: 15px;
+}
+.fade.in {
+    opacity: 1;
+}
+.modal-dialog {
+    width: 600px;
+    margin: 30px auto;
+}
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 6px;
+    outline: 0;
+    box-shadow: 0 5px 15px rgb(0 0 0 / 50%);
+}
+.fade {
+    transition: opacity .15s linear;
+}
+
+
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+}
+.modal-header {
+    padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+}
+.modal-body {
+    position: relative;
+    padding: 15px;
+}
+.modal-footer {
+    padding: 15px;
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
+}
+.btn1 {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+.modal-header .close {
+    margin-top: -2px;
+}
+button.close {
+    -webkit-appearance: none;
+    padding: 0;
+    cursor: pointer;
+    background: 0 0;
+    border: 0;
+}
+.close {
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .2;
+}
+.modal-footer .btn1+.btn1 {
+    margin-bottom: 0;
+    margin-left: 5px;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
+/* Middle component CSS Start */
+.view{
+    padding:0;
+    border:1px solid #ececec;
+    position: absolute;
+    right:0;
+    left:437px;
+    display:block;
+    top:124px;
+    width:61%;
+}
+.pagination {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: calc(100% - -20px);
+    font-size: 14px;
+    color: #4c4c4c;
+    height: 35px;
+}
+.view>.view-row{
+    display: block;
+    padding: 19px 22px;
+    position: relative;
+    background-color: white;
+    box-sizing: border-box;
+    height: 61px;
+}
+.view input[type=checkbox] {
+    display: none;
+}
+.view>.view-row>*{
+    vertical-align: middle;
+}
+.view input[type=checkbox]+label {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    margin-right: 25px;
+    margin-left: 8px;
+    margin-top: -2px;
+    margin-bottom: 1px;
+    background-size: 5% 5%;
+    cursor: pointer;
+    box-sizing: content-box !important;
+}
+.view>.view-row>label {
+    white-space: nowrap;
+    max-width: calc(100% - 100px);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 18px;
+    font-family: 'Open Sans',sans-serif;
+    color: #4c4c4c;
+}
+.view>.view-row>*{
+    vertical-align: middle;
+}
+.view input[type=checkbox]+label:after {
+    position: relative;
+    left: 12px;
+    top: 12px;
+    width: 0;
+    height: 0;
+    opacity: .0;
+    display: block;
+    content: ' ';
+    background: #47b7fa url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAaCAYAAADSbo4CAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN2wAADdsBmV8UDwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAF6SURBVEiJxdZBS1RRFAfw0TEtTCWLKCVScCX2FVoK4TKQaC8SbYM+gW5a1SKIwE0Ioi4EQYNxIZLYInWVEobiqvoCCab+WozGc5jp3nHmPf/rc8798d7jvJvLZRw8xCLasj47iRjEb8Wsov0yEI9w4Hy+oDNLxFAZxFk2cCsLxGMcVkCcpZA2YjgC8QsP0kQ8wZ8A4icG0kQ8xVEA8QP9aSJGcBxA7KMvNKijBsRznAQQu+gJDbqDr3iLhioRzyIQe+gNDbqHnUTTOzRGIl4EAPAN3aFB9/G9TPP7EAYvIxDb6AohehTfW6VMoqkGxBbuhp5qDksRwz4gX9I3HtEXv75xG5sRQ6dx5bRnLKJ+HTejEAnMDXyOGD6LNxF1ay66BtCKQsQhoXxS6z0DLZirAbGiXjcvNGPmAohlXK8LIoHJY6IKxEdcqysigWnA6wjEAq6mgijBvPoPYh4tqSJKQOU26L+9kmmc/8VPqbD2s8KMKn7E+XB1dfkLVKDyYwObGToAAAAASUVORK5CYII=) no-repeat 64% 48%;
+    background-size: 100% auto;
+}
+.view>.view-row>label.name{
+    margin-top: -3px;
+}
+[class*=" i123-"] {
+    font-family: '123CF' !important;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: gray;
+}
+
+[class^="i123-"] {
+    font-family: '123CF' !important;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+}
+
+
+.view-row:not(:hover):not(:active):not(.has-row-actions-visible):not(.folder)>.row-actions {
+    display: none;
+}
+
+.view>.view-row>.row-actions {
+    position: absolute;
+    right: 27px;
+    top: 12px;
+}
+.view>.view-row>.row-actions>button {
+    vertical-align: middle;
+    margin: 0 5px;
+    font-size: 14px;
+    background-color: #ddd;
+    border: 1px solid #ddd;
+    color: #4c4c4c;
+    font-weight: 600;
+    border-radius: 3px;
+    padding: 8px 10px;
+    height: 36px;
+    outline: 0;
+}
+.view .view-row .row-actions>button[data-role=row-settings]{
+    width:34px;
+}
+.view .view-row .row-actions>button[data-role=row-settings]>span {
+    color: #4c4c4c;
+}
+
+.view>.view-row>.row-actions>button>span:before {
+    margin-top: -2px;
+    margin-left: -6px;
+    display: block;
+    color: #4c4c4c;
+}
+
+.view>.view-footer {
+    display: block;
+    padding: 19px 22px;
+    position: relative;
+    background-color: white;
+    box-sizing: border-box;
+    height: 61px;
+}
+.view>.view-row+.view-footer:before {
+    font-size: 1px;
+    content: ' ';
+    border-top: 1px solid #ececec;
+    display: block;
+    position: absolute;
+    top: 0;
+    z-index: 20;
+    left: 0;
+    right: 0;
+}
+.view>.view-footer .create-new-form-link {
+    color: #068ff6;
+    font-size: 14px;
+    font-weight: 600;
+}
+a{
+    outline: 0;
+    text-decoration: none;
+}
+.view>.view-footer .create-new-form-link:before {
+    content: '+ ';
+    text-decoration: none !important;
+    display: inline-block;
+    margin-right: 5px;
+    margin-top: 1px;
+}
+.view>.view-row+.view-footer:before {
+    font-size: 1px;
+    content: ' ';
+    border-top: 1px solid #ececec;
+    display: block;
+    position: absolute;
+    top: 0;
+    z-index: 20;
+    left: 0;
+    right: 0;
+}
+.i-lg{
+    font-size: 24px;
+}
+
+/* Middle Component CSS End */

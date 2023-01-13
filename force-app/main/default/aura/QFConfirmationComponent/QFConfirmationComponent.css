@@ -1,0 +1,54 @@
+.THIS .boxYesButton,
+.THIS .boxNoButton {
+    border-radius: 7px;
+    border: none;
+    width: 6rem;
+    height: 1.7rem;
+    font-size: medium;
+    font-weight: 400;
+}
+
+.THIS .boxYesButton {
+    background: #6699CC;
+    color: white;
+}
+
+.THIS .boxNoButton {
+    background-color: #E6E7E9;
+    color: black;
+}
+
+.THIS.slds-modal {
+    position: absolute !important;
+}
+
+.THIS .slds-modal__container {
+    width: 22%;
+}
+
+.THIS .slds-modal__header {
+    background: #6699CC !important;
+    font-size: 2rem !important;
+    font-weight: 500 !important;
+    color: white !important;
+}
+
+.THIS .slds-modal__content {
+    font-size: medium;
+    font-weight: 400;
+    text-align: center;
+}
+
+.THIS .slds-modal__footer {
+    background-color: #fff !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-style: none;
+}
+
+@media only screen and (max-width:1400px) {
+    .THIS .slds-modal__container {
+        width: 30%;
+    }
+}

@@ -1,0 +1,367 @@
+<aura:component implements="force:hasRecordId,force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="ObjectMappingController">
+
+    <aura:attribute name="FormId" type="String" />
+    <aura:attribute name="allValues" type="object" />
+    <aura:attribute name="allObject" type="List" />
+    <aura:attribute name="allFields" type="List" />
+    <aura:attribute name="allReqFields" type="List" />
+    <aura:attribute name="fieldMapList" type="List" />
+    <aura:attribute name="formfields" type="List" />
+    <aura:attribute name="primaryformfields" type="List" />
+    <aura:attribute name="mappingobjectlist" type="List" default="{}" />
+    <aura:attribute name="mapingcon" type="boolean" default="false" />
+    <aura:attribute name="homecon" type="boolean" default="true" />
+    <aura:attribute name="disablevalue" type="boolean" default="false" />
+
+    <aura:attribute name="index" type="Integer" description="Number of Rows to add dynamically" access="private" default="1" />
+    <aura:attribute name="dynamicRowsList" type="List" description="List of Rows that are created dynamically" access="private" />
+
+    <aura:attribute name="abbb" type="String" default="" />
+    <aura:attribute name="flv" type="object" default="" />
+    <aura:attribute name="dis" type="boolean" default="true" />
+    <aura:attribute name="defvalue" type="String" default="" />
+    <aura:attribute name="formfieldvalue" type="String" default="" />
+
+    <aura:attribute name="spinner" type="boolean" default="FALSE" />
+    <aura:attribute name="mappingbtndisable" type="boolean" default="true" />
+    <aura:attribute name="deletebtndisable" type="boolean" default="true" />
+    <!-- <aura:attribute name="togglebtndisable" type="boolean" default="true" /> -->
+    <aura:attribute name="tablevalue" type="boolean" default="false" />
+    <aura:attribute name="getDisabledChildFiel" type="boolean" default="true" />
+    <aura:attribute name="customselect" type="boolean" default="false" />
+    <aura:attribute name="togglesecondary" type="boolean" default="false" />
+    <aura:attribute name="num" type="List" default="" />
+    <!-- <aura:attribute name="body" type="string" default="" /> -->
+
+    <aura:attribute name="mapDistances" type="Map" default="{}" />
+    <aura:attribute name="mapp" type="Map" default="{}" />
+    <aura:attribute name="mapfor" type="Map" default="{}" />
+    <!-- form field type -->
+    <aura:attribute name="recordidmap" type="Map" default="{}" />
+    <!-- select required field type -->
+    <aura:attribute name="selectmapone" type="Map" default="{}" />
+    <!-- select non required field type -->
+    <aura:attribute name="selectmapthree" type="Map" default="{}" />
+    <aura:attribute name="selectobjmap" type="Map" default="{}" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.fetchObjectField}" />
+    <!-- <aura:handler name="init" value="{!this}" action="{!c.selectObjField}" /> -->
+
+    <!-- <aura:attribute name="objectfieldMap" type="Map" default="{}"/> -->
+
+    <aura:attribute name="refreshSection" type="boolean" default="true" />
+
+
+    <div class="objback">
+        <div class="objectmaping">
+
+            <!-- Object Mapping Spinner -->
+
+            <aura:if isTrue="{!v.spinner}">
+                <div aura:id="spinnerId" class="slds-spinner_container">
+                    <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                        <span class="slds-assistive-text">Loading...</span>
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                    </div>
+                </div>
+            </aura:if>
+
+            <!-- object maping not available -->
+
+            <aura:if isTrue="{!v.homecon}">
+                <div class="homepage">
+                    <div class="homepage1">
+                        <div class="homeimg">
+                            <img src="{!$Resource.mappingimg}" alt="salesforce"></img>
+                        </div>
+                        <h1><b>There are no mapped objects</b></h1>
+                        <p>Push data into any Salesforce object when the form is submitted. Start by adding primary and related objects, map Salesforce fields to form fields or other data sources, and choose whether to create new records or update existing
+                            ones.
+                        </p>
+                        <lightning:button class=" slds-button_brand" label="Add primary object" title="Add primary object" onclick="{!c.Addobject}"></lightning:button>
+                    </div>
+                </div>
+            </aura:if>
+
+            <!-- Maped object Show -->
+
+            <aura:if isTrue="{!v.disablevalue}">
+                <div class="mappinglist">
+                    <div class="mapingobjects">
+                        <table>
+                            <aura:iteration items="{!v.mappingobjectlist}" var="Fieldd" indexVar="key">
+                                <tr>
+                                    <td style="padding:  4px 0;">
+                                        <div class="mappingobjtd" id="12">
+                                            <span style="float: left; align-self:center;" id="13"><b>{!Fieldd.key}</b></span>
+                                            <span style="float: right; margin:0 15px 0 auto; display:flex; align-self:center;" id="14">
+                                            <label class="slds-checkbox_toggle slds-grid" style="align-self: center; margin-right: 10px;" id="15">
+                                                <span class="slds-form-element__label slds-m-bottom_none" ></span>
+                                            <ui:inputCheckbox value="{!Fieldd.value}" name="{!Fieldd.key}" class="slds-input" change="{!c.toggleout}" />
+                                            <span id="toggle-desc" class="slds-checkbox_faux_container" aria-live="assertive">
+                                                    <span class="slds-checkbox_faux"></span>
+                                            <span class="slds-checkbox_on"></span>
+                                            <span class="slds-checkbox_off"></span>
+                                            </span>
+                                            </label>
+
+                                            <div id="11">
+                                                <div style="font-size: small;" id="22">
+                                                    <lightning:buttonMenu alternativeText="Show menu" onselect="{!c.btnmenu}" value="{!Fieldd.key}">
+                                                        <lightning:menuItem value="Edit" label="Edit" />
+                                                        <lightning:menuItem value="Delete" label="Delete" />
+                                                    </lightning:buttonMenu>
+                                                </div>
+                                            </div>
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </aura:iteration>
+                            <tr>
+                                <td>
+                                    <lightning:button class=" slds-button_brand button2" label="Add primary object" title="Add primary object" onclick="{!c.Addobject}"></lightning:button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- <select id="cars">
+                        <option >Select Value</option>
+                        <aura:iteration items="{!v.flv}" var="fieldattribute1">
+                            <aura:iteration items="{!fieldattribute1}" var="fieldattribute">
+                                <option value="{!fieldattribute.FieldAttObj.Id}">
+                                    {!fieldattribute.FieldAttObj.Label__c}</option>
+                            </aura:iteration>
+                        </aura:iteration>
+                      </select> -->
+                </div>
+            </aura:if>
+        </div>
+
+        <!-- Object MApping -->
+
+        <aura:if isTrue="{!v.mapingcon}">
+            <div style="width: 70%;margin: auto;background-color: rgba(243, 236, 227, 0);padding: 15px 0;">
+
+                <div class="formname">
+                    <b>Form Name:</b>&nbsp;
+                    <b>{!v.allValues.formName.Title__c}</b>
+                </div>
+
+                <div class="objectselection" style="margin-bottom: 15px;"><b>Select Object</b></div>
+
+                <!-- Object Selection Picklist -->
+
+                <div class="object">
+                    <lightning:select aura:id="SobjectList" name="SobjectList" value="{!v.defvalue}" onchange="{!c.getfields}">
+                        <option>Select Object</option>
+                        <aura:iteration items="{!v.allObject}" var="field1">
+                            <option text="{!field1.label}" value="{!field1.value}" />
+                        </aura:iteration>
+                    </lightning:select>
+                </div> <br />
+
+                <!-- Object Mapping Table -->
+
+                <div class="tabel">
+                    <aura:iteration items="{!v.allFields}" var="field">
+
+                        <aura:if isTrue="{!v.tablevalue}">
+                            <table style="background-color: transparent;">
+                                <thead style="margin: 10px 0;">
+                                    <tr>
+                                        <th>
+                                            <div class="formfield">Salesforce Field</div>
+                                        </th>
+                                        <th></th>
+                                        <th>
+                                            <div class="slds-col">
+                                                Form Field
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <span></span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <!--===========================================================================Salesforce All required field show________________________________________________________________________________________   -->
+
+                                    <aura:iteration items="{!field.objreqfield}" var="field" indexVar="index">
+                                        <tr class="clsmapping" id="{!index}" style="margin: 5px 0;">
+                                            <td style="display: none;">
+                                                {!index}
+                                            </td>
+                                            <td style="width: 30%;" class="tabfirstcol">
+                                                <lightning:select aura:id="salesforceFieldList" name="{!field.type}" onchange="{!c.selectobjfield}" disabled="true" messageWhenValueMissing="Select Value!">
+                                                    <option required="true">{!field.label}</option>
+                                                </lightning:select>
+                                                <!-- <select name="{!field.type}" onchange="{!c.selectobjfield}" disabled="true" class="selectstyle">
+                                                    <option required="true">{!field.label}</option>
+                                                </select> -->
+                                            </td>
+                                            <td class="iconcolum">
+                                                <div style="padding:5px 0 18px 0; text-align:center;">
+                                                    <lightning:icon iconName="utility:product_transfer" alternativeText="Assignment" title="Assignment" size="small" data-row-index="{!index}" aura:id="indexid" />
+                                                </div>
+                                            </td>
+                                            <td class="tabsecondcol">
+                                                <div class="selectclsreq" style="width: 100%;" id="{!field.apiName}" data-row-index="{!index}">
+                                                    <lightning:select aura:id="divId" name="{!field.type}" onchange="{!c.selectedsalfield}" messageWhenValueMissing="Select Value!">
+
+                                                        <option>Select Value</option>
+                                                        <aura:iteration items="{!v.flv}" var="fieldattribute1">
+                                                            <aura:iteration items="{!fieldattribute1}" var="fieldattribute">
+                                                                <option value="{!fieldattribute.FieldAttObj.Id}">
+                                                                    {!fieldattribute.FieldAttObj.Label__c}</option>
+                                                            </aura:iteration>
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                    <!-- <select name="{!field.type}" onselect="{!c.selectedsalfield}" class="selectstyle">
+                                                        <option>Select Value</option>
+                                                        <aura:iteration items="{!v.flv}" var="fieldattribute1">
+                                                            <aura:iteration items="{!fieldattribute1}" var="fieldattribute">
+                                                                <option value="{!fieldattribute.FieldAttObj.Id}">
+                                                                    {!fieldattribute.FieldAttObj.Label__c}</option>
+                                                            </aura:iteration>
+                                                        </aura:iteration>
+                                                    </select> -->
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </aura:iteration>
+                                </tbody>
+                            </table>
+                            <!--_________________________________________________________________Salesforce Non Required field show______________________________________________________________________________________________________________________________  -->
+                            <!-- <aura:template> -->
+                            <table id="table_of_items">
+                                <tbody>
+                                    <!-- <aura:if isTrue="{!v.refreshSection}"> -->
+                                    <aura:iteration items="{!v.num}" var="num" indexVar="index">
+
+                                        <tr class="clsmapping" indexVar="index" id="{!'n'+index}">
+                                            <td style="display: none;">
+                                                {!index}
+                                            </td>
+                                            <td style="width: 30%;" class="tabfirstcol" id="11">
+                                                <div data-row-index="{!index}">
+                                                    <lightning:select name="salesforceFieldList" aura:id="options" onchange="{!c.selectObjField}" messageWhenValueMissing="Select Value!" variant="label-hidden">
+
+                                                        <option id="555">Select Value</option>
+                                                        <aura:iteration items="{!field.lstfieldname}" var="fieldattribute1">
+                                                            <option id="777" aura:id="salesforceFieldList" name="{!fieldattribute1.type}" value="{!fieldattribute1.apiName}">
+                                                                {!fieldattribute1.label}</option>
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                </div>
+                                            </td>
+                                            <td class="iconcolum">
+                                                <div style="padding:5px 0 18px 0; text-align:center;">
+                                                    <lightning:icon iconName="utility:product_transfer" alternativeText="Assignment" title="Assignment" size="small" data-row-index="{!index}" aura:id="indexid" />
+                                                </div>
+                                            </td>
+                                            <td class="tabsecondcol">
+                                                <div class="selectcls" id="{!field.lstfieldname.type}" data-row-index="{!index}">
+                                                    <lightning:select aura:id="{!'n'+index}" name="FormFieldList" onchange="{!c.selectedsalfieldtwo}" variant="label-hidden" messageWhenValueMissing="Choose one!" required="true">
+
+                                                        <option>Select Value</option>
+                                                        <option>Custom Value Add</option>
+                                                        <aura:iteration items="{!v.flv}" var="fieldattribute1">
+                                                            <aura:iteration items="{!fieldattribute1}" var="fieldattribute">
+                                                                <option value="{!fieldattribute.FieldAttObj.Id}">
+                                                                    {!fieldattribute.FieldAttObj.Label__c}</option>
+                                                            </aura:iteration>
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                    <aura:if isTrue="{!v.customselect}">
+                                                        <div class="customselect" id="{!field.lstfieldname.label}" aura-id="customselect" data-row-index="{!index}">
+                                                            <lightning:input type="name" name="name" />
+                                                        </div>
+                                                    </aura:if>
+                                                </div>
+
+                                                <div class="one" id="{!field.label}" data-row-index="{!index}">
+                                                    <lightning:buttonIcon onclick="{!c.remove}" iconName="utility:close" alternativeText="Remove" title="close" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </aura:iteration>
+                                    <!-- </aura:if> -->
+                                </tbody>
+                            </table><br />
+                            <!-- </aura:template> -->
+                            <!--___________________________________________________________________default contant show_________________________________________________________________________________________________________________________ -->
+
+                            <aura:set attribute="else">
+                                <table style="background-color: transparent;">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <div class="formfield">Salesforce Field</div>
+                                            </th>
+                                            <th></th>
+                                            <th>
+                                                <div class="slds-col">
+                                                    Form Field
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tr class="clsmapping">
+                                        <td style="width: 30%;">
+                                            <lightning:select disabled="true">
+                                                <option>Select Value</option>
+                                            </lightning:select>
+                                        </td>
+                                        <td>
+                                            <!-- <div style="padding-top: 10px;"><b style="font-size: xx-large; color:rgb(27, 26, 26); align-content:flex-end; padding:0 10px 0 10px; ">=</b></div> -->
+                                            <div style="padding: 5px 0 18px 0; text-align:center;">
+                                                <lightning:icon iconName="utility:product_transfer" alternativeText="Assignment" title="Assignment" size="small" />
+                                            </div>
+                                        </td>
+                                        <td style="width: 70%;">
+                                            <lightning:select disabled="true">
+                                                <option>Select Value</option>
+                                            </lightning:select>
+                                        </td>
+                                    </tr>
+                                </table><br/>
+                            </aura:set>
+                        </aura:if>
+
+                    </aura:iteration>
+                </div>
+
+                <!--_______________________________________________________________________________________ Add Mapping Button_________________________________________________________________________________-->
+
+                <div class="buttonadd" style="width: 100%;">
+                    <lightning:button class="buttonaddmapping" label="Add New Mapping" title="Add New Mapping" onclick="{!c.addnewmapping}" disabled="{!v.mappingbtndisable}"></lightning:button>
+                </div><br />
+
+                <!--______________________________________________________________________________________ Delete cancel save button____________________________________________________________________ -->
+
+                <div class="button" style="display: flex;">
+                    <div class="buttonleft" style="float: left; width:50%">
+                        <label class="slds-checkbox_toggle slds-grid">
+                        <span class="slds-form-element__label slds-m-bottom_none"></span>
+                        <ui:inputCheckbox aura:id="chkbox" class="slds-input" change="{!c.togglein}" value="{!v.togglesecondary}"/>
+                        <span id="toggle-desc" class="slds-checkbox_faux_container" aria-live="assertive">
+                            <span class="slds-checkbox_faux"></span>
+                            <span class="slds-checkbox_on"></span>
+                            <span class="slds-checkbox_off"></span>
+                        </span>
+                    </label>
+                    </div>
+                    <div class="buttonrigth" style="align-self: flex-end;">
+                        <lightning:button class="slds-button_destructive" label="Delete" title="Delete" onclick="{!c.deleteRow}" disabled="{!v.deletebtndisable}"></lightning:button>
+                        <lightning:button label="Cancel" title="Cancel" onclick="{!c.cancelvalue}"></lightning:button>
+                        <lightning:button class="slds-button slds-button_brand" label="Save" title="Save" onclick="{!c.savevalue}"></lightning:button>
+                    </div>
+                </div>
+            </div>
+        </aura:if>
+    </div>
+
+</aura:component>

@@ -1,0 +1,127 @@
+.THIS.thanksMainDiv {
+    height: 100%;
+    display: flex;
+}
+
+.THIS .thanksChoice {
+    width: 27%;
+    height: 100%;
+    background-color: #F5F5F5;
+    padding: 1%;
+    overflow: auto;
+}
+
+.THIS .thanksLabelDiv {
+    margin: 7% 0;
+    font-size: 30px;
+    font-weight: 600;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.56);
+}
+
+.THIS .hrLine {
+    border: 1px solid #ccc;
+    margin: 4% 0 4% 3%;
+}
+
+.THIS .form-control {
+    display: none;
+}
+
+.THIS .form-check {
+    margin-left: 5%;
+    font-size: 16px;
+}
+
+.THIS .thanks-option {
+    padding-top: 2px;
+    margin-right: 5px;
+}
+
+.THIS .thanks-optiondiv {
+    display: flex;
+}
+
+.THIS .thankyouinput {
+    margin-top: -15px;
+    margin-bottom: 5px;
+    width: 100%;
+    min-height: 30px;
+}
+
+.THIS .thankyouinput-rich {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 100%;
+    min-height: 30px;
+}
+
+.THIS .thanksPreviewDiv {
+    width: 73%;
+    height: 100%;
+    background-color: #E5E5E5;
+}
+
+.THIS .thanksPreview {
+    height: 70%;
+    width: 80%;
+    background-color: #fff;
+    margin: auto;
+}
+
+.THIS .editButton {
+    height: 13%;
+    padding: 4% 10% 0 0;
+}
+
+.THIS .editButton .slds-button {
+    padding: 2px 29px;
+    font-size: 1rem;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    border: none;
+}
+
+.THIS .editBtn {
+    float: right;
+}
+
+.THIS .imgDiv {
+    height: 60%;
+    width: fit-content;
+    margin: auto;
+    padding: 10% 10% 0 12%;
+}
+
+.THIS .txtstyle {
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.THIS .saveButton {
+    height: 13%;
+    margin: 4% 0 0 40%;
+}
+
+.THIS .saveBtn {
+    background-color: #6699CC;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    width: 100px;
+    height: 30px;
+    margin: 1%;
+}
+
+.THIS .cancelBtn {
+    background-color: #b0b0b0;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    text-align: center;
+    width: 100px;
+    height: 30px;
+    margin: 1%;
+}

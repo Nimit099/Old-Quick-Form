@@ -1,0 +1,1096 @@
+.THIS .main {
+    overflow-y: scroll;
+    background-color: antiquewhite;
+}
+
+.THIS .main::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .fieldDiv::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .fieldDivchange {
+    background-color: white;
+    overflow-x: overlay;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0, 1);
+    position: fixed;
+}
+
+.THIS .fieldDiv1 {
+    height: 100%;
+    overflow-y: scroll;
+    background-color: white;
+}
+
+.THIS .fieldDiv1::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .fieldDiv2 {
+    height: 100%;
+    background-color: #eff4ff;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    padding-bottom: 10px;
+    display: none;
+    position: absolute;
+    left: 3%;
+    width: 17%;
+    z-index: 13;
+    border: none;
+}
+
+.THIS .fieldDiv2::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .fieldname {
+    font-size: large;
+}
+
+.THIS .formtitle {
+    mix-blend-mode: exclusion;
+    /* mix-blend-mode: color; */
+    /* mix-blend-mode: difference; */
+    /* mix-blend-mode: hard-light; */
+    text-align: center;
+    font-size: large;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 8%;
+    border-radius: 3px;
+    width: 86%;
+    padding-bottom: 2%;
+    padding-top: 5%;
+    color: var(--setColorOnChange, black);
+    color: white;
+    font-size: 2.5rem;
+}
+
+.THIS .pagetitle {
+    font-size: 1.7rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 3px;
+    padding-bottom: 20px;
+    margin-left: 4%;
+    width: 99%;
+    color: var(--setPageColor);
+}
+
+.THIS .formButtonMenu {
+    margin-right: 3%;
+}
+
+.THIS .pageButtonMenu {
+    margin-right: 3%;
+}
+
+.THIS .page {
+    background-color: var(--bg, white);
+    padding-right: 3%;
+    padding-top: var(--pagePaddingTop, 0%);
+    margin-left: 5.5%;
+    margin-right: 5.5%;
+    background-size: var(--pagebg, none);
+    background-position: var(--pagebgPostion, top left);
+    background-repeat: var(--pagebgRepeat, none);
+    background-attachment: var(--pagebgFixPosition, none);
+    border-color: var(--pageborderColor, black);
+    border-style: var(--pageborderStyle, solid);
+    padding-bottom: var(--pagePaddingBottom, 4%);
+    /* border: 1px solid black; */
+    border-width: var(--pageborderWidth, 1px);
+    background-image: var(--pagebgimage, '');
+}
+
+.THIS .pagetitle1 {
+    font-size: 1.7rem;
+    margin-top: 10%;
+    overflow-wrap: anywhere;
+    /* color: var(--pageTextC); */
+    mix-blend-mode: exclusion;
+    color: white;
+}
+
+.THIS .pagetitle1if {
+    font-size: 1rem;
+    margin-top: 10%;
+    color: #9d9f9f;
+}
+
+.THIS .subpagetitleif {
+    font-size: 0.8rem;
+    color: #9d9f9f;
+}
+
+.THIS .slds-dropdown_left {
+    left: auto;
+    right: 0;
+}
+
+.THIS .subpagetitle {
+    font-size: 1.2rem;
+    mix-blend-mode: exclusion;
+    color: white;
+}
+
+.THIS .example-dropzone {
+    background-color: transparent;
+    width: 100%;
+    height: auto;
+    position: relative;
+    left: -1%;
+    padding-bottom: 3%;
+}
+
+.THIS.slds-spinner_container {
+    z-index: 10;
+    position: fixed;
+}
+
+.THIS .footer {
+    border-radius: 3px;
+    width: 94%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    display: flex;
+    flex-direction: row;
+    justify-content: var(--btnJustify, center);
+}
+
+.THIS .footer {
+    font-size: 15px;
+}
+
+.THIS .footer .slds-button {
+    text-align: center;
+    padding: 0.5rem 1rem;
+    font-size: var(--buttonfontsize, 15px);
+    vertical-align: middle;
+    transition: border .15s linear;
+    color: lightslategray;
+    border-radius: var(--btnborderradius, 5px);
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-transition: border .15s linear;
+    transition: border .15s linear;
+    background-color: var(--btnBgColor, white);
+    border-color: var(--btncolor, darkgray);
+    border-style: var(--btnborderstyle, solid);
+    border-width: var(--btnborderwidth, 1px);
+    font-family: var(--buttonfontfamily, sans-serif);
+    font-weight: var(--buttonfontweight, normal);
+    font-style: var(--buttonfontstyle, normal);
+    width: 5rem;
+    margin-top: 10px;
+    /* background-color: #386a95; */
+}
+
+.THIS .slds-m-around_small {
+    display: inline;
+}
+
+/* .THIS .slds-button_destructive {
+    margin-right: 15px !important;
+} */
+
+
+.THIS .header {
+    font-size: 1.5rem;
+}
+
+.THIS .slds-modal__footer {
+    padding-bottom: 3% !important;
+}
+
+.THIS .slds-modal__header {
+    background-color: rgb(243, 242, 242);
+}
+
+.THIS .field {
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
+    padding: 0 1%;
+}
+
+.THIS .field:hover {
+    background-color: rgba(204, 204, 204, .4);
+}
+
+.THIS .objects {
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    padding-top: 1.6rem;
+    overflow-y: scroll;
+    position: absolute;
+}
+
+.THIS .objects::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .preview {
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    padding-top: 1.6rem;
+    overflow-y: scroll;
+}
+
+.THIS .preview::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .mainDiv::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .slds-vertical-tabs {
+    background-color: white;
+    height: 100vh;
+    border-right: 1px solid lightgray;
+}
+
+.THIS .slds-icon_small {
+    fill: #6699ff;
+    width: 18px;
+    margin: 1rem 0px;
+}
+
+.THIS lightning-tab-bar {
+    border-right: 1px solid lightgrey;
+}
+
+.THIS .slds-vertical-tabs__nav {
+    z-index: 10;
+    width: 90%;
+}
+
+.THIS .slds-vertical-tabs__content {
+    padding: 0rem !important;
+    background-color: #eff4ff;
+}
+
+.THIS .slds-vertical-tabs__nav li a {
+    background-color: white;
+    /* background-color: #B1CAFF; */
+    border: 2px solid white !important;
+    outline: none !important;
+}
+
+.THIS .slds-vertical-tabs__nav li a:focus {
+    background-color: #eff4ff;
+    border-radius: 6px;
+}
+
+.THIS .showtabs {
+    position: absolute;
+    width: 97%;
+    height: 100%;
+    top: 0px;
+    z-index: 17;
+    bottom: 0px;
+    padding: 10px 5px;
+    background-color: white;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background: #B0C9F6;
+}
+
+.THIS .showtabs::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .fieldDiv {
+    display: var(--displaynone, none);
+}
+
+.THIS .toglling {
+    background-color: #eff4ff;
+    padding: 20px 10px 10px 5px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+.THIS .toglling::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .two {
+    background-color: #eff4ff;
+    animation: myfirst 0.2s forwards;
+    -webkit-animation: myfirst 2s forwards;
+    padding: 20px 10px 10px 5px;
+    z-index: 11;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    position: relative;
+    display: block;
+}
+
+.THIS .two::-webkit-scrollbar {
+    display: none;
+}
+
+@keyframes myfirst {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+.THIS .slds-icon_small:hover {
+    transform: scale(1.2, 1.2);
+}
+
+.THIS .form-control {
+    display: none;
+}
+
+
+/* for Design page */
+
+.THIS .designHead {
+    color: #6699ff;
+}
+
+.THIS .changePos .slds-accordion__summary-content {
+    color: gray;
+    text-transform: uppercase;
+}
+
+.THIS .changePos .slds-accordion__summary-heading .slds-button:focus {
+    text-decoration: none !important;
+}
+
+.THIS .changePos .slds-file-selector__button {
+    display: none !important;
+}
+
+.THIS .nextbutton,
+.THIS .btn {
+    border-color: var(--btncolor, #386a95);
+    border-style: var(--btnborderstyle, solid);
+    border-width: var(--btnborderwidth, 1px);
+    border-radius: var(--btnborderradius, 0px);
+    font-family: var(--buttonfontfamily, sans-serif);
+    font-weight: var(--buttonfontweight, normal);
+    font-style: var(--buttonfontstyle, Arial);
+    font-size: var(--buttonfontsize, 16px);
+    line-height: var(--buttonlineheight, none);
+    padding-top: var(--btntpadding, 0px);
+    padding-bottom: var(--btnbpadding, 0px);
+    padding-left: var(--btnlpadding, 0px);
+    padding-right: var(--btnrpadding, 0px);
+}
+
+.THIS .accordion {
+    background-color: transparent;
+    color: #444;
+    cursor: pointer;
+    padding: 18px 10px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+    border-bottom: 1px solid lightgray;
+}
+/* 
+.THIS .active,
+.THIS .accordion:hover {
+    background-color: #ccc;
+} */
+
+.THIS .accordion:after {
+    content: '\002B';
+    color: #777;
+    font-weight: 900;
+    float: right;
+    margin-left: 5px;
+    margin-right: 10px;
+}
+
+.THIS .accclass::-webkit-scrollbar,
+.THIS .panel::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .active:after {
+    transform: rotate(45deg)
+}
+
+.THIS .panel {
+    padding: 0px 10px;
+    background-color: white;
+    /* height: fit-content; */
+    max-height: 0px;
+    overflow-y: scroll;
+    transition: max-height 0.2s ease-out;
+}
+
+.THIS .slds-vertical-tabs__nav-item {
+    border: 1px solid white;
+}
+
+.THIS .slds-vertical-tabs__nav {
+    border: none;
+    overflow: hidden;
+}
+
+.THIS .myform {
+    width: var(--myformwidth, 70%);
+    padding-top: var(--formPaddingTop, 0%);
+    padding-left: var(--formPaddingLeft, 1%);
+    padding-right: var(--formPaddingRight, 1%);
+    direction: var(--formDirection, ltr);
+    background-size: var(--formBackgroundSize, auto);
+    background-position: var(--formBackgroundPosition, top);
+    background-repeat: var(--formBackgroundRepeat, repeat);
+    background-attachment: var(--formBackgroundfixPosition, scroll);
+    margin: 3rem auto;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+    background-image: var(--formbgiamge, ' ');
+    background-color: var(--bgcolor, 'yellow');
+    padding-bottom: var(--formPaddingBottom, 1%);
+    margin: 8rem 5rem;
+    /* margin-top: ("--form_margin_top" , ''); */
+}
+
+.THIS .validate::before {
+    content: '*';
+    color: red;
+}
+
+.THIS .cross_span {
+    position: relative;
+    left: 10px;
+    display: none;
+}
+
+@media screen and (max-height:979px) {
+    .THIS .colorBar .slds-is-absolute {
+        top: 438px !important;
+    }
+    .THIS .colorBarFocusInput .slds-is-absolute {
+        top: 384px !important;
+    }
+    .THIS .colorBarFocusInputBorder .slds-is-absolute {
+        top: 328px !important;
+    }
+}
+
+@media screen and (max-height:667px) {
+    .THIS .colorBar .slds-is-absolute {
+        top: 270px !important;
+    }
+    .THIS .colorBarFocusInput .slds-is-absolute {
+        top: 214px !important;
+    }
+    .THIS .colorBarFocusInputBorder .slds-is-absolute {
+        top: 159px !important;
+    }
+    .THIS .hoverTextColor .slds-is-absolute {
+        top: 170px !important;
+    }
+    .THIS .hoverLabelColor .slds-is-absolute {
+        top: 226px !important;
+    }
+}
+
+@media screen and (max-height:979px) {
+    .THIS.grid-container {
+        grid-template-columns: 4% 17% 80%;
+    }
+}
+
+@media screen and (max-width:2002px) {
+    .THIS.grid-container {
+        grid-template-columns: 3% 17% 80%;
+    }
+}
+
+@media screen and (max-width:1559px) {
+    .THIS.grid-container {
+        grid-template-columns: 4% 18% 80%;
+    }
+}
+
+@media screen and (max-width:1472px) {
+    .THIS.grid-container {
+        grid-template-columns: 4% 20% 80%;
+    }
+}
+
+@media screen and (max-width:1325px) {
+    .THIS.grid-container {
+        grid-template-columns: 4.3% 22% 80%;
+    }
+}
+
+@media screen and (max-width:1206px) {
+    .THIS.grid-container {
+        grid-template-columns: 4.6% 24% 80%;
+    }
+}
+
+@media screen and (max-width:1107px) {
+    .THIS.grid-container {
+        grid-template-columns: 4.9% 26% 80%;
+    }
+}
+
+@media screen and (max-width:1025px) {
+    .THIS.grid-container {
+        grid-template-columns: 5.1% 27% 80%;
+    }
+}
+
+@media screen and (max-width:984px) {
+    .THIS.grid-container {
+        grid-template-columns: 5.3% 27% 80%;
+    }
+}
+
+@media screen and (max-width:924px) {
+    .THIS.grid-container {
+        grid-template-columns: 6% 0% 100%;
+    }
+}
+
+@media screen and (max-width:848px) {
+    .THIS.grid-container {
+        grid-template-columns: 7% 0% 100%;
+    }
+}
+
+@media screen and (max-width:720px) {
+    .THIS.grid-container {
+        grid-template-columns: 8% 0% 100%;
+    }
+}
+
+
+/* Style the buttons inside the tab */
+
+.THIS .tab button {
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 22px 16px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+
+/* Change background color of buttons on hover */
+
+.THIS .tab button:hover {
+    background-color: #ddd;
+}
+
+
+/* Create an active/current "tab button" class */
+
+.THIS .tab button.active {
+    background-color: #ccc;
+}
+
+
+/* Style the tab content */
+
+.THIS .tabcontent {
+    float: left;
+    padding: 0px 12px;
+    border: 1px solid #ccc;
+    width: 70%;
+    border-left: none;
+    height: 300px;
+}
+
+.THIS .customfield input {
+    border: 1px solid gray;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 12px;
+    border-radius: 3px;
+    width: 250px;
+    font-size: 14px;
+    height: 30px;
+}
+
+.THIS .customfield input:focus {
+    border: 1px solid black !important;
+}
+
+.THIS .customfield input:active {
+    border: 1px solid black !important;
+}
+
+.THIS .test .slds-icon {
+    width: 1.6rem;
+}
+
+.THIS .publishmain {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin: 2rem 3rem 1.5rem 3rem;
+    text-align: left;
+    width: 90%;
+}
+
+.THIS .codebg {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 8px 10px;
+    color: grey;
+    font-size: 14px;
+    margin: 1rem 1.5rem;
+    word-wrap: break-word;
+}
+
+.THIS .code {
+    background-color: white;
+    border: none;
+    padding: 8px 10px;
+    color: grey;
+    margin: 1rem;
+    position: relative;
+}
+
+.THIS .code::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .subcode {
+    margin-right: 3px;
+    background-color: #f0f0f0;
+    height: 17rem;
+    overflow-y: scroll;
+}
+
+.THIS .subcode::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .publishpanel {
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+    margin: auto;
+    width: 80%;
+    background-color: white;
+    margin-top: 2rem;
+    border: 1px solid lightgray;
+    height: 90%;
+    overflow-y: scroll;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.THIS .publishpanel::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .runcodeicon {
+    margin: 0rem 1rem 1rem 1.5rem;
+}
+
+.THIS .publishtabsetdiv {
+    font-size: 15px;
+    color: rgb(116, 116, 116);
+    font-weight: bold;
+    margin-top: 0.5rem
+}
+
+.THIS .slds-button__icon {
+    fill: gray;
+}
+
+.THIS .content.slds-modal__content {
+    background-color: var(--slds-c-modal-content-color-background, var(--sds-c-modal-content-color-background, var(--slds-c-modal-color-background, var(--sds-c-modal-color-background, var(--lwc-colorBackgroundAlt, rgb(255, 255, 255))))));
+    color: var(--slds-c-modal-content-text-color, var(--sds-c-modal-content-text-color, var(--slds-c-modal-text-color, var(--sds-c-modal-text-color))));
+    overflow: hidden;
+    overflow-y: auto;
+    height: 70%;
+    position: absolute;
+    top: 150px;
+    left: -100px;
+}
+
+.THIS .content.slds-modal__content::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.THIS .close:hover,
+.THIS .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.THIS #myBtn {
+    position: fixed;
+    bottom: 12px;
+    right: -300px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    transition: box-shadow 0.4s ease;
+    background: #4610f5;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 1.7rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.THIS #myBtn span {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s ease;
+}
+
+
+/* Email Notification Div You Page */
+
+/* .THIS .emailNotificationDiv {
+    background-color: #fff;
+    width: 85%;
+    height: 87%;
+    box-shadow: 5px 10px 18px #888888;
+    margin: auto;
+    margin-top: 3%;
+    padding: 1%;
+    overflow-y: auto;
+} */
+
+/* .THIS .active .slds-button_brand{
+    color:#4c4c4c;
+    border:1px solid #c8c8c8;
+    background-color: #fff;
+}
+.THIS .active .slds-button_destructive{
+    color:#4c4c4c;
+    border:1px solid #c8c8c8;
+    background-color: #fff;
+} */
+
+/* .THIS .emailBox {
+    background-color: aliceblue;
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    font-size: initial;
+    color: slategray;
+} */
+
+/* .THIS .emailHeaderAndContent {
+    width: 100%;
+    margin-top: 1%;
+} */
+
+/* .THIS .emailDetails {
+    width: 100%;
+    margin-top: 1%;
+} */
+/* .THIS .active{
+    display:none;
+} */
+/* .THIS .emialRecipientIttretion {
+    border-top: 1px solid #d7d7d7;
+    border-bottom: 1px solid #d7d7d7;
+    height: 40px;
+    background-color: white;
+}
+.THIS .emialRecipientIttretion:hover {
+    background-color: rgb(244 244 244);
+    
+}
+.THIS .emialRecipientIttretion:hover .active{
+    display: block;
+}
+
+.THIS .helptxt {
+    margin-left: 5px;
+} */
+
+
+/* Thank You Page */
+
+.THIS .thanksfieldDiv {
+    height: 90vh;
+    background-color: white;
+    overflow-x: scroll;
+}
+
+.THIS .thankyoudiv {
+    background-color: #fff;
+    width: 50%;
+    box-shadow: 5px 10px 18px #888888;
+    margin: 3% auto;
+    padding: 1%;
+}
+
+.THIS .thankslabel {
+    color: #6699ff;
+    text-align: center;
+    font-size: 40px;
+    padding-top: 10px;
+}
+
+.THIS .thankyouinput {
+    margin-top: -15px;
+    margin-bottom: 5px;
+    width: 100%;
+    min-height: 30px;
+}
+
+.THIS .thankyouinput-rich {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 100%;
+    min-height: 30px;
+}
+
+.THIS .form-check .form-check-input {
+    margin-left: -15px;
+}
+
+.THIS .form-check {
+    padding: 3px 0;
+    font-size: 15px;
+}
+
+.THIS .thanksave {
+    font-size: 14px;
+    border: 1px solid #1971ED;
+    color: #1971ED;
+    padding: 1% 5%;
+    background: #fff;
+}
+
+.THIS .thanksave:hover {
+    color: #fff;
+    background: #1971ED;
+}
+
+.THIS .txtstyle {
+    display: flex;
+    padding: 10px;
+}
+
+.THIS .thanksLabel {
+    padding: 10px 15px;
+    word-wrap: break-word;
+}
+
+.THIS .thanksicon {
+    cursor: pointer;
+    float: right;
+    margin: -10px;
+    padding: 3px 6px;
+}
+
+.THIS .PageClass {
+    border: solid #c9c9c9 1px;
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.THIS .thanks-option {
+    padding-top: 2px;
+}
+
+.THIS .thanks-optiondiv {
+    display: flex;
+}
+
+
+/* Button Style */
+
+.THIS .button-class {
+    min-width: 115px;
+    padding: 10px 15px;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+}
+
+/* .THIS .button-content {
+    position: relative;
+    display: block;
+    color: #7D7D7D;
+    border-radius: 26px;
+    border: 2px solid #7D7D7D;
+    background-color: #fff;
+    background-clip: padding-box;
+    overflow: hidden;
+    z-index: 1;
+} */
+
+/* .THIS .button-content ::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    border: 2px solid #008cff;
+    border-radius: 26px;
+}
+
+.THIS .button-content :after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70vmax;
+    height: 70vmax;
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.THIS .button-content:hover {
+    color: #fff;
+    background-color: #7D7D7D;
+    border: 2px solid transparent;
+} */
+
+.THIS .heading {
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    border-bottom: 1px solid darkgrey;
+    height: 15%;
+    padding: 0.5rem 1rem;
+    background: darkgray;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+
+.THIS .codestyle {
+    padding: 0rem 1rem;
+}
+
+.THIS .label_popup.slds-popover {
+    top: 446;
+}
+
+.THIS .slds-shrink-none {
+    /* display: none; */
+}
+
+.THIS .lightningInputRichText:hover .slds-shrink-none {
+    /* display: block; */
+    /* display: inline; */
+}
+
+/* .THIS .lightningInputRichText:-moz-focus-inner .slds-shrink-none {
+    display: block;
+} */
+
+.THIS .label_popup .color-picker-panel section {
+    position: fixed;
+    z-index: 9101;
+    left: 84px;
+    right: auto;
+    top: 226px;
+}
+/* 
+.THIS .slds-modal__footer {
+    border-top-style: none;
+    color: var(--slds-c-modal-footer-text-color, var(--sds-c-modal-footer-text-color, var(--slds-c-modal-text-color, var(--sds-c-modal-text-color))));
+    flex-shrink: 0;
+    padding-top: var(--slds-c-modal-footer-spacing-block-start, var(--sds-c-modal-footer-spacing-block-start, var(--lwc-spacingSmall, 0.75rem)));
+    padding-right: var(--slds-c-modal-footer-spacing-inline-end, var(--sds-c-modal-footer-spacing-inline-end, var(--lwc-spacingMedium, 1rem)));
+    padding-bottom: var(--slds-c-modal-footer-spacing-block-end, var(--sds-c-modal-footer-spacing-block-end, var(--lwc-spacingSmall, 0.75rem)));
+    text-align: right;
+    box-shadow: none;
+    background-color: white;
+} */
+
+.THIS .clay.btn-primary {
+    --dark-inset-shadow: rgba(0, 0, 0, 0.25);
+    --light-inset-shadow: rgba(194, 230, 250, 0.4);
+    --clay-box-shadow: rgba(0, 0, 0, 0.55);
+    --clay-background-color: #0f75ae;
+    --clay-fg-color: #f1f2f3;
+}
+
+.THIS .clay {
+    background-color: var(--clay-background-color);
+    box-shadow: 8px 8px 16px 0 var(--clay-box-shadow), inset -8px -8px 12px 0 var(--dark-inset-shadow), inset 8px 8px 12px 0 var(--light-inset-shadow);
+    color: var(--clay-fg-color);
+    border: 0;
+}
+
+.THIS .btn-primary {
+    --button-color: #0f75ae;
+    --button-text-color: #fafbfc;
+}
+
+.THIS .clay.btn {
+    padding: 0.7rem 0.8rem;
+    width: 70px;
+}
+
+.THIS .design {
+    display: none;
+    height: 100%;
+}
+
+.THIS .grid-item3 {
+    overflow-y: scroll;
+}
+
+.THIS .grid-item2::-webkit-scrollbar,
+.THIS .grid-item3::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .publishtab,
+.THIS .previewtab,
+.THIS .objectmapping,
+.THIS .thankyoutab,
+.THIS .notificationtab,
+.THIS .design,
+.THIS .validationBar {
+    display: none;
+}

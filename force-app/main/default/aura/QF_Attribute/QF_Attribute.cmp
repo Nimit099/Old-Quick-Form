@@ -1,0 +1,1186 @@
+<aura:component controller="QuickFormField_Component" implements="force:appHostable,flexipage:availableForRecordHome,force:lightningQuickActionWithoutHeader,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader,force:hasSObjectName"
+    access="global">
+
+    <aura:handler event="c:QFEvent" action="{!c.FetchAttributeList}" />
+    <aura:attribute name="WrapperTest" type="Object" />
+    <aura:attribute name="formdetail" type="List" />
+    <aura:attribute name="pagedetail" type="List" />
+    <aura:attribute name="fieldId" type="String" />
+    <aura:attribute name="spinner" type="boolean" default="FALSE" />
+    <aura:attribute name="showToast" type="String" />
+    <aura:attribute name="fields" type="String" default="null" />
+    <aura:attribute name="showRichText" type="Boolean" default="false" />
+    <aura:attribute name="HtmlText" type="String" />
+    <aura:attribute name="fId" type="String" />
+    <aura:attribute name="allObject" type="List" />
+    <aura:attribute name="defvalue" type="String" default="" />
+    <aura:attribute name="StatementList" type="List" />
+    <aura:attribute name="OptionList" type="List" />
+
+    <aura:if isTrue="{!v.spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+
+    <aura:if isTrue="{!v.fields == 'field'}">
+
+        <!-- Short Text Validation Fields -->
+        <aura:if isTrue="{!v.WrapperTest.AttributeList.Form_Field__r.Data_Record_Id__c ==  'QFSHORTTEXT'}">
+            <div class="fieldname slds-box slds-box_x-small slds-theme_shade">
+                Short Text
+            </div>
+            <lightning:button class="Cancelbutton" label="Cancel" variant="brand-outline" onclick="{!c.cancelValidation}" />
+            <lightning:button class="deletebutton" label="Delete" variant="destructive" onclick="{!c.deleteFieldRecord}" />
+            <lightning:button class="savebutton" label="Apply" variant="brand-outline" onclick="{!c.saveValue}" /><br/>
+            <lightning:button class="duplicatebutton" label="Duplicate" variant="brand-outline" onclick="{!c.duplicateRecord}" /><br/>
+            <div class="styletext">
+                <lightning:select label="Label Visibility" value="{!v.WrapperTest.AttributeList.Visibility__c}">
+                    <option value="Shown">Shown</option>
+                    <option value="Hidden">Hidden</option>
+                </lightning:select>
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Visibility__c == 'Shown'}">
+                <div class="styletext">
+                    <lightning:input label="Label" value="{!v.WrapperTest.AttributeList.Label__c}" />
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Show Help Text" checked="{!v.WrapperTest.AttributeList.Show_on_click__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="styletext">
+                <lightning:input label="Help Text" value="{!v.WrapperTest.AttributeList.Instruction__c}" />
+            </div>
+            <div class="textlabel">Validation</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Required Field" checked="{!v.WrapperTest.AttributeList.Required_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="plaintext">
+                <lightning:select label="Field Validation" value="{!v.WrapperTest.AttributeList.Field_Validation__c}">
+                    <option value="None">None</option>
+                    <option value="alpha">alpha</option>
+                    <option value="alpha numeric">alpha numeric</option>
+                    <option value="alpha space">alpha space</option>
+                    <option value="alpha numeric space">alpha numeric space</option>
+                    <option value="numeric">numeric</option>
+                </lightning:select>
+            </div>
+            <div class="slider">
+                <lightning:slider label="Min no of character" value="{!v.WrapperTest.AttributeList.Min_no_of_character__c}" min="0" max="{!v.WrapperTest.AttributeList.Max_no_of_character__c - 1}" />
+            </div>
+            <div class="slider">
+                <lightning:slider label="Max no of character" value="{!v.WrapperTest.AttributeList.Max_no_of_character__c}" min="{!v.WrapperTest.AttributeList.Min_no_of_character__c}" max="256" />
+            </div>
+            <lightning:button class="resetcharacter" label="Reset Character Limit" variant="brand-outline" onclick="{!c.resetCharacter}" /><br/>
+            <div class="textlabel">Options</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Add Placeholder text:" checked="{!v.WrapperTest.AttributeList.Placeholder_text__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Placeholder_text__c}">
+                <div class="plaintext">
+                    <lightning:input variant="label-hidden" value="{!v.WrapperTest.AttributeList.Placeholder__c}"></lightning:input>
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="disable Field" checked="{!v.WrapperTest.AttributeList.Hide_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Read only" checked="{!v.WrapperTest.AttributeList.Read_Only__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Add prefix Inside the Field" checked="{!v.WrapperTest.AttributeList.Add_Prefix_Inside_The_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Add_Prefix_Inside_The_Field__c}">
+                <div class="plaintext">
+                    <lightning:input label="prefix value" value="{!v.WrapperTest.AttributeList.Prefix__c}" placeholder="enter Prefix value"></lightning:input>
+                </div>
+            </aura:if>
+        </aura:if>
+
+        <!-- Long Text Validation Fields -->
+        <aura:if isTrue="{!v.WrapperTest.AttributeList.Form_Field__r.Data_Record_Id__c == 'QFLONGTEXT'}">
+            <div class="fieldname slds-box slds-box_x-small slds-theme_shade">
+                Long Text
+            </div>
+            <lightning:button class="Cancelbutton" label="Cancel" variant="brand-outline" onclick="{!c.cancelValidation}" />
+            <lightning:button class="deletebutton" label="Delete" variant="destructive" onclick="{!c.deleteFieldRecord}" />
+            <lightning:button class="savebutton" label="Apply" variant="brand-outline" onclick="{!c.saveValue}" /><br/>
+            <lightning:button class="duplicatebutton" label="Duplicate" variant="brand-outline" onclick="{!c.duplicateRecord}" /><br/>
+            <div class="styletext">
+                <lightning:select label="Label Visibility" value="{!v.WrapperTest.AttributeList.Visibility__c}">
+                    <option value="Shown">Shown</option>
+                    <option value="Hidden">Hidden</option>
+                </lightning:select>
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Visibility__c == 'Shown'}">
+                <div class="styletext">
+                    <lightning:input label="Label" value="{!v.WrapperTest.AttributeList.Label__c}" />
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Show Help Text" checked="{!v.WrapperTest.AttributeList.Show_on_click__c}" messageToggleActive="" messageToggleInactive="" /><br/>
+            </div>
+            <div class="styletext">
+                <lightning:input label="Help Text" value="{!v.WrapperTest.AttributeList.Instruction__c}" />
+            </div>
+            <div class="textlabel">Validation</div>
+            <div class="togglebox">
+                <lightning:input messageToggleActive="" messageToggleInactive="" type="toggle" label="Required Field" checked="{!v.WrapperTest.AttributeList.Required_Field__c}" />
+            </div>
+            <div class="slider">
+                <lightning:slider label="Min no of character" value="{!v.WrapperTest.AttributeList.Min_no_of_character__c}" min="0" max="{!v.WrapperTest.AttributeList.Max_no_of_character__c - 1}" />
+            </div>
+            <div class="slider">
+                <lightning:slider label="Max no of character" value="{!v.WrapperTest.AttributeList.Max_no_of_character__c}" min="{!v.WrapperTest.AttributeList.Min_no_of_character__c}" max="256" /><br/>
+            </div>
+            <lightning:button class="resetcharacter" label="Reset Character Limit" variant="brand-outline" onclick="{!c.resetCharacter}" /><br/>
+            <div class="textlabel">Options</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Add Placeholder text:" checked="{!v.WrapperTest.AttributeList.Placeholder_text__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Placeholder_text__c}">
+                <div class="plaintext">
+                    <lightning:input variant="label-hidden" value="{!v.WrapperTest.AttributeList.Placeholder__c}"></lightning:input>
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input messageToggleActive="" messageToggleInactive="" type="toggle" label="disable Field" checked="{!v.WrapperTest.AttributeList.Hide_Field__c}" />
+            </div>
+            <div class="togglebox">
+                <lightning:input messageToggleActive="" messageToggleInactive="" type="toggle" label="Read only" checked="{!v.WrapperTest.AttributeList.Read_Only__c}" />
+            </div>
+        </aura:if>
+
+        <!-- DropDown Validation -->
+        <aura:if isTrue="{!v.WrapperTest.AttributeList.Form_Field__r.Data_Record_Id__c == 'QFDROPDOWN'}">
+            <div class="fieldname slds-box slds-box_x-small slds-theme_shade">
+                DropDown
+            </div>
+            <lightning:button class="Cancelbutton" label="Cancel" variant="brand-outline" onclick="{!c.cancelValidation}" />
+            <lightning:button class="deletebutton" label="Delete" variant="destructive" onclick="{!c.deleteFieldRecord}" />
+            <lightning:button class="savebutton" label="Apply" variant="brand-outline" onclick="{!c.saveValue}" /><br/>
+            <lightning:button class="duplicatebutton" label="Duplicate" variant="brand-outline" onclick="{!c.duplicateRecord}" /><br/>
+            <div class="styletext">
+                <lightning:select label="Label Visibility" value="{!v.WrapperTest.AttributeList.Visibility__c}">
+                    <option value="Shown">Shown</option>
+                    <option value="Hidden">Hidden</option>
+                </lightning:select>
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Visibility__c == 'Shown'}">
+                <div class="styletext">
+                    <lightning:input label="Label" value="{!v.WrapperTest.AttributeList.Label__c}" />
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Show Help Text" checked="{!v.WrapperTest.AttributeList.Show_on_click__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="styletext">
+                <lightning:input label="Help Text" value="{!v.WrapperTest.AttributeList.Instruction__c}" />
+            </div>
+            <div class="textlabel">Validation</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Required Field" checked="{!v.WrapperTest.AttributeList.Required_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="textlabel">Options</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Add Placeholder text:" checked="{!v.WrapperTest.AttributeList.Placeholder_text__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Placeholder_text__c}">
+                <div class="plaintext">
+                    <lightning:input variant="label-hidden" value="{!v.WrapperTest.AttributeList.Placeholder__c}"></lightning:input>
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="disable Field" checked="{!v.WrapperTest.AttributeList.Hide_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="textlabel">Choices</div>
+            <aura:iteration items="{!v.WrapperTest.FieldList}" var="item">
+                <div class="Item">
+                    <lightning:input class="slds-size_5-of-6" variant="label-hidden" value="{!item.Name}" />
+                    <lightning:buttonIcon class="slds-size_1-of-6" iconName="utility:delete" size="medium" name="{!item.Id}" onclick="{!c.handledelete}" />
+                </div>
+            </aura:iteration>
+            <div class="Itembutton">
+                <lightning:button iconName="utility:add" title="Add" onclick="{!c.addvalue}"></lightning:button>
+                <!-- <lightning:button label="Save" title="Save" onclick="{!c.saveValue}"></lightning:button> -->
+            </div>
+        </aura:if>
+
+        <!-- Radio Button -->
+        <aura:if isTrue="{!v.WrapperTest.AttributeList.Form_Field__r.Data_Record_Id__c == 'QFRADIOBUTTON'}">
+            <div class="fieldname slds-box slds-box_x-small slds-theme_shade">
+                Radio Button
+            </div>
+            <lightning:button class="Cancelbutton" label="Cancel" variant="brand-outline" onclick="{!c.cancelValidation}" />
+            <lightning:button class="deletebutton" label="Delete" variant="destructive" onclick="{!c.deleteFieldRecord}" />
+            <lightning:button class="savebutton" label="Apply" variant="brand-outline" onclick="{!c.saveValue}" /><br/>
+            <lightning:button class="duplicatebutton" label="Duplicate" variant="brand-outline" onclick="{!c.duplicateRecord}" /><br/>
+            <div class="styletext">
+                <lightning:select label="Label Visibility" value="{!v.WrapperTest.AttributeList.Visibility__c}">
+                    <option value="Shown">Shown</option>
+                    <option value="Hidden">Hidden</option>
+                </lightning:select>
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Visibility__c == 'Shown'}">
+                <div class="styletext">
+                    <lightning:input label="Label" value="{!v.WrapperTest.AttributeList.Label__c}" />
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Show Help Text" checked="{!v.WrapperTest.AttributeList.Show_on_click__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="styletext">
+                <lightning:input label="Help Text" value="{!v.WrapperTest.AttributeList.Instruction__c}" />
+            </div>
+            <div class="textlabel">Validation</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Required Field" checked="{!v.WrapperTest.AttributeList.Required_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="textlabel">Options</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="disable Field" checked="{!v.WrapperTest.AttributeList.Hide_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="textlabel">Choices</div>
+            <aura:iteration items="{!v.WrapperTest.FieldList}" var="item">
+                <div class="Item">
+                    <lightning:input class="slds-size_5-of-6" variant="label-hidden" value="{!item.Name}" />
+                    <lightning:buttonIcon class="slds-size_1-of-6" iconName="utility:delete" size="medium" name="{!item.Id}" onclick="{!c.handledelete}" />
+                </div>
+            </aura:iteration>
+            <div class="Itembutton">
+                <lightning:button iconName="utility:add" title="Add" onclick="{!c.addvalue}"></lightning:button>
+            </div>
+        </aura:if>
+
+        <!-- CheckBox -->
+        <aura:if isTrue="{!v.WrapperTest.AttributeList.Form_Field__r.Data_Record_Id__c == 'QFCHECKBOX'}">
+            <div class="fieldname slds-box slds-box_x-small slds-theme_shade">
+                CheckBox
+            </div>
+            <lightning:button class="Cancelbutton" label="Cancel" variant="brand-outline" onclick="{!c.cancelValidation}" />
+            <lightning:button class="deletebutton" label="Delete" variant="destructive" onclick="{!c.deleteFieldRecord}" />
+            <lightning:button class="savebutton" label="Apply" variant="brand-outline" onclick="{!c.saveValue}" /><br/>
+            <lightning:button class="duplicatebutton" label="Duplicate" variant="brand-outline" onclick="{!c.duplicateRecord}" /><br/>
+            <div class="textlabel">Fields</div>
+            <div class="styletext">
+                <lightning:select label="Label Visibility" value="{!v.WrapperTest.AttributeList.Visibility__c}">
+                    <option value="Shown">Shown</option>
+                    <option value="Hidden">Hidden</option>
+                </lightning:select>
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Visibility__c == 'Shown'}">
+                <div class="styletext">
+                    <lightning:input label="Label" value="{!v.WrapperTest.AttributeList.Label__c}" />
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Show Help Text" checked="{!v.WrapperTest.AttributeList.Show_on_click__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="styletext">
+                <lightning:input label="Help Text" value="{!v.WrapperTest.AttributeList.Instruction__c}" />
+            </div>
+            <div class="textlabel">Validation</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Required Field" checked="{!v.WrapperTest.AttributeList.Required_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="textlabel">Options</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="disable Field" checked="{!v.WrapperTest.AttributeList.Hide_Field__c}" messageToggleActive="" messageToggleInactive="" /><br/>
+            </div>
+            <div class="textlabel">Choices</div>
+            <aura:iteration items="{!v.WrapperTest.FieldList}" var="item">
+                <div class="Item">
+                    <lightning:input class="slds-size_5-of-6" variant="label-hidden" value="{!item.Name}" />
+                    <lightning:buttonIcon class="slds-size_1-of-6" iconName="utility:delete" size="medium" name="{!item.Id}" onclick="{!c.handledelete}" />
+                </div>
+            </aura:iteration>
+            <div class="Itembutton">
+                <lightning:button iconName="utility:add" title="Add" onclick="{!c.addvalue}"></lightning:button>
+            </div>
+        </aura:if>
+
+        <!--File-->
+        <aura:if isTrue="{!v.WrapperTest.AttributeList.Form_Field__r.Data_Record_Id__c == 'QFFILEUPLOAD'}">
+            <div class="fieldname slds-box slds-box_x-small slds-theme_shade">
+                File Upload
+            </div>
+            <lightning:button class="Cancelbutton" label="Cancel" variant="brand-outline" onclick="{!c.cancelValidation}" />
+            <lightning:button class="deletebutton" label="Delete" variant="destructive" onclick="{!c.deleteFieldRecord}" />
+            <lightning:button class="savebutton" label="Apply" variant="brand-outline" onclick="{!c.saveValue}" /><br/>
+            <lightning:button class="duplicatebutton" label="Duplicate" variant="brand-outline" onclick="{!c.duplicateRecord}" /><br/>
+            <!-- <div class="textlabel">Fields</div> -->
+            <div class="styletext">
+                <lightning:select label="Label Visibility" value="{!v.WrapperTest.AttributeList.Visibility__c}">
+                    <option value="Shown">Shown</option>
+                    <option value="Hidden">Hidden</option>
+                </lightning:select>
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Visibility__c == 'Shown'}">
+                <div class="styletext">
+                    <lightning:input label="Label" value="{!v.WrapperTest.AttributeList.Label__c}" />
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Show Help Text" checked="{!v.WrapperTest.AttributeList.Show_on_click__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="styletext">
+                <lightning:input label="Help Text" value="{!v.WrapperTest.AttributeList.Instruction__c}" />
+            </div>
+            <div class="textlabel">Validation</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Required Field" checked="{!v.WrapperTest.AttributeList.Required_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="textlabel">Options</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="disable Field" checked="{!v.WrapperTest.AttributeList.Hide_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+        </aura:if>
+
+        <!-- Number -->
+        <aura:if isTrue="{!v.WrapperTest.AttributeList.Form_Field__r.Data_Record_Id__c == 'QFNUMBER'}">
+            <div class="fieldname slds-box slds-box_x-small slds-theme_shade">
+                Number
+            </div>
+            <lightning:button class="Cancelbutton" label="Cancel" variant="brand-outline" onclick="{!c.cancelValidation}" />
+            <lightning:button label="Delete" class="deletebutton" variant="destructive" onclick="{!c.deleteFieldRecord}" />
+            <lightning:button class="savebutton" label="Apply" variant="brand-outline" onclick="{!c.saveValue}" /><br/>
+            <lightning:button class="duplicatebutton" label="Duplicate" variant="brand-outline" onclick="{!c.duplicateRecord}" /><br/>
+            <div class="styletext">
+                <lightning:select label="Label Visibility" value="{!v.WrapperTest.AttributeList.Visibility__c}">
+                    <option value="Shown">Shown</option>
+                    <option value="Hidden">Hidden</option>
+                </lightning:select>
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Visibility__c == 'Shown'}">
+                <div class="styletext">
+                    <lightning:input label="Label" value="{!v.WrapperTest.AttributeList.Label__c}" />
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Show Help Text" checked="{!v.WrapperTest.AttributeList.Show_on_click__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="styletext">
+                <lightning:input label="Help Text" value="{!v.WrapperTest.AttributeList.Instruction__c}" />
+            </div>
+            <div class="textlabel">Validation</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Required Field" checked="{!v.WrapperTest.AttributeList.Required_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="slider">
+                <lightning:slider label="Min value" value="{!v.WrapperTest.AttributeList.Min_no_of_character__c}" min="0" max="{!v.WrapperTest.AttributeList.Max_no_of_character__c - 1}" />
+            </div>
+            <div class="slider">
+                <lightning:slider label="Max value" value="{!v.WrapperTest.AttributeList.Max_no_of_character__c}" min="{!v.WrapperTest.AttributeList.Min_no_of_character__c}" max="256" /><br/>
+            </div>
+            <lightning:button class="resetcharacter" label="Reset Character Limit" variant="brand-outline" onclick="{!c.resetCharacter}" /><br/>
+            <div class="textlabel">Options</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Add Placeholder text:" checked="{!v.WrapperTest.AttributeList.Placeholder_text__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Placeholder_text__c}">
+                <div class="plaintext">
+                    <lightning:input variant="label-hidden" value="{!v.WrapperTest.AttributeList.Placeholder__c}"></lightning:input>
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="disable Field" checked="{!v.WrapperTest.AttributeList.Hide_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Read only" checked="{!v.WrapperTest.AttributeList.Read_Only__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Add prefix Inside the Field" checked="{!v.WrapperTest.AttributeList.Add_Prefix_Inside_The_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Add_Prefix_Inside_The_Field__c}">
+                <div class="plaintext">
+                    <lightning:input label="Prefix value" value="{!v.WrapperTest.AttributeList.Prefix__c}" placeholder="enter Prefix value"></lightning:input>
+                </div>
+            </aura:if>
+        </aura:if>
+
+        <!-- Email-Id -->
+        <aura:if isTrue="{!v.WrapperTest.AttributeList.Form_Field__r.Data_Record_Id__c == 'QFEMAILID'}">
+            <div class="fieldname slds-box slds-box_x-small slds-theme_shade">
+                Email-Id
+            </div>
+            <lightning:button class="Cancelbutton" label="Cancel" variant="brand-outline" onclick="{!c.cancelValidation}" />
+            <lightning:button label="Delete" class="deletebutton" variant="destructive" onclick="{!c.deleteFieldRecord}" />
+            <lightning:button class="savebutton" label="Apply" variant="brand-outline" onclick="{!c.saveValue}" /><br/>
+            <lightning:button class="duplicatebutton" label="Duplicate" variant="brand-outline" onclick="{!c.duplicateRecord}" /><br/>
+            <div class="styletext">
+                <lightning:select label="Label Visibility" value="{!v.WrapperTest.AttributeList.Visibility__c}">
+                    <option value="Shown">Shown</option>
+                    <option value="Hidden">Hidden</option>
+                </lightning:select>
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Visibility__c == 'Shown'}">
+                <div class="styletext">
+                    <lightning:input label="Label" value="{!v.WrapperTest.AttributeList.Label__c}" />
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Show Help Text" checked="{!v.WrapperTest.AttributeList.Show_on_click__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="styletext">
+                <lightning:input label="Help Text" value="{!v.WrapperTest.AttributeList.Instruction__c}" />
+            </div>
+            <div class="textlabel">Validation</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Required Field" checked="{!v.WrapperTest.AttributeList.Required_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="slider">
+                <lightning:slider label="Min no of character" value="{!v.WrapperTest.AttributeList.Min_no_of_character__c}" min="0" max="{!v.WrapperTest.AttributeList.Max_no_of_character__c - 1}" />
+            </div>
+            <div class="slider">
+                <lightning:slider label="Max no of character" value="{!v.WrapperTest.AttributeList.Max_no_of_character__c}" min="{!v.WrapperTest.AttributeList.Min_no_of_character__c}" max="256" />
+            </div>
+            <lightning:button class="resetcharacter" label="Reset Character Limit" variant="brand-outline" onclick="{!c.resetCharacter}" /><br/>
+            <div class="textlabel">Options</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Add Placeholder text:" checked="{!v.WrapperTest.AttributeList.Placeholder_text__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Placeholder_text__c}">
+                <div class="plaintext">
+                    <lightning:input variant="label-hidden" value="{!v.WrapperTest.AttributeList.Placeholder__c}"></lightning:input>
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="disable Field" checked="{!v.WrapperTest.AttributeList.Hide_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Read only" checked="{!v.WrapperTest.AttributeList.Read_Only__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+        </aura:if>
+
+        <!-- PRICE -->
+        <aura:if isTrue="{!v.WrapperTest.AttributeList.Form_Field__r.Data_Record_Id__c == 'QFPRICE'}">
+            <div class="fieldname slds-box slds-box_x-small slds-theme_shade">
+                Price
+            </div>
+            <lightning:button class="Cancelbutton" label="Cancel" variant="brand-outline" onclick="{!c.cancelValidation}" />
+            <lightning:button class="deletebutton" label="Delete" variant="destructive" onclick="{!c.deleteFieldRecord}" />
+            <lightning:button class="savebutton" label="Apply" variant="brand-outline" onclick="{!c.saveValue}" /><br/>
+            <lightning:button class="duplicatebutton" label="Duplicate" variant="brand-outline" onclick="{!c.duplicateRecord}" /><br/>
+            <div class="styletext">
+                <lightning:select label="Label Visibility" value="{!v.WrapperTest.AttributeList.Visibility__c}">
+                    <option value="Shown">Shown</option>
+                    <option value="Hidden">Hidden</option>
+                </lightning:select>
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Visibility__c == 'Shown'}">
+                <div class="styletext">
+                    <lightning:input label="Label" value="{!v.WrapperTest.AttributeList.Label__c}" />
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Show Help Text" checked="{!v.WrapperTest.AttributeList.Show_on_click__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="styletext">
+                <lightning:input label="Help Text" value="{!v.WrapperTest.AttributeList.Instruction__c}" />
+            </div>
+            <div class="textlabel">Validation</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Required Field" checked="{!v.WrapperTest.AttributeList.Required_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="plaintext">
+                <lightning:select label="Show Decimal Places" value="{!v.WrapperTest.AttributeList.Show_Decimal__c}">
+                    <option value="0">0</option>
+                    <option value="0.01">0.00</option>
+                    <option value="0.001">0.000</option>
+                    <option value="0.0001">0.0000</option>
+                </lightning:select>
+            </div>
+            <div class="textlabel">Options</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Add Placeholder text:" checked="{!v.WrapperTest.AttributeList.Placeholder_text__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Placeholder_text__c}">
+                <div class="plaintext">
+                    <lightning:input variant="label-hidden" value="{!v.WrapperTest.AttributeList.Placeholder__c}"></lightning:input>
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="disable Field" checked="{!v.WrapperTest.AttributeList.Hide_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+        </aura:if>
+
+        <!-- FULL NAME -->
+        <aura:if isTrue="{!v.WrapperTest.AttributeList.Form_Field__r.Data_Record_Id__c == 'QFFULLNAME'}">
+            <div class="fieldname slds-box slds-box_x-small slds-theme_shade">
+                Full Name
+            </div>
+            <lightning:button class="Cancelbutton" label="Cancel" variant="brand-outline" onclick="{!c.cancelValidation}" />
+            <lightning:button label="Delete" class="deletebutton" variant="destructive" onclick="{!c.deleteFieldRecord}" />
+            <lightning:button class="savebutton" label="Apply" variant="brand-outline" onclick="{!c.saveValue}" /><br/>
+            <lightning:button class="duplicatebutton" label="Duplicate" variant="brand-outline" onclick="{!c.duplicateRecord}" /><br/>
+            <div class="styletext">
+                <lightning:select label="Label Visibility" value="{!v.WrapperTest.AttributeList.Visibility__c}">
+                    <option value="Shown">Shown</option>
+                    <option value="Hidden">Hidden</option>
+                </lightning:select>
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Visibility__c == 'Shown'}">
+                <div class="styletext">
+                    <lightning:input label="Label" value="{!v.WrapperTest.AttributeList.Label__c}" />
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Show Help Text" checked="{!v.WrapperTest.AttributeList.Show_on_click__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="styletext">
+                <lightning:input label="Help Text" value="{!v.WrapperTest.AttributeList.Instruction__c}" />
+            </div>
+            <div class="textlabel">Validation</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Required Field" checked="{!v.WrapperTest.AttributeList.Required_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="textlabel">Options</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="disable Field" checked="{!v.WrapperTest.AttributeList.Hide_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+        </aura:if>
+
+        <!-- NAME -->
+        <aura:if isTrue="{!v.WrapperTest.AttributeList.Form_Field__r.Data_Record_Id__c == 'QFNAME'}">
+            <div class="fieldname slds-box slds-box_x-small slds-theme_shade">
+                Name
+            </div>
+            <lightning:button class="Cancelbutton" label="Cancel" variant="brand-outline" onclick="{!c.cancelValidation}" />
+            <lightning:button label="Delete" class="deletebutton" variant="destructive" onclick="{!c.deleteFieldRecord}" />
+            <lightning:button class="savebutton" label="Apply" variant="brand-outline" onclick="{!c.saveValue}" /><br/>
+            <lightning:button class="duplicatebutton" label="Duplicate" variant="brand-outline" onclick="{!c.duplicateRecord}" /><br/>
+            <div class="styletext">
+                <lightning:select label="Label Visibility" value="{!v.WrapperTest.AttributeList.Visibility__c}">
+                    <option value="Shown">Shown</option>
+                    <option value="Hidden">Hidden</option>
+                </lightning:select>
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Visibility__c == 'Shown'}">
+                <div class="styletext">
+                    <lightning:input label="Label" value="{!v.WrapperTest.AttributeList.Label__c}" />
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Show Help Text" checked="{!v.WrapperTest.AttributeList.Show_on_click__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="styletext">
+                <lightning:input label="Help Text" value="{!v.WrapperTest.AttributeList.Instruction__c}" />
+            </div>
+            <div class="textlabel">Validation</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Required Field" checked="{!v.WrapperTest.AttributeList.Required_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="textlabel">Options</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Add Placeholder text:" checked="{!v.WrapperTest.AttributeList.Placeholder_text__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Placeholder_text__c}">
+                <div class="plaintext">
+                    <lightning:input variant="label-hidden" value="{!v.WrapperTest.AttributeList.Placeholder__c}"></lightning:input>
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="disable Field" checked="{!v.WrapperTest.AttributeList.Hide_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+        </aura:if>
+
+        <!-- ADDRESS -->
+        <aura:if isTrue="{!v.WrapperTest.AttributeList.Form_Field__r.Data_Record_Id__c == 'QFADDRESS'}">
+            <div class="fieldname slds-box slds-box_x-small slds-theme_shade">
+                Address
+            </div>
+            <lightning:button class="Cancelbutton" label="Cancel" variant="brand-outline" onclick="{!c.cancelValidation}" />
+            <lightning:button label="Delete" variant="destructive" class="deletebutton" onclick="{!c.deleteFieldRecord}" />
+            <lightning:button class="savebutton" label="Apply" variant="brand-outline" onclick="{!c.saveValue}" /><br/>
+            <lightning:button class="duplicatebutton" label="Duplicate" variant="brand-outline" onclick="{!c.duplicateRecord}" /><br/>
+            <div class="styletext">
+                <lightning:select label="Label Visibility" value="{!v.WrapperTest.AttributeList.Visibility__c}">
+                    <option value="Shown">Shown</option>
+                    <option value="Hidden">Hidden</option>
+                </lightning:select>
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Visibility__c == 'Shown'}">
+                <div class="styletext">
+                    <lightning:input label="Label" value="{!v.WrapperTest.AttributeList.Label__c}" />
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Show Help Text" checked="{!v.WrapperTest.AttributeList.Show_on_click__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="styletext">
+                <lightning:input label="Help Text" value="{!v.WrapperTest.AttributeList.Instruction__c}" />
+            </div>
+            <div class="textlabel">Validation</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Required Field" checked="{!v.WrapperTest.AttributeList.Required_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="textlabel">Options</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="disable Field" checked="{!v.WrapperTest.AttributeList.Hide_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Read only" checked="{!v.WrapperTest.AttributeList.Read_Only__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+        </aura:if>
+
+        <!-- PHONE -->
+        <aura:if isTrue="{!v.WrapperTest.AttributeList.Form_Field__r.Data_Record_Id__c == 'QFPHONE'}">
+            <div class="fieldname slds-box slds-box_x-small slds-theme_shade">
+                Phone
+            </div>
+            <lightning:button class="Cancelbutton" label="Cancel" variant="brand-outline" onclick="{!c.cancelValidation}" />
+            <lightning:button class="deletebutton" label="Delete" variant="destructive" onclick="{!c.deleteFieldRecord}" />
+            <lightning:button class="savebutton" label="Apply" variant="brand-outline" onclick="{!c.saveValue}" /><br/>
+            <lightning:button class="duplicatebutton" label="Duplicate" variant="brand-outline" onclick="{!c.duplicateRecord}" /><br/>
+            <div class="styletext">
+                <lightning:select label="Label Visibility" value="{!v.WrapperTest.AttributeList.Visibility__c}">
+                    <option value="Shown">Shown</option>
+                    <option value="Hidden">Hidden</option>
+                </lightning:select>
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Visibility__c == 'Shown'}">
+                <div class="styletext">
+                    <lightning:input label="Label" value="{!v.WrapperTest.AttributeList.Label__c}" />
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Show Help Text" checked="{!v.WrapperTest.AttributeList.Show_on_click__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="styletext">
+                <lightning:input label="Help Text" value="{!v.WrapperTest.AttributeList.Instruction__c}" />
+            </div>
+            <div class="textlabel">Validation</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Required Field" checked="{!v.WrapperTest.AttributeList.Required_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="textlabel">Options</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Add Placeholder text:" checked="{!v.WrapperTest.AttributeList.Placeholder_text__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Placeholder_text__c}">
+                <div class="plaintext">
+                    <lightning:input variant="label-hidden" value="{!v.WrapperTest.AttributeList.Placeholder__c}"></lightning:input>
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="disable Field" checked="{!v.WrapperTest.AttributeList.Hide_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Read only" checked="{!v.WrapperTest.AttributeList.Read_Only__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+        </aura:if>
+
+        <!-- DATE -->
+        <aura:if isTrue="{!v.WrapperTest.AttributeList.Form_Field__r.Data_Record_Id__c == 'QFDATE'}">
+            <div class="fieldname slds-box slds-box_x-small slds-theme_shade">
+                Date
+            </div>
+            <lightning:button class="Cancelbutton" label="Cancel" variant="brand-outline" onclick="{!c.cancelValidation}" />
+            <lightning:button label="Delete" class="deletebutton" variant="destructive" onclick="{!c.deleteFieldRecord}" />
+            <lightning:button class="savebutton" label="Apply" variant="brand-outline" onclick="{!c.saveValue}" /><br/>
+            <lightning:button class="duplicatebutton" label="Duplicate" variant="brand-outline" onclick="{!c.duplicateRecord}" /><br/>
+            <div class="styletext">
+                <lightning:select label="Label Visibility" value="{!v.WrapperTest.AttributeList.Visibility__c}">
+                    <option value="Shown">Shown</option>
+                    <option value="Hidden">Hidden</option>
+                </lightning:select>
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Visibility__c == 'Shown'}">
+                <div class="styletext">
+                    <lightning:input label="Label" value="{!v.WrapperTest.AttributeList.Label__c}" />
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Show Help Text" checked="{!v.WrapperTest.AttributeList.Show_on_click__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="styletext">
+                <lightning:input label="Help Text" value="{!v.WrapperTest.AttributeList.Instruction__c}" />
+            </div>
+            <div class="textlabel">Validation</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Required Field" checked="{!v.WrapperTest.AttributeList.Required_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="plaintext">
+                <lightning:select label="Date Format" value="{!v.WrapperTest.AttributeList.Date_Format__c}">
+                    <option value="None">None</option>
+                    <option value="Short">Short</option>
+                    <option value="Long">Long</option>
+                </lightning:select>
+            </div>
+            <div class="textlabel">Options</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="disable Field" checked="{!v.WrapperTest.AttributeList.Hide_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Read only" checked="{!v.WrapperTest.AttributeList.Read_Only__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+        </aura:if>
+
+        <!-- TIME -->
+        <aura:if isTrue="{!v.WrapperTest.AttributeList.Form_Field__r.Data_Record_Id__c == 'QFTIME'}">
+            <div class="fieldname slds-box slds-box_x-small slds-theme_shade">
+                Time
+            </div>
+            <lightning:button class="Cancelbutton" label="Cancel" variant="brand-outline" onclick="{!c.cancelValidation}" />
+            <lightning:button class="deletebutton" label="Delete" variant="destructive" onclick="{!c.deleteFieldRecord}" />
+            <lightning:button class="savebutton" label="Apply" variant="brand-outline" onclick="{!c.saveValue}" /><br/>
+            <lightning:button class="duplicatebutton" label="Duplicate" variant="brand-outline" onclick="{!c.duplicateRecord}" /><br/>
+            <div class="styletext">
+                <lightning:select label="Label Visibility" value="{!v.WrapperTest.AttributeList.Visibility__c}">
+                    <option value="Shown">Shown</option>
+                    <option value="Hidden">Hidden</option>
+                </lightning:select>
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Visibility__c == 'Shown'}">
+                <div class="styletext">
+                    <lightning:input label="Label" value="{!v.WrapperTest.AttributeList.Label__c}" />
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Show Help Text" checked="{!v.WrapperTest.AttributeList.Show_on_click__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="styletext">
+                <lightning:input label="Help Text" value="{!v.WrapperTest.AttributeList.Instruction__c}" />
+            </div>
+            <div class="textlabel">Validation</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Required Field" checked="{!v.WrapperTest.AttributeList.Required_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="textlabel">Options</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="disable Field" checked="{!v.WrapperTest.AttributeList.Hide_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Read only" checked="{!v.WrapperTest.AttributeList.Read_Only__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+        </aura:if>
+
+        <!-- DATE/TIME -->
+        <aura:if isTrue="{!v.WrapperTest.AttributeList.Form_Field__r.Data_Record_Id__c == 'QFDATETIME'}">
+            <div class="fieldname slds-box slds-box_x-small slds-theme_shade">
+                Date-Time
+            </div>
+            <lightning:button class="Cancelbutton" label="Cancel" variant="brand-outline" onclick="{!c.cancelValidation}" />
+            <lightning:button class="deletebutton" label="Delete" variant="destructive" onclick="{!c.deleteFieldRecord}" />
+            <lightning:button class="savebutton" label="Apply" variant="brand-outline" onclick="{!c.saveValue}" /><br/>
+            <lightning:button class="duplicatebutton" label="Duplicate" variant="brand-outline" onclick="{!c.duplicateRecord}" /><br/>
+            <div class="styletext">
+                <lightning:select label="Label Visibility" value="{!v.WrapperTest.AttributeList.Visibility__c}">
+                    <option value="Shown">Shown</option>
+                    <option value="Hidden">Hidden</option>
+                </lightning:select>
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Visibility__c == 'Shown'}">
+                <div class="styletext">
+                    <lightning:input label="Label" value="{!v.WrapperTest.AttributeList.Label__c}" />
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Show Help Text" checked="{!v.WrapperTest.AttributeList.Show_on_click__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="styletext">
+                <lightning:input label="Help Text" value="{!v.WrapperTest.AttributeList.Instruction__c}" />
+            </div>
+            <div class="textlabel">Validation</div>
+            <div class="toggle">
+                <lightning:input type="toggle" label="Required Field" checked="{!v.WrapperTest.AttributeList.Required_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="textlabel">Options</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="disable Field" checked="{!v.WrapperTest.AttributeList.Hide_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Read only" checked="{!v.WrapperTest.AttributeList.Read_Only__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+        </aura:if>
+
+        <!-- Rating -->
+        <aura:if isTrue="{!v.WrapperTest.AttributeList.Form_Field__r.Data_Record_Id__c == 'QFRATING'}">
+            <div class="fieldname slds-box slds-box_x-small slds-theme_shade">
+                Star Rating
+            </div>
+            <lightning:button class="Cancelbutton" label="Cancel" variant="brand-outline" onclick="{!c.cancelValidation}" />
+            <lightning:button class="deletebutton" label="Delete" variant="destructive" onclick="{!c.deleteFieldRecord}" />
+            <lightning:button class="savebutton" label="Apply" variant="brand-outline" onclick="{!c.saveValue}" /><br/>
+            <lightning:button class="duplicatebutton" label="Duplicate" variant="brand-outline" onclick="{!c.duplicateRecord}" /><br/>
+            <div class="styletext">
+                <lightning:select label="Label Visibility" value="{!v.WrapperTest.AttributeList.Visibility__c}">
+                    <option value="Shown">Shown</option>
+                    <option value="Hidden">Hidden</option>
+                </lightning:select>
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Visibility__c == 'Shown'}">
+                <div class="styletext">
+                    <lightning:input label="Label" value="{!v.WrapperTest.AttributeList.Label__c}" />
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Show Help Text" checked="{!v.WrapperTest.AttributeList.Show_on_click__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="styletext">
+                <lightning:input label="Help Text" value="{!v.WrapperTest.AttributeList.Instruction__c}" />
+            </div>
+            <div class="textlabel">Validation</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Required Field" checked="{!v.WrapperTest.AttributeList.Required_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+        </aura:if>
+
+        <!-- Emoji Rating -->
+        <aura:if isTrue="{!v.WrapperTest.AttributeList.Form_Field__r.Data_Record_Id__c == 'QFEMOJIRATING'}">
+            <div class="fieldname slds-box slds-box_x-small slds-theme_shade">
+                Emoji Rating
+            </div>
+            <lightning:button class="Cancelbutton" label="Cancel" variant="brand-outline" onclick="{!c.cancelValidation}" />
+            <lightning:button class="deletebutton" label="Delete" variant="destructive" onclick="{!c.deleteFieldRecord}" />
+            <lightning:button class="savebutton" label="Apply" variant="brand-outline" onclick="{!c.saveValue}" /><br/>
+            <lightning:button class="duplicatebutton" label="Duplicate" variant="brand-outline" onclick="{!c.duplicateRecord}" /><br/>
+            <div class="styletext">
+                <lightning:select label="Label Visibility" value="{!v.WrapperTest.AttributeList.Visibility__c}">
+                    <option value="Shown">Shown</option>
+                    <option value="Hidden">Hidden</option>
+                </lightning:select>
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Visibility__c == 'Shown'}">
+                <div class="styletext">
+                    <lightning:input label="Label" value="{!v.WrapperTest.AttributeList.Label__c}" />
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Show Help Text" checked="{!v.WrapperTest.AttributeList.Show_on_click__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="styletext">
+                <lightning:input label="Help Text" value="{!v.WrapperTest.AttributeList.Instruction__c}" />
+            </div>
+            <div class="textlabel">Validation</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Required Field" checked="{!v.WrapperTest.AttributeList.Required_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+        </aura:if>
+
+        <!-- Scale Rating -->
+        <aura:if isTrue="{!v.WrapperTest.AttributeList.Form_Field__r.Data_Record_Id__c == 'QFSCALERATING'}">
+            <div class="fieldname slds-box slds-box_x-small slds-theme_shade">
+                Scale Rating
+            </div>
+            <lightning:button class="Cancelbutton" label="Cancel" variant="brand-outline" onclick="{!c.cancelValidation}" />
+            <lightning:button class="deletebutton" label="Delete" variant="destructive" onclick="{!c.deleteFieldRecord}" />
+            <lightning:button class="savebutton" label="Apply" variant="brand-outline" onclick="{!c.saveLikertValue}" /><br/>
+            <lightning:button class="duplicatebutton" label="Duplicate" variant="brand-outline" onclick="{!c.duplicateRecord}" /><br/>
+            <div class="styletext">
+                <lightning:select label="Label Visibility" value="{!v.WrapperTest.AttributeList.Visibility__c}">
+                    <option value="Shown">Shown</option>
+                    <option value="Hidden">Hidden</option>
+                </lightning:select>
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Visibility__c == 'Shown'}">
+                <div class="styletext">
+                    <lightning:input label="Label" value="{!v.WrapperTest.AttributeList.Label__c}" />
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Show Help Text" checked="{!v.WrapperTest.AttributeList.Show_on_click__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="styletext">
+                <lightning:input label="Help Text" value="{!v.WrapperTest.AttributeList.Instruction__c}" />
+            </div>
+            <div class="textlabel">Validation</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Required Field" checked="{!v.WrapperTest.AttributeList.Required_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="textlabel">Statement Choices</div>
+            <aura:iteration items="{!v.StatementList}" var="item" indexVar="index">
+                <div class="Item" id="{!index}">
+                    <lightning:input class="slds-size_5-of-6" variant="label-hidden" value="{!item}" onblur="{!c.changeStatement}" />
+                    <lightning:buttonIcon class="slds-size_1-of-6" iconName="utility:delete" size="medium" name="{!item}" onclick="{!c.deleteStatement}" />
+                </div>
+            </aura:iteration>
+            <div class="Itembutton">
+                <lightning:button iconName="utility:add" title="Add" onclick="{!c.addStatement}"></lightning:button>
+            </div>
+            <div class="textlabel">Option Choices</div>
+            <aura:iteration items="{!v.OptionList}" var="item" indexVar="index">
+                <div class="Item" id="{!index}">
+                    <lightning:input class="slds-size_5-of-6" variant="label-hidden" value="{!item}" onblur="{!c.changeOption}" />
+                    <lightning:buttonIcon class="slds-size_1-of-6" iconName="utility:delete" size="medium" name="{!item}" onclick="{!c.deleteOption}" />
+                </div>
+            </aura:iteration>
+            <div class="Itembutton">
+                <lightning:button iconName="utility:add" title="Add" onclick="{!c.addOption}"></lightning:button>
+            </div>
+        </aura:if>
+
+        <!-- Terms of Service -->
+        <aura:if isTrue="{!v.WrapperTest.AttributeList.Form_Field__r.Data_Record_Id__c == 'QFTERMSOFSERVICE'}">
+            <div class="fieldname slds-box slds-box_x-small slds-theme_shade">
+                Terms of Service
+            </div>
+            <lightning:button class="Cancelbutton" label="Cancel" variant="brand-outline" onclick="{!c.cancelValidation}" />
+            <lightning:button class="deletebutton" label="Delete" variant="destructive" onclick="{!c.deleteFieldRecord}" />
+            <lightning:button class="savebutton" label="Apply" variant="brand-outline" onclick="{!c.saveValue}" /><br/>
+            <lightning:button class="duplicatebutton" label="Duplicate" variant="brand-outline" onclick="{!c.duplicateRecord}" /><br/>
+            <div class="styletext">
+                <lightning:select label="Label Visibility" value="{!v.WrapperTest.AttributeList.Visibility__c}">
+                    <option value="Shown">Shown</option>
+                    <option value="Hidden">Hidden</option>
+                </lightning:select>
+            </div>
+            <div class="plaintext">
+                <lightning:input label="Agreement textlabel" value="{!v.WrapperTest.AttributeList.Agreement_Text__c}" /><br/>
+            </div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Show Help Text" checked="{!v.WrapperTest.AttributeList.Show_on_click__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="styletext">
+                <lightning:input label="Help Text" value="{!v.WrapperTest.AttributeList.Instruction__c}" />
+            </div>
+            <div class="textlabel">Validation</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Required Field" checked="{!v.WrapperTest.AttributeList.Required_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="textlabel">Options</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="disable Field" checked="{!v.WrapperTest.AttributeList.Hide_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+        </aura:if>
+
+        <!-- LINK -->
+        <aura:if isTrue="{!v.WrapperTest.AttributeList.Form_Field__r.Data_Record_Id__c ==  'QFLINK'}">
+            <div class="fieldname slds-box slds-box_x-small slds-theme_shade">
+                Link
+            </div>
+            <lightning:button class="Cancelbutton" label="Cancel" variant="brand-outline" onclick="{!c.cancelValidation}" />
+            <lightning:button class="deletebutton" label="Delete" variant="destructive" onclick="{!c.deleteFieldRecord}" />
+            <lightning:button class="savebutton" label="Apply" variant="brand-outline" onclick="{!c.saveValue}" /><br/>
+            <lightning:button class="duplicatebutton" label="Duplicate" variant="brand-outline" onclick="{!c.duplicateRecord}" /><br/>
+            <div class="styletext">
+                <lightning:select label="Label Visibility" value="{!v.WrapperTest.AttributeList.Visibility__c}">
+                    <option value="Shown">Shown</option>
+                    <option value="Hidden">Hidden</option>
+                </lightning:select>
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Visibility__c == 'Shown'}">
+                <div class="styletext">
+                    <lightning:input label="Label" value="{!v.WrapperTest.AttributeList.Label__c}" />
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Show Help Text" checked="{!v.WrapperTest.AttributeList.Show_on_click__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="styletext">
+                <lightning:input label="Help Text" value="{!v.WrapperTest.AttributeList.Instruction__c}" />
+            </div>
+            <div class="textlabel">Validation</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Required Field" checked="{!v.WrapperTest.AttributeList.Required_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="slider">
+                <lightning:slider label="Min no of character" value="{!v.WrapperTest.AttributeList.Min_no_of_character__c}" min="0" max="{!v.WrapperTest.AttributeList.Max_no_of_character__c - 1}" />
+            </div>
+            <div class="slider">
+                <lightning:slider label="Max no of character" value="{!v.WrapperTest.AttributeList.Max_no_of_character__c}" min="{!v.WrapperTest.AttributeList.Min_no_of_character__c}" max="256" />
+            </div>
+            <lightning:button class="resetcharacter" label="Reset Character Limit" variant="brand-outline" onclick="{!c.resetCharacter}" /><br/>
+            <div class="textlabel">Options</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Add Placeholder text:" checked="{!v.WrapperTest.AttributeList.Placeholder_text__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Placeholder_text__c}">
+                <div class="plaintext">
+                    <lightning:input variant="label-hidden" value="{!v.WrapperTest.AttributeList.Placeholder__c}"></lightning:input>
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="disable Field" checked="{!v.WrapperTest.AttributeList.Hide_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Read only" checked="{!v.WrapperTest.AttributeList.Read_Only__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+        </aura:if>
+
+        <!-- Signature -->
+        <aura:if isTrue="{!v.WrapperTest.AttributeList.Form_Field__r.Data_Record_Id__c == 'QFSIGNATURE'}">
+            <div class="fieldname slds-box slds-box_x-small slds-theme_shade">
+                Signature
+            </div>
+            <lightning:button class="Cancelbutton" label="Cancel" variant="brand-outline" onclick="{!c.cancelValidation}" />
+            <lightning:button class="deletebutton" label="Delete" variant="destructive" onclick="{!c.deleteFieldRecord}" />
+            <lightning:button class="savebutton" label="Apply" variant="brand-outline" onclick="{!c.saveValue}" /><br/>
+            <lightning:button class="duplicatebutton" label="Duplicate" variant="brand-outline" onclick="{!c.duplicateRecord}" /><br/>
+            <div class="styletext">
+                <lightning:select label="Label Visibility" value="{!v.WrapperTest.AttributeList.Visibility__c}">
+                    <option value="Shown">Shown</option>
+                    <option value="Hidden">Hidden</option>
+                </lightning:select>
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Visibility__c == 'Shown'}">
+                <div class="styletext">
+                    <lightning:input label="Label" value="{!v.WrapperTest.AttributeList.Label__c}" />
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Show Help Text" checked="{!v.WrapperTest.AttributeList.Show_on_click__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="styletext">
+                <lightning:input label="Help Text" value="{!v.WrapperTest.AttributeList.Instruction__c}" />
+            </div>
+            <div class="textlabel">Validation</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Required Field" checked="{!v.WrapperTest.AttributeList.Required_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+        </aura:if>
+
+        <!-- RichText -->
+        <aura:if isTrue="{!v.WrapperTest.AttributeList.Form_Field__r.Data_Record_Id__c == 'QFRICHTEXT'}">
+            <div class="fieldname slds-box slds-box_x-small slds-theme_shade">
+                RichText
+            </div>
+            <lightning:button class="Cancelbutton" label="Cancel" variant="brand-outline" onclick="{!c.cancelValidation}" />
+            <lightning:button class="deletebutton" label="Delete" variant="destructive" onclick="{!c.deleteFieldRecord}" />
+            <lightning:button class="savebutton" label="Apply" variant="brand-outline" onclick="{!c.saveValue}" /><br/>
+            <lightning:button class="duplicatebutton" label="Duplicate" variant="brand-outline" onclick="{!c.duplicateRecord}" /><br/>
+            <div class="styletext">
+                <lightning:select label="Label Visibility" value="{!v.WrapperTest.AttributeList.Visibility__c}">
+                    <option value="Shown">Shown</option>
+                    <option value="Hidden">Hidden</option>
+                </lightning:select>
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Visibility__c == 'Shown'}">
+                <div class="styletext">
+                    <lightning:input label="Label" value="{!v.WrapperTest.AttributeList.Label__c}" />
+                </div>
+            </aura:if>
+            <div class="richstyle">
+                <lightning:button class="richbutton" label="Edit RichText" onclick="{!c.openRichText}" />
+            </div>
+            <aura:if isTrue="{!v.showRichText}">
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <lightning:buttonIcon iconName="utility:close" onclick="{! c.closeModel }" alternativeText="close" variant="bare-inverse" class="slds-modal__close" />
+                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">HTML Block</h2>
+                        </header>
+
+                        <lightning:tabset variant="scoped">
+                            <lightning:tab label="Edit Rich Text">
+                                <lightning:inputRichText formats="['font', 'size', 'bold', 'italic', 'underline', 'strike', 'list', 'indent', 'align', 'link', 'clean', 'table', 
+                                'header', 'color', 'background']" value="{! v.WrapperTest.AttributeList.RichText__c}" aura:id="editor" placeholder="Type something" />
+                            </lightning:tab>
+                            <lightning:tab label="Edit HTML Text" onactive="{! c.HtmlTextC }">
+                                <lightning:textarea label="HTML Text" value="{! v.HtmlText}" name="Html" onchange="{!c.RichTextC}" />
+                            </lightning:tab>
+                            <lightning:tab label="Output">
+                                <ui:outputRichText class="slds-text-longform" value="{!v.WrapperTest.AttributeList.RichText__c}" />
+                            </lightning:tab>
+                        </lightning:tabset>
+
+
+                        <footer class="slds-modal__footer">
+                            <lightning:button variant="neutral" label="Cancel" title="Cancel" onclick="{! c.closeModel }" />
+                            <lightning:button variant="brand" label="OK" title="OK" onclick="{!c.OutRichC}" />
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </aura:if>
+        </aura:if>
+
+        <!-- Look Up -->
+        <aura:if isTrue="{!v.WrapperTest.AttributeList.Form_Field__r.Data_Record_Id__c == 'QFLOOKUP'}">
+            <div class="fieldname slds-box slds-box_x-small slds-theme_shade">
+                Look Up Field
+            </div>
+            <lightning:button class="Cancelbutton" label="Cancel" variant="brand-outline" onclick="{!c.cancelValidation}" />
+            <lightning:button class="deletebutton" label="Delete" variant="destructive" onclick="{!c.deleteFieldRecord}" />
+            <lightning:button class="savebutton" label="Apply" variant="brand-outline" onclick="{!c.saveValue}" /><br/>
+            <lightning:button class="duplicatebutton" label="Duplicate" variant="brand-outline" onclick="{!c.duplicateRecord}" /><br/>
+            <div class="styletext">
+                <lightning:select label="Label Visibility" value="{!v.WrapperTest.AttributeList.Visibility__c}">
+                    <option value="Shown">Shown</option>
+                    <option value="Hidden">Hidden</option>
+                </lightning:select>
+            </div>
+            <aura:if isTrue="{!v.WrapperTest.AttributeList.Visibility__c == 'Shown'}">
+                <div class="styletext">
+                    <lightning:input label="Label" value="{!v.WrapperTest.AttributeList.Label__c}" />
+                </div>
+            </aura:if>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Show Help Text" checked="{!v.WrapperTest.AttributeList.Show_on_click__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+            <div class="styletext">
+                <lightning:input label="Help Text" value="{!v.WrapperTest.AttributeList.Instruction__c}" />
+            </div>
+            <div class="textlabel">Select Object</div>
+            <div class="styletext">
+                <lightning:select aura:id="SobjectList" name="SobjectList" value="{!v.defvalue}" onchange="{!c.selectObject}">
+                    <option>Select Object</option>
+                    <aura:iteration items="{!v.allObject}" var="field1">
+                        <option text="{!field1.label}" value="{!field1.value}" />
+                    </aura:iteration>
+                </lightning:select>
+            </div>
+            <div class="textlabel">Validation</div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Required Field" checked="{!v.WrapperTest.AttributeList.Required_Field__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+
+        </aura:if>
+
+    </aura:if>
+
+    <!-- Form -->
+    <aura:if isTrue="{!v.fields == 'form'}">
+        <lightning:button class="Cancelbutton" label="Cancel" variant="brand-outline" onclick="{!c.cancelValidation}" />
+        <lightning:button class="savebutton" label="Apply" variant="brand-outline" onclick="{!c.saveFormDetails}" /><br/>
+        <aura:iteration items="{!v.formdetail}" var="form">
+            <div class="textlabel">Form Details</div>
+            <div class="styletext">
+                <lightning:input label="Form Title" aura:id="formtitle" value="{!form.Title__c}" required="true" messageWhenValueMissing="Please Fill the Details" />
+            </div>
+            <div class="styletext">
+                <lightning:input label="Description" value="{!form.Description__c}" />
+            </div>
+            <div class="styletext">
+                <div style="float:right;">
+                    <lightning:helptext content="To display the form using the Progress bar or Steps"></lightning:helptext>
+                </div>
+                <div class="plaintext">
+                    <lightning:select label="Display Type" value="{!form.Display_Type__c}">
+                        <option value="None">None</option>
+                        <option value="Progress Bar">Progress Bar</option>
+                        <option value="Steps">Steps</option>
+                    </lightning:select>
+                </div>
+            </div>
+            <div class="togglebox">
+                <lightning:input type="toggle" label="Active" checked="{!form.Active__c}" messageToggleActive="" messageToggleInactive="" />
+            </div>
+        </aura:iteration>
+    </aura:if>
+
+    <!-- Page -->
+    <aura:if isTrue="{!v.fields == 'page'}">
+        <lightning:button class="Cancelbutton" label="Cancel" variant="brand-outline" onclick="{!c.cancelValidation}" />
+        <lightning:button class="savebutton" label="Apply" variant="brand-outline" onclick="{!c.savePageDetails}" /><br/>
+        <aura:iteration items="{!v.pagedetail}" var="page">
+            <div class="textlabel">Page Details</div>
+            <div class="styletext">
+                <lightning:input label="Page Title" value="{!page.Title__c}" />
+            </div>
+            <div class="styletext">
+                <lightning:input label="Page Subtitle" value="{!page.Sub_Title__c}" />
+            </div>
+        </aura:iteration>
+    </aura:if>
+
+    <aura:if isTrue="{!v.fields == 'null'}">
+        <ui:message title="Information" severity="info" closable="true">
+            Click any fields to open validations.
+        </ui:message>
+    </aura:if>
+
+</aura:component>

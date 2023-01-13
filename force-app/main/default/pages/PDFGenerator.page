@@ -1,0 +1,98 @@
+<apex:page controller="PreviewFormPage_extensions" renderAs="advanced_pdf" applyHtmlTag="false" showHeader="false" sidebar="false"
+  standardStylesheets="false">
+
+  <head>
+    <style type="text/css" media="print">
+      @page {
+        size: A4 portrait;
+        border: 1px solid black;
+        font-family: Arial Unicode MS;
+        @top-center {
+          content: element(header);
+        }
+        @bottom-left {
+          content: element(footer);
+        }
+      }
+      div.footer {
+        display: block;
+        padding: 5px;
+        position: running(footer);
+      }
+
+      .pagenumber:before {
+        content: counter(page);
+      }
+
+      .pagecount:before {
+        content: counter(pages);
+      }
+    </style>
+  </head>
+
+  <body>
+    <apex:form >
+      <apex:variable var="cnt" value="{!0}" />
+      <apex:variable var="cnt2" value="{!0}" />
+      <apex:variable var="sign" value="{!$Label.signature_prefix}" />
+      <apex:variable var="upload_doc" value="{!$Label.upload_doc_prefix}" />
+
+      <div>
+
+        <div class="footer">
+          <div style="text-align:center">Page
+            <span class="pagenumber" /> of
+            <span class="pagecount" />
+          </div>
+        </div>
+
+        <div style="width:100%;">
+          <apex:repeat value="{!Account}" var="map">
+            <div style="margin:8px 0 0 0;{!if(cnt < 1, 'page-break-before:avoid;','page-break-before:always;')}">
+              <apex:variable var="cnt" value="{!cnt+1}" />
+
+              <apex:outputPanel >
+                <apex:outputText style="float:left; width:40%;">
+                  <img style="height:55px; width:200px;" src="{!$Resource.QuickFormLogo}" />
+                </apex:outputText>
+                <apex:outputText style="float:right; width:15%;" value="{0, date, MMMM d','  yyyy}">
+                  <apex:param value="{!NOW()}" /> </apex:outputText>
+              </apex:outputPanel>
+
+              <div style="width:100%; text-align:center; margin:auto; font-size:20px;">
+                <h1 style="{!if(cnt == 1, 'dispay:flex;','display:none;')}">{!formname}</h1>
+              </div>
+
+
+              <div style="padding:10px; margin:12px 0 0 0; border:1px solid rgb(0, 0, 0);">
+                <apex:outputPanel id="thePanel">
+                  <apex:outputText style="font-size:30px;" value="{!Account[map]['pn']}"></apex:outputText>
+                  <apex:outputText value="  ({!Account[map]['pst']})"></apex:outputText>
+                </apex:outputPanel>
+              </div><br/>
+
+              <div style="width:100%;">
+                <apex:repeat value="{!Account[map]['temp_mappp']}" var="data">
+                  <apex:variable var="c" value="{!Account[map]['temp_mappp'][data]['key']}" />
+                  <div style="display:inline-block;margin:5px;">
+                    <div style="font-weight:bold; width: 20%; float:left">{!Account[map]['temp_mappp'][data]['key']}</div>
+                    <apex:outputPanel rendered="{!IF(Account[map]['temp_mappp'][data]['value'] == sign, 'true','false')}">
+                      <img style="width:40%;  height:100px; float:right; text-align:justify; " src="{!sign_map[data]}" />
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!IF(Account[map]['temp_mappp'][data]['value'] == upload_doc, 'true','false')}">
+                      <a href="{!Account[map]['temp_mappp'][data]['value']}"> Click hear to Download contend document</a>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!IF(Account[map]['temp_mappp'][data]['value'] != sign, 'true','false')}">
+                      <div style="width: 79%; float:right; text-align:justify">{!Account[map]['temp_mappp'][data]['value']}</div>
+                    </apex:outputPanel>
+                  </div> 
+                </apex:repeat>
+              </div>
+            </div>
+          </apex:repeat>
+        </div>
+      </div>
+      <!-- {!sign} -->
+    </apex:form>
+  </body>
+</apex:page>

@@ -1,0 +1,54 @@
+.THIS .formname{
+    /* background-color: aliceblue;
+    text-align: center;
+    font-size: large;
+    height: 5%;
+    padding-top: 5px;
+    border-radius: 5px;
+    width : 70%;
+    margin-left: 15%; */
+    background-color: aliceblue;
+    text-align: center;
+    font-size: large;
+    height: 5%;
+    width: 95%;
+    padding-top: 5px;
+    margin-left: 26px;
+    border-radius: 5px;
+}
+.THIS .nextbutton {
+    margin-left: 48%;
+}
+.THIS .previousnextbutton {
+    margin-left: 45%;
+}
+.THIS .previoussubmitbutton {
+    margin-left: 45%;
+}
+.THIS .page{
+    /* background-color: rgb(229, 241, 229);
+    width : 70%;
+    height : auto;
+    border-radius: 5px;
+    margin-left: 15%; */
+    background-color: rgb(229, 241, 229);
+    width : 95%;
+    height : auto;
+    border-radius: 5px;
+    /* margin-left: 26px; */
+    margin: 10px auto;
+    padding: 10px 0;
+}
+.THIS .button {
+    margin-left:40%;
+}
+.THIS .pageTitle {
+    font-size: large;
+}
+.THIS .pagesubTitle {
+    font-size: medium;
+}
+.THIS .fields{
+    /* margin-left:1%; */
+    margin: 0 5%;
+}

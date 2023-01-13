@@ -1,0 +1,304 @@
+/* .THIS .objback{
+    /* background-image: linear-gradient(to right, #8360c3, #2ebf91); */
+
+
+/* background-image: linear-gradient(356deg, #d1d1d1cc, #0d6efd26); 
+} */
+
+.THIS .formname {
+    background-color: rgba(116, 116, 116, 0.52);
+    text-align: center;
+    font-size: large;
+    height: 5%;
+    padding-top: 5px;
+    border-radius: 5px;
+}
+
+.THIS select {
+    border: none;
+}
+
+.THIS select:disabled {
+    background-color: rgba(191, 190, 197, 0.514);
+}
+
+.THIS option:checked {
+    display: none;
+}
+
+.THIS .objectselection {
+    background-color: rgba(155, 145, 145, 0.212);
+    padding: 5px 0px;
+    font-size: large;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.THIS .mappingobjtd {
+    background-color: rgba(169, 153, 153, 0.687);
+    padding: 11px;
+    border-radius: 5px;
+    display: flex;
+}
+
+.THIS .mapingobjects {
+    width: 65%;
+    margin: 0 auto;
+}
+
+.THIS .button2 {
+    width: 35%;
+    margin: 10px auto;
+}
+
+.THIS .mappinglist {
+    margin: 15px;
+}
+
+.THIS .fieldattribute {
+    display: inline-block;
+}
+
+.THIS .objectfield {
+    display: inline-block;
+}
+
+.THIS .tabel {
+    border-radius: 5px;
+}
+
+.THIS .buttonaddmapping {
+    width: 100%;
+    height: 38px;
+}
+
+.THIS .homepage {
+    width: 30%;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    margin: 8% auto;
+}
+
+.THIS .homepage img {
+    height: 50%;
+    width: 50%;
+}
+
+.THIS .homepage h1 {
+    font-size: 25px;
+    margin: 5px 0;
+}
+
+.THIS .homepage p {
+    margin-bottom: 5px;
+}
+
+.THIS .homepage1 button {
+    width: 70%;
+    height: 38px;
+}
+
+.THIS .button {
+    display: flex;
+    width: 100%;
+    text-align: center;
+}
+
+.THIS .buttonrigth {
+    width: 100%;
+    align-self: center;
+    text-align: end;
+}
+
+.THIS .button button {
+    width: 30%;
+    outline: none;
+    border: none;
+}
+
+.THIS .button button:focus {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+.THIS .iconcolum {
+    width: 3%;
+    vertical-align: top;
+}
+
+.THIS .tabfirstcol {
+    vertical-align: baseline;
+}
+
+.THIS .tabsecondcol {
+    width: 100%;
+    display: flex;
+}
+
+.THIS .selectcls,
+.THIS .selectclsreq {
+    width: 100%;
+}
+
+.THIS .selectclsreq {
+    width: 100%;
+}
+
+.THIS .tabsecondcol select {
+    width: 100%;
+}
+
+.THIS select:focus {
+    box-shadow: none;
+}
+
+.THIS .one {
+    height: 25px;
+    width: 25px;
+    text-align: center;
+    display: none;
+    margin-top: 0px;
+    margin-left: 2px;
+    margin-right: 7px;
+}
+
+.THIS .clsmapping {
+    margin: 15px 0 0 0;
+}
+
+.THIS .clsmapping:hover .one {
+    display: block;
+}
+
+.THIS .clsmapping:hover .selectcls {
+    width: 95%;
+}
+
+.THIS .divShow {
+    color: red;
+}
+
+.THIS .selectstyle {
+    width: 100%;
+    height: 33px;
+    border-radius: 5px;
+}
+
+.THIS .slds-form-element__label {
+    display: none;
+}
+
+
+/* .THIS .slds-grow{
+    margin: 7px 0;
+} */
+
+@media only screen and (max-width: 1285px) {
+    .THIS .homepage {
+        width: 40%;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+        margin: 8% auto;
+    }
+    .THIS .homepage img {
+        height: 60%;
+        width: 60%;
+    }
+    .THIS .homepage h1 {
+        font-size: 30px;
+        margin: 5px 0;
+    }
+    .THIS .homepage p {
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+}
+
+@media only screen and (max-width: 1100px) {
+    .THIS .homepage {
+        width: 60%;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+        margin: 8% auto;
+    }
+    .THIS .homepage img {
+        height: 50%;
+        width: 50%;
+    }
+    .THIS .homepage h1 {
+        font-size: 25px;
+        margin: 5px 0;
+    }
+    .THIS .homepage p {
+        margin-bottom: 10px;
+    }
+}
+
+@media only screen and (max-width: 850px) {
+    .THIS .homepage {
+        width: 60%;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+        margin: 8% auto;
+    }
+    .THIS .homepage img {
+        height: 60%;
+        width: 60%;
+    }
+    .THIS .homepage h1 {
+        font-size: 25px;
+        margin: 5px 0;
+    }
+    .THIS .homepage p {
+        margin-bottom: 10px;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .THIS .homepage {
+        width: 80%;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+        margin: 8% auto;
+    }
+    .THIS .homepage img {
+        height: 75%;
+        width: 75%;
+    }
+    .THIS .homepage h1 {
+        font-size: 25px;
+        margin: 5px 0;
+    }
+    .THIS .homepage p {
+        margin-bottom: 10px;
+    }
+}
+
+@media only screen and (max-width: 705px) {
+    .THIS .homepage {
+        width: 90%;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+        margin: 8% auto;
+        height: 100vh;
+    }
+    .THIS .homepage img {
+        height: 50%;
+        width: 50%;
+    }
+    .THIS .homepage h1 {
+        font-size: 25px;
+        margin: 5px 0;
+    }
+    .THIS .homepage p {
+        margin-bottom: 10px;
+    }
+}

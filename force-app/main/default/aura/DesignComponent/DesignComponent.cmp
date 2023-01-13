@@ -1,0 +1,6 @@
+<aura:component>
+    <lightning:card title="Design Component">
+        Here is Design Component..!!!
+    </lightning:card>
+    <!-- <lightning:slider label="Testing" size="x-small"/> -->
+</aura:component>

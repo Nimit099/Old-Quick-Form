@@ -1,0 +1,134 @@
+<template>
+
+   <!-- <div>
+     <main>
+
+        <lightning-button variant="brand" label={clickedButtonLabel} title="Show" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>  
+        <a href="https://codepen.io/tonkec/" class="ua" target="_blank">
+          <i class="fa fa-user"></i>
+        </a>
+      </main>
+    </div>
+
+     <template if:true={boolVisible}> -->
+  
+    <div class="slds-p-top_medium   slds-p-bottom_xx-large sidebar {divColor} ">
+     
+        <div class="slds-grid slds-p-horizontal_x-large" >
+            <div>
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col">
+                        <lightning-icon icon-name="utility:live_message" alternative-text="Event" title="Event"></lightning-icon>
+                    </div>
+                    <div class="slds-col">
+                        <h1  class="slds-text-heading_large">Live chat <span style="color: green;">is currently online </span> </h1>
+                    </div>
+                   
+                </div>
+                <p class="slds-m-top_large slds-text-heading_small">Talk directly to our support officers and get the help you  <br> need as fast as possible.</p>
+
+                 <!--Start chat button-->
+                <div class="slds-m-top_large">
+                   <lightning-button variant="brand" label="Start Chat" title="Primary action" onclick={handleClick} ></lightning-button>
+                 </div>
+
+                 <hr>
+            </div>
+        </div>
+
+        <!--Section 2-->
+        <div class="slds-grid slds-p-horizontal_x-large" id="utility">
+            <div>
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col">
+                        <lightning-icon icon-name="utility:knowledge_base" alternative-text="Event" title="Event"></lightning-icon>
+                    </div>
+                    <div class="slds-col">
+                        <h1  class=" slds-text-heading_large font">Explore our knowledge base</h1>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_large">
+                    <p><lightning-formatted-url value="https://salesforce.com" tooltip="Use https://domain-name" label="How to map form fields with Salesforce fields" target="_blank" class="labelSize"></lightning-formatted-url></p>
+                    <p class='slds-text-heading_small'>Quick guide about mapping form fields with Salesforce fields.</p>
+                </div>
+
+                <div class="slds-m-top_medium">
+                    <p><lightning-formatted-url value="https://salesforce.com" tooltip="Use https://domain-name" label="Multiple levels of relationship" target="_blank" class="labelSize"></lightning-formatted-url></p>
+                    <p class='slds-text-heading_small'>Learn how to create relationships between secondary objects and a third level object.</p>
+                </div>
+
+                <div class="slds-m-top_medium">
+                    <p><lightning-formatted-url value="https://salesforce.com" tooltip="Use https://domain-name" label="Send data based on conditional rules" target="_blank" class="labelSize"></lightning-formatted-url></p>
+                    <p class='slds-text-heading_small'>Find out how to create records in your Salesforce account if only some conditions are met.</p>
+                </div>
+
+                  <!--Start See more  button-->
+                  <div class="slds-m-top_large slds-m-top_medium">
+                    <lightning-button  variant="brand" label="See More"  onclick={handleClick} class="my-brand "></lightning-button>
+                    
+                  </div>
+ 
+                  <hr>
+               
+            </div>
+        </div>
+
+
+        <!--section 3-->
+        <div class="slds-grid slds-p-horizontal_x-large" >
+            <div>
+                <div class="slds-grid slds-gutters ">
+                    <div class="slds-col">
+                        <lightning-icon icon-name="utility:email" alternative-text="Event" title="Event"></lightning-icon>
+                    </div>
+                    <div class="slds-col">
+                        <h1  class="slds-text-heading_large ">Leave us a message</h1>
+                    </div>
+                   
+                </div>
+
+                <div class="slds-p-right_x-small slds-m-top_medium">
+                    <lightning-input type="email" label="Email address" value='dharmik@mvclouds.com' class="labelSize1"></lightning-input>
+                </div>
+                
+                <div class="slds-size_1-of-2">
+                <lightning-combobox
+                name="progress"
+                label="Subject"
+                value={value}
+                placeholder="Select Progress"
+                options={options}
+                onchange={handleChange} ></lightning-combobox>
+                </div>
+
+                <lightning-textarea name="input1" label="Message" ></lightning-textarea>
+
+        
+                
+              
+
+                 <!--Start chat button-->
+                <div class="slds-p-right_x-small slds-m-top_large slds-m-top_medium">
+                   <lightning-button variant="brand" label="SEND EMAIL" title="Primary action" onclick={handleClick} ></lightning-button>
+                 </div>
+
+              
+            </div>
+        </div>
+
+        
+            <lightning-button variant="" label="Support ?" onclick={toggleClass} class="slds-align_absolute-center support-btn"></lightning-button>
+          
+
+    </div>
+    
+    <!-- </template> -->
+  
+    
+
+    
+
+    
+    
+</template>

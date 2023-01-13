@@ -1,0 +1,145 @@
+<aura:component implements="force:appHostable" controller="TestQuickFormComponentController">
+
+    <aura:attribute name="view" type="String" default="Compact"/>   
+    <aura:attribute name="FormId" type="String" />    
+    <aura:attribute name="spinner" type="boolean" default="FALSE"/>    
+    <aura:attribute name="editFormTitle" type="boolean" default="false"/>
+    <aura:attribute name="editPageTitle" type="String"/>
+    <aura:attribute name="editPageSubTitle" type="String"/>
+    <aura:attribute name="showToast" type="String" />
+    <aura:attribute name="FormPageFieldValueWrapper" type="Object"/>
+    <aura:attribute name="Page" type="Page__c" default="{
+        'SObjectType': 'Page__c',
+        'Form__c' : '',
+        'Title__c': '',
+        'Sub_Title__c': ''
+    }">
+    </aura:attribute>
+    <aura:registerEvent name="cmpEvent" type="c:FieldEvent"/>
+    <aura:handler name="init" value="{!this}" action="{!c.fetchQuickFormFieldAttValue}"/>
+    <!-- page Modal -->
+    <div>
+        <section aura:id="Modal" role="dialog" tabindex="-1" aria-labelledby="ModalHeading" aria-modal="true" aria-describedby="ModalBody" class="slds-modal">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon class="slds-modal__close" alternativeText="Close" iconName="utility:close" onclick="{!c.closeModal}" variant="bare-inverse" size="large"></lightning:buttonIcon>
+                    <div class="header"><h5 id="ModalHeading">New Page</h5></div>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="ModalBody">
+                    <div style="float:right;"><lightning:helptext content="To display the page title"></lightning:helptext></div>
+                    <div><lightning:input label="Page Title" value="{!v.Page.Title__c}" /></div>
+                    <div style="float:right;"><lightning:helptext content="To display the page subtitle"></lightning:helptext></div>
+                    <div><lightning:input label="Page Sub-title" value="{!v.Page.Sub_Title__c}" /></div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <div>
+                        <lightning:button label="Cancel" title="Cancel Page" onclick="{!c.closeModal}"/>
+                        <lightning:button variant="brand" label="Save" title="Add Page" onclick="{!c.createPage}" />
+                    </div>
+                </footer>
+            </div>
+        </section>
+        <div aura:id="ModalBackdrop" class="slds-backdrop"></div>
+    </div>
+    <!-- page Modal End -->
+    <aura:if isTrue="{!v.spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>    
+    <!-- Icons -->
+    <div class="iconDiv" style="float:left;width:4%">
+        <lightning:icon class="One" iconName="utility:data_mapping" alternativeText="Mapping Fields" title="Mapping Fields"  onclick="{!c.openObjectMappingComponent}" /><br/>
+        <lightning:icon class="One" iconName="utility:preview" alternativeText="Preview Form" title="Preview Form"  onclick="{!c.openPreviewFormComponent}" /><br/>
+    </div>
+    <!-- Custom meta data  -->
+    <div class="fieldDiv" style="float:left;width:16%">
+        <lightning:card class="fieldname">
+            <p style="color: rgb(97, 121, 199);text-align: center;"><b>Fields</b></p>
+        </lightning:card><br/>
+        <div style="height: 90%;">
+            <!-- class="slds-scrollable_y" -->
+            <aura:iteration items="{!v.FormPageFieldValueWrapper.basefield}" var="basefield">
+                <div class="example-draggable" data-record="{!basefield.DataRecord__c}" draggable="true" ondragstart="{!c.onDragStart}">
+                    <c:quickformfieldcomponent1 tView="{!basefield.DataRecord__c}" Compview="{!v.view}"/>
+                </div>
+            </aura:iteration>
+        </div>
+    </div>
+    
+    <!-- drag and drop , insert field ,insert page  -->
+    <div class="fieldDiv1" style="float:left;width:60%"> <br/>
+        <div class="formtitle">                        
+            <div style="display: flex;align-items: center;margin-left: 1%;">
+                <div class="title">{!v.FormPageFieldValueWrapper.formName.Title__c}&nbsp; </div>
+            </div>
+            <lightning:buttonMenu class="formButtonMenu" alternativeText="Show menu" onselect="{! c.handleSelect }" name="{!'form:::'+v.FormId}">
+                <lightning:menuItem aura:id="menuItems" value="edit" label="Edit Form" prefixIconName="utility:edit"/>
+                <lightning:menuItem aura:id="menuItems" value="new page add" label="Add Page" prefixIconName="utility:new" />
+            </lightning:buttonMenu>
+        </div><br/>
+        <header class="slds-modal__header"></header><br/>
+
+    
+        <div>
+            <aura:iteration items="{!v.FormPageFieldValueWrapper.PageWrapperList}" var="page" indexVar="index">                                        
+                <div class="page" id="{!page.PageObj.Id}"> 
+                    <div class="example-dropzone"
+                        ondragover="{!c.onDragOver}"
+                        ondrop="{!c.onDrop}"
+                        >       
+                        <div class="pagetitle">
+                            <div style="display: flex;align-items: center;">
+                                <div>
+                                    <div class="pagetitle1">{!page.PageObj.Title__c}</div>       
+                                    <div class="subpagetitle">{!page.PageObj.Sub_Title__c}</div>
+                                </div>                         
+                            </div>
+                            
+                            <lightning:buttonMenu class="pageButtonMenu" alternativeText="Show menu" onselect="{! c.handleSelectPage }" name="{!'page:::'+page.PageObj.Id}">
+                                <lightning:menuItem aura:id="menuItems" value="edit" label="Edit Page" prefixIconName="utility:edit" />
+                                <lightning:menuItem aura:id="{!page.PageObj.Id}" value="delete" label="Delete Page" prefixIconName="utility:delete"/>
+                            </lightning:buttonMenu>
+                        </div><br/>
+                        
+                            <aura:iteration items="{!page.FieldWrapperList}" var="fieldList">
+                                <div id="{!page.PageObj.Id}" name="{!'field:::'+fieldList.FieldObj.Id}" class="field" draggable="true"  data-record = "{!fieldList.FieldObj.Id}" data-ref="inner" ondragstart="{!c.onDragStart}" onclick="{!c.handleid}"> 
+                                        <c:quickformfieldcomponent1 tView="{!fieldList.FieldObj.Data_Record_Id__c}" Compview="Full" FieldAttribute="{!fieldList.FieldAttObj}" FieldAttributeValue="{!fieldList.FieldValueObj}"/><br/>                                    
+                                </div>
+                            </aura:iteration>
+                        </div> 
+                        <div class="footer">
+                            <aura:if isTrue="{!index == 0}">                                
+                            <lightning:button class="nextbutton" variant="brand" label="Next" title="Next" disabled="true" onclick="{!c.onaddpage1}"/> 
+                                    <aura:set attribute="else">  
+                                        <aura:if isTrue="{!index != v.FormPageFieldValueWrapper.PageWrapperList.length - 1}">
+                                            <div class = "previousnextbutton">
+                                                <lightning:button variant="brand" label="Previous" title="Previous" disabled="true" onclick="{!c.onaddpage1}"/> 
+                                                <lightning:button variant="brand" label="Next" title="Next" disabled="true" onclick="{!c.onaddpage1}"/>     
+                                            </div>
+                                                <aura:set attribute="else">    
+                                                    <div class = "previoussubmitbutton">
+                                                        <lightning:button variant="brand" label="Previous" title="Previous" disabled="true" onclick="{!c.onaddpage1}"/>
+                                                        <lightning:button variant="brand" label="Submit" title="Submit" disabled="true" onclick="{!c.onaddpage1}"/>  
+                                                    </div>
+                                                </aura:set>  
+                                        </aura:if> 
+                                    </aura:set>   
+                            </aura:if> 
+                        </div>
+                    </div> 
+            </aura:iteration><br/><br/>
+            <footer class="slds-modal__footer"></footer>                  
+        </div>
+    </div>
+        
+    <div class="fieldDiv3" style="float:left;width:20%">
+        <c:FieldAttributeValidation/>
+
+    </div>
+
+</aura:component>

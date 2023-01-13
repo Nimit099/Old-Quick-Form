@@ -1,0 +1,347 @@
+<aura:component implements="force:appHostable,flexipage:availableForRecordHome,force:hasRecordId,flexipage:availableForAllPageTypes" access="global">
+    <aura:attribute name="tView" type="String"/>
+    <aura:attribute name="Compview" type="String"/>
+    <aura:attribute name="Check" type="List" default="[
+        {'label': 'Option1', 'value': 'option1'},
+        {'label': 'Option2', 'value': 'option2'},
+        {'label': 'Option3', 'value': 'option3'},
+        {'label': 'Option4', 'value': 'option4'},
+        ]"/>
+    <aura:attribute name="CheckValue" type="List"/>
+    <aura:attribute name="Radio" type="List" default="[
+        {'label': 'Option1', 'value': 'option1'},
+        {'label': 'Option2', 'value': 'option2'}
+        ]"/>
+    <aura:attribute name="RadioValue" type="String"/>
+    <aura:attribute name="filetype" type="List" default="['.png', '.jpg', '.jpeg', '.json']" />
+    <aura:attribute name="multiple" type="Boolean" default="true" />
+    <aura:attribute name="disabled" type="Boolean" default="true" />
+    <aura:attribute name="heading" type="String" />
+    <aura:attribute name="recordId" type="String" /> 
+    <aura:attribute name="myNumber" type="integer"/>
+    <aura:attribute name="salutationOptions" type="List" default="[
+        {'label': 'Mr.', 'value': 'Mr.'},
+        {'label': 'Ms.', 'value': 'Ms.'},
+        {'label': 'Mrs.', 'value': 'Mrs.'},
+        {'label': 'Dr.', 'value': 'Dr.'},
+        {'label': 'Prof.', 'value': 'Prof.'},
+    ]"/>
+    <aura:attribute name="Currency" type="integer"/>
+    <aura:attribute name="phone" type="integer"/>
+    <aura:attribute name="date" type="Date" default=""/>
+    <aura:attribute name="datetime" type="DateTime"/>
+    <!--<aura:attribute name="condition" type="List" default="[
+        {'label': 'I agree to the terms of service.', 'value': 'option'}
+    ]"/>
+    <aura:attribute name="Cvalue" type="List" default=""/>-->
+    <aura:attribute name="rating" type="Boolean" default="false"/>
+    <aura:attribute name="thankyou" type="List" default="[
+        {'label': 'Show text', 'value': 'Show text'},
+        {'label': ' Redirect to a web page', 'value': 'option2'},
+        {'label': ' Show text, then redirect to a web page', 'value': 'option3'},
+        {'label': ' Show report', 'value': 'option4'},
+        {'label': ' Show HTML block', 'value': 'option5'},
+        {'label': ' Redirect with custom variables', 'value': 'option6'},
+        ]"/>
+    <aura:attribute name="tyrvalue" type="String"/>
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+    
+   <!-- Short Text -->
+   <aura:if isTrue="{!v.tView == 'Short Text'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box slds-box_xx-small slds-text-heading_center" style="font-size: 15px;">
+                <lightning:icon iconName="utility:justify_text"  alternativeText="Short Text" title="Short Text" /> &nbsp; &nbsp; {!v.tView}
+            </div>
+            <aura:set attribute="else">
+                <lightning:input  label="Short Text">{!v.tView}</lightning:input>
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- Long Text -->
+    <aura:if isTrue="{!v.tView == 'Long Text'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box slds-box_xx-small slds-text-heading_center" style="font-size: 15px;">
+                <lightning:icon iconName="utility:textarea"  alternativeText="Long Text" title="Long Text" /> &nbsp; &nbsp; {!v.tView}
+            </div>
+            <aura:set attribute="else">
+                <lightning:textarea  label="Long Text">{!v.tView}</lightning:textarea>
+            </aura:set>
+        </aura:if>
+    </aura:if> 
+
+    <!-- DropDown -->
+    <aura:if isTrue="{!v.tView == 'DropDown'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box slds-box_xx-small slds-text-heading_center" style="font-size: 15px;">
+                <lightning:icon iconName="utility:down"  alternativeText="DropDown" title="DropDown" /> &nbsp; &nbsp; {!v.tView}
+            </div>
+            <aura:set attribute="else">
+                <lightning:select aura:id="select" name="select" label="{!v.tView}">
+                    <option value="">choose one...</option>
+                    <option value="Option1">Option1</option>
+                    <option value="Option2">Option2</option>
+                    <option value="Option3">Option3</option>
+                    <option value="Option4">Option4</option>
+                    <option value="Option5">Option5</option>  
+                 </lightning:select>
+            </aura:set>
+        </aura:if>
+    </aura:if> 
+
+    <!--CheckBox-->
+    <aura:if isTrue="{!v.tView == 'CheckBox'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box slds-box_xx-small slds-text-heading_center" style="font-size: 15px;">
+                <lightning:icon iconName="utility:check"  alternativeText="CheckBox" title="CheckBox" /> &nbsp; &nbsp; {!v.tView}
+            </div>
+            <aura:set attribute="else">
+                <lightning:checkboxGroup name="{!v.tView}" label="{!v.tView}" options="{! v.Check }" value="{! v.CheckValue}"/>
+            </aura:set>
+        </aura:if>
+    </aura:if> 
+
+    <!-- Radio Button -->
+    <aura:if isTrue="{!v.tView == 'Radio Button'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box slds-box_xx-small slds-text-heading_center" style="font-size: 15px;">
+                <lightning:icon iconName="utility:radio_button"  alternativeText="Radio Button" title="Radio Button" /> &nbsp; &nbsp; {!v.tView}
+            </div>
+            <aura:set attribute="else">
+                <lightning:radioGroup name="{!v.tView}" label="{!v.tView}" options="{! v.Radio }" value="{! v.RadioValue }" type="radio"/>
+            </aura:set>
+        </aura:if>
+    </aura:if> 
+
+    <!-- File Upload -->
+    <aura:if isTrue="{!v.tView == 'File Upload'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box slds-box_xx-small slds-text-heading_center" style="font-size: 15px;">
+                <lightning:icon iconName="utility:upload"  alternativeText="File Upload" title="File Upload" /> &nbsp; &nbsp; {!v.tView}
+            </div>
+            <aura:set attribute="else">
+                <lightning:fileUpload label="{!v.tView}"/>   
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- Heading -->
+    <aura:if isTrue="{!v.tView == 'Heading'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box slds-box_xx-small slds-text-heading_center" style="font-size: 15px;">
+                <lightning:icon iconName="utility:justify_text"  alternativeText="Heading" title="Heading" /> &nbsp; &nbsp; {!v.tView}
+            </div>
+            <aura:set attribute="else">
+                {!v.tView}
+                <lightning:inputRichText  value="{!v.heading}"></lightning:inputRichText>
+            </aura:set>
+        </aura:if>
+    </aura:if> 
+
+    <!-- Number -->
+    <aura:if isTrue="{!v.tView == 'Number'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box slds-box_xx-small slds-text-heading_center" style="font-size: 15px;">
+                <lightning:icon iconName="utility:richtextnumberedlist"  alternativeText="Number" title="Number" /> &nbsp; &nbsp; {!v.tView}
+            </div>
+            <aura:set attribute="else">
+                <lightning:input type="number" label="{!v.tView}" format="#,##0,000.00#"  value="{!v.myNumber}" updateOn="keyup"/>
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- Email Id -->
+    <aura:if isTrue="{!v.tView == 'Email Id'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box slds-box_xx-small slds-text-heading_center" style="font-size: 15px;">
+                <lightning:icon iconName="utility:email"  alternativeText="Email Id" title="Email Id" /> &nbsp; &nbsp; {!v.tView}
+            </div>
+            <aura:set attribute="else">
+                <lightning:input type="email" aura:id="email" label="{!v.tView}"  placeholder="abc@gmail.com"/>  
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- Price -->
+    <aura:if isTrue="{!v.tView == 'Price'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box slds-box_xx-small slds-text-heading_center" style="font-size: 15px;">
+                <lightning:icon iconName="utility:moneybag"  alternativeText="Price" title="Price" /> &nbsp; &nbsp; {!v.tView}
+            </div>
+            <aura:set attribute="else">
+                <ui:inputCurrency  label="{!v.tView}" value="{!v.Currency}" updateOn="keyup"/>
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+
+    <!-- Name -->
+    <aura:if isTrue="{!v.tView == 'Name'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box slds-box_xx-small slds-text-heading_center" style="font-size: 15px;">
+                <lightning:icon iconName="utility:user"  alternativeText="Name" title="Name" /> &nbsp; &nbsp; {!v.tView}
+            </div>
+            <aura:set attribute="else">
+                <lightning:inputName label="{!v.tView}"  options="{!v.salutationOptions}"/>
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- Address -->
+    <aura:if isTrue="{!v.tView == 'Address'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box slds-box_xx-small slds-text-heading_center" style="font-size: 15px;">
+                <lightning:icon iconName="utility:checkin"  alternativeText="Address" title="Address" /> &nbsp; &nbsp; {!v.tView}
+            </div>
+            <aura:set attribute="else">
+                <lightning:inputAddress addressLabel="{!v.tView}" streetLabel="Street" cityLabel="City" countryLabel="Country" provinceLabel="Province" postalCodeLabel="PostalCode"/>
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- Phone -->
+    <aura:if isTrue="{!v.tView == 'Phone'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box slds-box_xx-small slds-text-heading_center" style="font-size: 15px;">
+                <lightning:icon iconName="utility:call"  alternativeText="Phone" title="Phone" /> &nbsp; &nbsp; {!v.tView}
+            </div>
+            <aura:set attribute="else">
+                <lightning:input type="tel" value="{!v.phone}" label="{!v.tView}" updateOn="Keyup" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"/>
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- Date -->
+    <aura:if isTrue="{!v.tView == 'Date'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box slds-box_xx-small slds-text-heading_center" style="font-size: 15px;">
+                <lightning:icon iconName="utility:date_input"  alternativeText="Date" title="Date" /> &nbsp; &nbsp; {!v.tView}
+            </div>
+            <aura:set attribute="else">
+                <lightning:input type="date" label="{!v.tView}" value="{!v.date}" displayDatePicker="true" />
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- Time -->
+    <aura:if isTrue="{!v.tView == 'Time'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box slds-box_xx-small slds-text-heading_center" style="font-size: 15px;">
+                <lightning:icon iconName="utility:clock"  alternativeText="Time" title="Time" /> &nbsp; &nbsp; {!v.tView}
+            </div>
+            <aura:set attribute="else">
+                <lightning:input type="time" label="{!v.tView}"/>
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- DateTime -->
+    <aura:if isTrue="{!v.tView == 'DateTime'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box slds-box_xx-small slds-text-heading_center" style="font-size: 15px;">
+                <lightning:icon iconName="utility:date_time"  alternativeText="DateTime" title="DateTime" /> &nbsp; &nbsp; {!v.tView}
+            </div>
+            <aura:set attribute="else">
+                <!-- <lightning:formattedDateTime  label="{!v.tView}" hour="2-digit" minute="2-digit" second="2-digit" timeZonename="long" /> -->
+                <lightning:input type="datetime" label="{!v.tView}" value="{!v.datetime}" displayDatePicker="true" />
+            </aura:set>
+        </aura:if>
+    </aura:if>  
+    
+    <!-- Repeatable Container -->
+    <aura:if isTrue="{!v.tView == 'Repeatable Container'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box slds-box_xx-small slds-text-heading_center" style="font-size: 15px;">
+                <lightning:icon iconName="utility:justify_text"  alternativeText="Repeatable Container" title="Repeatable Container" /> &nbsp; &nbsp; {!v.tView}
+            </div>
+            <aura:set attribute="else">
+                    <lightning:textarea label="{!v.tView}"></lightning:textarea>
+                        <lightning:button variant="Brand" label="Add" onclick="{!c.addclick}"></lightning:button>
+                
+            </aura:set>
+        </aura:if>
+    </aura:if>  
+
+    <!-- Rating -->
+    <aura:if isTrue="{!v.tView == 'Rating'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box slds-box_xx-small slds-text-heading_center" style="font-size: 15px;">
+                <lightning:icon iconName="utility:rating"  alternativeText="Rating" title="Rating" /> &nbsp; &nbsp; {!v.tView}
+            </div>
+            <aura:set attribute="else">
+                    <lightning:buttonIconStateful iconName="utility:favorite" selected="{! v.rating }" onclick="{! c.ratingButtonClick }" />
+                    <lightning:buttonIconStateful iconName="utility:favorite" selected="{! v.rating }" onclick="{! c.ratingButtonClick }" />
+                    <lightning:buttonIconStateful iconName="utility:favorite" selected="{! v.rating }" onclick="{! c.ratingButtonClick }" />
+                    <lightning:buttonIconStateful iconName="utility:favorite" selected="{! v.rating }" onclick="{! c.ratingButtonClick }" />
+                    <lightning:buttonIconStateful iconName="utility:favorite" selected="{! v.rating }" onclick="{! c.ratingButtonClick }" />
+            </aura:set>
+        </aura:if>
+    </aura:if> 
+
+    <!-- Terms of Service -->
+    <aura:if isTrue="{!v.tView == 'Terms of Service'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box slds-box_xx-small slds-text-heading_center" style="font-size: 15px;">
+                <lightning:icon iconName="utility:justify_text"  alternativeText="Terms of Service" title="Terms of Service" /> &nbsp; &nbsp; {!v.tView}
+            </div>
+            <aura:set attribute="else">
+                <div>Terms of serice</div>
+                <lightning:input type="checkbox" label=""/>
+            </aura:set>
+        </aura:if>
+    </aura:if> 
+
+    <!-- Image -->
+    <aura:if isTrue="{!v.tView == 'Image'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box slds-box_xx-small slds-text-heading_center" style="font-size: 15px;">
+                <lightning:icon iconName="utility:image" alternativeText="Image" title="Image" /> &nbsp; &nbsp; {!v.tView}
+            </div>
+            <aura:set attribute="else">
+                {!v.tView}
+                <lightning:insertImageButton/>
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- Link -->
+    <aura:if isTrue="{!v.tView == 'Link'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box slds-box_xx-small slds-text-heading_center" style="font-size: 15px;">
+                <lightning:icon iconName="utility:link" alternativeText="Link" title="Link" /> &nbsp; &nbsp; {!v.tView}
+            </div>
+            <aura:set attribute="else">
+                <lightning:input type="url" label="{!v.tView}" placeholder="http://www.example.com"></lightning:input>
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- Signature-->
+    <aura:if isTrue="{!v.tView == 'Signature'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box slds-box_xx-small slds-text-heading_center" style="font-size: 15px;">
+                <lightning:icon iconName="standard:record_signature_task" alternativeText="Signature" title="Signature" /> &nbsp; &nbsp; {!v.tView}
+            </div>
+            <aura:set attribute="else">
+                
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- Thank You page -->
+    <aura:if isTrue="{!v.tView == 'Thank You'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box slds-box_xx-small slds-text-heading_center" style="font-size: 15px;">
+                <lightning:icon iconName="standard:record_signature_task" alternativeText="Thank You" title="Thank You" /> &nbsp; &nbsp; {!v.tView}
+            </div>
+            <aura:set attribute="else">
+                <div class="slds-box slds-box_xx-small slds-text-heading_center" style="font-size: 15px;"><h1>Thank You Page and Redirects</h1>
+                    <lightning:radioGroup  options="{! v.thankyou }" value="{! v.tyrvalue }" type="radio" onchange="{!c.radioclick}"/>
+                    <!-- <lightning:helptext content="This page is displayed after the form is submitted."></lightning:helptext> -->
+                </div>
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+
+</aura:component>

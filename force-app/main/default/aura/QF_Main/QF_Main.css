@@ -1,0 +1,285 @@
+.THIS.formBuilder {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+
+.THIS .verticalTab {
+    position: absolute;
+    height: 100%;
+    border-radius: 20px;
+    width: 20%;
+}
+
+.THIS .EditForm {
+    width: 80%;
+    left: 20%;
+    position: relative;
+    background-color: #FEFEFE;
+    height: 100%;
+}
+
+.THIS .verticalTab .slds-vertical-tabs__nav {
+    height: 100vh;
+    background-color: #6699CC !important;
+}
+
+.THIS .verticalTab .slds-vertical-tabs {
+    border-radius: 0;
+}
+
+.THIS .verticalTab lightning-tab-bar {
+    height: 100vh;
+    width: 15%;
+}
+
+.THIS .searchBox .slds-input {
+    border-radius: 17px;
+    border-color: lightgray;
+}
+
+.THIS .searchBoxDiv.slds-input-has-icon .slds-input__icon {
+    margin-top: 2px;
+}
+
+.THIS .designPanel {
+    overflow-y: scroll;
+    height: 100%;
+    padding: 0 14px 25px 13px;
+    position: absolute;
+    width: 75%;
+}
+
+.THIS .designPanel::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .searchBoxDiv {
+    margin-top: 3%;
+}
+
+.THIS .accordionSection {
+    margin-top: 10%;
+}
+
+.THIS .slds-button__icon {
+    fill: #6699CC;
+}
+
+.THIS .searchBoxDiv {
+    width: 92%;
+    margin: auto;
+}
+
+.THIS .addFormTitle {
+    position: fixed;
+    width: 80%;
+    z-index: 10;
+    padding-right: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.39);
+}
+
+.THIS .InnerFormtitle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.THIS .formName {
+    font-size: 2rem;
+    font-weight: 500;
+    margin: 10px auto;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    overflow-x: scroll;
+    width: 30rem;
+    scroll-behavior: smooth;
+    text-align: center;
+}
+
+.THIS .formName::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* - - - - - - - - - - - - - - -  - - -  - - - - -  - - - -  - - - - */
+
+.THIS .fieldSectionDiv {
+    overflow: auto;
+    height: 100%;
+    padding: 0 1% 25px 1%;
+    position: absolute;
+    width: 75%;
+}
+
+.THIS .searchBox .slds-input {
+    border-radius: 17px;
+    border-color: black;
+}
+
+.THIS .searchIcon {
+    height: 1.2rem;
+    width: 1.2rem;
+    margin-top: 0;
+}
+
+.THIS .fieldDivLabel,
+.THIS .publishTitle {
+    text-transform: capitalize;
+    color: rgba(0, 0, 0, 0.56);
+    padding: 30px 0 0 16px;
+    font-weight: bold;
+    font-size: 24px
+}
+
+.THIS .fieldSectionDiv::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .fieldSectionDiv .slds-accordion__list-item {
+    border-top-color: #bababa;
+}
+
+
+/* - - - - - - - - - - - - - - -  - - -  - - - - -  - - - -  - - - - */
+
+
+/* publish panel css */
+
+.THIS .verticalTab .designPanel.slds-vertical-tabs__content,
+.THIS .verticalTab .fieldPanel.slds-vertical-tabs__content {
+    background-color: #F5F5F5;
+    /* position: absolute;
+    height: 100vh;
+    width: 100vw;
+    left: 63px */
+}
+
+.THIS .publishTab.slds-vertical-tabs__content {
+    position: absolute;
+    height: 100vh;
+    width: 96vw;
+    left: 63px;
+    z-index: 100;
+    margin-top: -1px;
+}
+
+.THIS .publishLeftPanel {
+    background-color: #F5F5F5;
+    background-color: #f5f5f5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 25vw;
+}
+
+.THIS .publishRightPanel {
+    background-color: white;
+    position: absolute;
+    width: 75vw;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    padding: 0 5%;
+}
+
+.THIS .formLinkTitle {
+    font-weight: bold;
+    font-size: 1.5rem;
+    padding: 3% 0 0 0;
+}
+
+.THIS .linkText {
+    margin-top: 10px;
+}
+
+.THIS .formlink {
+    font-size: 1.4rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.THIS .iconsImage {
+    width: 32px;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 4px rgb(0 0 0 / 25%);
+    border-radius: 7px;
+    padding: 7px;
+    /* margin-top: 28px; */
+}
+
+.THIS .publishUsing {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.THIS .publishUsingText {
+    margin-top: 10px;
+}
+
+.THIS .inputBox {
+    background: #FFFFFF;
+    box-shadow: 0px 2px 2px rgb(0 0 0 / 25%);
+    border-radius: 15px;
+    border: none;
+    width: 90%;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.THIS .copyCodeSection {
+    background: #EBEBEB;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+
+
+/* .THIS .formLinkTitle {
+    height: 10%;
+    font-weight: bold;
+    font-size: 1.5rem;
+    padding: 3% 0 0 0;
+}
+
+.THIS .linkText {
+    height: 5%;
+    padding: 1% 0 0 0;
+}
+
+.THIS .formlink {
+    height: 10%;
+    font-size: 1.4rem;
+    font-weight: bold;
+    display: flex;
+}
+
+.THIS .publishUsing {
+    height: 5%;
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.THIS .publishUsingText {
+    height: 5%;
+    margin-top: 10px;
+}
+
+.THIS .codeCopySection {
+    height: 33%;
+}
+
+.THIS .copyCodeButton {
+    height: 5%;
+}
+
+.THIS .innerLinkDiv {
+    display: flex;
+} */

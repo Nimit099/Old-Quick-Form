@@ -1,0 +1,944 @@
+.THIS.mainsection {
+    width: 100vw;
+    background-color: white;
+}
+
+.THIS .dataTableMain {
+    height: 38em;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-top: none;
+    width: 98%;
+    margin: 0px 10px 10px 10px;
+}
+
+.THIS .slds-m-around_small {
+    display: inline;
+}
+
+.THIS .quickformtitle {
+    font-size: x-large;
+    margin-left: 0.3rem;
+}
+
+.THIS .header {
+    font-size: 2rem;
+}
+
+.THIS .slds-modal__footer {
+    padding-bottom: 3% !important;
+}
+
+.THIS .slds-modal__header {
+    background-color: rgb(243, 242, 242);
+}
+
+.THIS .footer .slds-button {
+    font-size: 15px !important;
+}
+
+.THIS .folder_component {
+    width: 21.2%;
+    max-width: 400px;
+    position: absolute;
+    height: 100%;
+    border: solid;
+    border-width: 1px;
+    border-color: #e6e6e6;
+    background-color: #f2f2f2;
+}
+
+.THIS .hideit {
+    display: none;
+}
+
+.THIS .rowsicon2 {
+    display: none;
+}
+
+.THIS .formpart {
+    position: relative;
+    border-color: #e6e6e6;
+    background-color: #f2f2f2;
+}
+
+.THIS .slds-tree__item-label {
+    display: block;
+    width: 310px;
+    max-width: 100%;
+}
+
+.THIS .folder_tree {
+    background-color: #f2f2f2;
+    overflow: auto;
+    height: 85%;
+}
+
+.THIS .new_folder {
+    height: 65px;
+    border: solid;
+    border-width: 1px;
+    border-color: #e6e6e6;
+    background-color: #f2f2f2;
+    padding: 18px 5px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.THIS .accordion {
+    border: solid;
+    border-width: 1px;
+    border-color: #e6e6e6;
+    background-color: #f2f2f2;
+    padding-left: 30px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.THIS .accordion_1 {
+    background-color: #f2f2f2;
+    padding-left: 30px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+/* ================== FOR BUTTONS ==================*/
+
+.THIS .button_slide {
+    height: 33px;
+    width: 115px;
+    color: blue;
+    border: 2px solid rgb(201, 201, 201);
+    border-radius: 5px;
+    padding: 4px 25px;
+    display: inline-block;
+    font-size: 14px;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.THIS .button_slide[disabled] {
+    pointer-events: none;
+    color: blue;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+
+/* ================== FOR BUTTONS ==================*/
+
+
+/* ================== FOR Edit drop down ==================*/
+
+.THIS .table_center {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.THIS .drop-down {
+    display: inline-block;
+    position: relative;
+}
+
+.THIS .drop-down__button {
+    background: linear-gradient(to right, #3d6def, #8FADFE);
+    display: inline-block;
+    line-height: 40px;
+    padding: 0 18px;
+    text-align: left;
+    border-radius: 4px;
+    box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.THIS .drop-down__name {
+    font-size: 9px;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.THIS .drop-down__menu-box {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    visibility: hidden;
+    opacity: 0;
+    margin-top: 5px;
+}
+
+.THIS .drop-down__menu-box:before {
+    content: '';
+    background-color: transparent;
+    border-right: 8px solid transparent;
+    position: absolute;
+    border-left: 8px solid transparent;
+    border-bottom: 8px solid #fff;
+    border-top: 8px solid transparent;
+    top: -15px;
+    left: 33px;
+}
+
+.THIS .drop-down__menu-box:after {
+    content: '';
+    background-color: transparent;
+}
+
+.THIS .drop-down__menu {
+    margin: 0;
+    padding: 0 13px;
+    list-style: none;
+}
+
+.THIS .drop-down__item {
+    width: 100px;
+    font-size: 13px;
+    margin-left: 15px;
+    padding: 13px 0;
+    text-align: left;
+    font-weight: 500;
+    color: #909dc2;
+    cursor: pointer;
+    position: relative;
+    border-bottom: 1px solid #e0e2e9;
+}
+
+.THIS .drop-down__item:hover {
+    color: #3d6def;
+}
+
+.THIS .drop-down__item:last-of-type {
+    border-bottom: 0;
+}
+
+.THIS .drop-down--active .drop-down__menu-box {
+    visibility: visible;
+    opacity: 1;
+    margin-top: 15px;
+    left: -16px;
+}
+
+.THIS .drop-down--active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.THIS .drop-down__item:before {
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 28px;
+    background-color: #3d6def;
+    left: -13px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: none;
+}
+
+.THIS .drop-down__item:hover:before {
+    display: block;
+}
+
+.THIS td {
+    text-align: left;
+    padding: 8px;
+}
+
+.THIS th {
+    text-align: left;
+    padding: 8px;
+}
+
+.THIS ::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
+
+/* =========== table css ============== */
+
+.THIS tr:nth-child(even) {
+    background: #f7f7f7;
+}
+
+.THIS .THcol_1 {
+    width: 3%;
+}
+
+.THIS .THcol_2 {
+    width: 9.4%;
+    text-align: center;
+}
+
+.THIS .THcol_3 {
+    width: 40%;
+    padding-left: 5%;
+}
+
+.THIS .THcol_4 {
+    width: 12%;
+    text-align: center;
+}
+
+.THIS .THcol_5 {
+    width: 12%;
+    text-align: center;
+}
+
+.THIS .THcol_6 {
+    width: 12%;
+    text-align: center;
+}
+
+.THIS .THcol_7 {
+    width: 13%;
+    text-align: -webkit-center;
+}
+
+.THIS .col_1 {
+    width: 50px;
+}
+
+.THIS .col_2 {
+    width: 130px;
+}
+
+.THIS .col_3 {
+    width: 525px;
+}
+
+.THIS .col_4 {
+    width: 140px;
+}
+
+.THIS .col_5 {
+    width: 150px;
+}
+
+.THIS .col_6 {
+    width: 155px;
+}
+
+.THIS .status__wrapper {
+    display: inline-flex;
+    align-items: center;
+    background: #e2e6e8;
+    border-radius: 1.5625rem;
+    width: 67px;
+}
+
+.THIS .status__indicator {
+    height: 0.725rem;
+    width: 0.725rem;
+    margin: 0.275rem;
+    border-radius: 0.4125rem;
+}
+
+.THIS .status__text {
+    color: #2d3033;
+    font-size: 0.6875rem;
+}
+
+.THIS .arrow {
+    visibility: hidden;
+}
+
+.THIS .formTitle {
+    color: black;
+    text-decoration: none;
+    padding: 0px;
+    background-color: #f2f2f2;
+}
+
+.THIS .formTitle:hover>.arrow {
+    visibility: visible;
+}
+
+.THIS .actionButton-main {
+    width: 32px;
+}
+
+.THIS .action-text {
+    text-align: start;
+}
+
+
+/* =========== table css ============== */
+
+.THIS .topRow {
+    background-color: #f2f2f2;
+}
+
+.THIS table::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .mainsec::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .formicon {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.THIS .slds-large-size_9-of-12 {
+    width: 78.5%;
+}
+
+.THIS .btnicon {
+    display: flex;
+}
+
+.THIS .changeCursor {
+    margin: 1px;
+    min-width: 25px;
+    position: relative;
+}
+
+.THIS .tooltip {
+    position: absolute;
+    top: 44px;
+    left: -120px;
+    width: 10rem;
+    transform: rotate(180deg);
+    display: none;
+}
+
+.THIS .tooltipmainfolder {
+    position: absolute;
+    top: 44px;
+    left: -147px;
+    width: 12rem;
+    transform: rotate(180deg);
+    display: none;
+}
+
+.THIS .tooltip2 {
+    position: absolute;
+    top: 44px;
+    left: -118px;
+    width: 10rem;
+    transform: rotate(180deg);
+    display: none;
+}
+
+.THIS .tooltip3 {
+    position: absolute;
+    top: 44px;
+    left: -120px;
+    width: 10rem;
+    transform: rotate(180deg);
+    display: none
+}
+
+.THIS .tooltipmainfolder3 {
+    position: absolute;
+    top: 44px;
+    left: -149px;
+    width: 12rem;
+    transform: rotate(180deg);
+    display: none
+}
+
+
+/* Active - Inactive button */
+
+.THIS .switch input {
+    display: none;
+}
+
+.THIS .switch small {
+    align-items: center;
+    display: inline-block;
+    width: 73px;
+    height: 22px;
+    background: #455a64;
+    border-radius: 30px;
+    position: relative;
+    cursor: pointer;
+}
+
+.THIS .switch small:after {
+    content: "Inactive";
+    position: absolute;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    width: 100%;
+    left: 0px;
+    text-align: right;
+    padding: 2px 6px;
+    box-sizing: border-box;
+    line-height: 18px;
+}
+
+.THIS .switch small:before {
+    align-items: center;
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border-radius: 50%;
+    top: 5px;
+    left: 5px;
+    transition: .3s;
+    box-shadow: -3px 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.THIS .switch input:checked~small {
+    background: #4fc5c5;
+    transition: .3s;
+}
+
+.THIS .switch input:checked~small:before {
+    transform: translate(52px, 0px);
+    transition: .3s;
+}
+
+.THIS .switch input:checked~small:after {
+    content: "Active";
+    text-align: left;
+    padding-left: 10px;
+}
+
+.THIS .imgfoldericon {
+    margin-right: 5px;
+}
+
+.THIS .recordList {
+    padding: 2px 0 0 5px;
+}
+
+.THIS .title {
+    padding: 3px 0;
+}
+
+.THIS .slds-dropdown_length-3 {
+    max-height: 85px;
+    overflow-y: scroll;
+}
+
+.THIS .slds-button_neutral {
+    background-color: #fff;
+}
+
+.THIS .action-text:hover {
+    border-left: solid #8279ff 3px;
+    padding-left: 3px;
+    margin-left: -10px;
+}
+
+.THIS .menuList-div {
+    min-width: 102px;
+}
+
+.THIS .action-text {
+    height: 1.25rem;
+}
+
+@media screen and (max-width: 1000px) {
+    .THIS .btnicon {
+        display: block;
+        margin-top: -20px;
+    }
+    .THIS .changeCursor {
+        width: 25px;
+    }
+}
+
+@media screen and (max-width: 764px) {
+    .THIS .hideit {
+        display: block;
+        background-color: white;
+        height: 100%;
+        width: 8%;
+    }
+    .THIS .rowsicon {
+        margin: 7px;
+    }
+    .THIS .rowsicon2 {
+        display: block;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .THIS .slds-icon {
+        width: 15px
+    }
+    .THIS .btnicon {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .THIS .folder {
+        display: none;
+    }
+    .THIS .folder_component {
+        display: none;
+    }
+    .THIS .addclass {
+        background-color: #f2f2f2;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 10;
+        height: 100%;
+        width: 38vw;
+        transition: 0.2s;
+        display: block;
+    }
+    .THIS .new_folder {
+        padding: 10px 0px;
+    }
+    .THIS .formicon {
+        justify-content: flex-start;
+        margin-top: 12px;
+    }
+    .THIS .mainform {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 667px) {
+    .THIS .mainform {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 867px) {
+    .THIS .formicon {
+        justify-content: flex-start;
+        margin-top: 12px;
+    }
+    .THIS .mainform {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 595px) {
+    .THIS .hideit {
+        width: 20%;
+    }
+    .THIS .addclass {
+        width: 45vw;
+    }
+    .THIS .formicon {
+        justify-content: flex-start;
+        margin-top: 12px;
+    }
+    .THIS .formpart {
+        border: none;
+    }
+    .THIS .mainform {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .THIS .formicon {
+        display: block;
+        margin-top: 10px;
+    }
+    .THIS .formiconsmargin {
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width:497px) {
+    .THIS .hideit {
+        width: 15%;
+    }
+    .THIS .formpart {
+        left: 15%;
+    }
+    .THIS .addclass {
+        width: 55vw;
+    }
+    .THIS .mainform {
+        display: flex;
+        flex-direction: column;
+    }
+    .THIS .formpart {
+        border: none;
+    }
+    .THIS .formicon {
+        display: block;
+        margin-top: 10px;
+    }
+}
+
+@media screen and (max-width:400px) {
+    .THIS .hideit {
+        display: block;
+        background-color: white;
+        height: 100%;
+        width: 18%;
+        z-index: 12;
+    }
+    .THIS .formpart {
+        border: none;
+        left: 18%;
+        width: 92%;
+    }
+    .THIS .addclass {
+        width: 85vw;
+        z-index: 14;
+    }
+    .THIS .formicon {
+        max-width: 50%;
+    }
+}
+
+@media screen and (max-width:347px) {
+    .THIS .formicon {
+        max-width: 50%;
+    }
+}
+
+@media screen and (max-width:380px) {
+    .THIS .formicon {
+        max-width: 20%;
+    }
+}
+
+@media screen and (max-width:300px) {
+    .THIS .addclass {
+        width: 100vw;
+        z-index: 14;
+    }
+}
+
+@media screen and (max-width:250px) {
+    .THIS .addclass {
+        width: 100vw;
+        z-index: 14;
+    }
+}
+
+
+/* =========== height =========== */
+
+@media screen and (min-height:870px) {
+    .THIS .dataTableMain {
+        height: 63vh;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-top: none;
+        width: 98%;
+        margin: 0px 10px 10px 10px;
+    }
+}
+
+@media screen and (max-height:870px) {
+    .THIS .dataTableMain {
+        height: 62vh;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-top: none;
+        width: 98%;
+        margin: 0px 10px 10px 10px;
+    }
+}
+
+@media screen and (max-height:850px) {
+    .THIS .dataTableMain {
+        height: 59vh;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-top: none;
+        width: 98%;
+        margin: 0px 10px 10px 10px;
+    }
+}
+
+@media screen and (max-height:800px) {
+    .THIS .dataTableMain {
+        height: 57vh;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-top: none;
+        width: 98%;
+        margin: 0px 10px 10px 10px;
+    }
+}
+
+@media screen and (max-height:750px) {
+    .THIS .dataTableMain {
+        height: 54vh;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-top: none;
+        width: 98%;
+        margin: 0px 10px 10px 10px;
+    }
+}
+
+@media screen and (max-height:725px) {
+    .THIS .dataTableMain {
+        height: 53vh;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-top: none;
+        width: 98%;
+        margin: 0px 10px 10px 10px;
+    }
+}
+
+@media screen and (max-height:700px) {
+    .THIS .dataTableMain {
+        height: 50.5vh;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-top: none;
+        width: 98%;
+        margin: 0px 10px 10px 10px;
+    }
+}
+
+@media screen and (max-height:675px) {
+    .THIS .dataTableMain {
+        height: 50vh;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-top: none;
+        width: 98%;
+        margin: 0px 10px 10px 10px;
+    }
+}
+
+@media screen and (max-height:650px) {
+    .THIS .dataTableMain {
+        height: 48vh;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-top: none;
+        width: 98%;
+        margin: 0px 10px 10px 10px;
+    }
+}
+
+@media screen and (max-height:625px) {
+    .THIS .dataTableMain {
+        height: 46vh;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-top: none;
+        width: 98%;
+        margin: 0px 10px 10px 10px;
+    }
+}
+
+@media screen and (max-height:600px) {
+    .THIS .dataTableMain {
+        height: 44vh;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-top: none;
+        width: 98%;
+        margin: 0px 10px 10px 10px;
+    }
+}
+
+@media screen and (max-height:575px) {
+    .THIS .dataTableMain {
+        height: 41vh;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-top: none;
+        width: 98%;
+        margin: 0px 10px 10px 10px;
+    }
+}
+
+@media screen and (max-height:550px) {
+    .THIS .dataTableMain {
+        height: 38vh;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-top: none;
+        width: 98%;
+        margin: 0px 10px 10px 10px;
+    }
+}
+
+@media screen and (max-height:525px) {
+    .THIS .dataTableMain {
+        height: 35vh;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-top: none;
+        width: 98%;
+        margin: 0px 10px 10px 10px;
+    }
+}
+
+@media screen and (max-height:500px) {
+    .THIS .dataTableMain {
+        height: 32vh;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-top: none;
+        width: 98%;
+        margin: 0px 10px 10px 10px;
+    }
+}
+
+@media screen and (max-height:475px) {
+    .THIS .dataTableMain {
+        height: 25vh;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-top: none;
+        width: 98%;
+        margin: 0px 10px 10px 10px;
+    }
+}
+
+@media screen and (max-height:450px) {
+    .THIS .dataTableMain {
+        height: 23.5vh;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-top: none;
+        width: 98%;
+        margin: 0px 10px 10px 10px;
+    }
+}
+
+@media screen and (max-height:425px) {
+    .THIS .dataTableMain {
+        height: 15vh;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-top: none;
+        width: 98%;
+        margin: 0px 10px 10px 10px;
+    }
+}
+
+@media screen and (max-height:400px) {
+    .THIS .dataTableMain {
+        height: 14vh;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-top: none;
+        width: 98%;
+        margin: 0px 10px 10px 10px;
+    }
+}

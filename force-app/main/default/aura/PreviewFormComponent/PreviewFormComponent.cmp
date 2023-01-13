@@ -1,0 +1,365 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:actionOverride,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" controller="PreviewFormComponentController"
+    access="GLOBAL">
+    <aura:attribute name="FormId" type="String" />
+    <aura:attribute name="PreviewFormField" type="Object" />
+    <aura:attribute name="PreviewFormField1" type="Object" />
+    <aura:attribute name="PaginationList" type="List" />
+    <aura:attribute name="startPage" type="Integer" />
+    <aura:attribute name="endPage" type="Integer" />
+    <aura:attribute name="totalRecords" type="Integer" />
+    <aura:attribute name="pageSize" type="Integer" default="1" />
+    <aura:attribute name="spinner" type="boolean" default="false" />
+
+    <aura:attribute name="FieldIdList" type="List" />
+    <aura:attribute name="DisableButton" type="boolean" default="false" />
+    <aura:attribute name="DisableSubmit" type="boolean" default="false" />
+    <aura:attribute name="PageNo" type="Integer" default="0" />
+    <aura:attribute name="totalPage" type="Integer" />
+    <aura:attribute name="formFieldMap" type="Map" />
+    <aura:attribute name="PreviewPage" type="boolean" default="true" />
+    <aura:attribute name="ThankYouPage" type="boolean" default="false" />
+    <aura:attribute name="FormFieldData" type="Object" />
+    <aura:attribute name="oldFieldValue" type="List" />
+    <aura:attribute name="PreviewType" type="string" default="Aura" />
+    <aura:attribute name="submition_map" type="Map" />
+    <aura:attribute name="fieldListInPage" type="List" />
+
+
+    <!-- For Progress bar -->
+    <aura:attribute name="pageNameList" type="List" />
+    <aura:attribute name="progress_list" type="List" />
+    <aura:attribute name="progress_step" type="Integer" default="0" />
+    <aura:attribute name="selectedStep" type="string" />
+    <aura:attribute name="selectedNumber" type="Integer" default="0" />
+    <aura:attribute name="progressBar" type="string" />
+    <aura:attribute name="perText" type="String" default="0%" description="Text to display inside circle. It is auto calculated field and used internally." />
+    <aura:attribute name="cirDeg" type="String" default="0" description="Degree of Progress to show. It is auto calculated field and used internally." />
+
+    <!-- Captcha Attribute -->
+    <aura:attribute name="CaptchaCode" type="String" />
+    <aura:attribute name="WrongCaptcha" type="boolean" default="false" />
+    <aura:attribute name="RightCaptcha" type="boolean" default="false" />
+    <aura:attribute name="CaptchaButton" type="boolean" default="true" />
+    <aura:attribute name="CaptchaEnable" type="boolean" />
+    <aura:attribute name="ShowRecList" type="boolean" />
+
+    <aura:attribute name="setCss" type="Map" />
+    <aura:attribute name="setPageCss" type="Map" />
+    <aura:attribute name="imgsrc" type="String" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.fetchPreviewFormField}" />
+    <aura:handler event="c:PreviewEvent" action="{!c.handleEvent}" />
+
+    <!-- <ltng:require scripts="{!$Resource.pdfgenerater}"
+    afterScriptsLoaded="{!c.onSubmit}" /> -->
+    <ltng:require scripts="{!$Resource.pdfgenerater}" afterScriptsLoaded="{!c.testpdfload}" />
+
+    <aura:if isTrue="{!v.spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+
+    <aura:if isTrue="{!(v.PreviewFormField1.Active__c || v.PreviewType == 'Aura')}">
+        <aura:if isTrue="{!v.PreviewPage}">
+            <div class="mainDiv" onclick="{!c.lookupFalse}">
+                <div id="myff" class="myform">
+
+                    <div class="formname">
+                        <b>{!v.PreviewFormField1.Title__c}</b>
+                    </div>
+
+                    <!-- Progress Standard Steps -->
+                    <aura:if isTrue="{!v.PreviewFormField1.Display_Type__c=='Standard Steps'}">
+                        <div class="slds-var-m-around_large">
+                            <lightning:progressIndicator currentStep="{!v.progress_step}" type="path" class="progress-step">
+                                <aura:iteration items="{!v.progress_list}" var="Label">
+                                    <lightning:progressStep label="{!Label.value}" value="{!Label.key}" style="pointer-events: none;" />
+                                </aura:iteration>
+                            </lightning:progressIndicator>
+                        </div>
+                    </aura:if>
+
+                    <!-- Progress Custom Steps -->
+                    <aura:if isTrue="{!v.PreviewFormField1.Display_Type__c=='Custom Steps'}">
+                        <div>
+                            <div id="progress">
+                                <div id="progress-barDiv">
+                                    <span id="progress-bar" style="width:0;"> </span>
+                                </div>
+                                <ul id="progress-num">
+                                    <aura:iteration items="{!v.PreviewFormField}" var="page" indexVar="index">
+                                        <li class="step">
+                                            <div style="margin-top: 30px;">
+                                                <div> {!index+1} </div>
+                                                <div style="color:black; width: max-content;;">{!page.PageObj.Title__c}</div>
+                                            </div>
+                                        </li>
+                                    </aura:iteration>
+                                </ul>
+                            </div>
+                        </div>
+                    </aura:if>
+
+                    <!-- Progress Bar -->
+                    <aura:if isTrue="{!v.PreviewFormField1.Display_Type__c=='Progress Bar'}">
+                        <div class="meter">
+                            <span style="width:0;"> 
+                        </span>
+                            <div class="progress-text">
+                                {!v.progressBar}%
+                            </div>
+                        </div>
+                    </aura:if>
+
+                    <aura:iteration items="{!v.PaginationList}" var="page">
+                        <div class="page" id="{!page.PageObj.Id}">
+                            <div class="pagetitlesubtitle" style="background-color: transparent;">
+                                <div class="pageTitle">{!page.PageObj.Title__c}</div>
+                                <div class="pagesubTitle" style="opacity:0.4">{!page.PageObj.Sub_Title__c}</div>
+                            </div>
+
+                            <aura:iteration items="{!page.FieldWrapperList}" var="fieldList" indexVar="index">
+                                <div class="fields" data-formid="{!fieldList.FieldObj.Id}">
+                                    <aura:iteration items="{!v.oldFieldValue}" var="fieldData" indexVar="i">
+                                        <aura:if isTrue="{!(index == i)}">
+                                            <c:quickformfieldcomponent1 aura:id="someChild" PageId="{!page.PageObj.Id}" tView="{!fieldList.FieldObj.Data_Record_Id__c}" fId="{!fieldList.FieldObj.Id}" Compview="Full" FormField="{!fieldList.FieldObj}" FieldAttribute="{!fieldList.FieldAttObj}" FieldAttributeValue="{!fieldList.FieldValueObj}"
+                                                ShowRecList="{!v.ShowRecList}" fieldValue="{!fieldData}" />
+                                        </aura:if>
+                                    </aura:iteration>
+                                </div>
+                            </aura:iteration>
+
+                            <aura:if isTrue="{!v.totalRecords == v.endPage}">
+                                <!-- Captcha 1  (Normal Captcha) -->
+                                <aura:if isTrue="{!v.PreviewFormField1.Captcha_Type__c == 'Normal Captcha'}">
+                                    <div>
+                                        <p class="captcha-label"><b> Captcha </b></p>
+                                        <div class="captcha-main-div">
+                                            <div>
+                                                <div style="pointer-events: none;">
+                                                    <input type="text" class="generated-captcha" id="generated-captcha" disabled="true" />
+                                                </div>
+                                                <div>
+                                                    <input type="text" class="captchainput" placeholder="Captcha" id="cpatchaTextBox" disabled="{!v.disableField}" />
+                                                    <button type="button" class="captchabutton captchabtn1" onclick="{!c.checkCaptcha1}" disabled="{!v.disableField}">
+                                                    Verify
+                                                </button>
+                                                    <button type="button" class="captchabutton captchabtn2" onclick="{!c.createCaptcha1}" disabled="{!v.disableField}">
+                                                    Generate New
+                                                </button>
+                                                </div>
+                                            </div>
+                                            <div class="captcha-footer">
+                                                <aura:if isTrue="{!v.WrongCaptcha}">
+                                                    <p style="color: #a64545;"> Invalid Captcha. </p>
+                                                </aura:if>
+                                                <aura:if isTrue="{!v.RightCaptcha}">
+                                                    <p style="color: #578537;"> Captcha Verified </p>
+                                                </aura:if>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </aura:if>
+
+                                <!-- Captcha 2  (Maths Captcha) -->
+                                <aura:if isTrue="{!v.PreviewFormField1.Captcha_Type__c == 'Maths Captcha'}">
+                                    <div>
+                                        <p class="captcha-label"><b> Captcha </b></p>
+                                        <div class="captcha-main-div">
+                                            <label class="submit__control">
+                                            <h3 class="captcha2-label">Are you human?</h3>
+                                            <div class="submit__generated" id="submit__generated">
+                                                <span id="maths1"> </span> + 
+                                                <span id="maths2"> </span> = 
+                                                <input class="submit__input" id="submit__input" type="text" maxlength="2" size="2" onkeyup="{!c.checkCaptcha2}"/>
+                                            </div>
+                                            <button type="button" class="captchabutton captchabtn2" onclick="{!c.createCaptcha2}" disabled="{!v.disableField}">
+                                                Generate New
+                                            </button>
+                                            <div class="captcha-footer">
+                                                <aura:if isTrue="{!v.WrongCaptcha}">
+                                                    <p style="color: #a64545;"> Invalid Captcha. </p>
+                                                </aura:if>
+                                                <aura:if isTrue="{!v.RightCaptcha}">
+                                                    <p style="color: #578537;"> Captcha Verified </p>
+                                                </aura:if>
+                                            </div>
+                                        </label>
+                                        </div>
+                                    </div>
+                                </aura:if>
+
+                                <!-- Captcha 3  (Normal Captcha In popup) -->
+                                <aura:if isTrue="{!v.PreviewFormField1.Captcha_Type__c == 'Normal Captcha In popup'}">
+                                    <div>
+                                        <p class="captcha-label"><b> Captcha </b></p>
+                                        <div class="captcha-main-div">
+                                            <button type="button" class="capbtn" id="show_captcha_button" onclick="{!c.openCaptchaModel}">I'm not a robot</button>
+                                            <div class="captcha-footer" style="padding: 5px">
+                                                <aura:if isTrue="{!v.RightCaptcha}">
+                                                    <p style="color: #578537; text-align:center"> Captcha Verified </p>
+                                                </aura:if>
+                                            </div>
+                                        </div>
+                                        <div id="captcha_modal" class="modal">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h2>Please verify that you are not a robot</h2>
+                                                    <span class="close_captcha">&times;</span>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <canvas id='textCanvas'></canvas>
+                                                    <img id='image' class="chaptcha_image" src="" />
+                                                    <button type="button" class="verify_button" id="refreshButton">&#8634;</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <input type="text" class="captcha_textfield" id="txtInput" />
+                                                    <button type="button" class="verify_button" id="verifyButton">Verify</button>
+                                                </div>
+                                                <div class="captcha-footer">
+                                                    <aura:if isTrue="{!v.WrongCaptcha}">
+                                                        <p style="color: #a64545; padding-left: 15px"> Invalid Captcha. </p>
+                                                    </aura:if>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </aura:if>
+
+                                <!-- Captcha 4  (Slider Captcha) -->
+                                <aura:if isTrue="{!v.PreviewFormField1.Captcha_Type__c == 'Slider Captcha'}">
+                                    <div>
+                                        <p class="captcha-label"><b> Captcha </b></p>
+                                        <div class="captcha-main-div">
+                                            <div class="slide-captcha" style="user-select:none;">
+                                                <span class="slide-text">I am not a robot</span>
+                                                <aura:if isTrue="{!v.RightCaptcha}">
+                                                    <div class="captcha4-done"> Captcha Verified </div>
+                                                    <aura:set attribute="else">
+                                                        <div class="slide-block">GO!</div>
+                                                    </aura:set>
+                                                </aura:if>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </aura:if>
+
+                                <!-- Captcha 5  (Image Captcha) -->
+                                <aura:if isTrue="{!v.PreviewFormField1.Captcha_Type__c == 'Image Captcha'}">
+                                    <div>
+                                        <p class="captcha-label"><b> Captcha </b></p>
+                                        <div class="captcha-main-div">
+                                            <div class="container-fluid">
+                                                <div class="form-row">
+                                                    <div class="col-12">
+                                                        <div class="slidercaptcha card">
+                                                            <div class="card-header">
+                                                                <span>Complete the security check</span>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <div id="captcha"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="captcha-footer" style="padding: 5px">
+                                                <aura:if isTrue="{!v.RightCaptcha}">
+                                                    <p style="color: #578537; text-align:center"> Captcha Verified </p>
+                                                </aura:if>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </aura:if>
+                            </aura:if>
+
+                            <div class="button">
+                                <aura:if isTrue="{!v.PageNo != 0}">
+                                    <!-- <lightning:button label="Previous" disabled="{!v.startPage == 0 || v.DisableSubmit}" onclick="{!c.onPrevious}" variant="brand" /> -->
+                                    <button id="progress-prev" class="slds-button slds-button_brand" label="Previous" disabled="{!v.startPage == 0 || v.DisableSubmit}" onclick="{!c.onPrevious}"> Previous </button>
+                                </aura:if>
+                                <aura:if isTrue="{!v.totalRecords == v.endPage}">
+                                    <!-- disabled="{!v.DisableButton || v.CaptchaButton || v.DisableSubmit}" -->
+                                    <!-- {!v.DisableButton} === {!v.CaptchaButton} === {!v.DisableSubmit} -->
+                                    <lightning:button label="Submit" disabled="{!v.DisableButton || v.CaptchaButton || v.DisableSubmit}" onclick="{!c.onSubmit}" variant="brand" />
+                                    <aura:set attribute="else">
+                                        <!-- <lightning:button label="Next" disabled="{!v.endPage >= v.totalRecords || v.DisableButton}" onclick="{!c.onNext}" variant="brand" /> -->
+                                        <button id="progress-next" class="slds-button slds-button_brand" label="Next" disabled="{!v.endPage >= v.totalRecords || v.DisableButton}" onclick="{!c.onNext}"> Next </button>
+                                    </aura:set>
+                                </aura:if>
+                            </div>
+
+                        </div>
+                    </aura:iteration>
+                    <!-- Circular Progress Bar -->
+                    <aura:if isTrue="{!v.PreviewFormField1.Display_Type__c=='Page Count'}">
+                        <div class="pageNo">
+                            <b>{!v.PageNo+1}</b> of <b>{!v.totalPage}</b>
+                        </div>
+                    </aura:if>
+
+                </div>
+            </div>
+        </aura:if>
+    </aura:if>
+    <aura:if isTrue="{! and(v.PreviewFormField1.Active__c == false, v.PreviewType == 'Site')}">
+        <div class="error-cmp">
+            <div class="error-page">
+                <div class="landing-page">
+                    <p style="font-size: 48px;"> 404 Error.</p>
+                    <p style="font-size: 16px; width: 35%; margin: 16px auto 24px; text-align: center;"> Ooops! Sorry, <br /> We can't find the form you're looking for.</p>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+
+    <aura:if isTrue="{!v.ThankYouPage}">
+        <div style="background-color: #eae3e3; height: inherit; overflow-y: scroll;">
+            <div style="padding: 2% 0px;">
+                <div class="pageClass">
+
+                    <div class="thanksLabel">
+                        <ui:outputRichText class="outrichstyle slds-cell-wrap" value="{!v.PreviewFormField1.ThankYou_Label__c}" />
+                    </div>
+
+                    <aura:if isTrue="{!v.PreviewFormField1.ThankYou_Page__c == 'ThankYou_Text'}">
+                        <div class="txtstyle"> {!v.PreviewFormField1.ThankYou_Text__c} </div>
+                    </aura:if>
+
+                    <aura:if isTrue="{!v.PreviewFormField1.ThankYou_Page__c == 'Redirect_Text_And_URL'}">
+                        <div class="txtstyle"> {!v.PreviewFormField1.Redirect_Text__c} </div>
+                    </aura:if>
+
+                    <aura:if isTrue="{!v.PreviewFormField1.ThankYou_Page__c == 'ThankYou_Report'}">
+                        <div class="heading">
+                            Your Form Data:
+                        </div>
+                        <aura:iteration items="{!v.FormFieldData}" var="field">
+                            <div class="subdiv">
+                                <div class="attributelabel">
+                                    {!field[0]} :
+                                </div>
+                                <div class="fieldlabel">
+                                    {!field[1]}
+                                </div>
+                            </div>
+                        </aura:iteration>
+                    </aura:if>
+
+                    <aura:if isTrue="{!v.PreviewFormField1.ThankYou_Page__c == 'ThankYou_RichText'}">
+                        <div class="txtstyle">
+                            <lightning:formattedRichText value="{!v.PreviewFormField1.ThankYou_RichText__c}" />
+                        </div>
+                    </aura:if>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+
+    <!-- <img src="{!v.imgsrc}" alt="" /> -->
+
+</aura:component>

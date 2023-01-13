@@ -1,0 +1,262 @@
+.THIS.thanksMainDiv {
+    height: 100%;
+    display: flex;
+}
+
+.THIS .thanksChoice {
+    width: 20%;
+    height: 100%;
+    background-color: #F5F5F5;
+    padding: 1%;
+    overflow: auto;
+}
+
+.THIS .thanksChoice::-webkit-scrollbar {
+    display: none;
+}
+
+.THIS .thanksLabelDiv {
+    margin: 7% 0;
+    font-size: 30px;
+    font-weight: 600;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.56);
+}
+
+.THIS .hrLine {
+    border-top: 2px solid #ccc;
+    margin: 4% 0 4% 3%;
+}
+
+.THIS .form-control {
+    display: none;
+}
+
+.THIS .form-check {
+    margin-left: 5%;
+    font-size: 16px;
+}
+
+.THIS .thanks-option {
+    padding-top: 2px;
+    margin-right: 5px;
+}
+
+.THIS .thanks-optiondiv {
+    display: flex;
+}
+
+.THIS .thankyouinput {
+    margin-top: -15px;
+    margin-bottom: 5px;
+    width: 100%;
+    min-height: 30px;
+}
+
+.THIS .thankyouinput-rich {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 100%;
+    min-height: 30px;
+}
+
+.THIS .thanksPreviewDiv {
+    width: 80%;
+    height: 100%;
+    background-color: #E5E5E5;
+}
+
+.THIS .thanksPreview {
+    height: 70%;
+    width: 80%;
+    background-color: #fff;
+    margin: auto;
+}
+
+.THIS .thanksEditButton {
+    height: 13%;
+    padding: 4% 10% 0 0;
+}
+
+.THIS .thanksEditButton .slds-button {
+    padding: 2px 29px;
+    font-size: 1rem;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    border: none;
+}
+
+.THIS .editBtn {
+    float: right;
+}
+
+.THIS .imgDiv {
+    height: 60%;
+    width: fit-content;
+    margin: auto;
+    padding: 10% 10% 0 12%;
+}
+
+.THIS .txtstyle {
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.THIS .saveButton {
+    height: 13%;
+    margin: 4% 0 0 40%;
+}
+
+.THIS .saveBtn,
+.THIS .cancelBtn {
+    border: none;
+    font-family: 'Roboto';
+    border-radius: 10px;
+    font-size: 20px;
+    width: 115px;
+    height: 35px;
+    margin: 1%;
+}
+
+.THIS .saveBtn {
+    background-color: #6699CC;
+    color: #fff;
+}
+
+.THIS .cancelBtn {
+    background-color: #c0c0c0;
+    text-align: center;
+}
+
+
+/* Richtext Model Start */
+
+.THIS .richtextModel {
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    position: fixed;
+    z-index: 3;
+    background-color: rgb(255 255 255 / 75%);
+}
+
+.THIS .richtextModel .richtextMainDiv {
+    margin: 0 auto;
+    display: flex;
+    width: 50%;
+    max-width: 40rem;
+    min-width: 20rem;
+    height: 100%;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.THIS .richtextModel .richtextDiv {
+    background: #fff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.THIS .richtextModel .richtextLabel {
+    height: 60px;
+    background: #6699cc;
+    padding: 7px;
+    font-size: 2rem;
+    font-weight: 500;
+    color: #fff;
+    text-align: center;
+}
+
+.THIS .richtextModel .richtextContent {
+    min-height: 260px;
+}
+
+.THIS .richtextModel .richtextTab,
+.THIS .richtextModel .htmlTab {
+    border: none;
+}
+
+.THIS .richtextModel .slds-tabs_scoped__nav {
+    border-right: none;
+    border-left: none;
+}
+
+.THIS .richtextModel .richtextButtonDiv {
+    height: 50px;
+}
+
+.THIS .richtextModel .richtextButton {
+    width: fit-content;
+    margin: auto;
+}
+
+.THIS .richtextModel .saveModelButton {
+    background: #6699CC;
+    color: #fff;
+    width: 100px;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+    border-radius: 8px;
+    font-size: medium;
+    font-weight: 400;
+}
+
+.THIS .richtextModel .cancelModelButton {
+    background: #E6E7E9;
+    color: #000;
+    margin-left: 20px;
+    width: 100px;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+    border-radius: 8px;
+    font-size: medium;
+    font-weight: 400;
+}
+
+.THIS .form-check .slds-dropdown_left {
+    right: auto;
+}
+
+
+/* Richtext Model End */
+
+.THIS .slds-notify_container .slds-icon-utility-success {
+    --sds-c-icon-color-foreground: rgb(36, 146, 3);
+}
+
+@media only screen and (max-width:1500px) {
+    .THIS .thanksChoice {
+        width: 24%;
+    }
+
+    .THIS .thanksPreviewDiv {
+        width: 76%;
+    }
+}
+
+@media only screen and (max-width:1300px) {
+    .THIS .thanksChoice {
+        width: 27%;
+    }
+
+    .THIS .thanksPreviewDiv {
+        width: 73%;
+    }
+}
+
+@media only screen and (max-width:1100px) {
+    .THIS .thanksChoice {
+        width: 30%;
+    }
+
+    .THIS .thanksPreviewDiv {
+        width: 70%;
+    }
+}
+
+@media only screen and (max-height:800px) {
+    .THIS .thanksEditButton {
+        padding: 2% 10% 0 0;
+    }
+}

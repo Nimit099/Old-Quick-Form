@@ -1,0 +1,363 @@
+/* .THIS .slds-brand-band{
+    overflow: hidden;
+} */
+
+.THIS .iconDiv {
+    /* height:100%; */
+    /* float:left; */
+    /* overflow-x: overlay;
+    /* width:4vw; 
+    text-align:center;*/
+  
+}
+
+
+.THIS .fieldDiv {
+    height:95vh;
+    background-color:white;
+    overflow-x: overlay;
+   
+  
+} 
+.THIS.row{
+    --bs-gutter-x: 0 !important;
+    --bs-gutter-y: 0 !important;
+        z-index:100000 !important;
+    }
+.THIS .row>*{
+    padding-left:0 !important;
+      
+}
+.THIS .fieldDivchange {
+    /* height:100%; */
+    
+    height:100vh;
+    /* float:left; */
+    /* width:25vw; */
+    background-color:white;
+    overflow-x: overlay;
+   /* overflow-y: scroll;*/
+    /* overflow: scroll; */
+    
+   transition: all 0.4s cubic-bezier(0.4, 0, 0, 1);
+  
+  position: fixed;
+    
+
+}
+
+
+
+
+
+.THIS .fieldDiv1 {
+    /* height:100%; */
+    height:100vh;
+    overflow:scroll;
+    /* float:left; */
+    /* width:60vw; */
+    background-color: #f1f2f5;
+  
+  
+}
+.THIS .fieldDiv2{
+    /* height:100%; */
+    height: 100vh;
+    /* float:left; */
+    /* width:20vw; */
+    background-color:white;
+    overflow:scroll;
+    overflow-x: clip;
+    /* overflow: scroll; */
+     
+}
+
+.THIS .One svg{
+    /* fill: light-blue; */
+    fill:#6699ff ;
+    margin-top: 10px;
+}
+.THIS .One :hover {
+    /*fill: #0b1213;*/
+     fill:#b3c6ff;;
+}
+.THIS .fieldname{
+    font-size: large;
+    
+}
+.THIS .formtitle{
+    /* background-color: #e6e5e2; */
+    text-align: center;
+    font-size: large;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 3%;
+    margin-top: 2%;    
+    border-radius: 3px;
+    width: 94%;
+    /* margin-bottom: 5%; */
+    /* height: 5%; */
+    padding-bottom: 2%;
+    /* padding-right: 3%; */
+    padding-top: 1%;
+}
+
+.THIS .title{
+    font-size: 2.5rem;
+    /* font-weight: bold; */
+}
+.THIS .pagetitle{    
+    font-size: large;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 3px;    
+    /* padding-bottom: 10%; */
+    padding-bottom: 20px;
+    margin-left: 3%;    
+}
+.THIS .formButtonMenu {
+    margin-right: 3%;
+}
+.THIS .pageButtonMenu {
+    margin-right: 3%;
+}
+.THIS .page{
+    background-color: rgb(255, 255, 255);
+    width : 84%;
+    height : auto;
+    border-radius: 5px;
+    margin-top: 3%;
+    margin-left: 8%;
+    /* margin-right: 8%; */
+}
+.THIS .pagetitle1{
+    font-size: 2rem;
+    margin-top: 10%;
+    /* font-weight: bold; */
+    /* margin-left: 1%; */
+}
+.THIS .pagetitle1if{
+    font-size: 1rem;
+    margin-top: 10%;
+    color: #9d9f9f;
+}
+.THIS .subpagetitleif{
+    font-size: 0.8rem;
+    color: #9d9f9f;
+}
+.THIS .slds-dropdown_left  {
+    left: auto;
+    right: 0;
+}
+.THIS .subpagetitle{
+    font-size: 1rem;
+    /* font-weight: bold; */
+    /* border-radius: 3px; */
+    /* padding-left: 10px !important; */
+}
+.THIS .example-dropzone{
+    background-color: rgb(255, 255, 255);
+    width : 96%;
+    height : auto;    
+    margin: 0 2%;    
+    padding-bottom: 10%;
+}
+.THIS.slds-spinner_container {
+    z-index: 10000;
+    position: fixed;
+}
+.THIS .footer{
+    background-color:#e6e5e2;
+    border-radius:3px;
+    width: 94%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+ .THIS .footer .slds-button{
+    color:black;
+    background-color:white;
+    font-size: 15px;
+}
+.THIS .slds-m-around_small{
+    display: inline;
+}
+.THIS .slds-button_destructive{
+    margin-right: 15px !important;
+}
+.THIS .header{
+    font-size:1.5rem;
+}
+.THIS .slds-modal__footer{
+   padding-bottom: 3% !important;
+}
+.THIS .slds-modal__header{
+    background-color:rgb(243, 242, 242);    
+}
+.THIS .footer .slds-button{
+    font-size:15px !important;
+}
+.THIS .field{
+    /* background-color: #0b1213; */
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
+    /* pointer-events: none; */
+    /* padding-bottom: 10%; */
+}
+.THIS .objects{
+    background-color: #f1f2f5;
+    /* float:left; */
+    width:96%;
+    overflow-y: scroll;
+    /* background-image: url('https://images.pexels.com/photos/8264/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+    background-size: cover;
+    background-position: center; */
+    
+}
+.THIS .preview{
+    background-color: #f1f2f5;
+    /* float:left; */
+    width:96%;
+    height: auto;
+    overflow-y: scroll;
+}
+.THIS .slds-vertical-tabs{
+    background-color:white !important;
+    
+    
+     height: auto;
+     
+}
+.THIS .slds-icon_small{
+
+    fill: #6699ff;
+    width:18px;
+ 
+}
+
+.THIS .slds-is-active{
+     
+     
+    
+}
+.THIS .slds-vertical-tabs__nav{
+     z-index:1000;
+     width:90%;
+       
+    
+}
+.THIS .slds-vertical-tabs__content {
+    
+     padding:0rem !important;
+        padding-top:5px !important;
+        padding-right:6px !important;
+      
+        
+            }
+   
+.THIS .slds-vertical-tabs__nav li a{
+    background-color:white;
+     border:2px solid white !important;
+    outline:none !important;
+    
+}
+.THIS .slds-vertical-tabs__nav li a:focus{
+    background-color:#eff4ff;
+     border-radius:6px;        
+    
+    
+}
+ 
+.THIS .two{
+      background-color:#eff4ff;
+        padding:10px;
+      animation: myfirst 0.2s  forwards ;
+     -webkit-animation:myfirst 2s forwards;
+        
+ 
+}
+ @keyframes myfirst {
+    0% {  
+         width:0%; 
+        }
+    100%{
+          width:100%;              
+        }
+   20%{
+         
+        }
+     30%{
+         
+     }
+      40%{
+             
+     }
+      50%{
+              
+     }
+      60%{
+             
+     }
+      70%{
+            
+     }
+    100% {  }
+}
+.THIS .slds-icon_small:hover{
+       transform: scale(1.2,1.2);
+       
+      
+}
+
+/*@keyframes myfirst {
+    0% {margin-left:-15%;width:100% }
+    100% { margin-left:5%;width:100%;
+                 }
+    }*/
+/*@keyframes myfirst {
+ 
+    10%{
+       width:0; 
+       left:-200px;
+     
+    }
+    20%{
+        
+        margin-right:300px;
+    }
+    30%{
+        
+          margin-right:185px;
+    }
+    40%{
+           margin-right:149px;
+    }
+     50%{
+         margin-right:135px;
+    }
+    60%{
+         margin-right:111px;   
+    }
+     70%{
+       margin-right:84px;     
+    }
+     80%{
+        margin-right:62px;         
+    }
+     90%{
+             margin-right:44px;   
+        }
+     100%{
+          margin-right:10px;   
+    }
+
+
+
+
+}*/
+    
+ .THIS .form-control{
+        display:none;
+    }

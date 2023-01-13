@@ -1,0 +1,169 @@
+.THIS.slds-spinner_container {
+    z-index: 10;
+    position: fixed;
+}
+.THIS .slds-modal__header {
+    background-color: rgb(243, 242, 242);
+}
+.THIS .header {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+.THIS .content.slds-modal__content {
+    background-color: var(--slds-c-modal-content-color-background, var(--sds-c-modal-content-color-background, var(--slds-c-modal-color-background, var(--sds-c-modal-color-background, var(--lwc-colorBackgroundAlt, rgb(255, 255, 255))))));
+    color: var(--slds-c-modal-content-text-color, var(--sds-c-modal-content-text-color, var(--slds-c-modal-text-color, var(--sds-c-modal-text-color))));
+    overflow: hidden;
+    overflow-y: auto;
+    height: 70%;
+    position: absolute;
+    top: 150px;
+    left: -100px;
+}
+.THIS .content.slds-modal__content::-webkit-scrollbar {
+    display: none;
+}
+.THIS .slds-modal__footer {
+    border-top-style: none;
+    color: var(--slds-c-modal-footer-text-color, var(--sds-c-modal-footer-text-color, var(--slds-c-modal-text-color, var(--sds-c-modal-text-color))));
+    flex-shrink: 0;
+    padding-top: var(--slds-c-modal-footer-spacing-block-start, var(--sds-c-modal-footer-spacing-block-start, var(--lwc-spacingSmall, 0.75rem)));
+    padding-right: var(--slds-c-modal-footer-spacing-inline-end, var(--sds-c-modal-footer-spacing-inline-end, var(--lwc-spacingMedium, 1rem)));
+    padding-bottom: var(--slds-c-modal-footer-spacing-block-end, var(--sds-c-modal-footer-spacing-block-end, var(--lwc-spacingSmall, 0.75rem)));
+    text-align: right;
+    box-shadow: none;
+    background-color: white;
+}
+.THIS .slds-modal__footer {
+    padding-bottom: 3% !important;
+}
+.THIS .clay.btn {
+    padding: 7px 7px;
+    width: 100px;
+    box-shadow: 0px 2px #888888;
+    border-radius: 9px;
+}
+.THIS .btn_first{
+    background-color: #DEDEDE !important;
+    color: black !important;
+}
+.THIS .btn_second{
+    background-color: #6699CC !important;
+    color: white !important;
+}
+.THIS .richtext{
+    width: 80%;
+}
+.THIS .showtab_ntf{
+    position:absolute; 
+    z-index:11; 
+    top:0; 
+    width: 96.2%; 
+    height: 100%; 
+    background-color: #FFFDFD;
+}
+.THIS .emailNotificationDiv {
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    overflow-y: auto;
+}
+.THIS .card-body{
+    padding:3% 7% 3% 7%;
+}
+.THIS .text_ntf{
+    color: rgba(59, 56, 56, 0.56); 
+    font-weight: 800; 
+    font-size:24px;
+}
+.THIS .emailDetails {
+    width: 100%;
+    margin-top: 50px;
+}
+.THIS .pills_list{
+    border:1px solid rgba(87, 84, 84, 0.377); 
+    padding:1px; 
+    border-radius:5px; 
+    margin-bottom:8px; 
+    min-height:34px;
+}
+.THIS .pills_data{
+    display:flex; 
+    margin:1px;
+}
+.THIS .pills_btn{
+    background:none; 
+    border:none;
+}
+.THIS .pills_btn img{
+    width:16px; 
+    height:16px;
+}
+.THIS .fnl_button{
+    justify-content:space-around; 
+    display:flex;
+}
+.THIS .input_reply{
+    margin-top: 5px;
+}
+
+.THIS .save_button{
+    padding: 0 29%;
+    width: 100%;
+}
+.THIS .btn_save , .THIS .btn_cancel{
+    width: 190px;
+    box-shadow: 0px 2px #888888;
+    padding:4px 22px; 
+    border-radius:15px; 
+    background-color:#6699CC; 
+    border:none; 
+    color:white;
+}
+.THIS .btn_cancel{
+    background-color: #DEDEDE;
+    color: black;
+}
+.THIS .btn_save h1 ,.THIS .btn_cancel h1{
+    font-size:18px;
+}
+.THIS .slds-pill{
+    margin: 1px;
+}
+.THIS .helptxt {
+    margin-left: 5px;
+}
+
+
+@media all and (min-width : 768px) and (max-width:1023px) {
+    .THIS .richtext{
+        width:90% !important;
+    }
+    .THIS .save_button{
+        padding: 0 28%;
+        width: 100%;
+    }
+    .THIS .card-body{
+        padding:2% 5% 2% 5%; 
+    }
+}
+
+@media all and (min-width : 1440px) and (max-width : 1770px) {
+    .THIS .save_button{
+        padding: 0 26%;
+        width: 100%;
+    }
+}
+
+@media all and (min-width : 1024px) and (max-width : 1440px) {
+    .THIS .richtext{
+        width:80% !important;
+    }
+    .THIS .save_button{
+            padding: 0 33%;
+            width: 100%;
+    }
+    .THIS .card-body{
+        padding:2% 5% 2% 5%; 
+    }
+}

@@ -1,0 +1,279 @@
+<aura:component implements="force:appHostable" controller="QuickFormFieldComponentController">
+    <aura:attribute name="view" type="String" default="Compact" />
+    <aura:attribute name="FormId" type="String" />
+    <aura:attribute name="spinner" type="boolean" default="FALSE" />
+    <aura:attribute name="showToast" type="String" />
+    <aura:attribute name="FormPageFieldValueWrapper" type="Object" />
+    <aura:attribute name="Page" type="Page__c" default="{
+        'SObjectType': 'Page__c',
+        'Form__c' : '',
+        'Title__c': '',
+        'Sub_Title__c': ''
+    }">
+    </aura:attribute>
+    <aura:attribute name="ids" type="String" default="form" />
+    <aura:registerEvent name="cmpEvent" type="c:FieldEvent" />
+    <aura:attribute name="showtxt" type="Boolean"/> 
+    <aura:attribute name="radioValue" type="String" default="apples"/>
+    <aura:attribute name="option" type="Boolean"/>
+    <aura:attribute name="hide" type="string" default="true"/> 
+    <aura:attribute name="myVal" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.fetchQuickFormFieldAttValue}" />
+
+
+
+    <div class="slds-grid slds-gutters ">
+        <div class="slds-col slds-size_3-of-12">
+            <lightning:tabset variant="vertical">
+                <lightning:tab class="One " iconName="utility:insert_tag_field" title="Mapping Fields" onactive="{! c.handleActive }">
+                    <div class="fieldDiv two" aura:id="demo">
+                        <lightning:card class="fieldname mt-3">
+                            <p style="color: rgb(97, 121, 199);text-align: center;" ><b>Fields</b></p>
+                        </lightning:card><br/>
+                        <div style="" ondragover="{!c.onDragOver}" ondrop="{!c.MethodForOpacity}">
+                            <aura:iteration items="{!v.FormPageFieldValueWrapper.basefield}" var="basefield">
+                                <div class="example-draggable" data-record="{!basefield.DataRecord__c}" draggable="true" ondragstart="{!c.onDragStart}">
+                                    <c:quickformfieldcomponent1 tView="{!basefield.DataRecord__c}" Compview="{!v.view}" />
+                                </div>
+                            </aura:iteration>
+                        </div>
+                    </div>
+                </lightning:tab>
+                <lightning:tab class="One" iconName="utility:brush" title="Design" onactive="{! c.handleActive }">
+                    <div class="fieldDiv " style="position:relative; " aura:id="demo">
+                        <lightning:card class="fieldname mt-4">
+                            <p style="color: rgb(97, 121, 199);text-align: center;"><b>Design</b></p>
+                        </lightning:card><br/>
+        
+                        <lightning:combobox name="progress" label="Status" value="inProgress" placeholder="Select Progress" options="{! v.options }" />
+        
+                    </div>
+                </lightning:tab>
+                <lightning:tab iconName="utility:notification" title="Notification" onactive="{! c.handleActive }">
+                    <div class="fieldDiv  popup" style="position:relative;" aura:id="demo">
+                        <lightning:card class="fieldname mt-4">
+                            <p style="color: rgb(97, 121, 199);text-align: center;"><b>Notification</b></p>
+                        </lightning:card><br/>
+                    </div>
+        
+                </lightning:tab>
+                 
+                <lightning:tab iconName="utility:page" title="Thank you page" onactive="{! c.handleActive }">
+                   
+                    <div class="fieldDiv " style="position:absolute; z-index:10;top:0; height:100vh; overflow:hidden; width:96% !important;" aura:id="demo">
+                        <div class="card mx-auto" style="width:50%; box-shadow: 5px 10px 18px #888888; top:8%;">
+                             <h1 class=" display-4; text-center mt-4" style="color:#6699ff;">Thank You !</h1>
+                       <div class="card-body" style=" padding:2rem" >
+                         <div class="form-check">
+                             <lightning:input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked="true" value="{!v.option}" onchange="{!c.toggleFields}" label="Show Text"/>
+                         
+                               <lightning:input type="text" class="form-control mx-1 my-2 " id="Input1" value="You message has been sent . Thank you for filling out our form!" style="display:block" />
+                          </div>
+                            
+                       <div class="form-check">
+                           <lightning:input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="{!v.option}" onchange="{!c.toggleFields}" label="Redirect to a webpage"/>
+                            
+                              <aura:if isTrue="{!v.hide}"> 
+                             <lightning:input type="text" class="form-control mx-1 my-2 " id="Input2"  />
+                              </aura:if>   
+                        </div>
+                            
+                       <div class="form-check">
+                           <lightning:input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3"   value="{!v.option}" onchange="{!c.toggleFields}"  label="Show text , then redirect to web page"/>
+                          
+                             <lightning:input type="text" class="form-control mx-1 my-2 "   value="You message has been sent . Thank you for filling out our form!"/>
+                           
+                               
+                          
+                        </div>
+                        
+                               
+                          <div class="form-check">
+                           <lightning:input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4"  value="{!v.option}" onchange="{!c.toggleFields}" label="Show report"/>
+                          
+                             <lightning:input type="text" class="form-control mx-1 my-2 " id="Input4" />
+                        </div>
+                               
+                        <div class="form-check">
+                           <lightning:input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault5" value="{!v.option}"  onchange="{!c.toggleFields}" label="Show HTML block"/>
+                           
+                           
+                            <div class="form-control mx-1 my-2 " id="Input5">
+                                
+                                 <lightning:inputRichText value="{!v.myVal}" placeholder="Type something interesting"/>
+                                  <!--<h1 class="slds-m-top_large slds-text-heading_medium">Output</h1>
+                                      <div aura:id="output" class="slds-box editor slds-text-longform">
+                                   <lightning:formattedRichText value="{!v.myVal}" />
+                                    </div>-->
+                            
+                            </div>
+                                 
+                            
+                            
+                        </div>
+                               
+                        <div class="form-check">
+                           <lightning:input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault6"  value="{!v.option}" onchange="{!c.toggleFields}" label="Redirect with custom variables"/>
+                          
+                             <lightning:input type="text" class="form-control mx-1 my-2" id="Input6" />
+                        </div>
+                        
+                                 <div class="form-check">
+                           <lightning:input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault7"  value="{!v.option}" onchange="{!c.toggleFields}" label="Show quiz results"/>
+                          
+                             <lightning:input type="text" class="form-control mx-1 my-2 " id="Input7" />
+                        </div>
+                               
+                               
+                            </div>
+        
+                       </div>
+                    </div>
+                </lightning:tab>
+             
+              
+                <lightning:tab iconName="utility:apps" title="Application" onactive="{! c.handleActive }">
+                    <div aura:id="demo">
+                          <div class="fieldDiv  popup" style="position:relative; " >
+                        <lightning:card class="fieldname mt-3">
+                            <p style="color: rgb(97, 121, 199);text-align: center;"><b>Application</b></p>
+                        </lightning:card><br/>
+                    </div>
+                    </div>
+                  
+                </lightning:tab>
+                <lightning:tab iconName="utility:rules" title="Rules" onactive="{! c.handleActive }">
+                    <div class="fieldDiv  popup" style="position:relative; " aura:id="demo">
+                        <lightning:card class="fieldname mt-3">
+                            <p style="color: rgb(97, 121, 199);text-align: center;"><b>Rules</b></p>
+                        </lightning:card><br/>
+                    </div>
+        
+                </lightning:tab>
+                <lightning:tab iconName="utility:approval" title="Approval" onactive="{! c.handleActive }">
+                    <div class="fieldDiv popup" style="position:relative; " aura:id="demo">
+                        <lightning:card class="fieldname mt-3">
+                            <p style="color: rgb(97, 121, 199);text-align: center;"><b>Approvals</b></p>
+                        </lightning:card><br/>
+                    </div>
+        
+        
+                </lightning:tab>
+                <lightning:tab iconName="utility:threedots_vertical" title="More" onactive="{! c.handleActive }">
+                    <div class="fieldDiv  popup" style="position:relative; " aura:id="demo">
+                        <lightning:card class="fieldname mt-3">
+                            <p style="color: rgb(97, 121, 199);text-align: center;"><b>More</b></p>
+                        </lightning:card><br/>
+                    </div>
+                </lightning:tab>
+                <lightning:tab iconName="utility:product_transfer" title="Translation" onactive="{! c.handleActive }">
+                    <div class="fieldDiv  popup" style="position:relative;" aura:id="demo">
+                        <lightning:card class="fieldname mt-3">
+                            <p style="color: rgb(97, 121, 199);text-align: center;"><b>Translation</b></p>
+                        </lightning:card><br/>
+                    </div>
+                </lightning:tab>
+                <lightning:tab iconName="utility:lock" title="Security" onactive="{! c.handleActive }">
+                    <div class="fieldDiv  popup" style="position:relative; " aura:id="demo">
+                        <lightning:card class="fieldname mt-3">
+                            <p style="color: rgb(97, 121, 199);text-align: center;"><b>Security</b></p>
+                        </lightning:card><br/>
+                    </div>
+                </lightning:tab>
+                <lightning:tab iconName="utility:justify_text" title="Advanced" onactive="{! c.handleActive }">
+                    <div class="fieldDiv  popup" style="position:relative; " aura:id="demo">
+                        <lightning:card class="fieldname mt-3">
+                            <p style="color: rgb(97, 121, 199);text-align: center;"><b>Advanced</b></p>
+                        </lightning:card><br/>
+                    </div>
+        
+                </lightning:tab>
+            </lightning:tabset>
+        </div>
+        <div class="slds-col slds-size_6-of-12">
+            <div class="fieldDiv1 col-md-7">
+
+                <div class="formtitle">
+                    <div style="display: flex;align-items: center;margin-left: 1%;">
+                        <div class="title">{!v.FormPageFieldValueWrapper.formName.Title__c}</div>
+                    </div>
+                    <lightning:buttonMenu class="formButtonMenu" alternativeText="Show menu" onselect="{! c.handleSelect }" name="{!'form:::'+v.FormId}">
+                        <lightning:menuItem aura:id="menuItems" value="edit" label="Edit Form" prefixIconName="utility:edit" />
+                        <lightning:menuItem aura:id="menuItems" value="new page add" label="Add Page" prefixIconName="utility:new" />
+                    </lightning:buttonMenu>
+                </div>
+                <br/>
+                <header class="slds-modal__header" style="margin-left: 8%;margin-right: 8%;"></header>
+                <hr style="margin: 5px 10px !important;" />
+                <div>
+                    <aura:iteration items="{!v.FormPageFieldValueWrapper.PageWrapperList}" var="page" indexVar="index">
+                        <div class="page" id="{!page.PageObj.Id}">
+                            <div class="pagetitle">
+                                <div style="display: flex;align-items: center;">
+                                    <div>
+                                        <aura:if isTrue="{!page.PageObj.Title__c == null}">
+                                            <div class="pagetitle1if">No page title</div>
+                                            <aura:set attribute="else">
+                                                <div class="pagetitle1">{!page.PageObj.Title__c}</div>
+                                            </aura:set>
+                                        </aura:if>
+                                        <aura:if isTrue="{!page.PageObj.Sub_Title__c == null}">
+                                            <div class="subpagetitleif">No page Subtitle</div>
+                                            <aura:set attribute="else">
+                                                <div class="subpagetitle">{!page.PageObj.Sub_Title__c}</div>
+                                            </aura:set>
+                                        </aura:if>
+                                    </div>
+                                </div>
+    
+                                <lightning:buttonMenu class="pageButtonMenu" alternativeText="Show menu" onselect="{! c.handleSelectPage }" name="{!'page:::'+page.PageObj.Id}">
+                                    <lightning:menuItem aura:id="menuItems" value="edit" label="Edit Page" prefixIconName="utility:edit" />
+                                    <lightning:menuItem aura:id="{!page.PageObj.Id}" value="delete" label="Delete Page" prefixIconName="utility:delete" />
+                                </lightning:buttonMenu>
+                            </div>
+                            <div class="example-dropzone" ondragover="{!c.onDragOver}" ondrop="{!c.onDrop}">
+    
+                                <aura:iteration items="{!page.FieldWrapperList}" var="fieldList">
+                                    <div id="{!page.PageObj.Id}" name="{!'field:::'+fieldList.FieldObj.Id}" class="field" draggable="true" data-record="{!fieldList.FieldObj.Id}" data-ref="inner" ondragstart="{!c.onDragStart}" onclick="{!c.handleid}">
+                                        <c:quickformfieldcomponent1 tView="{!fieldList.FieldObj.Data_Record_Id__c}" Compview="Full" FieldAttribute="{!fieldList.FieldAttObj}" FieldAttributeValue="{!fieldList.FieldValueObj}" /><br/>
+                                    </div>
+    
+                                </aura:iteration>
+                            </div>
+                            <div class="footer">
+                                <aura:if isTrue="{!index == 0}">
+                                    <lightning:button class="nextbutton" variant="brand" label="Next" title="Next" disabled="true" onclick="{!c.onaddpage1}" />
+                                    <aura:set attribute="else">
+                                        <aura:if isTrue="{!index != v.FormPageFieldValueWrapper.PageWrapperList.length - 1}">
+                                            <div class="previousnextbutton">
+                                                <lightning:button variant="brand" label="Previous" title="Previous" disabled="true" onclick="{!c.onaddpage1}" />
+                                                <lightning:button variant="brand" label="Next" title="Next" disabled="true" onclick="{!c.onaddpage1}" />
+                                            </div>
+                                            <aura:set attribute="else">
+                                                <div class="previoussubmitbutton">
+                                                    <lightning:button variant="brand" label="Previous" title="Previous" disabled="true" onclick="{!c.onaddpage1}" />
+                                                    <lightning:button variant="brand" label="Submit" title="Submit" disabled="true" onclick="{!c.onaddpage1}" />
+                                                </div>
+                                            </aura:set>
+                                        </aura:if>
+                                    </aura:set>
+                                </aura:if>
+                            </div>
+                        </div>
+    
+                    </aura:iteration><br/>
+                    <header class="slds-modal__header" style="margin-left: 8%;margin-right: 8%;"></header><br/>
+                </div>
+            </div>
+        </div>
+        <div class="slds-col slds-size_3-of-12">
+            <div class="fieldDiv2 ">
+
+                <c:FieldAttributeValidation/>
+            </div>
+        </div>
+        </div>
+  
+    
+
+</aura:component>

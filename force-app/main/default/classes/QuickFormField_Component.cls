@@ -1,0 +1,290 @@
+public with sharing class QuickFormField_Component {
+
+    @AuraEnabled
+    // Save Attribute Value
+    public static WrapperSave saveAttributeList(WrapperSave wlist){
+        WrapperSave wrp = new WrapperSave();
+        try {         
+            if(wlist.AttributeList.Read_Only__c == true || wlist.AttributeList.Hide_Field__c == true){
+                wlist.AttributeList.Required_Field__c = false;
+            }  
+            if(wlist.AttributeList != null){
+                update wlist.AttributeList;
+            }
+            if(wlist.FieldList != null){
+                upsert wlist.FieldList;
+            } 
+            wrp.AttributeList = wlist.AttributeList;
+            wrp.FieldList = wlist.FieldList;        
+            
+            if (wlist.AttributeList.Form_Field__r.Data_Record_Id__c == 'QFFULLNAME') {
+                List<Form_Field__c> listName =[SELECT Id FROM Form_Field__c WHERE Name_Id__c =: wlist.AttributeList.Form_Field__c];
+                List<FieldAttribute__c> nameAttribute = [SELECT Id, Required_Field__c FROM FieldAttribute__c WHERE Form_Field__c IN: listName];
+                for (FieldAttribute__c fValue : nameAttribute){
+                    fValue.Required_Field__c = wlist.AttributeList.Required_Field__c;
+                }
+                update nameAttribute;
+            }
+        }catch(Exception e){
+            System.debug(e);
+        }
+        return wrp;
+    }    
+
+    @AuraEnabled
+    public static WrapperClass fetchList(String ids){
+        WrapperClass wrpcls=new WrapperClass();
+        try{
+            Form_Field__c fieldData = [SELECT Id, Label__c, LookUp_Obj__c FROM Form_Field__c WHERE Id =: ids];
+
+            FieldAttribute__c attributeList = [SELECT Id, Name, Label__c, Visibility__c,Field_Validation__c,Total_value__c,Limit_value__c,
+                                                Instruction__c, Min_no_of_character__c, Max_no_of_character__c, Hide_Field__c, Form_Field__c, Show_on_click__c, Required_Field__c,
+                                                Read_Only__c,Add_Prefix_Inside_The_Field__c,Input_height_in_rows__c,Max_no_of_words__c,Min_no_of_words__c,Prefix__c,Show_Decimal__c, Inline_Choices__c,
+                                                Date_Format__c,No_of_columns__c,Agreement_Text__c,Directions__c, Form_Field__r.Data_Record_Id__c,Placeholder__c,Placeholder_text__c, RichText__c
+                                                FROM FieldAttribute__c WHERE Form_Field__c =: ids limit 1];
+
+            List<Field_Value__c> fieldList = [SELECT Id,Name,Form_Field__c,Form__c, Likert__c, Likert_Data__c FROM Field_Value__c WHERE Form_Field__c =:ids ];
+
+            if (attributeList.Form_Field__r.Data_Record_Id__c == 'QFLOOKUP') {
+                List<string> SObjectList = new List<string>();
+                for(Schema.SObjectType sObj : schema.getGlobalDescribe().values()){
+                    if(sObj.getDescribe().isUpdateable() && sObj.getDescribe().isAccessible()){
+                        sObjectList.add(sObj.getDescribe().getName()+','+sObj.getDescribe().getLabel());
+                    }
+                }
+                wrpcls.SObjectList = SObjectList;
+            }
+
+            wrpcls.FieldObj = fieldData;
+            wrpcls.AttributeList = attributeList;
+            wrpcls.FieldList=fieldList;
+
+        }catch(Exception e){
+            System.debug(e);
+        }
+        return wrpcls;
+    }
+
+    @AuraEnabled
+    public static void deletefieldRecord(String fieldId, String fieldtype){
+        try{
+            List<Sobject> listobj = new List<Sobject>();
+
+            Form_Field__c field = [SELECT Id, Page__c FROM Form_Field__c WHERE Id =: fieldId];
+            List<FieldAttribute__c> formAttribute = [SELECT Id,Form_Field__c FROM FieldAttribute__c WHERE Form_Field__c =: fieldId];
+            List<Field_Value__c> fieldValue = [SELECT Id,Form_Field__c FROM Field_Value__c WHERE Form_Field__c =: fieldId];
+
+            if (fieldtype == 'QFADDRESS') {
+                List<Form_Field__c> fieldlist = [SELECT Id FROM Form_Field__c WHERE Address_Id__c =: fieldId];
+                List<FieldAttribute__c> attributelist = [SELECT Id,Form_Field__c FROM FieldAttribute__c WHERE Form_Field__c IN: fieldlist];
+                listobj.addAll(attributelist);
+                listobj.addAll(fieldlist);
+            }
+            
+            if (fieldtype == 'QFFULLNAME') {
+                List<Form_Field__c> fieldlist = [SELECT Id FROM Form_Field__c WHERE Name_Id__c =: fieldId];
+                List<FieldAttribute__c> attributelist = [SELECT Id,Form_Field__c FROM FieldAttribute__c WHERE Form_Field__c IN: fieldlist];
+                listobj.addAll(attributelist);
+                listobj.addAll(fieldlist);
+            }
+
+            listobj.addAll(formAttribute);
+            listobj.addAll(fieldValue);
+            listobj.add(field);
+            
+            if(listobj.size()>0){
+                delete listobj;
+            }
+        }catch(Exception e){
+            System.debug(e);
+        }
+    }
+
+    @AuraEnabled
+    public static void duplicatefieldRecord(String fieldId){
+        try{
+            Form_Field__c listIds = [SELECT API_Name__c ,Data_Record_Id__c, Date_Format__c, Default_Value__c, Directions__c, Field_Validation__c, Form__c, Input_height_in_rows__c, Instruction__c, Label__c, Limit__c, 
+                                        Max_no_of_character__c, Min_no_of_character__c, Number_Format__c, Object_API_Name__c, Page__c, Placeholder__c, Placeholder_Visibility__c, Read_Only__c, Required__c, Sequence__c, 
+                                        Show_Decimal__c, Show_on_click__c, Type__c, Visibility__c FROM Form_Field__c WHERE Id =: fieldId];
+
+            Form_Field__c newField = listIds.clone();
+            if(newField != null){
+                insert newField;
+            }   
+
+            FieldAttribute__c attributeList = [SELECT Id, Name, Label__c, Visibility__c,Field_Validation__c,Total_value__c,Limit_value__c,
+                                                Instruction__c, Min_no_of_character__c, Max_no_of_character__c, Hide_Field__c, Form_Field__c, Show_on_click__c, Required_Field__c,
+                                                Read_Only__c,Add_Prefix_Inside_The_Field__c,Input_height_in_rows__c,Max_no_of_words__c,Min_no_of_words__c,Prefix__c,Show_Decimal__c, Inline_Choices__c,
+                                                Date_Format__c,No_of_columns__c,Agreement_Text__c,Directions__c, Form_Field__r.Data_Record_Id__c,Placeholder__c,Placeholder_text__c, RichText__c
+                                                FROM FieldAttribute__c WHERE Form_Field__c =: fieldId];
+
+            FieldAttribute__c fieldattribute = attributeList.clone();
+            fieldattribute.Label__c = 'Copy of '+ attributeList.Label__c;
+            fieldattribute.Form_Field__c = newField.Id;
+            if(fieldattribute != null){
+                insert fieldattribute;
+            } 
+            
+
+            if (newField.Data_Record_Id__c == 'QFCHECKBOX' || newField.Data_Record_Id__c == 'QFRADIOBUTTON' || newField.Data_Record_Id__c == 'QFDROPDOWN') {
+                List<String> optionlst = new List<String>();
+                List<Field_Value__c> FieldList = [SELECT Id,Name,Form_Field__c,Form__c FROM Field_Value__c WHERE Form_Field__c =:fieldId ];
+                for (Field_Value__c fv : FieldList) {
+                    optionlst.add(fv.Name);
+                }
+                
+                List<Field_Value__c> fieldvalue = new List<Field_Value__c>();
+                for(Integer i=0;i<optionlst.size();i++){
+                    Field_Value__c ff = new Field_Value__c();
+                    ff.Form__c = listIds.Form__c;
+                    ff.Page__c = listIds.Page__c;
+                    ff.Form_Field__c = newField.Id;            
+                    ff.Name = optionlst[i];  
+                    fieldvalue.add(ff);
+                }
+                if(fieldvalue.size()>0){
+                    insert fieldvalue;
+                } 
+            }
+            else if (newField.Data_Record_Id__c == 'QFADDRESS') {
+                Form_Field__c addfield2 = new Form_Field__c(Data_Record_Id__c ='CITY', Address_Id__c = newField.Id, Form__c = listIds.Form__c, Page__c = listIds.Page__c);
+                Form_Field__c addfield3 = new Form_Field__c(Data_Record_Id__c ='REGION', Address_Id__c = newField.Id, Form__c = listIds.Form__c, Page__c = listIds.Page__c);
+                Form_Field__c addfield4 = new Form_Field__c(Data_Record_Id__c ='POSTALCODE', Address_Id__c = newField.Id, Form__c = listIds.Form__c, Page__c = listIds.Page__c);
+                Form_Field__c addfield5 = new Form_Field__c(Data_Record_Id__c ='COUNTRY', Address_Id__c = newField.Id, Form__c = listIds.Form__c, Page__c = listIds.Page__c);
+                List<Form_Field__c> addressList = new List<Form_Field__c>{addfield2, addfield3, addfield4, addfield5};
+                if(addressList.size()>0){
+                    insert addressList;
+                } 
+
+                FieldAttribute__c addattribure2 = new FieldAttribute__c(Form_Field__c = addfield2.Id, Label__c = 'City');
+                FieldAttribute__c addattribure3 = new FieldAttribute__c(Form_Field__c = addfield3.Id, Label__c = 'Region');
+                FieldAttribute__c addattribure4 = new FieldAttribute__c(Form_Field__c = addfield4.Id, Label__c = 'PostalCode');
+                FieldAttribute__c addattribure5 = new FieldAttribute__c(Form_Field__c = addfield5.Id, Label__c = 'Country');
+                List<FieldAttribute__c> addressAttributeList = new List<FieldAttribute__c>{addattribure2, addattribure3, addattribure4, addattribure5};
+                if(addressAttributeList.size()>0){
+                    insert addressAttributeList;
+                } 
+            }
+            else if(newField.Data_Record_Id__c == 'QFFULLNAME'){
+                Form_Field__c addfield2 = new Form_Field__c(Data_Record_Id__c ='First Name', Name_Id__c = newField.Id, Form__c = listIds.Form__c, Page__c = listIds.Page__c);
+                Form_Field__c addfield3 = new Form_Field__c(Data_Record_Id__c ='Last Name', Name_Id__c = newField.Id, Form__c = listIds.Form__c, Page__c = listIds.Page__c);
+                List<Form_Field__c> addressList = new List<Form_Field__c>{addfield2, addfield3};
+                if(addressList.size()>0){
+                    insert addressList;
+                }
+
+                FieldAttribute__c addattribure1 = [SELECT Label__c FROM FieldAttribute__c WHERE Id =: fieldattribute.Id];
+                addattribure1.Label__c = 'Salutation';
+                if(addattribure1 != null){
+                    update addattribure1;
+                } 
+
+                FieldAttribute__c addattribure2 = new FieldAttribute__c(Form_Field__c = addfield2.Id, Label__c = 'First Name');
+                FieldAttribute__c addattribure3 = new FieldAttribute__c(Form_Field__c = addfield3.Id, Label__c = 'Last Name');
+                List<FieldAttribute__c> addressAttributeList = new List<FieldAttribute__c>{addattribure2, addattribure3};
+                if(addressAttributeList.size()>0){
+                    insert addressAttributeList;
+                }
+            }
+            else if (newField.Data_Record_Id__c == 'QFSCALERATING') {
+                List<Field_Value__c> FieldList=[ SELECT Id, Form_Field__c, Form__c, Page__c, Likert__c, Likert_Data__c FROM Field_Value__c WHERE Form_Field__c =:fieldId ];
+                List<Field_Value__c> newScaleValue = new List<Field_Value__c>();
+                for (Field_Value__c fValue : FieldList) {
+                    if (fValue.Likert__c == 'Statement') {
+                        Field_Value__c likertvalue1 = fValue.clone();
+                        likertvalue1.Form_Field__c = newField.Id;
+                        newScaleValue.add(likertvalue1);
+                    }
+                    else if(fValue.Likert__c == 'Option'){
+                        Field_Value__c likertvalue2 = fValue.clone();
+                        likertvalue2.Form_Field__c = newField.Id;
+                        newScaleValue.add(likertvalue2);
+                    }
+                }
+                if(newScaleValue.size()>0){
+                    insert newScaleValue;
+                } 
+            }
+        }catch(Exception e){
+            System.debug(e);
+        }
+    }
+    
+    @AuraEnabled
+    public static List<Field_Value__c> deleteRecord(String field, String ids){
+        Field_Value__c valuelist= [SELECT Id,Name,Form_Field__c FROM Field_Value__c WHERE Id =: field ];
+        if(valuelist != null){
+            delete valuelist;
+        }
+        
+        List<Field_Value__c> FieldList=[ SELECT Id,Name,Form_Field__c,Form__c FROM Field_Value__c WHERE Form_Field__c =:ids ];
+        return FieldList;
+    }   
+
+    @AuraEnabled 
+    public static List<Form__c> fetchQuickFormField(String formId){
+        Form__c form = [SELECT Id, Name, Display_Type__c, Description__c, Active__c, Captcha_Type__c, Title__c FROM Form__c WHERE id =: formId];
+        System.debug('Form ===> ' + form);
+        return [SELECT Id, Name, Display_Type__c, Description__c, Active__c, Captcha_Type__c, Title__c FROM Form__c WHERE id =: formId];
+    }
+
+    @AuraEnabled
+    public static List<Page__c> fetchPagedetails(String pageId){
+        return [SELECT Id ,Form__c,Title__c,Sub_Title__c FROM Page__c WHERE Id =: pageId];
+    }
+    
+    @AuraEnabled 
+    public static String updateFormDetails(String formTitle,List<Form__c> formdetails){
+        set<id> formId = new set<Id>();
+        for(Form__c formData : formdetails){
+            System.debug('formData ==> '+formData);
+            formId.add(formData.Id);
+        }
+        List<Form__c> FormList = [SELECT Id,Name FROM Form__c WHERE Title__c =: formTitle  AND Id !=: formId ];
+        if(FormList.size() > 0){
+            return 'error';
+        }else{
+            upsert formdetails;
+            return 'success';
+        }
+    }
+
+    @AuraEnabled
+    public static List<Page__c> upatePageDetails(List<Page__c> pagedetails){
+        upsert pagedetails;
+        return pagedetails;
+    }
+
+    @AuraEnabled
+    public static void updateLookUp(String fieldId, String userObj){
+        try{
+            Form_Field__c fieldData = [SELECT Id, Label__c, LookUp_Obj__c FROM Form_Field__c WHERE Id =: fieldId];
+            fieldData.LookUp_Obj__c = userObj;
+            if(fieldData != null){
+                update fieldData;
+            } 
+        }catch(Exception e){
+            System.debug(e);
+        }
+    }
+
+    public class WrapperSave{
+        @AuraEnabled public FieldAttribute__c AttributeList{get;set;}
+        @AuraEnabled public List<Field_Value__c> FieldList{get;set;}
+        public WrapperSave(){
+            this.AttributeList=new FieldAttribute__c();
+            this.FieldList=new List<Field_Value__c>();
+        }
+    }
+
+    public class WrapperClass{
+        @AuraEnabled public Form_Field__c FieldObj {get;set;}
+        @AuraEnabled public FieldAttribute__c AttributeList{get;set;}
+        @AuraEnabled public List<Field_Value__c> FieldList{get;set;}
+        @AuraEnabled public List<String> SObjectList{get;set;}
+        public WrapperClass(){
+            this.AttributeList=new FieldAttribute__c();
+            this.FieldList=new List<Field_Value__c>();
+        }
+    }
+}

@@ -1,0 +1,311 @@
+.THIS.fullname {
+    display: flex;
+    justify-content: space-between;
+}
+
+.THIS.fullname .slds-form-element {
+    min-width: 33%;
+}
+
+.THIS.fullname .slds-form-element__label,
+.THIS.dropdown-menu .slds-form-element__label {
+    display: none;
+}
+
+.THIS.slds-box_xx-small {
+    border: 1px solid #046EAA;
+    align-items: center;
+    flex-direction: row;
+    display: flex !important;
+    height: 40px !important;
+    border-radius: 10px !important;
+    font-size: 15px !important;
+    padding: 0 15px !important;
+    white-space: revert;
+    margin: 0 0 10px 10%;
+}
+
+.THIS .icon {
+    margin-right: 6px !important;
+    padding: 0 !important;
+}
+
+.THIS.slds-box_xx-small:hover {
+    background-color: #f0f0f0;
+}
+
+.THIS .slds-textarea {
+    height: 80px;
+}
+
+.THIS.datetime .slds-form-element {
+    width: 100%;
+}
+
+.THIS.outrichstyle {
+    min-height: 32px;
+    padding: 5px 16px 5px 12px;
+    border: 1px solid rgb(201, 201, 201);
+    border-radius: 3px;
+}
+
+.THIS.ratingstyle {
+    width: 100%;
+    border: none;
+    padding: 0 0px !important;
+    margin: 0 0 0 0px;
+}
+
+.THIS.ratingstyle:hover {
+    background-color: transparent;
+}
+
+.THIS .rate {
+    float: left;
+    margin-left: 15px;
+}
+
+.THIS .rate:not(:checked)>input {
+    position: absolute;
+    display: none;
+}
+
+.THIS .rate:not(:checked)>label {
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 30px;
+    color: #ccc;
+}
+
+.THIS .rate:not(:checked)>label:before {
+    content: '★ ';
+}
+
+.THIS .rate>input:checked~label {
+    color: #ffc700;
+}
+
+.THIS .rate:not(:checked)>label:hover,
+.THIS .rate:not(:checked)>label:hover~label {
+    color: #deb217;
+}
+
+.THIS .rate>input:checked+label:hover,
+.THIS .rate>input:checked+label:hover~label,
+.THIS .rate>input:checked~label:hover,
+.THIS .rate>input:checked~label:hover~label,
+.THIS .rate>label:hover~input:checked~label {
+    color: #c59b08;
+}
+
+.THIS .slds-form-element__label:empty {
+    display: none;
+}
+
+.THIS .slds-textarea[disabled],
+.THIS .slds-select,
+.THIS .slds-input[disabled],
+.THIS.outrichstyle,
+.THIS input,
+.THIS textarea,
+.THIS select,
+.THIS .slds-checkbox_faux,
+.THIS .slds-input,
+.THIS .slds-radio [type=radio][disabled]+.slds-radio__label .slds-radio_faux,
+.THIS .slds-checkbox_faux {
+    background-color: var(--bgcolorfield, 'white');
+    border-color: var(--bordercolorfield, 'black');
+    border-style: var(--borderstylefield, solid);
+    border-width: var(--borderwidthfield, 1px);
+    border-radius: var(--borderradiusfield, 1px);
+    padding-top: var(--bordervtpaddingfield, 1px);
+    padding-bottom: var(--bordervbpaddingfield, 0px);
+    padding-left: var(--borderhlpaddingfield, 0px);
+    padding-right: var(--borderhrpaddingfield, 0px);
+    color: var(--bordertextcolor, black);
+    line-height: var(--inputlineheight, normal);
+    font-size: var(--inputfontsize, normal);
+    font-style: var(--inputfontstyle, normal);
+    font-weight: var(--inputfontweight, normal);
+    font-family: var(--inputfontfamily, sans-serif);
+}
+
+.THIS .likert-rating {
+    border-color: var(--bordercolorfield, grey);
+    border-style: var(--borderstylefield, solid);
+    border-width: var(--borderwidthfield, 0px);
+    border-radius: var(--borderradiusfield, 0px);
+    padding-top: var(--bordervtpaddingfield, 0px);
+    padding-bottom: var(--bordervbpaddingfield, 0px);
+    padding-left: var(--borderhlpaddingfield, 0px);
+    padding-right: var(--borderhrpaddingfield, 0px);
+    color: var(--bordertextcolor, black);
+    line-height: var(--inputlineheight, normal);
+    font-size: var(--inputfontsize, normal);
+    font-style: var(--inputfontstyle, normal);
+    font-weight: var(--inputfontweight, normal);
+    font-family: var(--inputfontfamily, sans-serif);
+}
+
+.THIS .slds-textarea[disabled]:focus,
+.THIS.outrichstyle:focus,
+.THIS .likert-rating:focus,
+.THIS .slds-input[disabled]:focus,
+.THIS input:focus,
+.THIS textarea:focus,
+.THIS select:focus,
+.THIS .slds-checkbox_faux:focus,
+.THIS .slds-radio_faux:focus,
+.THIS .slds-combobox__input:focus {
+    background-color: var(--fieldfocusbg, white);
+    border-color: var(--fieldfocusborderColor, normal);
+    color: var(--fieldfocuscolor, black);
+}
+
+.THIS .slds-textarea[disabled]:hover,
+.THIS.outrichstyle:hover,
+.THIS .likert-rating:hover,
+.THIS .slds-input[disabled]:hover,
+.THIS input:hover,
+.THIS textarea:hover,
+.THIS select:hover,
+.THIS .slds-checkbox_faux:hover,
+.THIS .slds-radio_faux:hover,
+.THIS .slds-combobox__input:hover {
+    background-color: var(--fieldhoverbg, white);
+    border-color: var(--fieldhoverborderColor, darkgrey);
+    color: var(--fieldhovercolor, black);
+}
+
+.THIS .scale_rating,
+.THIS .emoji_rating,
+.THIS.slds-form-element__label,
+.THIS.ratebox {
+    /* color: var(--focuslabelcolor, black); */
+    padding-bottom: 3px;
+    display: flex;
+    flex-direction: row;
+    justify-content: var(--labelAlign, Left);
+    font-family: var(--labelfontfamily, sans-serif);
+    font-weight: var(--labelfontweight, normal);
+    font-style: var(--labelfontstyle, normal);
+    font-size: var(--labelfontsize, normal);
+    line-height: var(--labelineheight, normal);
+    color: var(--labelcolor, black);
+    margin-top: var(--labeltopmargin, 0);
+    margin-bottom: var(--labelbottommargin, 0);
+}
+
+.THIS .scale_rating:hover,
+.THIS .emoji_rating:hover,
+.THIS.slds-form-element__label:hover,
+.THIS.ratebox :hover {
+    color: var(--hoverlabelcolor, black);
+}
+
+.THIS .slds-radio_faux {
+    width: var(--radiowidth, 1px);
+    height: var(--radioheight, 1px);
+    margin-top: var(--radiomarginright, 0px);
+}
+
+.THIS .slds-checkbox_faux {
+    width: var(--checkwidth, 1px);
+    height: var(--checkheight, 1px);
+    margin-top: var(--checkmargintop, 0px);
+}
+
+.THIS.main-recordDiv {
+    box-shadow: 0 2px 5px rgb(0 0 0 / 30%), 0 2px 5px rgb(0 0 0 / 22%);
+    max-height: 150px;
+    overflow-x: auto;
+    position: absolute;
+    background-color: #fff;
+    z-index: 10;
+}
+
+.THIS .record-list {
+    cursor: pointer;
+    padding: 2px 5px;
+}
+
+.THIS .record-list:hover {
+    background-color: antiquewhite;
+}
+
+.THIS .slds-truncate {
+    padding: 7px;
+}
+
+
+/* Rating CSS */
+
+.THIS .em {
+    height: 1.5em;
+    width: 1.5em;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-user-drag: none;
+}
+
+.THIS .rating-wrapper {
+    padding-top: 5px;
+}
+
+.THIS .rating-wrapper input.rating {
+    display: none;
+}
+
+.THIS .rating-wrapper label.rating {
+    padding: 5px 3px;
+    font-size: 40px;
+    opacity: 0.7;
+    filter: grayscale(1);
+    cursor: pointer;
+}
+
+.THIS .rating-wrapper label.rating:hover {
+    filter: grayscale(0.50);
+    transform: scale(1.1);
+    transition: 100ms ease;
+}
+
+.THIS .rating-wrapper input.rating:checked+label.rating {
+    filter: grayscale(0);
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.THIS .ratingItemList {
+    display: flex;
+    justify-content: center;
+}
+
+
+/* Likert Scale Rating */
+
+.THIS .statement-style {
+    min-height: 30px;
+    min-width: 40px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.THIS .likert-style {
+    min-height: 30px;
+    min-width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.THIS .recordList {
+    padding: 2px 0 0 5px;
+}

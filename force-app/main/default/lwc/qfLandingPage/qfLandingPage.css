@@ -1,0 +1,23 @@
+.SidebarSection{
+    width: 40%;
+    margin-right: 10px;
+    /* height: 100%; */
+}
+
+.FormSection{
+    width: 100%;
+    /* height: 100%; */
+    background-color: aqua;
+    padding: 15px 25px 15px 25px;
+}
+
+.SupportSection{
+    width: 20%;
+    margin-right: 10px;
+    margin-left: 10px;
+    background-color: black;
+
+}
+.MainClass{
+    height: 100%;
+}

@@ -1,0 +1,181 @@
+.THIS.iconDiv {
+    height:100%;
+    text-align:center;
+    background-color: #19a2f0;
+}
+.THIS.fieldDiv {
+    height:100%;
+    /*background-color: rgb(240, 241, 241);*/
+    background-color:white;
+    overflow: scroll; 
+}
+.THIS.fieldDiv1 {
+    height:100%;
+    /*background-color: rgb(240, 241, 241);*/
+    background-color: #f1f2f5;
+    overflow: scroll; 
+}
+.THIS.fieldDiv3 {
+    height:100%;
+    /*background-color: rgb(240, 241, 241);*/
+    background-color:white;
+    /* overflow: scroll;  */
+    overflow-x: overlay;
+    overflow-y: scroll;
+}
+/* .THIS .example-draggable {
+  overflow-y: hidden;
+}  */
+.THIS .One svg{
+    fill: white;
+    margin-top: 10px;
+}
+.THIS .One :hover {
+    fill: #0b1213;
+}
+.THIS .fieldname{
+    font-size: large;
+}
+.THIS .formtitle{
+    /* background-color: #e6e5e2; */
+    text-align: center;
+    font-size: large;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 3%;
+    margin-top: 2%;    
+    border-radius: 3px;
+    width: 94%;
+    /* margin-bottom: 5%; */
+    /* height: 5%; */
+    padding-bottom: 2%;
+    padding-right: 3%;
+    padding-top: 1%;
+}
+.THIS .pagetitle{
+    /* background-color: #e6e5e2; */
+    text-align: center;
+    font-size: large;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 3px;
+    width: 104.5%;
+    padding-bottom: 5%;
+    padding-top: 2%;
+    padding-right: 3%;
+}
+.THIS .formButtonMenu {
+    margin-right: 5%;
+}
+.THIS .pageButtonMenu {
+    margin-right: 5%;
+}
+.THIS .editformname :hover{
+    background-color: rgb(190, 190, 190);
+    border-radius: 5px;
+}
+.THIS .addpage{
+    float:right;
+}
+.THIS .deletepage{
+    float: right;
+}
+.THIS .page{
+    background-color: rgb(255, 255, 255);
+    width : 92%;
+    height : auto;
+    border-radius: 5px;
+    margin-top: 3%;
+    margin-left: 4%;
+    margin-right: 4%;
+}
+.THIS .pagetitle1{
+    font-size:1.5rem;
+    font-weight: bold;
+    /* margin-left: 1%; */
+}
+.THIS .subpagetitle{
+    font-size:1rem;
+    font-weight: bold;
+    border-radius: 3px;
+    padding-left: 10px !important;
+}
+.THIS .editpagetitle :hover{
+    background-color: rgb(190, 190, 190);
+    border-radius: 5px;
+}
+.THIS .editpagesubtitle{
+    padding-right: 5px;
+}
+.THIS .editpagesubtitle :hover{
+    background-color: rgb(190, 190, 190);
+    border-radius: 5px;
+}
+.THIS .example-dropzone{
+    background-color: rgb(255, 255, 255);
+    width : 94%;
+    height : auto;
+    margin-top : -1%;
+    margin-bottom: -2%;
+    margin-right : 3%;
+    margin-left : 3%;
+    padding-left: 1%;
+    padding-right: 5%;
+    padding-bottom: 5%;
+    padding-top: 1%;
+}
+.THIS .xyz{
+    padding: 5%;
+}
+.THIS.slds-spinner_container {
+    z-index: 10000;
+    position: fixed;
+}
+/* .THIS .nextbutton {
+    margin-left: 40%;
+    margin-top: 1%;
+}
+.THIS .previousnextbutton{
+    margin-left: 40%;
+    margin-top: 1%;
+}
+.THIS .previoussubmitbutton{
+    margin-left: 40%;
+    margin-top: 1%;
+} */
+.THIS .footer{
+    /* background-color:#e6e5e2; */
+    border-radius:3px;
+    width: 94%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+ .THIS .footer .slds-button{
+    color:black;
+    background-color:white;
+    font-size: 15px;
+}
+.THIS .slds-m-around_small{
+    display: inline;
+}
+.THIS .slds-button_destructive{
+    margin-right: 15px !important;
+}
+.THIS .header{
+    font-size:1.5rem;
+}
+.THIS .slds-modal__footer{
+   padding-bottom: 3% !important;
+}
+.THIS .slds-modal__header{
+    background-color:rgb(243, 242, 242);    
+}
+.THIS .footer .slds-button{
+    font-size:15px !important;
+}
+.THIS .title{
+    font-size:2rem;
+    font-weight: bold;
+}

@@ -1,0 +1,257 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="QuickFormFieldComponentController">
+
+    <aura:registerEvent name="cmpEvent" type="c:FieldEvent" />
+    <aura:handler name="init" value="{!this}" action="{!c.fetchQuickFormFieldAttValue}" />
+
+    <!--To ensure proper rendering and touch zooming using below meta tag-->
+    <aura:attribute name="FormId" type="String" />
+    <aura:attribute name="FormIdencod" type="String" />
+    <aura:attribute name="spinner" type="boolean" default="FALSE" />
+    <aura:attribute name="FormPageFieldValueWrapper" type="Object" />
+
+    <!-- Attribute For Field Section -->
+    <aura:attribute name="view" type="String" default="Compact" />
+    <aura:attribute name="activeSectionsField" type="List" default="['A']" />
+    <aura:attribute name="ShowField" type="boolean" default="false" />
+    <aura:attribute name="baseField" type="Object" />
+
+    <aura:attribute name="publishCheckboxesOpt" type="List" default="[
+    {'label': 'Aura Component', 'value': 'option1'},
+    {'label': 'LWC', 'value': 'option2'},
+    {'label': 'IFrame', 'value': 'option3'},
+    {'label': 'Link to Form', 'value': 'option4'},
+    {'label': 'Lightbox', 'value': 'option5'}
+
+
+
+    ]" />
+    <aura:attribute name="publishCheckboxes" type="String" default="option1" />
+
+
+
+
+
+    <!-- Form Builder -->
+    <div class="slds-grid slds-wrap formBuilder" onmouseover='{!c.SetOpacity}'>
+        <!-- Vertical tab -->
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_3-of-12 verticalTab">
+            <lightning:tabset variant="vertical">
+
+                <lightning:tab>
+                    Content in Tab One
+                </lightning:tab>
+
+                <lightning:tab class="fieldPanel" iconName="utility:insert_tag_field" title="Fields">
+                    <div class="fieldDiv fieldSectionDiv">
+
+                        <div class="fieldDivLabel">
+                            <h1>FIELDS</h1>
+                        </div>
+
+                        <div class="slds-box_x-small" style="margin-bottom: 3%;">
+                            <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                                <img src="{!$Resource.searchBoxIocn}" class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default searchIcon" />
+                                <lightning:input aura:id="searchKey" type="text" onchange="{!c.searchAction}" class='searchBox' placeholder="Search Fields" />
+                            </div>
+                        </div>
+
+                        <aura:if isTrue="{!not (v.ShowField)}">
+                            <lightning:accordion allowMultipleSectionsOpen="true" class="fieldSection" activeSectionName="{! v.activeSectionsField }">
+                                <lightning:accordionSection name="A" label="Contact Details">
+                                    <div ondragover="{!c.onDragOver}" ondrop="{!c.MethodForOpacity}">
+                                        <aura:iteration items="{!v.FormPageFieldValueWrapper.basefield}" var="basefield">
+                                            <aura:if isTrue="{! (basefield.DataRecord__c == 'QFFULLNAME' || basefield.DataRecord__c == 'QFNAME' || basefield.DataRecord__c == 'QFPHONE' || basefield.DataRecord__c == 'QFEMAILID' || basefield.DataRecord__c == 'QFADDRESS')}">
+                                                <div class="example-draggable" data-record="{!basefield.DataRecord__c}" draggable="true" ondragstart="{!c.onDragStart}">
+                                                    <c:quickformfieldcomponent1 tView="{!basefield.DataRecord__c}" Compview="{!v.view}" />
+                                                </div>
+                                            </aura:if>
+                                        </aura:iteration>
+                                    </div>
+                                </lightning:accordionSection>
+
+                                <lightning:accordionSection name="B" label="Essentials">
+                                    <div ondragover="{!c.onDragOver}" ondrop="{!c.MethodForOpacity}">
+                                        <aura:iteration items="{!v.FormPageFieldValueWrapper.basefield}" var="basefield">
+                                            <aura:if isTrue="{! (basefield.DataRecord__c == 'QFSHORTTEXT' || basefield.DataRecord__c == 'QFLONGTEXT'|| basefield.DataRecord__c == 'QFRICHTEXT' || basefield.DataRecord__c == 'QFDROPDOWN' || basefield.DataRecord__c == 'QFRADIOBUTTON' || basefield.DataRecord__c == 'QFCHECKBOX' || basefield.DataRecord__c == 'QFPRICE' || basefield.DataRecord__c == 'QFNUMBER')}">
+                                                <div class="example-draggable" data-record="{!basefield.DataRecord__c}" draggable="true" ondragstart="{!c.onDragStart}">
+                                                    <c:quickformfieldcomponent1 tView="{!basefield.DataRecord__c}" Compview="{!v.view}" />
+                                                </div>
+                                            </aura:if>
+                                        </aura:iteration>
+                                    </div>
+                                </lightning:accordionSection>
+
+                                <lightning:accordionSection name="C" label="Upload and Consent">
+                                    <div ondragover="{!c.onDragOver}" ondrop="{!c.MethodForOpacity}">
+                                        <aura:iteration items="{!v.FormPageFieldValueWrapper.basefield}" var="basefield">
+                                            <aura:if isTrue="{! (basefield.DataRecord__c == 'QFSIGNATURE' || basefield.DataRecord__c == 'QFFILEUPLOAD' || basefield.DataRecord__c == 'QFTERMSOFSERVICE' || basefield.DataRecord__c == 'QFLINK')}">
+                                                <div class="example-draggable" data-record="{!basefield.DataRecord__c}" draggable="true" ondragstart="{!c.onDragStart}">
+                                                    <c:quickformfieldcomponent1 tView="{!basefield.DataRecord__c}" Compview="{!v.view}" />
+                                                </div>
+                                            </aura:if>
+                                        </aura:iteration>
+                                    </div>
+                                </lightning:accordionSection>
+
+                                <lightning:accordionSection name="D" label="Date and Time">
+                                    <div ondragover="{!c.onDragOver}" ondrop="{!c.MethodForOpacity}">
+                                        <aura:iteration items="{!v.FormPageFieldValueWrapper.basefield}" var="basefield">
+                                            <aura:if isTrue="{! (basefield.DataRecord__c == 'QFDATE' || basefield.DataRecord__c == 'QFTIME' || basefield.DataRecord__c == 'QFDATETIME')}">
+                                                <div class="example-draggable" data-record="{!basefield.DataRecord__c}" draggable="true" ondragstart="{!c.onDragStart}">
+                                                    <c:quickformfieldcomponent1 tView="{!basefield.DataRecord__c}" Compview="{!v.view}" />
+                                                </div>
+                                            </aura:if>
+                                        </aura:iteration>
+                                    </div>
+                                </lightning:accordionSection>
+
+                                <lightning:accordionSection name="E" label="Rating">
+                                    <div ondragover="{!c.onDragOver}" ondrop="{!c.MethodForOpacity}">
+                                        <aura:iteration items="{!v.FormPageFieldValueWrapper.basefield}" var="basefield">
+                                            <aura:if isTrue="{! (basefield.DataRecord__c == 'QFRATING' || basefield.DataRecord__c == 'QFEMOJIRATING' || basefield.DataRecord__c == 'QFSCALERATING' )}">
+                                                <div class="example-draggable" data-record="{!basefield.DataRecord__c}" draggable="true" ondragstart="{!c.onDragStart}">
+                                                    <c:quickformfieldcomponent1 tView="{!basefield.DataRecord__c}" Compview="{!v.view}" />
+                                                </div>
+                                            </aura:if>
+                                        </aura:iteration>
+                                    </div>
+                                </lightning:accordionSection>
+
+                                <lightning:accordionSection name="F" label="Other">
+                                    <div ondragover="{!c.onDragOver}" ondrop="{!c.MethodForOpacity}">
+                                        <aura:iteration items="{!v.FormPageFieldValueWrapper.basefield}" var="basefield">
+                                            <aura:if isTrue="{! (basefield.DataRecord__c == 'QFPAGEBREAK' || basefield.DataRecord__c == 'QFLOOKUP')}">
+                                                <div class="example-draggable" data-record="{!basefield.DataRecord__c}" draggable="true" ondragstart="{!c.onDragStart}">
+                                                    <c:quickformfieldcomponent1 tView="{!basefield.DataRecord__c}" Compview="{!v.view}" />
+                                                </div>
+                                            </aura:if>
+                                        </aura:iteration>
+                                    </div>
+                                </lightning:accordionSection>
+
+                            </lightning:accordion>
+                        </aura:if>
+
+                        <aura:if isTrue="{!v.ShowField}">
+                            <br />
+                            <div style="padding-right: 5%;" ondragover="{!c.onDragOver}" ondrop="{!c.MethodForOpacity}">
+                                <aura:iteration items="{!v.FormPageFieldValueWrapper.basefield}" var="basefield">
+                                    <div class="example-draggable" data-record="{!basefield.DataRecord__c}" draggable="true" ondragstart="{!c.onDragStart}">
+                                        <c:quickformfieldcomponent1 tView="{!basefield.DataRecord__c}" Compview="{!v.view}" />
+                                    </div>
+                                </aura:iteration>
+                            </div>
+                        </aura:if>
+
+                    </div>
+                </lightning:tab>
+
+                <lightning:tab>
+                    <div class="fieldDiv designPanel" aura:id="demo">
+                    </div>
+                </lightning:tab>
+
+                <lightning:tab>
+                    Content in Tab Four
+                </lightning:tab>
+                <lightning:tab>
+                    <c:ThankYouEditor />
+                </lightning:tab>
+                <lightning:tab onactive="{!c.handleActiveTab}" title="publish" class="publishTab" id="publishTab">
+
+
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_3-of-12 publishLeftPanel">
+
+                            <div class="publishTitle">
+                                <h1>PUBLISHMENT</h1>
+                            </div>
+
+                            <div>
+                                <lightning:radioGroup name="radioGroup" options="{! v.publishCheckboxesOpt }" value="{! v.publishCheckboxes}" type="radio" />
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_8-of-12 publishRightPanel">
+
+                            <div class="slds-grid slds-wrap">
+
+                                <div class="slds-col slds-size_1-of-1 formLinkTitle">
+                                    <h1>Form Link</h1>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-1 linkText">
+                                    <p>This way of publishing your form is perfect if you want to handle a small amount of code or if you want to directly invite somebody to view your form.</p>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-1 formlink ">
+                                    <input type="link" class="inputBox" />
+                                    <img src="{!$Resource.copy}" class="iconsImage" id="menuItems" name="Edit Page" value="edit" onclick="{! c.handleSelectPage }" />
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-1 publishUsing">
+
+                                    <h2>Publish Using Aura Component</h2>
+                                </div>
+
+                                <div class="introCodeText slds-col slds-size_1-of-1 ">
+                                    <p>There are various ways to publish forms or surveys, according to your requirements. This section offers the options of linking your form through Aura Component</p>
+                                </div>
+
+                                <div class="codeCopySection slds-col slds-size_1-of-1 copyCodeSection">
+                                    <p>
+                                        &lt;aura:component implements="forceCommunity:availableForAllPageTypes" access="global" &gt;
+                                        <br /> &nbsp;&nbsp;&nbsp;&lt;iframe src="{!v.publishurl}" &nbsp;&nbsp;&nbsp;transparency="true" sandbox=”allow-same-origin allow-scripts allow-forms” style="min-height:300px; height:inherit; overflow:auto;" width="100%"
+                                        scrolling=”auto” id="contactform123" name="contactform123" marginwidth="0" marginheight="0" frameborder="0" &gt;<br /> &lt;p&gt; Your browser does not support iframes. The contact form cannot be displayed. Please
+                                        use another contact method (phone, fax etc) &lt;/p&gt; <br />&nbsp;&nbsp;&nbsp;&lt;/iframe&gt;
+                                        <br />&lt;/aura:component &gt;
+
+                                    </p>
+                                </div>
+
+                                <!-- <div class="copyCodeButton slds-col slds-size_1-of-1">
+                                    <lightning:button variant="brand" label="Brand" title="Brand action" onclick="{! c.handleClick }" />
+
+                                </div> -->
+
+                            </div>
+
+
+
+
+
+
+                        </div>
+                    </div>
+
+                </lightning:tab>
+            </lightning:tabset>
+        </div>
+
+        <!-- Edit Form -->
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_9-of-12 EditForm">
+            <div class="slds-grid slds-wrap">
+
+                <div class="slds-col slds-size_1-of-1 addFormTitle">
+                    <div class="InnerFormtitle">
+                        <div class="formName">
+
+                            <h1>{!v.FormPageFieldValueWrapper.formName.Title__c}</h1>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 ">
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- publish panel right bar -->
+    </div>
+
+</aura:component>

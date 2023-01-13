@@ -1,0 +1,86 @@
+<aura:component implements="force:appHostable" controller="TestgtetFormList">
+    
+    <aura:attribute name="listOfForm" type="Form__c[]"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="Form" type="Form__c"
+    default="{
+        'SObjectType': 'Form__c',
+        'Title__c': '',
+        'Description__c': '',
+        'Display_Type__c': '',
+        'Active__c' : false
+    }">            
+    </aura:attribute>
+    <lightning:card title="Quick Form">
+        <aura:set attribute="actions">
+            <lightning:button name="newform" label="New Form" onclick="{!c.openModal}" />
+        </aura:set>
+    </lightning:card>
+    <div>
+        <section aura:id="Modal" role="dialog" tabindex="-1" aria-labelledby="ModalHeading" aria-modal="true" aria-describedby="ModalBody" class="slds-modal">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon class="slds-modal__close" alternativeText="Close" iconName="utility:close" onclick="{!c.closeModal}" variant="bare-inverse" size="large"></lightning:buttonIcon>
+                    <div class="header"><h2 id="ModalHeading">New Form</h2></div>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="ModalBody">
+                    <div class="title"><lightning:input label="Form Title" value="{!v.Form.Title__c}" required = "true" messageWhenValueMissing="Please Fill the Details" />
+                    </div>
+                    <div class="title"><lightning:input label="Description" value="{!v.Form.Description__c}"  /></div>
+                    <div class="title">
+                        <div style="float:right;"><lightning:helptext content="To display the form using the Progress bar or Steps"></lightning:helptext></div>
+                        <lightning:select label="Display Type" value="{!v.Form.Display_Type__c}">
+                            <option value="">None</option>
+                            <option value="Progress Bar">Progress Bar</option>
+                            <option value="Steps">Steps</option>
+                        </lightning:select>
+                    </div>
+                    <label>Active</label>
+                    <lightning:input type="checkbox" checked="{!v.Form.Active__c}"/>
+                </div>
+                <footer class="slds-modal__footer">
+                    <div class="footer">
+                        <lightning:button onclick="{!c.closeModal}">Cancel</lightning:button>
+                        <lightning:button onclick="{!c.createForm}">Save</lightning:button>
+                    </div>
+                </footer>
+            </div>
+        </section>
+        <div aura:id="ModalBackdrop" class="slds-backdrop"></div>
+    </div>
+    <lightning:card title="Form List">
+    
+    
+    <div class="container-fluid">
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+            <thead>
+                <tr class="slds-text-title_caps">
+                
+                    <!-- <th width="20%" scope="col"><div class="slds-truncate" title="ID">ID</div></th> -->
+                    <th width="20%" scope="col"><div class="slds-truncate" title="Title">Title</div></th>
+                    <!-- <th width="20%" scope="col"><div class="slds-truncate" title="Description State">Name</div></th> -->
+                    <th width="20%" scope="col"><div class="slds-truncate" title="Description State">Description</div></th>
+                    <th width="6%" scope="col"><div class="slds-truncate">Edit</div></th>
+                    <th width="6%"><div class="slds-truncate">Delete</div></th>
+                    <th width="6%"><div class="slds-truncate">Preview</div></th>
+                </tr>
+            </thead>
+        
+            <aura:iteration items="{!v.listOfForm}" var="form">
+                <tr>
+                    <!-- <td width="20%"><div>{!form.Id}</div></td> -->
+                    <td width="20%"><div>{!form.Title__c}</div></td>
+                    <!-- <td width="20%"><div>{!form.Name}</div></td> -->
+                    <td width="20%"><div>{!form.Description__c}</div></td>    
+                    <td><lightning:buttonIcon iconName="utility:edit" alternativeText="Edit" title="Edit" name="{!form.Id}" onclick="{!c.onedit}"/></td>     
+                    <td><lightning:buttonIcon iconName="utility:delete" alternativeText="Delete" title="Delete" name="{!form.Id}" onclick="{!c.ondelete}"/></td>     
+                    <td><lightning:buttonIcon iconName="utility:preview" alternativeText="Preview" title="Preview" name="{!form.Id}" onclick="{!c.onpreview}"/></td>
+                </tr>
+            
+            </aura:iteration>
+        
+        </table>
+    </div>
+</lightning:card>
+
+</aura:component>

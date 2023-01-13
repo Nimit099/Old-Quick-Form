@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" description="For Get Field Value From Field Component">
+    <aura:attribute name="formFieldData" type="List" />
+</aura:event>

@@ -1,0 +1,59 @@
+<aura:component  implements="force:appHostable,force:hasRecordId,force:hasSObjectName,flexipage:availableForRecordHome" access="global">
+    
+    
+   
+   
+    <!-- <aura:attribute name="Shorttext" type="Boolean" default="false"/>
+    <aura:attribute name="longtext" type="Boolean" default="false"/> -->
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+    <aura:attribute name="view" type="String"/>
+    
+    <div class="Field" style="float:left;width:20%">
+        <!-- <div class="Field"> -->
+        <br/><h1>Basic Field</h1><br/>
+
+        <lightning:button iconName="utility:justify_text" class="slds-button slds-button_neutral slds-button_inverse"  label="Short Text" title="Short Text" onclick="{!c.handleClick}"></lightning:button><br/>
+        <lightning:button iconName="utility:textarea" class="slds-button slds-button_inverse"  label="Long Text" title="Long Text" onclick="{!c.handleClick}"></lightning:button><br/>
+        <lightning:button iconName="utility:down" class="slds-button slds-button_inverse"  label="DropDown" title="DropDown" onclick="{!c.handleClick}"></lightning:button><br/>
+        <lightning:button iconName="utility:check" class="slds-button slds-button_inverse"  label="CheckBox" title="CheckBox" onclick="{!c.handleClick}"></lightning:button><br/>
+        <lightning:button iconName="utility:radio_button" class="slds-button slds-button_inverse"  label="Radio Button" title="Radio Button" onclick="{!c.handleClick}"></lightning:button><br/>
+        <lightning:button iconName="utility:upload" class="slds-button slds-button_inverse"  label="File Upload" title="File Upload" onclick="{!c.handleClick}"></lightning:button><br/>
+        <lightning:button iconName="utility:justify_text" class="slds-button slds-button_inverse"  label="Heading" title="Heading" onclick="{!c.handleClick}"></lightning:button><br/><br/>
+
+        <h1>Specific Field</h1><br/>
+
+        <lightning:button iconName="utility:richtextnumberedlist" class="slds-button  slds-button_inverse" label="Number" title="Number" onclick="{!c.handleClick}"></lightning:button><br/>
+        <lightning:button iconName="utility:formula" class="slds-button  slds-button_inverse" label="Formula" title="Formula" onclick="{!c.handleClick}"></lightning:button><br/>
+        <lightning:button iconName="utility:email" class="slds-button  slds-button_inverse" label="Email Id" title="Email Id" onclick="{!c.handleClick}"></lightning:button><br/>
+        <lightning:button iconName="utility:moneybag" class="slds-button slds-button_inverse" label="Price" title="Price" onclick="{!c.handleClick}"></lightning:button><br/>
+        <lightning:button iconName="utility:user" class="slds-button  slds-button_inverse" label="Name" title="Name" onclick="{!c.handleClick}"></lightning:button><br/>
+        <lightning:button iconName="utility:home" class="slds-button  slds-button_inverse" label="Address" title="Address" onclick="{!c.handleClick}"></lightning:button><br/>
+        <lightning:button iconName="utility:call" class="slds-button  slds-button_inverse" label="Phone" title="Phone" onclick="{!c.handleClick}"></lightning:button><br/>
+        <lightning:button iconName="utility:date_input" class="slds-button  slds-button_inverse" label="Date" title="Date" onclick="{!c.handleClick}"></lightning:button><br/>
+        <lightning:button iconName="utility:clock" class="slds-button  slds-button_inverse" label="Time" title="Time" onclick="{!c.handleClick}"></lightning:button><br/>
+        <lightning:button iconName="utility:date_time" class="slds-button  slds-button_inverse" label="DateTime" title="DateTime" onclick="{!c.handleClick}"></lightning:button><br/>
+        <lightning:button iconName="utility:justify_text" class="slds-button  slds-button_inverse"  label="Repeatable Container" title="Repeatable Container" onclick="{!c.handleClick}"></lightning:button><br/>
+        <lightning:button iconName="utility:rating" class="slds-button slds-button_inverse"  label="Rating" title="Rating" onclick="{!c.handleClick}"></lightning:button><br/>
+        <lightning:button iconName="utility:justify_text" class="slds-button  slds-button_inverse"  label="Terms of Service" title="Terms of Service" onclick="{!c.handleClick}"></lightning:button><br/><br/>
+        
+        <h1>Other Field</h1><br/>
+
+        <lightning:button iconName="utility:image" class="slds-button  slds-button_inverse"  label="Image" title="Image" onclick="{!c.handleClick}"></lightning:button><br/>
+        <lightning:button iconName="utility:link" class="slds-button  slds-button_inverse"  label="Link" title="Link" onclick="{!c.handleClick}"></lightning:button><br/>
+        <lightning:button iconName="standard:record_signature_task" class="slds-button  slds-button_inverse"  label="Signature" title="Signature" onclick="{!c.handleClick}"></lightning:button><br/>
+        <lightning:button iconName="standard:record_signature_task" class="slds-button  slds-button_inverse"  label="Thank You" title="Thank You" onclick="{!c.handleClick}"></lightning:button><br/>
+        
+    </div>
+
+    <div class="Field2" style="float:left;width:65%">
+        <c:FieldText tView="{!v.view}" Compview="Full" />
+
+    </div>
+
+    <div class="Field3" style="float:left;width:15%">
+        <c:FieldAttributeValidation/>
+        
+    </div>
+
+
+</aura:component>

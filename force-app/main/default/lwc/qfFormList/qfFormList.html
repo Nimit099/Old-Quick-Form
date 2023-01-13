@@ -1,0 +1,186 @@
+<template>
+    <!-- First panel -->
+    <div class="First">
+        <lightning-button class="header-new-form-btn" label="New Form" onclick={openFormModal}></lightning-button>
+        <lightning-button icon-name="utility:open_folder"  onclick={openModal}></lightning-button>
+        <div class="menu">
+            <lightning-button-menu alternative-text="Show menu">
+                <lightning-menu-item value="" label="Short By" onclick={shortby}></lightning-menu-item>
+                <lightning-menu-item value="" label="Items per page" onclick={item}></lightning-menu-item>
+            </lightning-button-menu>
+            <!-- <lightning-button icon-name="utility:threedots" class="header-icon-button" onclick={short}></lightning-button> -->
+        </div>
+        <div class="search" >
+            <lightning-input
+                name="enter-search"
+                label=""
+                placeholder="Search for a Form"
+                type="search"
+                onclick={handleSearchKeyword} 
+            ></lightning-input>
+        </div>
+     
+    </div>
+    <!-- <template if:false={booleanFormShow}> -->
+    <div class="main_content" style="display: none;">
+        <div class="Form">
+            <h2>My Forms</h2>
+        </div>
+
+        <!-- No form Found -->
+        <div class="page">
+            <lightning-card title="No Form" >
+                <div class="slds-m-around_medium">
+                    <img src="https://app.123formbuilder.com/images3/empty_state/Empty-State_256x256_there-are-no-forms-to-display.png">
+                </div>
+            </lightning-card>
+            <div class="text">
+                <h1>There are no form to display</h1>
+            </div>
+            <!-- <a class="btn" href="">Create First Form</a> -->
+            <lightning-button class="btn" label="Create First Form" onclick={openFormModal}></lightning-button>
+        </div>
+    </div>
+<!-- </template> -->
+    
+    <!-- Show Model -->
+    <!-- <template if:true={isModalOpen}>
+        <div id="openModal" class="modalbg">
+            <div class="dialog">
+              <a href="" title="Close" class="close">X</a>
+                <lightning-card  variant="Narrow"  title="New Folder" icon-name="standard:account"></lightning-card>
+                <lightning-input  label="Folder Name" value={getFolderRecord.Name} onchange={nameInpChange}></lightning-input>
+                <div class="first1">
+                    <lightning-button label="Cancel" class="cancel"  onclick={closeModal} title="Cancel"></lightning-button>
+                    <lightning-button label="Save" onclick={saveFolderAction} title="Save"></lightning-button>
+                </div>
+              </div>
+          </div>
+    </template> -->
+
+    <!-- create New Folder Model  -->
+    <template if:true={isModalOpen}>
+        <div id="openModal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" onclick={closeModal} data-dismiss="modal" aria-hidden="true">x</button>
+                        <h3  style="font-size:2em;" id="myModalLabel">New Folder</h3>
+                    </div>
+                    <div class="modal-body">
+                        <lightning-input label="Folder Name" value={getFolderRecord.Name} onchange={nameInpChange}></lightning-input>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn1" data-dismiss="modal" aria-hidden="true" onclick={closeModal}>Close</button>
+                        <button class="btn1 btn-primary" onclick={saveFolderAction}>Save </button>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </template>
+
+
+
+    <!-- create new Form Model  -->
+    <template if:true={isModalFormOpen}>
+        <div id="openFormModal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" onclick={closeFormModal} data-dismiss="modal" aria-hidden="true">x</button>
+                        <h3  style="font-size:2em;" id="myModalLabel1">New Form</h3>
+                    </div>
+                    <div class="modal-body">
+                        <lightning-input label="Form Title" value={getFormRecord.Title__c} onchange={titleInpChange}></lightning-input>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn1" data-dismiss="modal" aria-hidden="true" onclick={closeFormModal}>Close</button>
+                        <button class="btn1 btn-primary" onclick={saveFormAction}>Save </button>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Rename Title of the Form -->
+    <template if:true={isModalTitleUpdate}>
+        <div id="renameFormModal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" onclick={closeTitleUpdateModal} data-dismiss="modal" aria-hidden="true">x</button>
+                        <h3  style="font-size:2em;" id="">Rename Form</h3>
+                    </div>
+                    <div class="modal-body">
+                        <lightning-input label="" value={getFormTitleRecord.Title__c} onchange={titleUpdateChange}></lightning-input>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn1" data-dismiss="modal" aria-hidden="true" onclick={closeTitleUpdateModal}>Close</button>
+                        <button class="btn1 btn-primary" onclick={updateFormTitleAction}>Save </button>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </template>
+
+     <!-- Delete of the Form -->
+     <template if:true={isModalDeleteForm}>
+        <div id="deleteFormModal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" onclick={deleteCloseModal} data-dismiss="modal" aria-hidden="true">x</button>
+                        <h3  style="font-size:2em;">Confirm Delete</h3>
+                    </div>
+                    <div class="modal-body">
+                        <h3>Do you really want to delete this form?</h3>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn1" data-dismiss="modal" aria-hidden="true" onclick={deleteCloseModal}>No</button>
+                        <button class="btn1 btn-primary" onclick={deleteFormAction}>Yes</button>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- <template if:true={booleanForm}> -->
+    <div id="view" class="view">
+        <div class="incentive"></div>
+        <div class="loading loader_new">
+            <div class="loading">
+                <div class="loading-bar"></div>
+            </div>
+        </div>
+        <div id="pagination" style="display:block;"></div>
+        <div data-form-id="6072472" data-active="true" data-hipaa="false" class="form view-row" tabindex="0">
+            <input type="checkbox" checked="checked" id="uniq1">
+            <label for="uniq-1"></label>
+            <label class="name" for="_uniq-1">My Form</label>
+            <span class="row-mobile i123-more_vertical i-lg"></span>
+            <div class="row-actions">
+                <button data-role="form-view">View Form</button>
+                <button data-role="form-edit">Edit Form</button>
+                <button data-role="form-submission">submissions</button>
+                <button data-role="row-settings" >
+                    <span class="i123-more_vertical i-lg"></span>
+                </button>
+            </div>
+        </div>
+        <div class="view-footer">
+            <span class="create-new-form-link-wrapper" title>
+                <a href="" id="create-new-form-link" class>  + create a New Form</a>
+            </span>
+        </div>
+    </div>
+<!-- </template> -->
+
+
+    <!-- <template if:true={menuitem}>
+        <lightning-button-menu alternative-text="Show menu">
+                <lightning-menu-item value="" label="Short By" onclick={shortby}></lightning-menu-item>
+                <lightning-menu-item value="" label="Items per page" onclick={item}></lightning-menu-item>
+            </lightning-button-menu>
+    </template> -->
+ 
+</template>

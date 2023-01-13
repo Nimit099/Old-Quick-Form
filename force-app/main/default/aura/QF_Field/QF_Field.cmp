@@ -1,0 +1,815 @@
+<aura:component implements="force:appHostable" controller="quickformfieldcomponent1Controller">
+    <aura:handler name="init" value="{!this}" action="{!c.onValue}" />
+    <ltng:require scripts="{!$Resource.SignatureJS}"></ltng:require>
+
+    <aura:attribute name="tView" type="String" />
+    <aura:attribute name="Compview" type="String" />
+    <aura:attribute name="Check" type="List" />
+    <aura:attribute name="CheckValue" type="List" />
+
+    <aura:attribute name="Radio" type="List" default="[
+    {'label': 'Option1', 'value': 'option1'},
+    {'label': 'Option2', 'value': 'option2'}
+    ]" />
+    <aura:attribute name="RadioValue" type="String" />
+
+    <aura:attribute name="filetype" type="List" default="['.png', '.jpg', '.jpeg', '.json']" />
+    <aura:attribute name="multiple" type="Boolean" default="true" />
+    <aura:attribute name="salutationOptions" type="List" default="[
+        {'label': 'Mr.', 'value': 'Mr.'},
+        {'label': 'Ms.', 'value': 'Ms.'},
+        {'label': 'Mrs.', 'value': 'Mrs.'},
+        {'label': 'Dr.', 'value': 'Dr.'},
+        {'label': 'Prof.', 'value': 'Prof.'},
+    ]" />
+
+    <aura:attribute name="fields" type="List" default="['firstName', 'lastName', 'salutation']" />
+    <aura:attribute name="PageId" type="Id" />
+    <aura:attribute name="fileName" type="String" default="No File Selected.." />
+    <aura:attribute name="fileName1" type="String" default="No File Selected.." />
+    <aura:attribute name="Showclickvalue" type="boolean" default="false" />
+    <aura:attribute name="FieldAttribute" type="object" />
+    <aura:attribute name="FieldAttributeValue" type="List" />
+    <aura:attribute name="fId" type="string" default="null" />
+    <aura:attribute name="Fieldlist" type="List" />
+    <aura:attribute name="FieldId" type="string" default="null" />
+
+    <aura:attribute name="searchKey" type="String" />
+    <aura:attribute name="Records" type="List" />
+    <aura:attribute name="FormField" type="object" />
+    <aura:attribute name="ShowRecList" type="boolean" default="false" />
+    <aura:attribute name="selectRecordName" type="String" />
+    <aura:attribute name="disableField" type="boolean" />
+    <aura:attribute name="LikertWrapper" type="Object" />
+
+    <aura:registerEvent name="cmpEvent" type="c:FieldEvent" />
+
+
+    <!-- Short Text -->
+    <aura:if isTrue="{!v.tView == 'QFSHORTTEXT'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box_xx-small">
+                <lightning:icon class="icon" iconName="utility:justify_text" alternativeText="Short Text" title="Short Text" size="small" /> Short Text
+            </div>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!v.FieldAttribute.Visibility__c == 'Shown'}">
+                    <aura:if isTrue="{!v.FieldAttribute.Required_Field__c}">
+                        <label class="slds-form-element__label" for="text-input-id-47">
+                            <abbr class="slds-required" title="required">* </abbr>{!v.FieldAttribute.Label__c == NUll ? 'Short Text' : v.FieldAttribute.Label__c}
+                        </label>
+                        <aura:set attribute="else">
+                            <label class="slds-form-element__label" for="text-input-id-47">
+                                {!v.FieldAttribute.Label__c == NUll ? 'Short Text' : v.FieldAttribute.Label__c}
+                            </label>
+                        </aura:set>
+                    </aura:if>
+                </aura:if>
+                <aura:if isTrue="{!v.FieldAttribute.Show_on_click__c}">
+                    <lightning:helptext class="helptxt" content="{!v.FieldAttribute.Instruction__c}" />
+                </aura:if>
+                <lightning:input class="{!v.fId}" placeholder="{!v.FieldAttribute.Placeholder_text__c == TRUE ? v.FieldAttribute.Placeholder__c : ''}" maxlength="{!v.FieldAttribute.Max_no_of_character__c}" minlength="{!v.FieldAttribute.Min_no_of_character__c}" value="{!v.FieldAttribute.Prefix__c}"
+                    pattern="{!v.FieldAttribute.Field_Validation__c == 'alpha' ? '[a-zA-Z]*' : v.FieldAttribute.Field_Validation__c == 'alpha numeric' ? '[a-zA-Z0-9]*' : v.FieldAttribute.Field_Validation__c == 'alpha space' ? '[a-zA-Z ]*' 
+                            : v.FieldAttribute.Field_Validation__c == 'alpha numeric space' ? '[a-zA-Z0-9 ]*' : v.FieldAttribute.Field_Validation__c == 'numeric' ? '[0-9]*' : '.*' }" disabled="{!v.disableField || v.FieldAttribute.Hide_Field__c}" readonly="{!v.FieldAttribute.Read_Only__c}"
+                    messageWhenPatternMismatch="{!v.FieldAttribute.Field_Validation__c == 'alpha' ? 'Enter only alphabet ' : v.FieldAttribute.Field_Validation__c == 'alpha numeric' ? 'Enter only alphabet and number' : v.FieldAttribute.Field_Validation__c == 'alpha space' ? 'Enter only alphabet and space' 
+                    : v.FieldAttribute.Field_Validation__c == 'alpha numeric space' ? 'Enter only alphabet ,number and space' : v.FieldAttribute.Field_Validation__c == 'numeric' ? 'Enter only numeric ' : '' }" onclick="{!c.showOnClick}" onblur="{!c.methodd}"
+                    messageWhenTooShort="{! 'Enter more than '+ (v.FieldAttribute.Min_no_of_character__c - 1) + ' character'}" />
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- Long Text -->
+    <aura:if isTrue="{!v.tView == 'QFLONGTEXT'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box_xx-small">
+                <lightning:icon class="icon" iconName="utility:textarea" alternativeText="Long Text" title="Long Text" size="small" /> Long Text
+            </div>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!v.FieldAttribute.Visibility__c == 'Shown'}">
+                    <aura:if isTrue="{!v.FieldAttribute.Required_Field__c}">
+                        <label class="slds-form-element__label" for="text-input-id-47">
+                            <abbr class="slds-required" title="required">* </abbr>{!v.FieldAttribute.Label__c == NUll ? 'Long Text' : v.FieldAttribute.Label__c}
+                        </label>
+                        <aura:set attribute="else">
+                            <label class="slds-form-element__label" for="text-input-id-47">
+                                {!v.FieldAttribute.Label__c == NUll ? 'Long Text' : v.FieldAttribute.Label__c}
+                            </label>
+                        </aura:set>
+                    </aura:if>
+                </aura:if>
+                <aura:if isTrue="{!v.FieldAttribute.Show_on_click__c}">
+                    <lightning:helptext class="helptxt" content="{!v.FieldAttribute.Instruction__c}" />
+                </aura:if>
+                <lightning:textarea aura-id="pattern" placeholder="{!v.FieldAttribute.Placeholder_text__c == TRUE ? v.FieldAttribute.Placeholder__c : ''}" maxlength="{!v.FieldAttribute.Max_no_of_character__c}" minlength="{!v.FieldAttribute.Min_no_of_character__c}" readonly="{!v.FieldAttribute.Read_Only__c}"
+                    disabled="{!v.disableField || v.FieldAttribute.Hide_Field__c}" onclick="{!c.showOnClick}" onblur="{!c.methodd}" class="{!'longtext '+v.fId}" />
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- DropDown -->
+    <aura:if isTrue="{!v.tView == 'QFDROPDOWN'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box_xx-small">
+                <lightning:icon class="icon" iconName="utility:down" alternativeText="DropDown" title="DropDown" size="small" /> Dropdown
+            </div>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!v.FieldAttribute.Visibility__c == 'Shown'}">
+                    <aura:if isTrue="{!v.FieldAttribute.Required_Field__c}">
+                        <label class="slds-form-element__label" for="text-input-id-47">
+                            <abbr class="slds-required" title="required">* </abbr>{!v.FieldAttribute.Label__c == NUll ? 'DropDown' : v.FieldAttribute.Label__c}
+                        </label>
+                        <aura:set attribute="else">
+                            <label class="slds-form-element__label" for="text-input-id-47">
+                                {!v.FieldAttribute.Label__c == NUll ? 'DropDown' : v.FieldAttribute.Label__c}
+                            </label>
+                        </aura:set>
+                    </aura:if>
+                </aura:if>
+                <aura:if isTrue="{!v.FieldAttribute.Show_on_click__c}">
+                    <lightning:helptext class="helptxt" content="{!v.FieldAttribute.Instruction__c}" />
+                </aura:if>
+                <lightning:select disabled="{!v.disableField || v.FieldAttribute.Hide_Field__c}" onfocus="{!c.showOnClick}" onblur="{!c.methodd}">
+                    <option value="">{!v.FieldAttribute.Placeholder__c == Null ? 'Select Option' : v.FieldAttribute.Placeholder__c}</option>
+                    <aura:iteration items="{!v.Check}" var="value">
+                        <option value="{!value.Id}">{!value.label}</option>
+                    </aura:iteration>
+                </lightning:select>
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!--CheckBox-->
+    <aura:if isTrue="{!v.tView == 'QFCHECKBOX'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box_xx-small">
+                <lightning:icon class="icon" iconName="utility:check" alternativeText="CheckBox" title="CheckBox" size="small" /> Checkbox
+            </div>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!v.FieldAttribute.Visibility__c == 'Shown'}">
+                    <aura:if isTrue="{!v.FieldAttribute.Required_Field__c}">
+                        <label class="slds-form-element__label" for="text-input-id-47">
+                            <abbr class="slds-required" title="required">* </abbr>{!v.FieldAttribute.Label__c == NUll ? 'CheckBox' : v.FieldAttribute.Label__c}
+                        </label>
+                        <aura:set attribute="else">
+                            <label class="slds-form-element__label" for="text-input-id-47">
+                                {!v.FieldAttribute.Label__c == NUll ? 'CheckBox' : v.FieldAttribute.Label__c}
+                            </label>
+                        </aura:set>
+                    </aura:if>
+                </aura:if>
+                <aura:if isTrue="{!v.FieldAttribute.Show_on_click__c}">
+                    <lightning:helptext class="helptxt" content="{!v.FieldAttribute.Instruction__c}" />
+                </aura:if>
+                <lightning:checkboxGroup class="{!v.fId}" name="{!v.tView}" options="{!v.Check}" value="{!v.CheckValue}" disabled="{!v.disableField || v.FieldAttribute.Hide_Field__c}" onclick="{!c.showOnClick}" onblur="{!c.methodd}" />
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- Radio Button -->
+    <aura:if isTrue="{!v.tView == 'QFRADIOBUTTON'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box_xx-small">
+                <lightning:icon class="icon" iconName="utility:radio_button" alternativeText="Radio Button" title="Radio Button" size="small" /> Radio Button
+            </div>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!v.FieldAttribute.Visibility__c == 'Shown'}">
+                    <aura:if isTrue="{!v.FieldAttribute.Required_Field__c}">
+                        <label class="slds-form-element__label" for="text-input-id-47">
+                            <abbr class="slds-required" title="required">* </abbr>{!v.FieldAttribute.Label__c == NUll ? 'Radio Button' : v.FieldAttribute.Label__c}
+                        </label>
+                        <aura:set attribute="else">
+                            <label class="slds-form-element__label" for="text-input-id-47">
+                                {!v.FieldAttribute.Label__c == NUll ? 'Radio Button' : v.FieldAttribute.Label__c}
+                            </label>
+                        </aura:set>
+                    </aura:if>
+                </aura:if>
+                <aura:if isTrue="{!v.FieldAttribute.Show_on_click__c}">
+                    <lightning:helptext class="helptxt" content="{!v.FieldAttribute.Instruction__c}" />
+                </aura:if>
+                <lightning:radioGroup options="{!v.Check }" value="{!v.RadioValue }" type="radio" disabled="{!v.disableField || v.FieldAttribute.Hide_Field__c}" onclick="{!c.showOnClick}" onblur="{!c.methodd}" />
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- File Upload -->
+    <aura:if isTrue="{!v.tView == 'QFFILEUPLOAD'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box_xx-small">
+                <lightning:icon class="icon" iconName="utility:upload" alternativeText="File Upload" title="File Upload" size="small" /> File Upload
+            </div>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!v.FieldAttribute.Visibility__c == 'Shown'}">
+                    <aura:if isTrue="{!v.FieldAttribute.Required_Field__c}">
+                        <label class="slds-form-element__label" for="text-input-id-47">
+                            <abbr class="slds-required" title="required">* </abbr>{!v.FieldAttribute.Label__c == NUll ? 'File Upload' : v.FieldAttribute.Label__c}
+                        </label>
+                        <aura:set attribute="else">
+                            <label class="slds-form-element__label" for="text-input-id-47">
+                                {!v.FieldAttribute.Label__c == NUll ? 'File Upload' : v.FieldAttribute.Label__c}
+                            </label>
+                        </aura:set>
+                    </aura:if>
+                </aura:if>
+                <aura:if isTrue="{!v.FieldAttribute.Show_on_click__c}">
+                    <lightning:helptext class="helptxt" content="{!v.FieldAttribute.Instruction__c}" />
+                </aura:if>
+                <lightning:fileUpload multiple="false" accept="{!v.filetype}" disabled="{!v.disableField || v.FieldAttribute.Hide_Field__c}" onuploadfinished="{!c.handleUploadFinished}" />
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- Heading -->
+    <!-- <aura:if isTrue="{!v.tView == 'QFHEADING'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box_xx-small">
+                <lightning:icon class="icon" iconName="utility:display_rich_text" alternativeText="Heading" title="Heading" size="small" /> Heading
+            </div>
+            <aura:set attribute="else">
+                {!v.tView}
+                <lightning:inputRichText label="Heading" value="{!v.FieldAttribute.Heading__c}" />
+            </aura:set>
+        </aura:if>
+    </aura:if> -->
+
+    <!-- Number -->
+    <aura:if isTrue="{!v.tView == 'QFNUMBER'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box_xx-small">
+                <lightning:icon class="icon" iconName="utility:richtextnumberedlist" alternativeText="Number" title="Number" size="small" /> Number
+            </div>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!v.FieldAttribute.Visibility__c == 'Shown'}">
+                    <aura:if isTrue="{!v.FieldAttribute.Required_Field__c}">
+                        <label class="slds-form-element__label" for="text-input-id-47">
+                            <abbr class="slds-required" title="required">* </abbr>{!v.FieldAttribute.Label__c == NUll ? 'Number' : v.FieldAttribute.Label__c}
+                        </label>
+                        <aura:set attribute="else">
+                            <label class="slds-form-element__label" for="text-input-id-47">
+                                {!v.FieldAttribute.Label__c == NUll ? 'Number' : v.FieldAttribute.Label__c}
+                            </label>
+                        </aura:set>
+                    </aura:if>
+                </aura:if>
+                <aura:if isTrue="{!v.FieldAttribute.Show_on_click__c}">
+                    <lightning:helptext class="helptxt" content="{!v.FieldAttribute.Instruction__c}" />
+                </aura:if>
+                <lightning:input placeholder="{!v.FieldAttribute.Placeholder_text__c == TRUE ? v.FieldAttribute.Placeholder__c : ''}" type="number" format="#,##0,000.00#" value="{!v.FieldAttribute.Prefix__c}" maxlength="{!v.FieldAttribute.Max_no_of_words__c}" minlength="{!v.FieldAttribute.Min_no_of_words__c}"
+                    readonly="{!v.FieldAttribute.Read_Only__c}" disabled="{!v.disableField || v.FieldAttribute.Hide_Field__c}" max="{!v.FieldAttribute.Total_value__c}" messageWhenTooShort="Value is too short" onclick="{!c.showOnClick}" onblur="{!c.methodd}"
+                />
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- Email Id -->
+    <aura:if isTrue="{!v.tView == 'QFEMAILID'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box_xx-small">
+                <lightning:icon class="icon" iconName="utility:email" alternativeText="Email Id" title="Email Id" size="small" /> Email-Id
+            </div>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!v.FieldAttribute.Visibility__c == 'Shown'}">
+                    <aura:if isTrue="{!v.FieldAttribute.Required_Field__c}">
+                        <label class="slds-form-element__label" for="text-input-id-47">
+                            <abbr class="slds-required" title="required">* </abbr>{!v.FieldAttribute.Label__c == NUll ? 'Email-Id' : v.FieldAttribute.Label__c}
+                        </label>
+                        <aura:set attribute="else">
+                            <label class="slds-form-element__label" for="text-input-id-47">
+                                {!v.FieldAttribute.Label__c == NUll ? 'Email-Id' : v.FieldAttribute.Label__c}
+                            </label>
+                        </aura:set>
+                    </aura:if>
+                </aura:if>
+                <aura:if isTrue="{!v.FieldAttribute.Show_on_click__c}">
+                    <lightning:helptext class="helptxt" content="{!v.FieldAttribute.Instruction__c}" />
+                </aura:if>
+                <lightning:input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" maxlength="{!v.FieldAttribute.Max_no_of_character__c}" readonly="{!v.FieldAttribute.Read_Only__c}" minlength="{!v.FieldAttribute.Min_no_of_character__c}" disabled="{!v.disableField || v.FieldAttribute.Hide_Field__c}"
+                    messageWhenTooShort="Value is too short" onclick="{!c.showOnClick}" onblur="{!c.emailValue}" />
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- Price -->
+    <aura:if isTrue="{!v.tView == 'QFPRICE'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box_xx-small">
+                <lightning:icon class="icon" iconName="utility:moneybag" alternativeText="Price" title="Price" size="small" /> Price
+            </div>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!v.FieldAttribute.Visibility__c == 'Shown'}">
+                    <aura:if isTrue="{!v.FieldAttribute.Required_Field__c}">
+                        <label class="slds-form-element__label" for="text-input-id-47">
+                            <abbr class="slds-required" title="required">* </abbr>{!v.FieldAttribute.Label__c == NUll ? 'Price' : v.FieldAttribute.Label__c}
+                        </label>
+                        <aura:set attribute="else">
+                            <label class="slds-form-element__label" for="text-input-id-47">
+                                {!v.FieldAttribute.Label__c == NUll ? 'Price' : v.FieldAttribute.Label__c}
+                            </label>
+                        </aura:set>
+                    </aura:if>
+                </aura:if>
+                <aura:if isTrue="{!v.FieldAttribute.Show_on_click__c}">
+                    <lightning:helptext class="helptxt" content="{!v.FieldAttribute.Instruction__c}" />
+                </aura:if>
+                <lightning:input placeholder="{!v.FieldAttribute.Placeholder_text__c == TRUE ? v.FieldAttribute.Placeholder__c : ''}" type="number" formatter="currency" disabled="{!v.disableField || v.FieldAttribute.Hide_Field__c}" onclick="{!c.showOnClick}" onblur="{!c.methodd}"
+                    step="{!v.FieldAttribute.Show_Decimal__c}" />
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!--Full Name -->
+    <aura:if isTrue="{!v.tView == 'QFFULLNAME'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box_xx-small">
+                <lightning:icon class="icon" iconName="utility:user" alternativeText="Name" title="Name" size="small" /> Full Name
+            </div>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!v.FieldAttribute.Visibility__c == 'Shown'}">
+                    <aura:if isTrue="{!v.FieldAttribute.Required_Field__c}">
+                        <label class="slds-form-element__label" for="text-input-id-47">
+                            <abbr class="slds-required" title="required">* </abbr>{!v.FieldAttribute.Label__c == NUll ? 'Full Name' : v.FieldAttribute.Label__c}
+                        </label>
+                        <aura:set attribute="else">
+                            <label class="slds-form-element__label" for="text-input-id-47">
+                                {!v.FieldAttribute.Label__c == NUll ? 'Full Name' : v.FieldAttribute.Label__c}
+                            </label>
+                        </aura:set>
+                    </aura:if>
+                </aura:if>
+                <aura:if isTrue="{!v.FieldAttribute.Show_on_click__c}">
+                    <lightning:helptext class="helptxt" content="{!v.FieldAttribute.Instruction__c}" />
+                </aura:if>
+                <div class="fullname" name="{!'field:::'+v.FieldId}" id="{!v.PageId}">
+                    <lightning:inputName aura:id="nameValue" options="{!v.salutationOptions}" readonly="{!v.FieldAttribute.Read_Only__c}" required="{!v.FieldAttribute.Required_Field__c}" disabled="{!v.disableField || v.FieldAttribute.Hide_Field__c}" onclick="{!c.showOnClick}"
+                        onblur="{!c.nameValue}" fieldsToDisplay="{!v.fields}" />
+                </div>
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- Name -->
+    <aura:if isTrue="{!v.tView == 'QFNAME'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box_xx-small">
+                <lightning:icon class="icon" iconName="utility:user" alternativeText="Name" title="Name" size="small" /> Name
+            </div>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!v.FieldAttribute.Visibility__c == 'Shown'}">
+                    <aura:if isTrue="{!v.FieldAttribute.Required_Field__c}">
+                        <label class="slds-form-element__label" for="text-input-id-47">
+                            <abbr class="slds-required" title="required">* </abbr>{!v.FieldAttribute.Label__c == NUll ? 'Name' : v.FieldAttribute.Label__c}
+                        </label>
+                        <aura:set attribute="else">
+                            <label class="slds-form-element__label" for="text-input-id-47">
+                                {!v.FieldAttribute.Label__c == NUll ? 'Name' : v.FieldAttribute.Label__c}
+                            </label>
+                        </aura:set>
+                    </aura:if>
+                </aura:if>
+                <aura:if isTrue="{!v.FieldAttribute.Show_on_click__c}">
+                    <lightning:helptext class="helptxt" content="{!v.FieldAttribute.Instruction__c}" />
+                </aura:if>
+                <lightning:input placeholder="{!v.FieldAttribute.Placeholder_text__c == TRUE ? v.FieldAttribute.Placeholder__c : 'Name'}" readonly="{!v.FieldAttribute.Read_Only__c}" disabled="{!v.disableField || v.FieldAttribute.Hide_Field__c}" onclick="{!c.showOnClick}"
+                    onblur="{!c.methodd}" fieldsToDisplay="{!v.fields}" />
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- Address -->
+    <aura:if isTrue="{!v.tView == 'QFADDRESS'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box_xx-small">
+                <lightning:icon class="icon" iconName="utility:checkin" alternativeText="Address" title="Address" size="small" /> Address
+            </div>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!v.FieldAttribute.Visibility__c == 'Shown'}">
+                    <aura:if isTrue="{!v.FieldAttribute.Required_Field__c}">
+                        <label class="slds-form-element__label" for="text-input-id-47">
+                            <abbr class="slds-required" title="required">* </abbr>{!v.FieldAttribute.Label__c == NUll ? 'Address' : v.FieldAttribute.Label__c}
+                        </label>
+                        <aura:set attribute="else">
+                            <label class="slds-form-element__label" for="text-input-id-47">
+                                {!v.FieldAttribute.Label__c == NUll ? 'Address' : v.FieldAttribute.Label__c}
+                            </label>
+                        </aura:set>
+                    </aura:if>
+                </aura:if>
+                <aura:if isTrue="{!v.FieldAttribute.Show_on_click__c}">
+                    <lightning:helptext class="helptxt" content="{!v.FieldAttribute.Instruction__c}" />
+                </aura:if>
+                <lightning:inputAddress aura:id="addressValue" streetPlaceholder="Street" cityPlaceholder="City" countryPlaceholder="Country" provincePlaceholder="Region" postalCodePlaceholder="PostalCode" readonly="{!v.FieldAttribute.Read_Only__c}" disabled="{!v.disableField || v.FieldAttribute.Hide_Field__c}"
+                    onclick="{!c.showOnClick}" onblur="{!c.addressValue}" />
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- Phone -->
+    <aura:if isTrue="{!v.tView == 'QFPHONE'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box_xx-small">
+                <lightning:icon class="icon" iconName="utility:call" alternativeText="Phone" title="Phone" size="small" /> Phone
+            </div>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!v.FieldAttribute.Visibility__c == 'Shown'}">
+                    <aura:if isTrue="{!v.FieldAttribute.Required_Field__c}">
+                        <label class="slds-form-element__label" for="text-input-id-47">
+                            <abbr class="slds-required" title="required">* </abbr>{!v.FieldAttribute.Label__c == NUll ? 'Phone' : v.FieldAttribute.Label__c}
+                        </label>
+                        <aura:set attribute="else">
+                            <label class="slds-form-element__label" for="text-input-id-47">
+                                {!v.FieldAttribute.Label__c == NUll ? 'Phone' : v.FieldAttribute.Label__c}
+                            </label>
+                        </aura:set>
+                    </aura:if>
+                </aura:if>
+                <aura:if isTrue="{!v.FieldAttribute.Show_on_click__c}">
+                    <lightning:helptext class="helptxt" content="{!v.FieldAttribute.Instruction__c}" />
+                </aura:if>
+                <lightning:input type="tel" placeholder="{!v.FieldAttribute.Placeholder_text__c == TRUE ? v.FieldAttribute.Placeholder__c : ''}" aura:id="phone" pattern="[0-9]{3}\s[0-9]{3}\s[0-9]{4}" readonly="{!v.FieldAttribute.Read_Only__c}" disabled="{!v.disableField || v.FieldAttribute.Hide_Field__c}"
+                    onclick="{!c.showOnClick}" onblur="{!c.phoneValue}" />
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- Date -->
+    <aura:if isTrue="{!v.tView == 'QFDATE'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box_xx-small">
+                <lightning:icon class="icon" iconName="utility:date_input" alternativeText="Date" title="Date" size="small" /> Date
+            </div>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!v.FieldAttribute.Visibility__c == 'Shown'}">
+                    <aura:if isTrue="{!v.FieldAttribute.Required_Field__c}">
+                        <label class="slds-form-element__label" for="text-input-id-47">
+                            <abbr class="slds-required" title="required">* </abbr>{!v.FieldAttribute.Label__c == NUll ? 'Date' : v.FieldAttribute.Label__c}
+                        </label>
+                        <aura:set attribute="else">
+                            <label class="slds-form-element__label" for="text-input-id-47">
+                                {!v.FieldAttribute.Label__c == NUll ? 'Date' : v.FieldAttribute.Label__c}
+                            </label>
+                        </aura:set>
+                    </aura:if>
+                </aura:if>
+                <aura:if isTrue="{!v.FieldAttribute.Show_on_click__c}">
+                    <lightning:helptext class="helptxt" content="{!v.FieldAttribute.Instruction__c}" />
+                </aura:if>
+                <lightning:input type="date" readonly="{!v.FieldAttribute.Read_Only__c}" disabled="{!v.disableField || v.FieldAttribute.Hide_Field__c}" displayDatePicker="true" dateStyle="{!v.FieldAttribute.Date_Format__c}" onclick="{!c.showOnClick}" onblur="{!c.methodd}"
+                />
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- Time -->
+    <aura:if isTrue="{!v.tView == 'QFTIME'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box_xx-small">
+                <lightning:icon class="icon" iconName="utility:clock" alternativeText="Time" title="Time" size="small" /> Time
+            </div>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!v.FieldAttribute.Visibility__c == 'Shown'}">
+                    <aura:if isTrue="{!v.FieldAttribute.Required_Field__c}">
+                        <label class="slds-form-element__label" for="text-input-id-47">
+                            <abbr class="slds-required" title="required">* </abbr>{!v.FieldAttribute.Label__c == NUll ? 'Time' : v.FieldAttribute.Label__c}
+                        </label>
+                        <aura:set attribute="else">
+                            <label class="slds-form-element__label" for="text-input-id-47">
+                                {!v.FieldAttribute.Label__c == NUll ? 'Time' : v.FieldAttribute.Label__c}
+                            </label>
+                        </aura:set>
+                    </aura:if>
+                </aura:if>
+                <aura:if isTrue="{!v.FieldAttribute.Show_on_click__c}">
+                    <lightning:helptext class="helptxt" content="{!v.FieldAttribute.Instruction__c}" />
+                </aura:if>
+                <lightning:input type="time" readonly="{!v.FieldAttribute.Read_Only__c}" disabled="{!v.disableField || v.FieldAttribute.Hide_Field__c}" onclick="{!c.showOnClick}" onblur="{!c.methodd}" />
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- DateTime -->
+    <aura:if isTrue="{!v.tView == 'QFDATETIME'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box_xx-small">
+                <lightning:icon class="icon" iconName="utility:date_time" alternativeText="DateTime" title="DateTime" size="small" /> Date-Time
+            </div>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!v.FieldAttribute.Visibility__c == 'Shown'}">
+                    <aura:if isTrue="{!v.FieldAttribute.Required_Field__c}">
+                        <label class="slds-form-element__label" for="text-input-id-47">
+                            <abbr class="slds-required" title="required">* </abbr>{!v.FieldAttribute.Label__c == NUll ? 'Date-Time' : v.FieldAttribute.Label__c}
+                        </label>
+                        <aura:set attribute="else">
+                            <label class="slds-form-element__label" for="text-input-id-47">
+                                {!v.FieldAttribute.Label__c == NUll ? 'Date-Time' : v.FieldAttribute.Label__c}
+                            </label>
+                        </aura:set>
+                    </aura:if>
+                </aura:if>
+                <aura:if isTrue="{!v.FieldAttribute.Show_on_click__c}">
+                    <lightning:helptext class="helptxt" content="{!v.FieldAttribute.Instruction__c}" />
+                </aura:if>
+                <div class="datetime" name="{!'field:::'+v.FieldId}" onclick="{!c.handleid}" id="{!v.PageId}">
+                    <lightning:input type="datetime" displayDatePicker="true" readonly="{!v.FieldAttribute.Read_Only__c}" disabled="{!v.disableField || v.FieldAttribute.Hide_Field__c}" onclick="{!c.showOnClick}" onblur="{!c.methodd}" />
+                </div>
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!--RATING-->
+    <aura:if isTrue="{!v.tView == 'QFRATING'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box_xx-small">
+                <lightning:icon class="icon" iconName="utility:rating" alternativeText="Rating" title="Rating" size="small" /> Star Rating
+            </div>
+            <aura:set attribute="else">
+                <div class="slds-box slds-box_xx-small ratingstyle" name="{!'field:::'+v.FieldId}" id="{!v.PageId}">
+                    <div name="{!'field:::'+v.FieldId}" id="{!v.PageId}">
+                        <aura:if isTrue="{!v.FieldAttribute.Visibility__c == 'Shown'}">
+                            <aura:if isTrue="{!v.FieldAttribute.Required_Field__c}">
+                                <abbr class="slds-required" title="required">* </abbr>{!v.FieldAttribute.Label__c == NUll ? 'Star Rating' : v.FieldAttribute.Label__c}
+                                <aura:set attribute="else">
+                                    {!v.FieldAttribute.Label__c == NUll ? 'Star Rating' : v.FieldAttribute.Label__c}
+                                </aura:set>
+                            </aura:if>
+                        </aura:if>
+                        <aura:if isTrue="{!v.FieldAttribute.Show_on_click__c}">
+                            <lightning:helptext class="helptxt" content="{!v.FieldAttribute.Instruction__c}" />
+                        </aura:if>
+                    </div>
+                    <div class="rate" name="{!'field:::'+v.FieldId}" id="{!v.PageId}">
+                        <input type="radio" id="{!'5-'+v.FieldId}" name="{!'field:::'+v.FieldId}" value="5" onclick="{!c.ratingvalue}" />
+                        <label class="ratingfield" for="{!'5-'+v.FieldId}" title="5 stars">5 stars</label>
+                        <input type="radio" id="{!'4-'+v.FieldId}" name="{!'field:::'+v.FieldId}" value="4" onclick="{!c.ratingvalue}" />
+                        <label class="ratingfield" for="{!'4-'+v.FieldId}" title="4 stars">4 stars</label>
+                        <input type="radio" id="{!'3-'+v.FieldId}" name="{!'field:::'+v.FieldId}" value="3" onclick="{!c.ratingvalue}" />
+                        <label class="ratingfield" for="{!'3-'+v.FieldId}" title="3 stars">3 stars</label>
+                        <input type="radio" id="{!'2-'+v.FieldId}" name="{!'field:::'+v.FieldId}" value="2" onclick="{!c.ratingvalue}" />
+                        <label class="ratingfield" for="{!'2-'+v.FieldId}" title="2 stars">2 stars</label>
+                        <input type="radio" id="{!'1-'+v.FieldId}" name="{!'field:::'+v.FieldId}" value="1" onclick="{!c.ratingvalue}" />
+                        <label class="ratingfield" for="{!'1-'+v.FieldId}" title="1 stars">1 star</label>
+                    </div>
+                </div>
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!--EMOJI RATING-->
+    <aura:if isTrue="{!v.tView == 'QFEMOJIRATING'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box_xx-small">
+                <lightning:icon class="icon" iconName="utility:smiley_and_people" alternativeText="Rating" title="Rating" size="small" /> Emoji Rating
+            </div>
+            <aura:set attribute="else">
+                <div name="{!'field:::'+v.FieldId}" id="{!v.PageId}">
+                    <div name="{!'field:::'+v.FieldId}" id="{!v.PageId}">
+                        <aura:if isTrue="{!v.FieldAttribute.Visibility__c == 'Shown'}">
+                            <aura:if isTrue="{!v.FieldAttribute.Required_Field__c}">
+                                <abbr class="slds-required" title="required">* </abbr>{!v.FieldAttribute.Label__c == NUll ? 'Emoji Rating' : v.FieldAttribute.Label__c}
+                                <aura:set attribute="else">
+                                    {!v.FieldAttribute.Label__c == NUll ? 'Emoji Rating' : v.FieldAttribute.Label__c}
+                                </aura:set>
+                            </aura:if>
+                        </aura:if>
+                        <aura:if isTrue="{!v.FieldAttribute.Show_on_click__c}">
+                            <lightning:helptext class="helptxt" content="{!v.FieldAttribute.Instruction__c}" />
+                        </aura:if>
+                    </div>
+                    <div class="rating-wrapper" name="{!'field:::'+v.FieldId}" id="{!v.PageId}">
+                        <div class="ratingItemList" name="{!'field:::'+v.FieldId}" id="{!v.PageId}">
+                            <input class="rating" id="{!'1-'+v.FieldId}" name="{!'field:::'+v.FieldId}" type="radio" value="1" onclick="{!c.emojivalue}" />
+                            <label class="rating" for="{!'1-'+v.FieldId}"><img class="em" src="{!$Resource.RatingEmoji1}"></img></label>
+                            <input class="rating" id="{!'2-'+v.FieldId}" name="{!'field:::'+v.FieldId}" type="radio" value="2" onclick="{!c.emojivalue}" />
+                            <label class="rating" for="{!'2-'+v.FieldId}"><img class="em" src="{!$Resource.RatingEmoji2}"></img></label>
+                            <input class="rating" id="{!'3-'+v.FieldId}" name="{!'field:::'+v.FieldId}" type="radio" value="3" onclick="{!c.emojivalue}" />
+                            <label class="rating" for="{!'3-'+v.FieldId}"><img class="em" src="{!$Resource.RatingEmoji3}"></img></label>
+                            <input class="rating" id="{!'4-'+v.FieldId}" name="{!'field:::'+v.FieldId}" type="radio" value="4" onclick="{!c.emojivalue}" />
+                            <label class="rating" for="{!'4-'+v.FieldId}"><img class="em" src="{!$Resource.RatingEmoji4}"></img></label>
+                            <input class="rating" id="{!'5-'+v.FieldId}" name="{!'field:::'+v.FieldId}" type="radio" value="5" onclick="{!c.emojivalue}" />
+                            <label class="rating" for="{!'5-'+v.FieldId}"><img class="em" src="{!$Resource.RatingEmoji5}"></img></label>
+                        </div>
+                    </div>
+                </div>
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!--Scale Rating-->
+    <aura:if isTrue="{!v.tView == 'QFSCALERATING'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box_xx-small">
+                <lightning:icon class="icon" iconName="utility:multi_select_checkbox" alternativeText="Rating" title="Rating" size="small" /> Scale Rating
+            </div>
+            <aura:set attribute="else">
+                <div name="{!'field:::'+v.FieldId}" id="{!v.PageId}">
+                    <div name="{!'field:::'+v.FieldId}" id="{!v.PageId}">
+                        <aura:if isTrue="{!v.FieldAttribute.Visibility__c == 'Shown'}">
+                            <aura:if isTrue="{!v.FieldAttribute.Required_Field__c}">
+                                <abbr class="slds-required" title="required">* </abbr>{!v.FieldAttribute.Label__c == NUll ? 'Scale Rating' : v.FieldAttribute.Label__c}
+                                <aura:set attribute="else">
+                                    {!v.FieldAttribute.Label__c == NUll ? 'Scale Rating' : v.FieldAttribute.Label__c}
+                                </aura:set>
+                            </aura:if>
+                        </aura:if>
+                        <aura:if isTrue="{!v.FieldAttribute.Show_on_click__c}">
+                            <lightning:helptext class="helptxt" content="{!v.FieldAttribute.Instruction__c}" />
+                        </aura:if>
+                    </div>
+                    <div class="likert-rating">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <div class="statement-style"></div>
+                                    </th>
+                                    <aura:iteration items="{!v.LikertWrapper.Option}" var="Option">
+                                        <th>
+                                            <div class="likert-style">
+                                                {!Option}
+                                            </div>
+                                        </th>
+                                    </aura:iteration>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <aura:iteration items="{!v.LikertWrapper.Statement}" var="Statement" indexVar="index">
+                                    <tr>
+                                        <td>
+                                            <div class="statement-style">
+                                                {!Statement}
+                                            </div>
+                                        </td>
+                                        <aura:iteration items="{!v.LikertWrapper.Option}" var="Option">
+                                            <td>
+                                                <div class="likert-style">
+                                                    <input type="radio" id="html" name="{!Statement + ' - Option'+index}" value="{!Statement + ' -> ' + Option}" onclick="{!c.saveLikertValue}" />
+                                                </div>
+                                            </td>
+                                        </aura:iteration>
+                                    </tr>
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- Terms of Service -->
+    <aura:if isTrue="{!v.tView == 'QFTERMSOFSERVICE'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box_xx-small">
+                <lightning:icon class="icon" iconName="utility:warranty_term" alternativeText="Terms of Service" title="Terms of Service" size="small" /> Terms of Service
+            </div>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!v.FieldAttribute.Visibility__c == 'Shown'}">
+                    <aura:if isTrue="{!v.FieldAttribute.Required_Field__c}">
+                        <label class="slds-form-element__label" for="text-input-id-47">
+                            <abbr class="slds-required" title="required">* </abbr>{!v.FieldAttribute.Label__c == NUll ? 'Terms Of Service' : v.FieldAttribute.Label__c}
+                        </label>
+                        <aura:set attribute="else">
+                            <label class="slds-form-element__label" for="text-input-id-47">
+                                {!v.FieldAttribute.Label__c == NUll ? 'Terms Of Service' : v.FieldAttribute.Label__c}
+                            </label>
+                        </aura:set>
+                    </aura:if>
+                </aura:if>
+                <aura:if isTrue="{!v.FieldAttribute.Show_on_click__c}">
+                    <lightning:helptext class="helptxt" content="{!v.FieldAttribute.Instruction__c}" />
+                </aura:if>
+                <lightning:input type="checkbox" label="{!v.FieldAttribute.Agreement_Text__c == NUll ? 'Terms of Service' : v.FieldAttribute.Agreement_Text__c}" variant="standard" disabled="{!v.disableField || v.FieldAttribute.Hide_Field__c}" onchange="{!c.checkboxValue}"
+                />
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- Link -->
+    <aura:if isTrue="{!v.tView == 'QFLINK'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box_xx-small">
+                <lightning:icon class="icon" iconName="utility:link" alternativeText="Link" title="Link" size="small" /> Link
+            </div>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!v.FieldAttribute.Visibility__c == 'Shown'}">
+                    <aura:if isTrue="{!v.FieldAttribute.Required_Field__c}">
+                        <label class="slds-form-element__label" for="text-input-id-47">
+                            <abbr class="slds-required" title="required">* </abbr>{!v.FieldAttribute.Label__c == NUll ? 'Link' : v.FieldAttribute.Label__c}
+                        </label>
+                        <aura:set attribute="else">
+                            <label class="slds-form-element__label" for="text-input-id-47">
+                                {!v.FieldAttribute.Label__c == NUll ? 'Link' : v.FieldAttribute.Label__c}
+                            </label>
+                        </aura:set>
+                    </aura:if>
+                </aura:if>
+                <aura:if isTrue="{!v.FieldAttribute.Show_on_click__c}">
+                    <lightning:helptext class="helptxt" content="{!v.FieldAttribute.Instruction__c}" />
+                </aura:if>
+                <lightning:input type="url" placeholder="{!v.FieldAttribute.Placeholder_text__c == TRUE ? v.FieldAttribute.Placeholder__c : ''}" pattern="(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})"
+                    maxlength="{!v.FieldAttribute.Max_no_of_character__c}" minlength="{!v.FieldAttribute.Min_no_of_character__c}" readonly="{!v.FieldAttribute.Read_Only__c}" disabled="{!v.disableField || v.FieldAttribute.Hide_Field__c}" messageWhenTooShort="Value is too short"
+                    onclick="{!c.showOnClick}" onblur="{!c.linkValue}" />
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!--SIGNATURE-->
+    <aura:if isTrue="{!v.tView == 'QFSIGNATURE'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box_xx-small">
+                <lightning:icon class="icon" iconName="utility:drag" alternativeText="Signature" title="Signature" size="small" /> Signature
+            </div>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!v.FieldAttribute.Visibility__c == 'Shown'}">
+                    <aura:if isTrue="{!v.FieldAttribute.Required_Field__c}">
+                        <label class="slds-form-element__label" for="text-input-id-47">
+                            <abbr class="slds-required" title="required">* </abbr>{!v.FieldAttribute.Label__c == NUll ? 'Signature' : v.FieldAttribute.Label__c}
+                        </label>
+                        <aura:set attribute="else">
+                            <label class="slds-form-element__label" for="text-input-id-47">
+                                {!v.FieldAttribute.Label__c == NUll ? 'Signature' : v.FieldAttribute.Label__c}
+                            </label>
+                        </aura:set>
+                    </aura:if>
+                </aura:if>
+                <aura:if isTrue="{!v.FieldAttribute.Show_on_click__c}">
+                    <lightning:helptext class="helptxt" content="{!v.FieldAttribute.Instruction__c}" />
+                </aura:if>
+                <ltng:require afterScriptsLoaded="{!c.signInit}" />
+                <div name="{!'field:::'+v.FieldId}" onclick="{!c.handleid}" id="{!v.PageId}">
+                    <div style="width: 300px; display: inline-block;" name="{!'field:::'+v.FieldId}" onclick="{!c.handleid}" id="{!v.PageId}">
+                        <canvas class="signaturefield" aura:id="can" style="border:2px solid #ddd;background: transparent;" name="{!'field:::'+v.FieldId}" id="{!v.PageId}"></canvas>
+                        <div style="float:right">
+                            <!-- <div onclick="{!c.erase}" style="text-decoration:none; color:blue;" id="btnClear">Clear Signature</div> -->
+                            <button class="slds-button slds-button_brand" onclick="{!c.erase}" id="btnClear">Clear Signature</button>
+                        </div>
+                        <div style="float:left">
+                            <button class="slds-button slds-button_brand" onclick="{!c.saveSignature}">Save signature</button>
+                        </div>
+                    </div>
+                </div>
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- RichText -->
+    <aura:if isTrue="{!v.tView == 'QFRICHTEXT'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box_xx-small">
+                <lightning:icon class="icon" iconName="utility:display_rich_text" alternativeText="HTML BLock" title="Short Text" size="small" /> Rich Text
+            </div>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!v.FieldAttribute.Visibility__c == 'Shown'}">
+                    <label class="slds-form-element__label" for="text-input-id-47">
+                        {!v.FieldAttribute.Label__c == NUll ? 'RichText' : v.FieldAttribute.Label__c}
+                    </label>
+                </aura:if>
+                <aura:if isTrue="{!v.FieldAttribute.Show_on_click__c}">
+                    <lightning:helptext class="helptxt" content="{!v.FieldAttribute.Instruction__c}" />
+                </aura:if>
+                <ui:outputRichText class="outrichstyle slds-cell-wrap" value="{!v.FieldAttribute.RichText__c}" />
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- Page Break -->
+    <aura:if isTrue="{!v.tView == 'QFPAGEBREAK'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box_xx-small">
+                <lightning:icon class="icon" iconName="utility:cut" alternativeText="Page Break" title="Page Break" size="small" /> Page Break
+            </div>
+            <aura:set attribute="else">
+                <div> </div>
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+    <!-- Look Up -->
+    <aura:if isTrue="{!v.tView == 'QFLOOKUP'}">
+        <aura:if isTrue="{!v.Compview == 'Compact'}">
+            <div class="slds-box_xx-small">
+                <lightning:icon class="icon" iconName="utility:justify_text" alternativeText="Short Text" title="Short Text" size="small" /> Look Up Field
+            </div>
+            <aura:set attribute="else">
+                <lightning:input aura:id="searchKey" placeholder="{!v.FieldAttribute.Placeholder_text__c == TRUE ? v.FieldAttribute.Placeholder__c : 'Search LookUp Record'}" class="{!v.fId}" label="{!v.FieldAttribute.Label__c == NUll ? 'Look Up' : v.FieldAttribute.Label__c}"
+                    required="{!v.FieldAttribute.Required_Field__c}" disabled="{!v.disableField || v.FieldAttribute.Hide_Field__c}" readonly="{!v.FieldAttribute.Read_Only__c}" onchange="{!c.searchAction}" onclick="{!c.showOnClick}" value="{!v.selectRecordName}"
+                />
+                <aura:if isTrue="{!v.ShowRecList}">
+                    <div class="main-recordDiv">
+                        <aura:iteration items="{!v.Records}" var="row" indexVar="index">
+                            <div onclick="{!c.showRec}" value="{!row}" data-index="{!index}" class="record-list">
+                                {!row.Name}
+                            </div>
+                        </aura:iteration>
+                    </div>
+                </aura:if>
+
+                <aura:if isTrue="{!v.FieldAttribute.Show_on_click__c == false}">
+                    <lightning:formattedText value="{!v.FieldAttribute.Instruction__c}" />
+                </aura:if>
+                <aura:if isTrue="{!v.Showclickvalue == true}">
+                    <lightning:formattedText value="{!v.FieldAttribute.Instruction__c}" />
+                </aura:if>
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+</aura:component>
